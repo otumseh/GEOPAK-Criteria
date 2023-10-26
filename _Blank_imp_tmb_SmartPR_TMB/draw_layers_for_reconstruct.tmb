@@ -1,0 +1,509 @@
+
+xcode = 1
+if p1 then
+{
+
+
+
+
+
+/* DEFINE VARIABLES */
+
+_D_SHLDR_SEARCH_DISTANCE = 120
+_D_GORE_SEARCH_DISTANCE = 23
+_D_RAMP_SEARCH_DISTANCE = 17
+_D_TIE_TO_EX_SEARCH_DISTANCE = 15
+_d_vg_search_distance = 5
+_d_adv_shldr_search_distance = 100
+_d_sfb_search_distance = 5
+_d_curb_search_distance = 3
+_D_AGG_SHLDR_SEARCH_DISTANCE = 7
+
+_D_TRAVEL_LANE_DEPTH = 4/12
+_D_GORE_DEPTH = 12.5/12
+_D_RAMP_LANE_DEPTH = 4/12
+_D_OGDC_DEPTH = 4/12
+_D_AGGBASE_DEPTH_UNDER_TRAVEL_LANE = 4/12
+_D_Subbase_Depth = 18/12
+
+
+_D_AGG_SHLDR_DEPTH = 4/12
+_D_ADVERSE_SHLDR_DEPTH = 4/12
+_D_OVERLAY_DEPTH = 1.5/12
+_d_vg_depth = 8/12
+
+_d_distance_to_ext_ogdc_beyond_travel_way = 0
+
+
+mark x800 y800
+	draw text char = ^x800^ "mp text"
+draw skip dx=5 dy=0
+mark x805 y805
+	draw text char = ^x805^ "mp text"
+draw skip to x800 y800
+
+/* begin code now */
+
+IF x800<x805 THEN
+	{
+	/* SIDE SLOPE Right */
+	_D_FULL_DEPTH_SHLDR_DEPTH = 4/12 /*Pavement depth at shoulder*/
+	_D_SHLDR_AGG_DEPTH = 4/12 /*Agg underneath paved shoulder*/
+	_D_AGG_SHLDR_DEPTH = 4/12 /*Gravel shoulder depth*/
+	_D_AGG_SHLDR_AGG_DEPTH = 4/12 /*Agg under gravel shoulder*/
+	_D_SHLDR_EMBANK_DEPTH = 4/12
+	_D_TURF_ESTABLISHMENT_DEPTH = 4/12
+
+
+	_s_side_slope = ^right^
+
+	DRAW SKIP TO _MP_STARTING_POINT
+
+
+		_d_outside_VG_OGDC_SLOPE = -4		/* used in case there is VG adjacent to the pavement w/o a shoulder */
+	}
+
+ELSE
+	{
+	_s_side_slope = ^left^
+	_D_FULL_DEPTH_SHLDR_DEPTH = 4/12
+	_D_SHLDR_AGG_DEPTH = 4/12
+	_D_AGG_SHLDR_DEPTH = 4/12
+	_D_AGG_SHLDR_AGG_DEPTH = 4/12
+	_D_SHLDR_EMBANK_DEPTH = 4/12
+	_D_SHLDR_EMBANK_WIDTH = 29.00/12
+	_D_TURF_ESTABLISHMENT_DEPTH = 4/12
+	DRAW SKIP TO P1
+		MARK _MP_STARTING_POINT
+
+	_d_outside_VG_OGDC_SLOPE = -4		/* used in case there is VG adjacent to the pavement w/o a shoulder */
+	}
+
+/* THIS PART DRAWS THE BOTTOM OF THE TRAVEL WAY PAVEMENT */
+SET PLOT PARAMETERS "PROP TRAVEL WAY SYMB"
+DRAW TRACE OUT OFF = -_D_TRAVEL_LANE_DEPTH TO "~Prop_EOP"
+		MARK _MP_10
+		draw text char = ^_mp_10^ "mp text"
+
+DRAW RISE:RUN = 1:0 TO EXISTING GROUND
+	MARK X1 Y1
+	draw text char = ^_x1^ "mp text"
+
+SET PLOT PARAMETERS "PROP AGGBASE SYMB"
+DRAW SKIP TO _MP_STARTING_POINT
+DRAW TRACE OUT OFF = -(_D_TRAVEL_LANE_DEPTH + _D_AGGBASE_DEPTH_UNDER_TRAVEL_LANE) TO "~Prop_EOP"
+draw trace out off = -(_D_TRAVEL_LANE_DEPTH + _D_AGGBASE_DEPTH_UNDER_TRAVEL_LANE) for dx=_d_distance_to_ext_ogdc_beyond_travel_way
+
+if _d_distance_to_ext_ogdc_beyond_travel_way > .001 then
+	{
+	draw rise:run = 1:0 for dy = _D_AGGBASE_DEPTH_UNDER_TRAVEL_LANE
+	}
+else
+	{
+	/*don't do anything*/
+	}
+	MARK _MP_110
+	MARK X110 Y110
+	draw text char = ^_x110^ "mp text"
+	DRAW TO _MP_10
+
+set plot parameters "PROP SUBBASE SYMB"
+draw skip to _MP_STARTING_POINT
+DRAW TRACE OUT OFF = -(_D_TRAVEL_LANE_DEPTH + _D_AGGBASE_DEPTH_UNDER_TRAVEL_LANE + _D_Subbase_Depth) TO "~Prop_EOP"
+	mark x210 y210
+	draw text char = ^_x210^ "mp text"
+DRAW DX=0 DY=_D_Subbase_Depth
+
+
+/* NOW THE PAVEMENT AND OGDC UNDER THE TRAVELWAY IS DONE...LOOK FOR GORE, RAMP, THEN SHOULDERS  */
+DRAW SKIP TO X1 Y1
+
+
+
+if ((intersect dgn = "~Prop_FULL_DEPTH_SHLDR" within distance = _D_SHLDR_SEARCH_DISTANCE) or
+	(intersect dgn = "~Prop_Outside_VG" within distance = _d_vg_search_distance)) then
+	{
+	if intersect dgn = "~Prop_FULL_DEPTH_SHLDR" within distance = _D_SHLDR_SEARCH_DISTANCE then
+		{
+		mark x400 y400	/* used for shoulder slope calcs */
+		SET PLOT PARAMETERS "PROP SHLDR SYMB"
+		DRAW DX=0 DY=-_D_FULL_DEPTH_SHLDR_DEPTH
+			MARK X999 Y999	/* TEMP POINT */
+		DRAW TRACE OUT OFF = -_D_FULL_DEPTH_SHLDR_DEPTH TO "~Prop_FULL_DEPTH_SHLDR"
+			MARK _MP_20
+			MARK X20 Y20
+			draw text char = ^_x20^ "mp text"
+
+		DRAW RISE:RUN = 1:0 TO EXISTING GROUND
+			MARK X2 Y2
+			draw text char = ^_x2^ "mp text"
+			mark x401 y401	/* used for shoulder slope calcs */
+
+		/* DRAW IN AGG UNDER SHLDR */
+		SET PLOT PARAMETERS "PROP AGGBASE SYMB"
+		DRAW SKIP TO _MP_20
+		DRAW DX=0 DY=-_D_SHLDR_AGG_DEPTH
+			MARK _MP_210
+			MARK X210 Y210
+			draw text char = ^_x210^ "mp text"
+		DRAW SKIP TO X999 Y999
+		DRAW DX=0 DY=-_D_SHLDR_AGG_DEPTH
+		DRAW TO _MP_210
+
+		/* DRAW IN SUBBASE UNDER SHLDR */
+		SET PLOT PARAMETERS "PROP SUBBASE SYMB"
+		DRAW SKIP TO X110 Y110
+		DRAW DX=0 DY=-_D_Subbase_Depth
+			MARK X120 Y120
+			draw text char = ^_x120^ "mp text"
+		DRAW SKIP TO X120 Y120
+		DRAW SLOPE=-2 TO X20
+			MARK X220 Y220
+			draw text char = ^_x220^ "mp text"
+		DRAW TO X210 Y210
+
+
+		DRAW SKIP TO X2 Y2
+
+		/* update the default value since a shoulder was found */
+		_d_outside_VG_OGDC_SLOPE = (y401-y400)/abs(x401-x400)*100
+
+		/* now check for vg */
+		draw skip to X2 Y2
+		}
+
+	else
+		{
+		/* no shoulder found...need to get a starting point for the ogdc */
+		mark _mp_go_back_to_here
+		draw skip dx=0 dy=-(_D_FULL_DEPTH_SHLDR_DEPTH+_D_SHLDR_AGG_DEPTH)
+			mark _mp_120
+		draw skip to _mp_go_back_to_here
+		}
+
+	if intersect dgn = "~Prop_Outside_VG" within distance = _d_vg_search_distance then
+		{
+
+		mark _mp_go_back_to_here
+		draw skip trace out off = 0 to "~Prop_Outside_VG"
+			mark x25 y25
+
+		SET PLOT PARAMETERS "PROP VG SYMB"
+		draw skip to _mp_go_back_to_here
+
+		draw dx=0 dy=-_d_vg_depth
+			mark _MP_inside_bottom_VG
+		draw rise:run = 0:1 to "~Prop_Outside_VG"
+			mark _MP_oustide_bottom_VG
+		draw to x25 y25
+
+
+
+
+		SET PLOT PARAMETERS "PROP OGDC SYMB"
+			draw skip to _mp_120
+			draw slope = _d_outside_VG_OGDC_SLOPE for dx=2
+			draw slope = 2 to x25						/* this needs to match the adverse shoulder if one is found */
+				mark _mp_outside_bottom_VG_OGDC
+			draw to _MP_oustide_bottom_VG
+
+		draw skip to x25 y25
+
+		/* only have adverse shoulder beyond vg...so look for one here */
+
+		if intersect dgn = "~Prop_Adverse_shldr" within distance = _d_adv_shldr_search_distance then
+			{
+			set plot parameters "PROP ADV SHLDR SYMB"
+			mark _mp_starting_point_top_adv_shldr
+			draw skip trace out off=0 to "~Prop_Adverse_shldr"
+				mark _mp_outside_top_adv_shldr
+
+			draw skip to _mp_starting_point_top_adv_shldr
+			DRAW DX=0 DY=-_D_ADVERSE_SHLDR_DEPTH
+				mark _mp_inside_bottom_adv_shldr
+			DRAW TRACE OUT OFF = -_D_ADVERSE_SHLDR_DEPTH TO "~Prop_Adverse_shldr"
+				MARK _mp_outside_bottom_adv_shldr
+			DRAW to _mp_outside_top_adv_shldr
+
+			SET PLOT PARAMETERS "PROP OGDC SYMB"
+			draw skip to _mp_inside_bottom_adv_shldr
+			draw dx=0 dy=-_D_OGDC_DEPTH
+				mark x700 y700
+
+			draw skip to _mp_outside_bottom_adv_shldr
+			draw dx=0 dy=-_D_OGDC_DEPTH
+				draw to x700 y700
+
+			DRAW SKIP TO _mp_outside_top_adv_shldr
+			}
+
+			/* CHECK TO SEE IF THERE IS A SFB ON THE OUTSIDE */
+			IF intersect dgn = "~Prop_SINGLE_FACED_BARRIER" within distance = _d_sfb_search_distance then
+			{
+			IF _s_side_slope = ^left^ THEN
+				{
+				/* SSL...USE THE CELL WITH THE BARRIER ON THE LEFT SIDE OF THE SHOULDER */
+				draw cell = SFB_SSL  angle=0  xs=1  ys=1  /* lvname=XS_PR_GUARDRAIL_CELL   co=0  wt=1 lc=0 */
+				cell library = G:\Projects 2019A\19213\Earthworks\I-75.cel
+				}
+			ELSE IF _s_side_slope = ^right^ THEN
+				{
+				/* SSR...USE THE CELL WITH THE BARRIER ON THE RIGHT SIDE OF THE SHOULDER */
+				draw cell = SFB_SSR  angle=0  xs=1  ys=1  /* lvname=XS_PR_GUARDRAIL_CELL   co=0  wt=1 lc=0 */
+				cell library = G:\Projects 2019A\19213\Earthworks\I-75.cel
+				}
+			}
+		}
+	}
+
+IF ((intersect dgn = "~Prop_AGG_SHLDR" within distance = _D_AGG_SHLDR_SEARCH_DISTANCE) or
+	(intersect dgn = "~Prop_Median_VG" within distance = _d_vg_search_distance)) then
+	{
+	IF intersect dgn = "~Prop_AGG_SHLDR" within distance = _D_AGG_SHLDR_SEARCH_DISTANCE then
+		{
+		SET PLOT PARAMETERS "PROP AGG SHLDR SYMB"
+		DRAW SKIP TO X2 Y2
+
+		DRAW DX=0 DY=-_D_AGG_SHLDR_DEPTH
+			MARK X999 Y999	/* TEMP POINT */
+			draw text char = ^x1.5^ "mp text"
+		DRAW TRACE OUT OFF = -_D_AGG_SHLDR_DEPTH TO "~Prop_AGG_SHLDR"
+			MARK X24 Y24
+			draw text char = ^_X24^ "mp text"
+
+			/* CODE TO SEE IF AGG SHLD DAYLIGHTS */
+					DRAW SKIP TO X20 Y20
+					DRAW SKIP SLOPE = -4 TO EXISTING GROUND
+						MARK X777 Y777
+
+
+					IF ABS(X24-X777)> 1 THEN
+						{
+						/* AGG SHLD DIDN'T DAYLIGHT, DRAW IN A 1 FT SHLD */
+						DRAW SKIP TO X24 Y24
+						DRAW SLOPE = -4 FOR DX=1
+							MARK X27 Y27
+							draw text char = ^_X27^ "mp text"
+						DRAW RISE:RUN = 1:0 TO EXISTING GROUND
+							MARK X3 Y3
+							draw text char = ^_X3^ "mp text"
+						}
+
+					ELSE
+						{
+						/* THE AGG SHLD WILL DAYLIGHT, DRAW IT IN*/
+						DRAW SKIP TO X24 Y24
+						DRAW SLOPE = -4 TO EXISTING GROUND
+							MARK X3 Y3
+							draw text char = ^_X3^ "mp text"
+						}
+
+
+
+		SET PLOT PARAMETERS "PROP SUBBASE SYMB"
+
+		/* CODE TO SEE IF SUBBASE DAYLIGHTS */
+		DRAW SKIP TO X220 Y220
+		DRAW SKIP SLOPE = -2 TO EXISTING GROUND
+			MARK X221 Y221
+			DRAW TEXT CHAR = ^_X221^ "MP TEXT"
+
+		IF ABS(X220-X221)>.01 THEN
+			{
+			/* THE SUBBASE WILL DAYLIGHT, DRAW IT IN*/
+			DRAW SKIP TO X220 Y220
+			DRAW SLOPE = -2 TO EXISTING GROUND
+				MARK X520 Y520
+
+			}
+
+		ELSE
+			{
+			/* SUBBASE DIDN'T DAYLIGHT, DRAW IN A 1:1 */
+			DRAW SLOPE = -2 FOR DX=2
+				MARK X320 Y320
+				DRAW TEXT CHAR = ^_X320^ "MP TEXT"
+			DRAW RISE:RUN = 1:1 TO EXISTING GROUND
+				MARK X321 Y321
+				draw text char = ^_x321^ "mp text"
+			}
+/* DRAW IN TURF ESTABLISHMENT */
+		SET PLOT PARAMETERS "PROP TURF ESTABLISHMENT SYMB"
+		DRAW SKIP TO X3 Y3
+		DRAW DX=0 DY=-_D_TURF_ESTABLISHMENT_DEPTH
+			MARK X310 Y310
+			draw text char = ^_X310^ "mp text"
+			DRAW TRACE OUT OFF = -_D_TURF_ESTABLISHMENT_DEPTH FOR DX=10000
+				MARK X311 Y311
+				draw text char = ^_X311^ "mp text"
+			DRAW RISE:RUN = 1:0 TO EXISTING GROUND
+			mark x444 y444
+ /* this draws some earthwork limit lines*/
+                                                draw skip dx=0 dy=50
+                                                draw skip rise:run = -1:0 to existing ground
+                                                                mark x444 y444
+                                                draw skip dx=0 dy=25
+                                                                mark x444 y444
+                                                set plot parameters "exc limit symb 1"
+                                                draw dx=0 dy=-50
+
+                                                set plot parameters "exc limit symb 2"
+                                                draw skip dx=0 dy=5
+                                                draw dx=0 dy=50
+
+
+
+
+
+/* DRAW IN AGGBASE UNDER SHLDR */
+		/* slope stays the same of agg at 4% down for ogdc under a agg shoulder */
+		SET PLOT PARAMETERS "PROP AGGBASE SYMB"
+
+
+		DRAW SKIP TO x20 y20
+		DRAW DX=0 DY = -_D_SHLDR_AGG_DEPTH
+			MARK X888 Y888
+			draw text char = ^_X888^ "mp text"
+		DRAW TRACE OUT OFF = -(_D_SHLDR_AGG_DEPTH + _D_FULL_DEPTH_SHLDR_DEPTH) TO X24
+			MARK X124 Y124
+			draw text char = ^_X124^ "mp text"
+			draw to X24 Y24
+
+
+
+
+		/* DRAW IN EMBANKMENT ADJACENT TO SHLDR AGGBASE */
+		SET PLOT PARAMETERS "PROP EMBANKMENT SYMB"
+		DRAW SKIP TO X24 Y24
+		DRAW DX=0 DY= -_D_SHLDR_EMBANK_DEPTH
+			MARK X999 Y999
+
+
+			/* CODE TO SEE IF EMBANKMENT DAYLIGHTS */
+					DRAW SKIP TO X124 Y124
+					DRAW SKIP SLOPE = -2 TO EXISTING GROUND
+						MARK X621 Y621
+						DRAW TEXT CHAR = ^_X621^ "MP TEXT"
+
+					IF ABS(X621-X124)<.01 THEN
+						{
+						 /*EMBANKMENT DIDN'T DAYLIGHT, DRAW IN A 1:1*/
+						DRAW SKIP TO X124 Y124
+						DRAW SLOPE = -2 TO INTERSECTION X320 Y320 X321 Y321
+						DRAW RISE:RUN = 1:1 TO EXISTING GROUND
+							MARK X999 Y999
+						}
+
+					ELSE
+						{
+						/* THE EMBANKMENT WILL DAYLIGHT, DRAW IT IN*/
+						DRAW SKIP TO X124 Y124
+						DRAW SLOPE = -2 TO EXISTING GROUND
+							MARK X721 Y721
+							draw text char = ^_x721^ "mp text"
+						}
+
+
+		/* now check for vg */
+		/*draw skip to X2 Y2*/
+		}
+
+	if intersect dgn = "~Prop_Median_VG" within distance = _d_vg_search_distance then
+		{
+
+
+		mark _mp_go_back_to_here
+		draw skip trace out off = 0 to "~Prop_Median_VG"
+			mark x25 y25
+
+		SET PLOT PARAMETERS "PROP VG SYMB"
+		draw skip to _mp_go_back_to_here
+		draw dx=0 dy=-_d_vg_depth
+			mark _MP_inside_bottom_VG
+		draw rise:run = 0:1 to "~Prop_Median_VG"
+			mark _MP_oustide_bottom_VG
+		draw to x25 y25
+
+		/* now draw the ogdc under the vg */
+		/* bottom stays at 2% and breaks at the flow line*/
+		SET PLOT PARAMETERS "PROP OGDC SYMB"
+			draw skip to _mp_120
+			draw slope = -2 for dx=2
+			draw slope = 2 to x25
+				mark _mp_outside_bottom_VG_OGDC
+			draw to _MP_oustide_bottom_VG
+
+		draw skip to x3 y3
+
+		/* only have adverse shoulder beyond vg...so look for one here */
+		}
+	}
+/* CHECK TO SEE IF THERE IS A CURB ON THE OUTSIDE */
+			IF intersect dgn = "~Prop_CurbGut" within distance = _d_curb_search_distance then
+			{
+				MARK _MP_GO_BACK_TO_CURB_EOM
+			IF _s_side_slope = ^left^ THEN
+				{
+				/* SSL...USE THE CELL WITH THE CURB ON THE LEFT SIDE OF THE SHOULDER */
+				draw cell = LT_CURB  angle=0  xs=1  ys=1  /* lvname=CurbGut_Std_Pr_B2_Back_$Ft   co=0  wt=1 lc=0 */
+				cell library = G:\Projects 2019A\19213\Earthworks\19213_CELL_LIB.cel
+				}
+			ELSE IF _s_side_slope = ^right^ THEN
+				{
+				/* SSR...USE THE CELL WITH THE CURB ON THE RIGHT SIDE OF THE SHOULDER */
+				draw cell = RT_CURB  angle=0  xs=1  ys=1  /* lvname=CurbGut_Std_Pr_B2_Back_$Ft   co=0  wt=1 lc=0 */
+				cell library = G:\Projects 2019A\19213\Earthworks\19213_CELL_LIB.cel
+				}
+			DRAW SKIP TO _MP_GO_BACK_TO_CURB_EOM
+				DRAW SKIP TRACE OUT OFF =0 FOR DX=2.67
+					MARK X900 Y900
+					draw text char = ^_x900^ "mp text"
+
+/* DRAW IN TURF ESTABLISHMENT IF CURB */
+		SET PLOT PARAMETERS "PROP TURF ESTABLISHMENT SYMB"
+		DRAW SKIP TO X900 Y900
+		DRAW DX=0 DY=-_D_TURF_ESTABLISHMENT_DEPTH
+			MARK X310 Y310
+			draw text char = ^_X310^ "mp text"
+			DRAW TRACE OUT OFF = -_D_TURF_ESTABLISHMENT_DEPTH FOR DX=10000
+				MARK X311 Y311
+				draw text char = ^_X311^ "mp text"
+			DRAW RISE:RUN = 1:0 TO EXISTING GROUND
+			mark x444 y444
+ /* this draws some earthwork limit lines*/
+                                                draw skip dx=0 dy=50
+                                                draw skip rise:run = -1:0 to existing ground
+                                                                mark x444 y444
+                                                draw skip dx=0 dy=25
+                                                                mark x444 y444
+                                                set plot parameters "exc limit symb 1"
+                                                draw dx=0 dy=-50
+
+                                                set plot parameters "exc limit symb 2"
+                                                draw skip dx=0 dy=5
+                                                draw dx=0 dy=50
+			}
+
+
+IF intersect dgn = "~Prop_MILL_TIE" within distance = _D_TIE_TO_EX_SEARCH_DISTANCE then
+	{
+	SET PLOT PARAMETERS "PROP OVERLAY SYMB"
+	MARK X500 Y500
+	DRAW DX=0 DY=- _D_OVERLAY_DEPTH
+		MARK X501 Y501
+	DRAW SKIP TRACE OUT OFF=0 TO "~Prop_MILL_TIE"
+	DRAW DX=0 DY=- _D_OVERLAY_DEPTH
+		DRAW TO X501 Y501
+
+
+	}
+
+
+
+
+}	/* closes if p1 statement*/
+
+else	/* closes initial if p1 */
+	{
+
+	}

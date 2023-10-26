@@ -1,0 +1,48 @@
+
+auto shape
+job number = 69F
+ 
+   auto shape set
+      shape cluster baseline   = P_NL_HRF	/* ALIGNMENT CHAIN */
+      shape cluster profile    = P_NL_HRF_PGL	/* GEOPAK PROFILE */
+      shape cluster tie        = 0		/* OFFSET FROM ALIGNMENT TO PROFILE LOCATION */
+      dependent shape		/*DEPENDANT ON PROFILE */
+      chain  /  offset
+         P_NL_HRF		-10
+         P_NL_HRF		0
+      filler line station / slope		
+	588+00	R 1	-2.000	
+	604+50	 R 1	-2.000		
+	
+auto shape set
+      shape cluster baseline   = P_NL_HRF		/* ALIGNMENT CHAIN */
+      shape cluster profile    = P_NL_HRF_PGL	/* GEOPAK PROFILE */
+      shape cluster tie        = 0		/* OFFSET FROM ALIGNMENT TO PROFILE LOCATION */
+      dependent shape		/*DEPENDANT ON PROFILE */
+      chain  /  offset
+         P_NL_HRF		0
+         P_NL_HRF		10
+      filler line station / slope		
+	588+00	R 1	-2.000	
+	604+50	 R 1	-2.000
+
+
+   Plot Parameters
+      Dependent Shape
+         lvname = default_gpk~
+         co = 2
+         lc = 0
+         wt = 2
+      Dependent Text
+         lvname = default_gpk~
+         co = 0
+      Independent Shape
+         lvname = default_gpk~
+         co = 2
+         lc = 0
+         wt = 2
+      Independent Text
+         lvname = default_gpk~
+         co = 0
+ 
+Write shapes into dgn = G:\Projects 2017A\17438\Earthworks Working\17438_pat_shape.DGN

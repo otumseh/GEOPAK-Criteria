@@ -1,0 +1,90 @@
+/* Right of Way File */
+/* row.x 12-02-2002                                                     */
+/************************************************************************/
+/*                                                                      */
+/*                                                                      */
+/*  This criteria file draws and labels the existing and proposed row,  */
+/*  as well as any construction easements.                              */
+/*                                                                      */
+/*  Notes:                                                              */
+/*                                                                      */
+/*  View(s) drawn to: xs (2D)                                           */
+/*                                                                      */
+/*  Variables to be set by User:                                        */
+/*                                                                      */
+/*                    "Right of Way Line Height"                        */
+/*                    _d_TextSize                                       */
+/*                                                                      */
+/*  Required marked points from other criteria files:                   */
+/*     none                                                             */
+/*                                                                      */
+/*  Points marked in this file:                                         */
+/*     none                                                             */
+/*                                                                      */
+/************************************************************************/
+
+
+
+if (p1) then /* Reset pointer to baseline */
+  {
+   	
+	
+	define "ex wetland symb" lvname=wetland_ex co=5 wt=1 lc=0
+	define "ex wetland text" lvname=wetland_ex co=0 wt=0 th=1.2 tw=1 just=cb angle=0 number of decimal places = 0 offset=1 
+	
+    remove skew effect
+    if (intersect dgn = "~Existing wetland") then
+    	{
+    	call sub draw_wetland
+    	}
+    	
+    draw skip dx=.2 dy=0
+    if (intersect dgn = "~Existing wetland") then
+    	{
+	call sub draw_wetland  
+	}
+	
+    draw skip dx=.2 dy=0
+    if (intersect dgn = "~Existing wetland") then
+    	{
+	call sub draw_wetland  
+	}
+
+    draw skip dx=.2 dy=0
+    if (intersect dgn = "~Existing wetland") then
+    	{
+	call sub draw_wetland  
+	}
+	
+    draw skip dx=.2 dy=0
+    if (intersect dgn = "~Existing wetland") then
+    	{
+	call sub draw_wetland  
+	}
+	
+    draw skip dx=.2 dy=0
+    if (intersect dgn = "~Existing wetland") then
+    	{
+	call sub draw_wetland  
+	}
+	
+     
+    sub draw_wetland
+    {
+     draw skip rise:run = 0:1 to "~Existing wetland"
+     draw skip rise:run = 1:0 for dy=20
+     draw skip rise:run = -1:0 to existing ground
+     set plot parameters "ex wetland symb"
+     draw dx=0 dy=5
+     draw text char = ^Existing Wetland^ "ex wetland text"
+    }
+   end sub	
+  }
+
+
+else
+	{
+	
+	}
+	
+

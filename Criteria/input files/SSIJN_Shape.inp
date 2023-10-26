@@ -1,0 +1,48 @@
+
+auto shape
+job number = 198
+ 
+   auto shape set
+      shape cluster baseline   = PR_RAMP_b		/* ALIGNMENT CHAIN */
+      shape cluster profile    = PRRAMPb	/* GEOPAK PROFILE */
+      shape cluster tie        = 0		/* OFFSET FROM ALIGNMENT TO PROFILE LOCATION */
+      dependent shape		/*DEPENDANT ON PROFILE */
+      chain  /  offset
+         PR_RAMP_b		-10
+         PR_RAMP_b		0
+      filler line station / slope		
+	201+49.80	R 1	-2.000	
+	244+77.46	 R 1	-2.000		
+	
+auto shape set
+      shape cluster baseline   = PR_RAMP_b		/* ALIGNMENT CHAIN */
+      shape cluster profile    = PRRAMPb	/* GEOPAK PROFILE */
+      shape cluster tie        = 0		/* OFFSET FROM ALIGNMENT TO PROFILE LOCATION */
+      dependent shape		/*DEPENDANT ON PROFILE */
+      chain  /  offset
+         PR_RAMP_b		0
+         PR_RAMP_b		10
+      filler line station / slope		
+	201+49.80	R 1	-2.000	
+	244+77.46	 R 1	-2.000	
+
+
+   Plot Parameters
+      Dependent Shape
+         lvname = default_gpk~
+         co = 2
+         lc = 0
+         wt = 2
+      Dependent Text
+         lvname = default_gpk~
+         co = 0
+      Independent Shape
+         lvname = default_gpk~
+         co = 2
+         lc = 0
+         wt = 2
+      Independent Text
+         lvname = default_gpk~
+         co = 0
+ 
+Write shapes into dgn = C:\SSI_Projects\14672 (94-69)\Earthwork Working\85489_SHAPE.DGN

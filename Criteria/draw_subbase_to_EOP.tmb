@@ -1,0 +1,143 @@
+
+			
+			
+xcode = 1
+plot parameters "road symb"
+
+if p1 then
+	{
+	if _d_subbase_depth > tolerance then
+		{
+		call sub subbase_slope_check
+		
+		
+		
+		if _s_found_sawcut_line = ^yes^ and _s_sawcut_with_gore = ^no^ and _s_shoulder_widening_only = ^no^ then
+			{
+			/* don't do anything */
+			/* 1:1 already drawn in */
+			draw skip to _mp_start_subbase_here
+			}
+		
+		
+		else
+			{
+		
+		
+			if _d_pavement_point >= 3 then
+				{
+				draw skip to p2
+				draw skip dx=0 dy=-abs(_d_first_course_pavement_depth_in_FT)
+				draw skip dx=0 dy=-abs(_d_second_course_pavement_depth_in_FT)
+				draw skip dx=0 dy=-abs(_d_third_course_pavement_depth_in_FT)
+				draw skip dx=0 dy=-abs(_d_fourth_course_pavement_depth_in_FT)
+				draw skip dx=0 dy=-abs(_d_fifth_course_pavement_depth_in_FT)
+				draw skip dx=0 dy=-abs(_d_sixth_course_pavement_depth_in_FT)
+				draw skip dx=0 dy=-abs(_d_agg_base_depth_in_FT)
+				draw skip dx=0 dy=-abs(_d_subbase_depth)
+				
+				mark _mp_start_subbase_3pp_or_more_here
+				}
+				
+		
+			
+			else
+				{
+				draw skip to _mp_center_point
+				draw skip dx=0 dy=-abs(_d_first_course_pavement_depth_in_FT)
+				draw skip dx=0 dy=-abs(_d_second_course_pavement_depth_in_FT)
+				draw skip dx=0 dy=-abs(_d_third_course_pavement_depth_in_FT)
+				draw skip dx=0 dy=-abs(_d_fourth_course_pavement_depth_in_FT)
+				draw skip dx=0 dy=-abs(_d_fifth_course_pavement_depth_in_FT)
+				draw skip dx=0 dy=-abs(_d_sixth_course_pavement_depth_in_FT)
+				draw skip dx=0 dy=-abs(_d_agg_base_depth_in_FT)
+				draw skip dx=0 dy=-abs(_d_subbase_depth)
+				}
+						
+			/* 2 pavepoints*/
+			
+			}
+			
+		
+		
+		mark _mp_start_subbase_here
+		draw text char = ^_mp_start_subbase_here^ "mp text"
+				
+			
+		
+		
+		if Py1<Py2 then
+			{
+			/*low side of super or normal crown*/
+			set plot parameters "subbase symb"
+			
+			draw skip to _mp_start_subbase_here
+				mark x999 y999 /*for labeling slopes*/
+			
+			draw slope = -pave slope to "~Proposed EOP in DGN"
+				mark _mp_subbase_beneath_eop 			
+				draw text char = ^_mp_subbase_beneath_eop^ "mp text"
+				mark x20 y20 /*for labeling slopes*/
+					
+			call sub label_subbase_under_eop
+			}
+		
+		else
+			{
+			/*high side of super*/
+			set plot parameters "subbase symb"
+			
+			draw skip to _mp_start_subbase_here
+				mark x999 y999 /*for labeling slopes*/
+								
+			draw skip slope = -pave slope to "~Proposed EOP in DGN"
+				
+				if _s_intersect_gore  = ^no^ then
+					{
+					draw skip dx=-abs(_d_subbase_high_pt_slope_break_distance) dy=0
+					}
+					
+				else
+					{
+					/* in a gore, draw subbase to EOP regardless of super*/
+					}
+						
+				mark x111 y111
+					
+				draw skip to _mp_start_subbase_here
+				
+				draw slope = -pave slope to x111
+					mark _mp_subbase_beneath_eop
+					draw text char = ^_mp_subbase_beneath_eop^ "mp text"
+					mark x20 y20 /*for labeling slopes*/
+					
+				call sub label_subbase_under_eop
+							
+			}
+		
+		
+		
+		call sub draw_subbase_slope_label /*uses x20 and x999*/
+		
+		
+		
+		
+		
+		
+			
+		}
+	else /* closes if _d_subbase_depth > tolerance then statement */
+		{
+		/* no subbase, do nothing */
+				
+		}
+	
+	}	/* closes if _d_subbase_depth > tolerance then statement */
+	
+else	/* closes initial if p1 */
+	{
+	
+	}	
+	
+
+

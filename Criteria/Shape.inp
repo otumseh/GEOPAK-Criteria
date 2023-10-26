@@ -1,0 +1,48 @@
+
+auto shape
+job number = 024
+ 
+   auto shape set
+      shape cluster baseline   = I69WB_L	/* ALIGNMENT CHAIN */
+      shape cluster profile    = I69WB_PR1	/* GEOPAK PROFILE */
+      shape cluster tie        = 0		/* OFFSET FROM ALIGNMENT TO PROFILE LOCATION */
+      dependent shape		/*DEPENDANT ON PROFILE */
+      chain  /  offset
+         I69WB_L		-10
+         I69WB_L		0
+      filler line station / slope		
+	460+00	R 2	-2.000	
+	565+00	 R 3	-2.000		
+	
+auto shape set
+      shape cluster baseline   = I69WB_L		/* ALIGNMENT CHAIN */
+      shape cluster profile    = I69WB_PR1	/* GEOPAK PROFILE */
+      shape cluster tie        = 0		/* OFFSET FROM ALIGNMENT TO PROFILE LOCATION */
+      dependent shape		/*DEPENDANT ON PROFILE */
+      chain  /  offset
+         I69WB_L		0
+         I69WB_L		10
+      filler line station / slope		
+	460+00	R 2	-2.000	
+	565+00	 R 3	-2.000
+
+
+   Plot Parameters
+      Dependent Shape
+         lvname = default_gpk~
+         co = 2
+         lc = 0
+         wt = 2
+      Dependent Text
+         lvname = default_gpk~
+         co = 0
+      Independent Shape
+         lvname = default_gpk~
+         co = 2
+         lc = 0
+         wt = 2
+      Independent Text
+         lvname = default_gpk~
+         co = 0
+ 
+Write shapes into dgn = G:\Projects 2020A\20456\ewks\20456 sections copy.dgn

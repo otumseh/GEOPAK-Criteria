@@ -1,0 +1,408 @@
+
+xcode = 1
+if p1 then
+{
+
+
+
+
+/* This .tmb is designed for an urban area to detect driveways and sidewalks --------------------------------------------------------------------------- */
+/* DEFINE VARIABLES */
+
+_D_SHLDR_SEARCH_DISTANCE = 150
+_D_GORE_SEARCH_DISTANCE = 23
+_D_RAMP_SEARCH_DISTANCE = 20
+_D_TIE_TO_EX_SEARCH_DISTANCE = 150
+_d_vg_search_distance = 50
+_d_adv_shldr_search_distance = 100
+_d_sfb_search_distance = 50
+_d_curb_search_distance = 40
+_D_AGG_SHLDR_SEARCH_DISTANCE = 200
+
+_D_TRAVEL_LANE_DEPTH = 7/12
+_D_GORE_DEPTH = 8/12
+_D_RAMP_LANE_DEPTH = 8/12
+_D_OGDC_DEPTH = 6/12
+_D_AGGBASE_DEPTH_UNDER_TRAVEL_LANE = 6/12
+_D_Subbase_Depth = 18/12
+_D_Sidewalk_Depth = 4/12
+
+
+_D_AGG_SHLDR_DEPTH = 4/12
+_D_ADVERSE_SHLDR_DEPTH = 4/12
+_D_OVERLAY_DEPTH = 1.5/12
+_d_vg_depth = 8/12
+
+_d_distance_to_ext_ogdc_beyond_travel_way = 0
+
+
+mark x800 y800
+	draw text char = ^x800^ "mp text"
+draw skip dx=5 dy=0
+mark x805 y805
+	draw text char = ^x805^ "mp text"
+draw skip to x800 y800
+draw skip dx=-5 dy=0
+mark x806 y806
+	draw text char = ^x806^ "mp text"
+
+/* begin code now */
+
+IF x800<x805 THEN
+	{
+	/* SIDE SLOPE Right */
+	_D_FULL_DEPTH_SHLDR_DEPTH = 9/12 /*Pavement depth at shoulder*/
+	_D_SHLDR_AGG_DEPTH = 8/12 /*Agg underneath paved shoulder*/
+	_D_AGG_SHLDR_DEPTH =  6/12 /*Gravel shoulder depth*/ 
+	_D_AGG_SHLDR_AGG_DEPTH = 6/12 /*Agg under gravel shoulder*/
+	/*_D_SHLDR_EMBANK_DEPTH = 4/12*/
+	_D_TURF_ESTABLISHMENT_DEPTH = 4/12
+
+
+	_s_side_slope = ^right^
+
+	DRAW SKIP TO _MP_STARTING_POINT
+	
+	
+		_d_outside_VG_OGDC_SLOPE = -4		/* used in case there is VG adjacent to the pavement w/o a shoulder */
+	}
+	
+ELSE 
+	{
+	_s_side_slope = ^left^
+	_D_FULL_DEPTH_SHLDR_DEPTH = 9/12
+	_D_SHLDR_AGG_DEPTH = 8/12
+	_D_AGG_SHLDR_DEPTH = 6/12
+	_D_AGG_SHLDR_AGG_DEPTH = 6/12 
+	/*_D_SHLDR_EMBANK_DEPTH = 4/12*/
+	_D_SHLDR_EMBANK_WIDTH = 29.00/12
+	_D_TURF_ESTABLISHMENT_DEPTH = 4/12
+	DRAW SKIP TO P1
+		MARK _MP_STARTING_POINT
+
+	_d_outside_VG_OGDC_SLOPE = -4		/* used in case there is VG adjacent to the pavement w/o a shoulder */
+	}
+
+/* THIS PART DRAWS THE BOTTOM OF THE TRAVEL WAY PAVEMENT */	
+SET PLOT PARAMETERS "PROP TRAVEL WAY SYMB"
+
+DRAW SKIP TO _MP_STARTING_POINT	
+DRAW TRACE OUT OFF = -_D_TRAVEL_LANE_DEPTH TO "~Prop_EOP"
+		MARK _MP_11
+		draw text char = ^_mp_11^ "mp text"
+
+DRAW RISE:RUN = 1:0 TO EXISTING GROUND
+	MARK X1 Y1
+	draw text char = ^_x1^ "mp text"
+
+
+
+SET PLOT PARAMETERS "PROP AGGBASE SYMB"	
+DRAW SKIP TO _MP_STARTING_POINT
+DRAW TRACE OUT OFF = -(_D_TRAVEL_LANE_DEPTH + _D_AGGBASE_DEPTH_UNDER_TRAVEL_LANE) TO "~Prop_EOP"
+draw trace out off = -(_D_TRAVEL_LANE_DEPTH + _D_AGGBASE_DEPTH_UNDER_TRAVEL_LANE) for dx=_d_distance_to_ext_ogdc_beyond_travel_way
+
+if _d_distance_to_ext_ogdc_beyond_travel_way > .001 then
+	{
+	draw rise:run = 1:0 for dy = _D_AGGBASE_DEPTH_UNDER_TRAVEL_LANE 
+	}
+else
+	{
+	/*don't do anything*/
+	}
+	MARK _MP_111
+	MARK X111 Y111
+	draw text char = ^_x111^ "mp text"
+	DRAW TO _MP_11	
+
+set plot parameters "PROP SUBBASE SYMB"
+draw skip to _MP_STARTING_POINT
+DRAW TRACE OUT OFF = -(_D_TRAVEL_LANE_DEPTH + _D_AGGBASE_DEPTH_UNDER_TRAVEL_LANE + _D_Subbase_Depth) TO "~Prop_EOP"
+	mark x211 y211
+	draw text char = ^_x211^ "mp text"
+DRAW DX=0 DY=_D_Subbase_Depth
+	
+	
+/* NOW THE PAVEMENT AND OGDC UNDER THE TRAVELWAY IS DONE...LOOK FOR GORE, RAMP, THEN SHOULDERS  */
+DRAW SKIP TO X1 Y1
+
+
+
+if ((intersect dgn = "~Prop_FULL_DEPTH_SHLDR" within distance = _D_SHLDR_SEARCH_DISTANCE) or
+	(intersect dgn = "~Prop_Outside_VG" within distance = _d_vg_search_distance)) then
+	{
+	if intersect dgn = "~Prop_FULL_DEPTH_SHLDR" within distance = _D_SHLDR_SEARCH_DISTANCE then
+		{
+		mark x400 y400	/* used for shoulder slope calcs */
+		SET PLOT PARAMETERS "PROP SHLDR SYMB"
+		DRAW DX=0 DY= -_D_FULL_DEPTH_SHLDR_DEPTH
+			MARK X999 Y999	/* TEMP POINT */
+			MARK X22 Y22
+			draw text char = ^_x22^ "mp text"
+			DRAW SKIP DX=0 DY=-0.04
+			MARK X501 Y501
+			draw text char = ^_x501^ "mp text"
+		/* DRAW TRACE OUT OFF = -_D_FULL_DEPTH_SHLDR_DEPTH TO "~Prop_FULL_DEPTH_SHLDR" */
+		DRAW SKIP DX=2.5 DY=0 TO "~Prop_FULL_DEPTH_SHLDR"
+			MARK _MP_21
+			MARK X21 Y21
+			draw text char = ^_x21^ "mp text"
+		/* DRAW DX=0 DY=_D_FULL_DEPTH_SHLDR_DEPTH */	
+		DRAW RISE:RUN = 1:0 TO EXISTING GROUND	
+			MARK X3 Y3
+			draw text char = ^_x3^ "mp text"
+		DRAW SKIP TO X21 Y21
+		DRAW TO X22 Y22
+
+/* Check for Driveway with feeler pnt ----------------------------------------------------------------------*/		
+		DRAW SKIP SLOPE = -1 TO "~Prop_AGG_SHLDR"
+			MARK X504 Y504
+			draw text char = ^_x504^ "mp text"
+
+/* Check for Sidewalk with feeler pnt ----------------------------------------------------------------------*/
+		DRAW SKIP TO X22 Y22
+		DRAW SKIP SLOPE = -1 TO "~Prop_GORE"
+			MARK X522 Y522
+			draw text char = ^_x522^ "mp text"
+			
+/* If found Draw Driveway In -------------------------------------------------------------------------------*/			
+		if X22 <> X504 then
+		/* if ABS(X504 - X800)>45 then */
+			{
+			SET PLOT PARAMETERS "PROP AGGBASE SYMB"	
+			DRAW SKIP TO x111 y111
+			DRAW SLOPE = -2 TO "~Prop_FULL_DEPTH_SHLDR"
+				MARK X505 Y505
+				draw text char = ^_x505^ "mp text"
+			DRAW TO X21 Y21
+			DRAW SKIP TO X3 Y3
+			
+			SET PLOT PARAMETERS "PROP TRAVEL WAY SYMB"
+			DRAW TRACE OUT OFF = -(_D_AGG_SHLDR_DEPTH) TO "~Prop_AGG_SHLDR"
+				MARK X506 Y506
+				draw text char = ^_x506^ "mp text"
+			DRAW RISE:RUN = 1:0 TO EXISTING GROUND
+				MARK X507 Y507
+				draw text char = ^_x507^ "mp text"
+		
+			SET PLOT PARAMETERS "PROP AGGBASE SYMB"
+			DRAW SKIP TO X3 Y3	
+			DRAW TRACE OUT OFF = -(_D_AGG_SHLDR_DEPTH + _D_AGG_SHLDR_DEPTH) TO  "~Prop_AGG_SHLDR"
+				MARK X508 Y508
+				draw text char = ^_x508^ "mp text"
+			DRAW TO X506 Y506
+			
+			set plot parameters "PROP SUBBASE SYMB"
+			DRAW SKIP TO x211 Y211
+			DRAW SLOPE = -2 TO "~Prop_FULL_DEPTH_SHLDR"
+				MARK X509 Y509
+				draw text char = ^_x509^ "mp text"
+			DRAW SKIP RISE:RUN = 1:1 FOR DX=1
+				MARK X514 Y514
+				draw text char = ^_x514^ "mp text"
+			DRAW SKIP RISE:RUN = 1:0 FOR DY=3
+				MARK X512 Y512
+				draw text char = ^_x512^ "mp text"
+			DRAW SKIP RISE:RUN = -1:0 FOR DY=-6
+				MARK X513 Y513
+				draw text char = ^_x513^ "mp text" 
+			DRAW SKIP TO X508 Y508
+			DRAW RISE:RUN = -1:0 FOR DY=-_D_SHLDR_AGG_DEPTH
+				MARK X510 Y510
+				draw text char = ^_x510^ "mp text"
+			DRAW TRACE IN OFF = -(_D_AGG_SHLDR_DEPTH + _D_AGG_SHLDR_DEPTH + _D_SHLDR_AGG_DEPTH) TO INTERSECTION X512 Y512 X513 Y513	
+				MARK X511 Y511
+				draw text char = ^_x511^ "mp text"
+			DRAW TO X509 Y509
+			DRAW SKIP TO X507 Y507
+			/* this draws some earthwork limit lines*/			
+                                                 draw skip dx=-0.01 dy=50
+                                                draw skip rise:run = -1:0 to existing ground
+                                                                mark x444 y444
+                                                draw skip dx=0 dy=25
+                                                                mark x444 y444
+                                                set plot parameters "exc limit symb 1"
+                                                draw dx=0 dy=-50
+                                
+                                                set plot parameters "exc limit symb 2"
+                                                draw skip dx=0 dy=5
+                                                draw dx=0 dy=50
+			}
+/* If found Draw sidewalk in -------------------------------------------------------------------------------*/
+			else if X22 <> X522 then
+			{
+				SET PLOT PARAMETERS "PROP TURF ESTABLISHMENT SYMB"
+				DRAW SKIP TO X3 Y3 
+				DRAW DX=0 DY=-_D_TURF_ESTABLISHMENT_DEPTH
+					MARK X311 Y311
+					draw text char = ^_X311^ "mp text"
+				DRAW TRACE OUT OFF = -_D_TURF_ESTABLISHMENT_DEPTH TO "~Prop_RAMP"
+					MARK X514 Y514
+					draw text char = ^_x514^ "mp text"						
+				DRAW RISE:RUN = 1:0 TO EXISTING GROUND
+					MARK X515 Y515
+					draw text char = ^_x515^ "mp text"
+				SET PLOT PARAMETERS "PROP TRAVEL WAY SYMB"
+				DRAW RISE:RUN = -1:0 FOR DY=-(4/12)
+					MARK X518 Y518
+					draw text char = ^_x518^ "mp text"
+				DRAW TRACE OUT OFF = -_D_Sidewalk_Depth TO "~Prop_GORE"
+					MARK X516 Y516
+					draw text char = ^_x516^ "mp text"
+				DRAW RISE:RUN = 1:0 TO EXISTING GROUND
+					MARK X517 Y517
+					draw text char = ^_x517^ "mp text"
+				DRAW SKIP TO x518 Y518
+				set plot parameters "PROP SUBBASE SYMB"
+				DRAW RISE:RUN = -1:0 FOR DY=-(4/12)
+					MARK X521 Y521
+					draw text char = ^_x521^ "mp text"
+				DRAW TRACE OUT OFF = -(_D_Sidewalk_Depth + _D_Sidewalk_Depth) TO "~Prop_GORE"
+					MARK X519 Y519
+					draw text char = ^_x519^ "mp text"
+				DRAW TO X516 Y516
+				DRAW SKIP TO X517 Y517
+				SET PLOT PARAMETERS "PROP TURF ESTABLISHMENT SYMB"
+				DRAW TRACE OUT OFF = -_D_TURF_ESTABLISHMENT_DEPTH FOR DX=10000
+					MARK X313 Y313
+					draw text char = ^_X313^ "mp text"
+				DRAW RISE:RUN = 1:0 TO EXISTING GROUND
+					mark x444 y444
+					draw text char = ^_x444^ "mp text"
+/*  Draw in Subbase pre-sidewalk ----------------------------------------------------------------------- */
+				set plot parameters "PROP SUBBASE SYMB"
+				DRAW SKIP TO x211 Y211
+				DRAW SLOPE = -2 TO "~Prop_FULL_DEPTH_SHLDR"
+					MARK X502 Y502
+					draw text char = ^_x502^ "mp text"
+				DRAW RISE:RUN = 1:1 TO EXISTING GROUND
+					MARK X503 Y503
+					draw text char = ^_x503^ "mp text"
+				draw skip to x444 y444
+ /* this draws some earthwork limit lines*/			
+                                                 draw skip dx=-0.01 dy=50
+                                                draw skip rise:run = -1:0 to existing ground
+                                                                mark x444 y444
+                                                draw skip dx=0 dy=25
+                                                                mark x444 y444
+                                                set plot parameters "exc limit symb 1"
+                                                draw dx=0 dy=-50
+                                
+                                                set plot parameters "exc limit symb 2"
+                                                draw skip dx=0 dy=5
+                                                draw dx=0 dy=50
+
+
+
+			}
+/*  Draw in Limits when driveway exists --------------------------------------------------------------- */			
+			ELSE IF X504 = X22 AND X522 = X22 THEN
+			{
+			set plot parameters "PROP SUBBASE SYMB"
+			DRAW SKIP TO x211 Y211
+			DRAW SLOPE = -2 TO "~Prop_FULL_DEPTH_SHLDR"
+				MARK X502 Y502
+				draw text char = ^_x502^ "mp text"
+			DRAW RISE:RUN = 1:1 TO EXISTING GROUND
+				MARK X503 Y503
+				draw text char = ^_x503^ "mp text"
+			SET PLOT PARAMETERS "PROP TURF ESTABLISHMENT SYMB"
+			DRAW SKIP TO X3 Y3
+			DRAW DX=0 DY=-_D_TURF_ESTABLISHMENT_DEPTH
+				MARK X523 Y523
+				draw text char = ^_X523^ "mp text"
+			DRAW TRACE OUT OFF = -_D_TURF_ESTABLISHMENT_DEPTH FOR DX=10000
+				MARK X313 Y313
+				draw text char = ^_X313^ "mp text"
+			DRAW RISE:RUN = 1:0 TO EXISTING GROUND
+			mark x444 y444
+			draw skip to x444 y444
+		/* this draws some earthwork limit lines*/			
+                                                 draw skip dx=-0.01 dy=50
+                                                draw skip rise:run = -1:0 to existing ground
+                                                                mark x444 y444
+                                                draw skip dx=0 dy=25
+                                                                mark x444 y444
+                                                set plot parameters "exc limit symb 1"
+                                                draw dx=0 dy=-50
+                                
+                                                set plot parameters "exc limit symb 2"
+                                                draw skip dx=0 dy=5
+                                                draw dx=0 dy=50
+			}
+/*  Draw in ramaining Subbase and PR Turf and Limits when no driveway or sidewalks are found ---------- */			
+			ELSE
+			{
+			
+			set plot parameters "PROP SUBBASE SYMB"
+			DRAW SKIP TO x211 Y211
+			DRAW SLOPE = -2 TO "~Prop_FULL_DEPTH_SHLDR"
+				MARK X502 Y502
+				draw text char = ^_x502^ "mp text"
+			DRAW RISE:RUN = 1:1 TO EXISTING GROUND
+				MARK X503 Y503
+				draw text char = ^_x503^ "mp text"
+
+			SET PLOT PARAMETERS "PROP TURF ESTABLISHMENT SYMB"
+			DRAW SKIP TO X3 Y3
+			DRAW DX=0 DY=-_D_TURF_ESTABLISHMENT_DEPTH
+				MARK X523 Y523
+				draw text char = ^_X523^ "mp text"
+			DRAW TRACE OUT OFF = -_D_TURF_ESTABLISHMENT_DEPTH FOR DX=10000
+				MARK X313 Y313
+				draw text char = ^_X313^ "mp text"
+			DRAW RISE:RUN = 1:0 TO EXISTING GROUND
+				mark x444 y444
+		/* this draws some earthwork limit lines*/			
+                                                 draw skip dx=-0.01 dy=50
+                                                draw skip rise:run = -1:0 to existing ground
+                                                                mark x444 y444
+                                                draw skip dx=0 dy=25
+                                                                mark x444 y444
+                                                set plot parameters "exc limit symb 1"
+                                                draw dx=0 dy=-50
+                                
+                                                set plot parameters "exc limit symb 2"
+                                                draw skip dx=0 dy=5
+                                                draw dx=0 dy=50
+			}
+						
+		
+		/* SET PLOT PARAMETERS "PROP SUBBASE SYMB"	
+		
+		DRAW SKIP TO X3 Y3 */
+	
+		/* update the default value since a shoulder was found */
+		_d_outside_VG_OGDC_SLOPE = (y401-y400)/abs(x401-x400)*100
+		
+		/* now check for vg */
+		draw skip to X3 Y3
+		}
+		
+	else
+		{
+		/* no shoulder found...need to get a starting point for the ogdc */
+		mark _mp_go_back_to_here
+		draw skip dx=0 dy=-(_D_FULL_DEPTH_SHLDR_DEPTH+_D_SHLDR_AGG_DEPTH) 
+			mark _mp_120
+		draw skip to _mp_go_back_to_here
+		}
+	}
+}	/* closes if p1 statement*/
+	
+else	/* closes initial if p1 */
+	{
+	
+	}	
+
+
+
+
+
+
+
+
+
+
+
+

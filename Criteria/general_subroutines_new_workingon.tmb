@@ -1,0 +1,6399 @@
+xcode=1
+if p1 then
+	{
+	
+	
+	/* these are the subroutines that you should be able to use on one project or another WITHOUT making any changes to the code */
+
+	sub draw_retaining_wall
+		{
+		/*this needs to be updated for each specific retaining wall encountered*/
+		set plot parameters "prop retaining wall symb"
+				
+		mark _mp_retaining_wall_here
+		draw text char = ^_mp_retaining_wall_here^ "mp text"
+		draw text char = ^_bw^ "error text"
+		
+		draw skip dx=0 dy=50
+		draw skip rise:run = -1:0 to existing ground
+			mark _mp_ret_wall_tie
+			draw text char = ^_mp_ret_wall_tie^ "mp text"
+			_d_ret_wall_height=(_mp_retaining_wall_here.elev-_mp_ret_wall_tie.elev)
+			/*draw text value=_d_ret_wall_height
+			"error text"*/
+			draw text char = ^_tw^ "error text"
+			
+		
+		draw to _mp_retaining_wall_here
+		
+		
+		
+		_s_ewks_chain = cluster baseline
+		call sub draw_ewks_limits
+		set plot parameters "prop retaining wall symb"
+		
+		draw skip to _mp_retaining_wall_here
+		
+		
+				
+		}
+	end sub /*ends sub draw_retaining_wall*/
+	
+	
+	
+	
+	sub check_for_double_faced_barrier
+		{
+		if _s_side_slope = ^left^ then		/*ssl */
+			{
+			draw skip to _mp_current_leop
+			}
+			
+		else if _s_side_slope = ^right^ then	/*ssr*/
+			{
+			draw skip to _mp_current_reop
+			}		
+		else
+			{
+			/* shouldn't ever see this */
+			}
+			
+		/* if I find double faced barrier, don't draw in the shoulder because it will need to be adjusted to account for extra barrier width */
+		if intersect dgn = "~Concrete Barrier Type A" within distance = _d_dfb_search_distance_from_prop_eop then
+			{
+			_s_hit_double_faced_barrier = ^yes^
+			}
+		else
+			{
+			_s_hit_double_faced_barrier = ^no^
+			}
+		
+		}
+	end sub	/* ends the check_for_double_faced_barrier subroutine */
+		
+		
+		
+	sub draw_pavement_depths
+		{
+		/*first layer*/
+		set plot parameters "bottom of top depth symb"
+		
+		draw skip to x2 y2
+		draw skip dx=0 dy=-abs(_d_first_course_pavement_depth_in_FT)
+			mark x2 y2
+			
+		draw skip to x999 y999
+		draw skip dx=0 dy=-abs(_d_first_course_pavement_depth_in_FT)
+			mark x999 y999
+		
+		draw to x2 y2
+		
+		
+		/*second layer*/
+		set plot parameters "bottom of leveling depth symb"
+		
+		draw skip to x2 y2
+		draw skip dx=0 dy=-abs(_d_second_course_pavement_depth_in_FT)
+			mark x2 y2
+			
+		draw skip to x999 y999
+		draw skip dx=0 dy=-abs(_d_second_course_pavement_depth_in_FT)
+			mark x999 y999
+		
+		draw to x2 y2
+	
+	
+		/*third layer*/
+		set plot parameters "bottom of base depth symb"
+		
+		draw skip to x2 y2
+		draw skip dx=0 dy=-abs(_d_third_course_pavement_depth_in_FT)
+			mark x2 y2
+			
+		draw skip to x999 y999
+		draw skip dx=0 dy=-abs(_d_third_course_pavement_depth_in_FT)
+			mark x999 y999
+		
+		draw to x2 y2
+	
+	
+		/*fourth layer*/
+		set plot parameters "bottom of fourth depth symb"
+		
+		draw skip to x2 y2
+		draw skip dx=0 dy=-abs(_d_fourth_course_pavement_depth_in_FT)
+			mark x2 y2
+			
+		draw skip to x999 y999
+		draw skip dx=0 dy=-abs(_d_fourth_course_pavement_depth_in_FT)
+			mark x999 y999
+		
+		draw to x2 y2
+		
+		
+		/*fifth layer*/
+		set plot parameters "bottom of fifth depth symb"
+		
+		draw skip to x2 y2
+		draw skip dx=0 dy=-abs(_d_fifth_course_pavement_depth_in_FT)
+			mark x2 y2
+			
+		draw skip to x999 y999
+		draw skip dx=0 dy=-abs(_d_fifth_course_pavement_depth_in_FT)
+			mark x999 y999
+		
+		draw to x2 y2
+	
+	
+		/*sixth layer*/
+		set plot parameters "bottom of sixth depth symb"
+		
+		draw skip to x2 y2
+		draw skip dx=0 dy=-abs(_d_sixth_course_pavement_depth_in_FT)
+			mark x2 y2
+			
+		draw skip to x999 y999
+		draw skip dx=0 dy=-abs(_d_sixth_course_pavement_depth_in_FT)
+			mark x999 y999
+		
+		draw to x2 y2
+	
+		
+		/*agg layer beneath traveled way*/
+		set plot parameters "agg base symb"
+		
+		draw skip to x2 y2
+		draw skip dx=0 dy=-abs(_d_agg_base_depth_in_FT)
+			mark x2 y2
+			
+		draw skip to x999 y999
+		draw skip dx=0 dy=-abs(_d_agg_base_depth_in_FT)
+			mark x999 y999
+		
+		draw to x2 y2
+		
+		draw skip to x999 y999
+		mark _mp_start_subbase_3pp_or_more_here
+		
+		
+		
+		
+		
+		
+		
+		/*this now marks the edge of agg beneath the eop*/
+		
+		if _s_side_slope = ^right^ then
+			{
+						
+			draw skip to _mp_current_reop
+			draw skip dx=0 dy=-abs(_d_first_course_pavement_depth_in_FT)
+			draw skip dx=0 dy=-abs(_d_second_course_pavement_depth_in_FT)
+			draw skip dx=0 dy=-abs(_d_third_course_pavement_depth_in_FT)
+			draw skip dx=0 dy=-abs(_d_fourth_course_pavement_depth_in_FT)
+			draw skip dx=0 dy=-abs(_d_fifth_course_pavement_depth_in_FT)
+			draw skip dx=0 dy=-abs(_d_sixth_course_pavement_depth_in_FT)
+			draw skip dx=0 dy=-abs(_d_agg_base_depth_in_FT)
+			
+			call sub label_aggbase_under_eop
+			
+			
+			}
+			
+		else
+			{
+			draw skip to _mp_current_leop
+			draw skip dx=0 dy=-abs(_d_first_course_pavement_depth_in_FT)
+			draw skip dx=0 dy=-abs(_d_second_course_pavement_depth_in_FT)
+			draw skip dx=0 dy=-abs(_d_third_course_pavement_depth_in_FT)
+			draw skip dx=0 dy=-abs(_d_fourth_course_pavement_depth_in_FT)
+			draw skip dx=0 dy=-abs(_d_fifth_course_pavement_depth_in_FT)
+			draw skip dx=0 dy=-abs(_d_sixth_course_pavement_depth_in_FT)
+			draw skip dx=0 dy=-abs(_d_agg_base_depth_in_FT)
+			
+			call sub label_aggbase_under_eop 
+			}
+	
+		
+	
+	
+	
+	
+		}
+	end sub /* this ends the sub draw_pavement_depths */
+	
+	
+	sub draw_subbase_beneath_lanes
+		{
+		if _d_subbase_depth > tolerance then
+			{
+			
+			
+			/*subbase layer beneath traveled way*/
+			set plot parameters "subbase symb"
+			
+			draw skip to x2 y2
+			draw skip dx=0 dy=-abs(_d_subbase_depth)
+				mark x2 y2
+				
+			draw skip to x999 y999
+			draw skip dx=0 dy=-abs(_d_subbase_depth)
+				mark x999 y999
+				
+			
+			draw to x2 y2
+			
+				
+			call sub draw_subbase_slope_label		/*uses x2 and x999*/
+			}
+			
+		else
+			{
+			/*do nothing, no subbase*/
+			}
+		
+		
+		}
+	end sub /* this ends the sub draw_subbase_beneath_lanes */
+	
+	
+	
+	sub label_station
+		  {
+		    _s_label = CLUSTER BASELINE
+		    _s_chain = cluster baseline
+		    _d_sta = CHAIN _s_chain STATION
+		    _s_sta = cvt_d_sta(_d_sta)
+		    /*draw skip to x2 y2*/
+		    draw skip dx=0 dy=20	/* was 42 */
+		    draw text value = _s_label + ^  STA. ^ + _s_sta "~General Message Text Symbology"
+		    call sub label_skew
+		  }
+	end sub
+	
+	
+	
+	
+	
+	sub label_skew
+		  {
+		      draw skip dx=0 dy=-3
+		      _d_porm = skew angle for cluster
+		      _d_angle = abs(skew angle for cluster)
+		      if _d_porm < 0 then
+		        {
+		          _s_angle = "Skew Ang. " + cvt_d_s2(_d_angle) + " Degrees (LT)"
+		        }
+		      else
+		        {
+		          _s_angle = "Skew Ang. " + cvt_d_s2(_d_angle) + " Degrees (RT)"
+		        }
+		      if _d_angle > tolerance then
+		        {
+		          draw text value=_s_angle "~General Message Text Symbology"
+		        }
+		     
+		      else
+		      	{
+		      	/* do nothing*/
+		      	}  
+		      
+		  /* draw skip to x2 y2*/	/* cl of roadway */
+		  }
+	end sub
+	
+	
+	
+	
+	sub label_pave_slope
+		  {
+		draw skip to x999 y999			
+			/* draw slope text between x2 y2 and x999 y999 */
+			_d_angle = -atan((y2-y999)/abs(x2-x999))
+			if _s_side_slope = ^left^ then
+				{
+				draw skip dx=-(x2-x999)/2 dy=((y2-y999)/2)+.1
+				}
+			else
+				{
+				draw skip dx=(x2-x999)/2 dy=((y2-y999)/2)+.1
+				}
+			
+			
+		
+		/* draw slope text between x2 y2 and x999 y999 */
+		_d_slope_text = abs(y999-y2)/abs(x999-x2)*100
+		draw text value = _d_slope_text
+			"road slope text"
+		}
+	end sub
+	
+	
+	
+	
+	sub label_shoulder_slopes
+			{
+			draw skip to x21 y21			
+				/* draw slope text between x20 y20 and x21 y21 */
+				_d_angle = -atan((y20-y21)/abs(x20-x21))
+				if _s_side_slope = ^left^ then
+					{
+					draw skip dx=-(x20-x21)/2 dy=((y20-y21)/2)+.1
+					}
+				else
+					{
+					draw skip dx=(x20-x21)/2 dy=((y20-y21)/2)+.1
+					}
+				
+				
+			
+			/* draw slope text between x20 y20 and x21 y21 */
+			_d_slope_text = abs(y21-y20)/abs(x21-x20)*100
+			draw text value = _d_slope_text
+				"paved shoulder slope text"
+			
+			}			/* ends label_shoulder_slopes*/
+	end sub
+	
+	
+	
+	
+	
+	sub label_gore_slope
+		  {
+		draw skip to x997 y997			
+			/* draw slope text between x996 y996 and x997 y997 */
+			_d_angle = -atan((y996-y997)/abs(x996-x997))
+			if _s_side_slope = ^left^ then
+				{
+				draw skip dx=-(x996-x997)/2 dy=((y996-y997)/2)+.1
+				}
+			else
+				{
+				draw skip dx=(x996-x997)/2 dy=((y996-y997)/2)+.1
+				}
+			
+			
+		
+		/* draw slope text between x996 y996 and x997 y997 */
+		_d_slope_text = abs(y997-y996)/abs(x997-x996)*100
+		draw text value = _d_slope_text
+			"gore slope text"
+		}
+	end sub
+	
+	
+	
+	
+	
+	sub draw_subbase_slope_label
+			{
+			draw skip to x999 y999			
+				/* draw slope text between x20 y20 and x999 y999 */
+				
+			if abs(x20-x999)>tolerance then
+				{
+				/* they are not the same point */
+				_d_angle = -atan((y20-y999)/abs(x20-x999))
+				if _s_side_slope = ^left^ then
+					{
+					draw skip dx=-(x20-x999)/2 dy=((y20-y999)/2)+.1
+					}
+				else
+					{
+					draw skip dx=(x20-x999)/2 dy=((y20-y999)/2)+.1
+					}
+					
+					
+				
+				/* draw slope text between x20 y20 and x999 y999 */
+				_d_slope_text = abs(y999-y20)/abs(x999-x20)*100
+				draw text value = _d_slope_text
+					"subbase slope text"
+				}
+			
+			else
+				{
+				/* don't label the subbase slope...these are the same points */
+				}
+			
+			}			/* ends draw_subbase_slope_label */
+	end sub
+	
+
+sub label_seeding_slope
+	  {
+	  	
+	  		
+	  		
+		draw skip to x500 y500			
+		/* draw slope text between x500 y500 and x510 y510 */
+		_d_angle = -atan((y500-y510)/abs(x500-x510))
+		if _s_side_slope = ^left^ then
+			{
+			draw skip dx=abs(x500-x510)/2 dy=-(abs(y500-y510)/2-.1)
+			}
+		else
+			{
+			draw skip dx=abs(x500-x510)/2 dy=-(abs(y500-y510)/2-.1)
+			}
+		
+		
+		
+	/* draw slope text between x500 y500 and x510 y510 */
+	_d_slope_text = abs(x500-x510)/abs(y500-y510)
+	draw slope text between x500 y500 and x510 y510
+		"seeding slope text"
+	
+		}
+	end sub
+
+				
+	
+	sub side_slope /* this determines side slope regardless of reverse stationing */
+		{
+		_s_side_slope = ^unknown^
+		draw skip to xpgl ypgl
+		
+		draw skip trace out off=0 for dx=100	/* need to follow ex ground to ensure that do not go beyond the pattern line limits or draws on prev section */
+			mark _mp_offset_point
+		_s_chain = cluster baseline
+		
+		_d_offset_chain = cogo_offsetFromChain(_mp_offset_point, _s_chain)
+		
+		
+		if _d_offset_chain<tolerance then
+			{
+			_s_side_slope = ^left^
+						
+			}
+		
+		else if _d_offset_chain>tolerance then
+			{
+			_s_side_slope = ^right^
+						
+			}
+		
+		else
+			{
+			/* error, no side slope determined */
+			/* this will draw a line to show err */
+			
+			set plot parameters lvname=XS_PR_SLOPE_TEXT co=0 wt=4
+			
+			draw skip to xpgl ypgl
+			
+			draw dx=0 dy=200
+			draw text char = ^NO_SIDE_SLOPE_DETERMINED^ "mp text"
+			
+			}
+		
+		
+		
+		}
+	
+	end sub			/* ends sub side_slope */
+
+	
+	sub draw_shoulder
+		{
+		set plot parameters "top of paved shld symb"
+		if _s_side_slope = ^left^ then
+			{
+			draw skip to _mp_current_leop
+			_d_ShoulderSlope = _d_left_shoulder_slope
+			}
+		else if _s_side_slope = ^right^ then
+			{
+			draw skip to _mp_current_reop
+			_d_ShoulderSlope = _d_right_shoulder_slope
+			}
+		else
+			{
+			/* shouldn't ever see this */
+			}
+			
+		mark _mp_top_back_of_curb	/* marking this point to later check to see if there is curb....if x same as eop then no curb */
+		mark _mp_outside_of_valley_gutter	/* marking this point to later check to see if there is curb....if x same as eop then no curb */	
+			mark x20 y20	/* this is used to determine if a paved shoulder was found or not...along with x21 marked below */
+		draw skip slope = _d_ShoulderSlope to "~Proposed Paved Shoulder in DGN" within distance = _d_shoulder_search_distance
+			
+		if _s_side_slope = ^left^ then
+			{
+			mark _mp_current_eos
+			call sub label_eos
+			mark _mp_left_outside_paved_shoulder
+			draw text char = ^_mp_left_outside_paved_shoulder^ "mp text"
+			}
+		else if _s_side_slope = ^right^ then
+			{
+			mark _mp_current_eos
+			call sub label_eos
+			mark _mp_right_outside_paved_shoulder
+			draw text char = ^_mp_right_outside_paved_shoulder^ "mp text"
+			}
+		else
+			{
+			/* shouldn't ever see this */
+			}
+				
+		mark x21 y21			/* this is used to determine if a paved shoulder was found or not...along with x20 */
+		mark _mp_start_of_curb		
+		mark _mp_start_of_valley_gutter	
+		mark _mp_start_of_barrier	
+		
+		if abs(x20-x21)<= tolerance then
+			{
+			_s_paved_shoulder_found = ^no^
+			}
+		else
+			{
+			_s_paved_shoulder_found = ^yes^
+			}
+			
+		if _s_paved_shoulder_found = ^no^ and _s_found_prop_eop = ^yes^ then
+			{
+			/* no proposed paved shoulder found, but we do have a prop pavement */
+					
+			/* no proposed shoulder so draw the vertical line in at the edge of metal */
+			if _s_side_slope = ^left^ then
+				{
+				draw skip to _mp_current_leop
+				}
+			else if _s_side_slope = ^right^ then
+				{
+				draw skip to _mp_current_reop
+				}
+			else
+				{
+				/* shouldn't ever see this */
+				}
+			mark _mp_go_back_to_here	/* this point is used below after drawing the vertical lines */
+			set plot parameters "bottom of top depth symb"
+			draw dx=0 dy=-abs(_d_first_course_pavement_depth_in_FT)
+						
+			set plot parameters "bottom of leveling depth symb"
+			draw dx=0 dy=-abs(_d_second_course_pavement_depth_in_FT)
+				
+			set plot parameters "bottom of base depth symb"
+			draw dx=0 dy=-abs(_d_third_course_pavement_depth_in_FT)
+				
+			set plot parameters "bottom of fourth depth symb"
+			draw dx=0 dy=-abs(_d_fourth_course_pavement_depth_in_FT)
+				
+			set plot parameters "bottom of fifth depth symb"
+			draw dx=0 dy=-abs(_d_fifth_course_pavement_depth_in_FT)
+				
+			set plot parameters "bottom of sixth depth symb"
+			draw dx=0 dy=-abs(_d_sixth_course_pavement_depth_in_FT)
+				
+			if _s_side_slope = ^left^ then 
+				{
+				mark _mp_left_outside_bottom_paved_shoulder
+				}
+			else if _s_side_slope = ^right^ then
+				{
+				mark _mp_right_outside_bottom_paved_shoulder
+				}
+				draw skip to _mp_go_back_to_here	/* this was marked above before drawing the vertical lines....at the edge of metal */		
+				}
+								
+			else	/* found prop paved shoulder.... */
+				{
+				draw skip to x20 y20	/* edge of pavement/metal */
+				draw to x21 y21		/* edge of paved shoulder */
+		
+				if _s_shoulder_and_lanes_same_material = ^no^ then	/* this variable is set in the other_input_variables */
+					{
+					/* prop shoulder found but different material than road so draw the vertical line in at the edge of metal */
+					if _s_side_slope = ^left^ then
+						{
+						draw skip to _mp_current_leop
+						}
+					else if _s_side_slope = ^right^ then
+						{
+						draw skip to _mp_current_reop
+						}
+					else
+						{
+						/* shouldn't ever see this */
+						}
+					
+					set plot parameters "bottom of top depth symb"
+					draw dx=0 dy=-abs(_d_first_course_pavement_depth_in_FT)
+					
+					set plot parameters "bottom of leveling depth symb"
+					draw dx=0 dy=-abs(_d_second_course_pavement_depth_in_FT)
+					
+					set plot parameters "bottom of base depth symb"
+					draw dx=0 dy=-abs(_d_third_course_pavement_depth_in_FT)
+					
+					set plot parameters "bottom of fourth depth symb"
+					draw dx=0 dy=-abs(_d_fourth_course_pavement_depth_in_FT)
+					
+					set plot parameters "bottom of fifth depth symb"
+					draw dx=0 dy=-abs(_d_fifth_course_pavement_depth_in_FT)
+						
+					set plot parameters "bottom of sixth depth symb"
+					draw dx=0 dy=-abs(_d_sixth_course_pavement_depth_in_FT)
+					}
+				else
+					{
+					/* don't do anything - shoulder and lanes are same material*/
+					}
+								
+				draw skip to _mp_start_of_curb
+				call sub draw_shoulder_depths
+									
+					}
+						
+			/* if a paved shoulder is found, then it labels the slope regardless if it has been drawn or not...has not been drawn in the case of a double faced barrier */
+			if abs(x20-x21)> tolerance then
+				{
+				call sub label_shoulder_slopes
+				}
+				
+			else
+				{
+				/* don't do anything */
+				}	
+		
+		}
+	end sub /*ends sub draw_shoulder*/
+	
+	
+	
+	sub draw_shoulder_depths
+		{
+		if _s_first_time_through = ^yes^ then
+			{
+			if _s_side_slope = ^left^ then
+				{
+				draw skip to _mp_current_leop
+					mark _mp_point_1
+				
+				draw skip to _mp_left_outside_paved_shoulder
+					mark _mp_point_2
+				}
+				
+			else if _s_side_slope = ^right^ then
+				{
+				draw skip to _mp_current_reop
+					mark _mp_point_1
+				
+				draw skip to _mp_right_outside_paved_shoulder
+					mark _mp_point_2
+				}
+				
+			else
+				{
+				/* shouldn't ever see this */
+				}
+			}
+			
+		else
+			{
+			/* don't do anything, the _mp_point_1 and 2 were defined prior to calling */
+			/* this routine - see sub actually_draw_barrier for double faced barrier  */
+			}
+		
+		set plot parameters "bottom of shld top depth symb"
+		draw skip to _mp_point_1
+		
+		
+			
+		if _d_number_of_shoulder_courses >= 1 then
+			{
+			/* this draws the 1st layer in */
+			set plot parameters "bottom of shld top depth symb"
+			draw skip to _mp_point_1
+			
+			if _s_shoulder_and_lanes_same_material = ^Yes^ then
+				{
+				draw skip to _mp_point_1
+				draw skip dx=0 dy=-abs(_d_first_course_pavement_depth_in_FT)
+					mark x920 y920
+					mark _mp_pave_point
+					
+				draw skip to _mp_point_1
+				draw skip dx=0 dy=-abs(_d_first_course_inside_shdr_depth_in_FT)
+					mark _mp_point_1
+					mark x921 y921
+					mark _mp_shld_point
+				_d_check_diff = (y920-y921)
+				
+				if abs(y920 - y921)>= 2*tolerance then
+					{
+					if y920<y921 then
+						{
+						/* road is deeper than shoulder */
+						set plot parameters "bottom of top depth symb"
+						draw skip to x920 y920
+						draw to x921 y921
+						set plot parameters "bottom of shld top depth symb"
+						}
+					else if y921<y920 then
+						{
+						/* shoulder is deeper than road */
+						set plot parameters "bottom of shld top depth symb"
+						draw skip to x920 y920
+						draw to x921 y921
+						set plot parameters "bottom of shld top depth symb"
+						}
+					else
+						{
+						/* shouldn't ever see this */
+						}
+					}
+					
+				else if abs(y920 - y921)<= tolerance then
+					{
+					/* road and shoulder are same depth */
+					
+					}
+					
+				
+				}
+			else	/* shoulder and road are different materials therefore draw the vertical shoulder line */
+				{
+				draw dx=0 dy=-abs(_d_first_course_inside_shdr_depth_in_FT)
+				mark _mp_point_1
+				}
+
+			draw skip to _mp_point_2
+			/* I took the "skip" out of the next statment because I always wanted it to draw the outside shoulder vert lines */
+			
+			draw dx=0 dy=-abs(_d_first_course_outside_shdr_depth_in_FT)
+				mark _mp_point_2
+			draw skip to _mp_point_1
+			draw to _mp_point_2
+			}
+		else
+			{
+			/* shouldn't ever see this */
+			}
+						
+						
+		if _d_number_of_shoulder_courses >= 2 then
+			{
+			/* this draws the 2nd layer in */
+			set plot parameters "bottom of shld leveling depth symb"
+			draw skip to _mp_point_1
+			
+			if _s_shoulder_and_lanes_same_material = ^Yes^ then
+				{
+				draw skip to _mp_pave_point
+				draw skip dx=0 dy=-abs(_d_second_course_pavement_depth_in_FT)
+					mark x920 y920
+					mark _mp_pave_point
+					
+				draw skip to _mp_shld_point
+				draw skip dx=0 dy=-abs(_d_second_course_inside_shdr_depth_in_FT)
+					mark _mp_point_1
+					mark x921 y921
+					mark _mp_shld_point
+				_d_check_diff = (y920-y921)
+				
+				if abs(y920 - y921)>= 2*tolerance then
+					{
+					if y920<y921 then
+						{
+						/* road is deeper than shoulder */
+						set plot parameters "bottom of leveling depth symb"
+						draw skip to x920 y920
+						draw to x921 y921
+						set plot parameters "bottom of shld leveling depth symb"
+						}
+					else if y921<y920 then
+						{
+						/* shoulder is deeper than road */
+						set plot parameters "bottom of shld leveling depth symb"
+						draw skip to x920 y920
+						draw to x921 y921
+						set plot parameters "bottom of shld leveling depth symb"
+						}
+					else
+						{
+						/* shouldn't ever see this */
+						}
+					}
+				
+				else if abs(y920 - y921)<= tolerance then
+					{
+					/* road and shoulder are same depth */
+					
+					}
+				
+				}
+			else	/* shoulder and road are different materials therefore draw the vertical shoulder line */
+				{
+				draw dx=0 dy=-abs(_d_second_course_inside_shdr_depth_in_FT)
+				mark _mp_point_1
+				}
+			
+						
+			draw skip to _mp_point_2
+			/* I took the "skip" out of the next statment because I always wanted it to draw the outside shoulder vert lines */
+			draw dx=0 dy=-abs(_d_second_course_outside_shdr_depth_in_FT)
+				mark _mp_point_2
+			draw skip to _mp_point_1
+			draw to _mp_point_2
+			}
+		else
+			{
+			/* it's ok to see this but should NOT draw anything  */
+			}
+			
+					
+		if _d_number_of_shoulder_courses >= 3 then
+			{
+			/* this draws the 3rd layer in */
+			set plot parameters "bottom of shld base depth symb"
+			draw skip to _mp_point_1
+			
+			if _s_shoulder_and_lanes_same_material = ^Yes^ then
+				{
+				draw skip to _mp_pave_point
+				draw skip dx=0 dy=-abs(_d_third_course_pavement_depth_in_FT)
+					mark x920 y920
+					mark _mp_pave_point
+					
+				draw skip to _mp_shld_point
+				draw skip dx=0 dy=-abs(_d_third_course_inside_shdr_depth_in_FT)
+					mark _mp_point_1
+					mark x921 y921
+					mark _mp_shld_point
+				
+				if abs(y920 - y921)>= 2*tolerance then
+					{
+					if y920<y921 then
+						{
+						/* road is deeper than shoulder */
+						set plot parameters "bottom of base depth symb"
+						draw skip to x920 y920
+						draw to x921 y921
+						set plot parameters "bottom of shld base depth symb"
+						}
+					else if y921<y920 then
+						{
+						/* shoulder is deeper than road */
+						set plot parameters "bottom of shld base depth symb"
+						draw skip to x920 y920
+						draw to x921 y921
+						set plot parameters "bottom of shld base depth symb"
+						}
+					else
+						{
+						/* shouldn't ever see this */
+						}
+					}
+				
+				else if abs(y920 - y921)<= tolerance then
+					{
+					/* road and shoulder are same depth */
+					
+					}
+				
+				}
+			else	/* shoulder and road are different materials therefore draw the vertical shoulder line */
+				{
+				draw dx=0 dy=-abs(_d_third_course_inside_shdr_depth_in_FT)
+				mark _mp_point_1
+				}
+			
+						
+			
+			draw skip to _mp_point_2
+			/* I took the "skip" out of the next statment because I always wanted it to draw the outside shoulder vert lines */
+			draw dx=0 dy=-abs(_d_third_course_outside_shdr_depth_in_FT)
+				mark _mp_point_2
+			draw skip to _mp_point_1
+			draw to _mp_point_2
+			}
+		else
+			{
+			/* it's ok to see this but should NOT draw anything  */
+			}
+						
+						
+					
+					
+		if _d_number_of_shoulder_courses >= 4 then
+			{
+			/* this draws the 4th layer in */
+			set plot parameters "bottom of shld fourth depth symb"
+			draw skip to _mp_point_1
+			
+			if _s_shoulder_and_lanes_same_material = ^Yes^ then
+				{
+				draw skip to _mp_pave_point
+				draw skip dx=0 dy=-abs(_d_fourth_course_pavement_depth_in_FT)
+					mark x920 y920
+					mark _mp_pave_point
+					
+				draw skip to _mp_shld_point
+				draw skip dx=0 dy=-abs(_d_fourth_course_inside_shdr_depth_in_FT)
+					mark _mp_point_1
+					mark x921 y921
+					mark _mp_shld_point
+				
+				if abs(y920 - y921)>= 2*tolerance then
+					{
+					if y920<y921 then
+						{
+						/* road is deeper than shoulder */
+						set plot parameters "bottom of fourth depth symb"
+						draw skip to x920 y920
+						draw to x921 y921
+						set plot parameters "bottom of shld fourth depth symb"
+						}
+					else if y921<y920 then
+						{
+						/* shoulder is deeper than road */
+						set plot parameters "bottom of shld fourth depth symb"
+						draw skip to x920 y920
+						draw to x921 y921
+						set plot parameters "bottom of shld fourth depth symb"
+						}
+					else
+						{
+						/* shouldn't ever see this */
+						}
+					}
+				
+				else if abs(y920 - y921)<= tolerance then
+					{
+					/* road and shoulder are same depth */
+					
+					}
+				
+				
+				
+				}
+			else	/* shoulder and road are different materials therefore draw the vertical shoulder line */
+				{
+				draw dx=0 dy=-abs(_d_fourth_course_inside_shdr_depth_in_FT)
+				mark _mp_point_1
+				}
+			
+			draw skip to _mp_point_2
+			/* I took the "skip" out of the next statment because I always wanted it to draw the outside shoulder vert lines */
+			draw dx=0 dy=-abs(_d_fourth_course_outside_shdr_depth_in_FT)
+				mark _mp_point_2
+			draw skip to _mp_point_1
+			draw to _mp_point_2
+			}
+		else
+			{
+			/* it's ok to see this but should NOT draw anything  */
+			}
+		
+					
+					
+					
+		if _d_number_of_shoulder_courses >= 5 then
+			{
+			/* this draws the 5th layer in */
+			set plot parameters "bottom of shld fifth depth symb"
+			draw skip to _mp_point_1
+			
+			if _s_shoulder_and_lanes_same_material = ^Yes^ then
+				{
+				draw skip to _mp_pave_point
+				draw skip dx=0 dy=-abs(_d_fifth_course_pavement_depth_in_FT)
+					mark x920 y920
+					mark _mp_pave_point
+					
+				draw skip to _mp_shld_point
+				draw skip dx=0 dy=-abs(_d_fifth_course_inside_shdr_depth_in_FT)
+					mark _mp_point_1
+					mark x921 y921
+					mark _mp_shld_point
+					
+				if abs(y920 - y921)>= 2*tolerance then
+					{
+					if y920<y921 then
+						{
+						/* road is deeper than shoulder */
+						set plot parameters "bottom of fifth depth symb"
+						draw skip to x920 y920
+						draw to x921 y921
+						set plot parameters "bottom of shld fifth depth symb"
+						}
+					else if y921<y920 then
+						{
+						/* shoulder is deeper than road */
+						set plot parameters "bottom of shld fifth depth symb"
+						draw skip to x920 y920
+						draw to x921 y921
+						set plot parameters "bottom of shld fifth depth symb"
+						}
+					else
+						{
+						/* shouldn't ever see this */
+						}
+					}
+				
+				else if abs(y920 - y921)<= tolerance then
+					{
+					/* road and shoulder are same depth */
+					
+					}
+				
+				}
+			else	/* shoulder and road are different materials therefore draw the vertical shoulder line */
+				{
+				draw dx=0 dy=-abs(_d_fifth_course_inside_shdr_depth_in_FT)
+				mark _mp_point_1
+				}
+			
+			
+			draw skip to _mp_point_2
+			/* I took the "skip" out of the next statment because I always wanted it to draw the outside shoulder vert lines */
+			draw dx=0 dy=-abs(_d_fifth_course_outside_shdr_depth_in_FT)
+				mark _mp_point_2
+			draw skip to _mp_point_1
+			draw to _mp_point_2
+			}
+		else
+			{
+			/* it's ok to see this but should NOT draw anything  */
+			}
+		
+					
+					
+		if _d_number_of_shoulder_courses >= 6 then
+			{
+			/* this draws the 6th layer in */
+			set plot parameters "bottom of shld sixth depth symb"
+			draw skip to _mp_point_1
+			
+			if _s_shoulder_and_lanes_same_material = ^Yes^ then
+				{
+				draw skip to _mp_pave_point
+				draw skip dx=0 dy=-abs(_d_sixth_course_pavement_depth_in_FT)
+					mark x920 y920
+					mark _mp_pave_point
+					
+				draw skip to _mp_shld_point
+				draw skip dx=0 dy=-abs(_d_sixth_course_inside_shdr_depth_in_FT)
+					mark _mp_point_1
+					mark x921 y921
+					mark _mp_shld_point
+				
+				if abs(y920 - y921)>= 2*tolerance then
+					{
+					if y920<y921 then
+						{
+						/* road is deeper than shoulder */
+						set plot parameters "bottom of sixth depth symb"
+						draw skip to x920 y920
+						draw to x921 y921
+						set plot parameters "bottom of shld sixth depth symb"
+						}
+					else if y921<y920 then
+						{
+						/* shoulder is deeper than road */
+						set plot parameters "bottom of shld sixth depth symb"
+						draw skip to x920 y920
+						draw to x921 y921
+						set plot parameters "bottom of shld sixth depth symb"
+						}
+					else
+						{
+						/* shouldn't ever see this */
+						}
+					}
+				
+				else if abs(y920 - y921)<= tolerance then
+					{
+					/* road and shoulder are same depth */
+					
+					}
+				
+				}
+			else	/* shoulder and road are different materials therefore draw the vertical shoulder line */
+				{
+				draw dx=0 dy=-abs(_d_sixth_course_inside_shdr_depth_in_FT)
+				mark _mp_point_1
+				}
+			
+			
+						
+			draw skip to _mp_point_2
+			/* I took the "skip" out of the next statment because I always wanted it to draw the outside shoulder vert lines */
+			draw dx=0 dy=-abs(_d_sixth_course_outside_shdr_depth_in_FT)
+				mark _mp_point_2
+			draw skip to _mp_point_1
+			draw to _mp_point_2
+			
+			
+				
+			}
+		else
+			{
+			/* it's ok to see this but should NOT draw anything  */
+			}
+		
+		if _s_side_slope = ^left^ then
+			{
+			draw skip to _mp_point_1
+			mark _mp_left_inside_bottom_paved_shoulder
+			draw text char = ^_mp_left_inside_bottom_paved_shoulder^ "mp text"
+				
+			draw skip to _mp_point_2
+			mark _mp_left_outside_bottom_paved_shoulder
+			draw text char = ^_mp_left_outside_bottom_paved_shoulder^ "mp text"
+				
+			}
+		else if _s_side_slope = ^right^ then
+			{
+			draw skip to _mp_point_1
+			mark _mp_right_inside_bottom_paved_shoulder
+			draw text char = ^_mp_right_inside_bottom_paved_shoulder^ "mp text"
+				
+			draw skip to _mp_point_2
+			mark _mp_right_outside_bottom_paved_shoulder
+			draw text char = ^_mp_right_outside_bottom_paved_shoulder^ "mp text"
+			
+			}
+		else
+			{
+			/* shouldn't ever see this */
+			}
+			
+		
+		/*agg layer beneath paved shoulder way*/
+		set plot parameters "agg base symb"
+		
+		draw skip to _mp_point_1
+		draw skip dx=0 dy=-abs(_d_shoulder_agg_base_depth_in_FT)
+			mark _mp_point_1
+			
+		draw skip to _mp_point_2
+		draw skip dx=0 dy=-abs(_d_shoulder_agg_base_depth_in_FT)
+			mark _mp_point_2
+			mark _mp_aggbase_under_eops
+			draw text char = ^_mp_aggbase_under_eops^ "mp text"
+			call sub label_aggbase_under_eops
+			
+		draw to _mp_point_1
+		
+		
+			
+		
+		}
+	end sub /*ends sub draw_shoulder_depths*/
+	
+	
+	sub draw_d_curb
+		{
+		
+		if ((intersect dgn = "~Curb and Gutter D1" within distance = _d_D1_curb_search_distance)) or
+			    (intersect dgn = "~Curb and Gutter D2" within distance = _d_D2_curb_search_distance) then
+				{
+				/* this is the T depth as specified in R-30 series */
+				_d_curb_depth = 9/12
+				} 
+			
+			else if intersect dgn = "~Curb and Gutter D3" within distance = _d_D3_curb_search_distance then
+				{
+				/* this is the T depth as specified in R-30 series */
+				_d_curb_depth = 10/12
+				}
+			
+			else
+				{
+				/* shouldn't ever see this */
+				}
+			
+			set plot parameters "top of curb symb"
+			draw skip to _mp_start_of_curb
+			
+			
+			 draw dx=((16)/12) dy=-((1+1/4)/(12))
+			 	mark _mp_boc
+			 	mark _mp_bottom_of_curb
+			 	draw text char = ^_mp_bottom_of_curb^ "mp text"
+
+		            draw dx=10/12 dy=4/12
+		            draw dx=4/12 dy=0 /* THIS IS THE STANDARD WIDTH */
+		            mark _mp_top_back_of_curb
+		            mark _mp_start_of_barrier
+		            call sub label_toc
+		  
+		     	
+		 					/* this part draws the bottom of the curb in */
+	            set plot parameters "bottom of curb symb"
+	            draw skip to _mp_top_back_of_curb
+	            
+	            draw dx=0 dy=(-14/12)
+	            	mark _mp_bottom_back_of_curb
+		 						draw text char = ^_mp_bottom_back_of_curb^ "mp text"
+			
+	            draw skip to _mp_start_of_curb
+	            draw dx=0 dy=-abs(_d_curb_depth)
+	            	mark _mp_inside_bottom_of_curb
+	            	draw text char = ^_mp_inside_bottom_of_curb^ "mp text"
+	            
+	            draw to _mp_bottom_back_of_curb
+	            
+	            
+	            /* this part labels the curb type */
+	            draw skip to _mp_top_back_of_curb
+	            draw skip dx=-1 dy=.5
+
+			if intersect dgn = "~Curb and Gutter D1" within distance = _d_D1_curb_search_distance then
+				{
+				draw text char = ^D1 Curb^ "Curb Text Symbology"
+				}
+			else if intersect dgn = "~Curb and Gutter D2" within distance = _d_D2_curb_search_distance then
+				{
+				draw text char = ^D2 Curb^ "Curb Text Symbology"
+				}
+			else if intersect dgn = "~Curb and Gutter D3" within distance = _d_D3_curb_search_distance then
+				{
+				draw text char = ^D3 Curb^ "Curb Text Symbology"
+				}
+		  else
+		  	{
+		  	/*shouldn't ever see this*/
+		  	}  
+		   
+		      /* this part marks the agg/subbase break point x-location */ 
+		        draw skip to _mp_top_back_of_curb
+		        
+		
+		
+		}
+	end sub /*ends sub draw_d_curb*/
+	
+	
+	sub draw_b_curb
+		{
+			
+		if ((intersect dgn = "~Curb and Gutter B1" within distance = _d_D1_curb_search_distance)) or
+			    (intersect dgn = "~Curb and Gutter B2" within distance = _d_D2_curb_search_distance) then
+				{
+				/* this is the T depth as specified in R-30 series */
+				_d_curb_depth = 9/12
+				} 
+			
+			else if intersect dgn = "~Curb and Gutter B3" within distance = _d_D3_curb_search_distance then
+				{
+				/* this is the T depth as specified in R-30 series */
+				_d_curb_depth = 10/12
+				}
+			
+			else
+				{
+				/* shouldn't ever see this */
+				}
+			
+			set plot parameters "top of curb symb"
+			draw skip to _mp_start_of_curb
+			
+			
+			 draw dx=((18)/12) dy=-((1+1/2)/(12))
+			 	mark _mp_boc
+			 	mark _mp_bottom_of_curb
+			 	draw text char = ^_mp_bottom_of_curb^ "mp text"
+			    draw dx=3.625/12 dy=1.8333/12	/* this replaces the 1' 2" - 3 1/8" Horz with a 5.5" vert */
+			    draw dx=3.625/12 dy=1.8333/12       /* to make it appear more round */
+			    draw dx=3.625/12 dy=1.8333/12
+			    
+		            draw dx=3.125/12 dy=0
+		            mark _mp_top_back_of_curb
+		            mark _mp_start_of_barrier
+		            call sub label_toc
+		  		     	
+		  /* this part draws the bottom of the curb in */
+	            set plot parameters "bottom of curb symb"
+	            draw skip to _mp_top_back_of_curb
+	            
+	            draw dx=0 dy=(-15.5/12)
+	            	mark _mp_bottom_back_of_curb
+		 						draw text char = ^_mp_bottom_back_of_curb^ "mp text"
+			
+	            draw skip to _mp_start_of_curb
+	            draw dx=0 dy=-abs(_d_curb_depth)
+	            	mark _mp_inside_bottom_of_curb
+	            	draw text char = ^_mp_inside_bottom_of_curb^ "mp text"
+	            
+	            draw to _mp_bottom_back_of_curb
+	            
+	            
+	            /* this part labels the curb type */
+	            draw skip to _mp_top_back_of_curb
+	            draw skip dx=-1 dy=.5
+
+			if intersect dgn = "~Curb and Gutter B1" within distance = _d_D1_curb_search_distance then
+				{
+				draw text char = ^B1 Curb^ "Curb Text Symbology"
+				}
+			else if intersect dgn = "~Curb and Gutter B2" within distance = _d_D2_curb_search_distance then
+				{
+				draw text char = ^B2 Curb^ "Curb Text Symbology"
+				}
+			else if intersect dgn = "~Curb and Gutter B3" within distance = _d_D3_curb_search_distance then
+				{
+				draw text char = ^B3 Curb^ "Curb Text Symbology"
+				}
+		      /* this part marks the agg/subbase break point x-location */ 
+		        draw skip to _mp_top_back_of_curb
+		        
+		}
+	end sub /*ends sub draw_b_curb*/
+	
+	
+	sub draw_c_curb
+		{
+			
+			if ((intersect dgn = "~Curb and Gutter C1" within distance = _d_D1_curb_search_distance)) or
+			    (intersect dgn = "~Curb and Gutter C2" within distance = _d_D2_curb_search_distance) then
+				{
+				/* this is the T depth as specified in R-30 series */
+				_d_curb_width = 18/12
+				_d_n = 0.875/12
+				} 
+			
+			else if ((intersect dgn = "~Curb and Gutter C3" within distance = _d_D1_curb_search_distance)) or
+			    (intersect dgn = "~Curb and Gutter C4" within distance = _d_D2_curb_search_distance) then
+				{
+				/* this is the T depth as specified in R-30 series */
+				_d_curb_width = 24/12
+				_d_n = 1.375/12
+				}
+			
+			else if ((intersect dgn = "~Curb and Gutter C5" within distance = _d_D1_curb_search_distance)) or
+			    (intersect dgn = "~Curb and Gutter C6" within distance = _d_D2_curb_search_distance) then
+				{
+				/* this is the T depth as specified in R-30 series */
+				_d_curb_width = 30/12
+				_d_n = 1.875/12
+				}
+						
+			else
+				{
+				/* shouldn't ever see this */
+				}
+			
+			set plot parameters "top of curb symb"
+			draw skip to _mp_start_of_curb
+			
+			
+			 draw dx=(_d_curb_width-(7.5/12)) dy=-(_d_n)
+			 	mark _mp_boc
+			 	mark _mp_bottom_of_curb
+			 	draw text char = ^_mp_bottom_of_curb^ "mp text"
+			    
+			 draw dx=2/12 dy=7/12
+			 draw dx=5.5/12 dy=0
+			 	mark _mp_top_back_of_curb
+		    mark _mp_start_of_barrier
+		    call sub label_toc
+   
+		  		     	
+		  /* this part draws the bottom of the curb in */
+	            set plot parameters "bottom of curb symb"
+	            draw skip to _mp_top_back_of_curb
+	            
+	            draw dx=0 dy=(-15/12)
+	            	mark _mp_bottom_back_of_curb
+		 						draw text char = ^_mp_bottom_back_of_curb^ "mp text"
+			
+	            draw skip to _mp_start_of_curb
+	            draw dx=0 dy=-(9/12)
+	            	mark _mp_inside_bottom_of_curb
+	            	draw text char = ^_mp_inside_bottom_of_curb^ "mp text"
+	            
+	            draw to _mp_bottom_back_of_curb
+	            
+	            
+	            /* this part labels the curb type */
+	            draw skip to _mp_top_back_of_curb
+	            draw skip dx=-1 dy=.5
+
+			if intersect dgn = "~Curb and Gutter C1" within distance = _d_D1_curb_search_distance then
+				{
+				draw text char = ^C1 Curb^ "Curb Text Symbology"
+				}
+			else if intersect dgn = "~Curb and Gutter C2" within distance = _d_D2_curb_search_distance then
+				{
+				draw text char = ^C2 Curb^ "Curb Text Symbology"
+				}
+			else if intersect dgn = "~Curb and Gutter C3" within distance = _d_D3_curb_search_distance then
+				{
+				draw text char = ^C3 Curb^ "Curb Text Symbology"
+				}
+		  else if intersect dgn = "~Curb and Gutter C4" within distance = _d_D3_curb_search_distance then
+				{
+				draw text char = ^C4 Curb^ "Curb Text Symbology"
+				}   
+		  else if intersect dgn = "~Curb and Gutter C5" within distance = _d_D3_curb_search_distance then
+				{
+				draw text char = ^C5 Curb^ "Curb Text Symbology"
+				}   
+		  else if intersect dgn = "~Curb and Gutter C6" within distance = _d_D3_curb_search_distance then
+				{
+				draw text char = ^C6 Curb^ "Curb Text Symbology"
+				}  
+		     		     
+		    /* this part marks the agg/subbase break point x-location */ 
+		      draw skip to _mp_top_back_of_curb
+		        
+		}
+	end sub /*ends sub draw_c_curb*/
+	
+	sub draw_f_curb
+		{
+			
+			if ((intersect dgn = "~Curb and Gutter F1" within distance = _d_D1_curb_search_distance)) or
+			    (intersect dgn = "~Curb and Gutter F2" within distance = _d_D2_curb_search_distance) then
+				{
+				/* this is the T depth as specified in R-30 series */
+				_d_curb_width = 18/12
+				_d_n = 0.875/12
+				} 
+			
+			else if ((intersect dgn = "~Curb and Gutter F3" within distance = _d_D1_curb_search_distance)) or
+			    (intersect dgn = "~Curb and Gutter F4" within distance = _d_D2_curb_search_distance) then
+				{
+				/* this is the T depth as specified in R-30 series */
+				_d_curb_width = 24/12
+				_d_n = 1.375/12
+				}
+			
+			else if ((intersect dgn = "~Curb and Gutter F5" within distance = _d_D1_curb_search_distance)) or
+			    (intersect dgn = "~Curb and Gutter F6" within distance = _d_D2_curb_search_distance) then
+				{
+				/* this is the T depth as specified in R-30 series */
+				_d_curb_width = 30/12
+				_d_n = 1.875/12
+				}
+						
+			else
+				{
+				/* shouldn't ever see this */
+				}
+			
+			set plot parameters "top of curb symb"
+			draw skip to _mp_start_of_curb
+			
+			
+			 draw dx=(_d_curb_width-(7.25/12)) dy=-(_d_n)
+			 	mark _mp_boc
+			 	mark _mp_bottom_of_curb
+			 	draw text char = ^_mp_bottom_of_curb^ "mp text"
+			    
+			 draw dx=1.75/12 dy=6/12
+			 draw dx=5.5/12 dy=0
+			 	mark _mp_top_back_of_curb
+		    mark _mp_start_of_barrier
+		    call sub label_toc
+   
+		  		     	
+		  /* this part draws the bottom of the curb in */
+	            set plot parameters "bottom of curb symb"
+	            draw skip to _mp_top_back_of_curb
+	            
+	            draw dx=0 dy=-(14/12)
+	            	mark _mp_bottom_back_of_curb
+		 						draw text char = ^_mp_bottom_back_of_curb^ "mp text"
+			
+	            draw skip to _mp_start_of_curb
+	            draw dx=0 dy=-(9/12)
+	            	mark _mp_inside_bottom_of_curb
+	            	draw text char = ^_mp_inside_bottom_of_curb^ "mp text"
+	            
+	            draw to _mp_bottom_back_of_curb
+	            
+	            
+	            /* this part labels the curb type */
+	            draw skip to _mp_top_back_of_curb
+	            draw skip dx=-1 dy=.5
+
+			if intersect dgn = "~Curb and Gutter F1" within distance = _d_D1_curb_search_distance then
+				{
+				draw text char = ^F1 Curb^ "Curb Text Symbology"
+				}
+			else if intersect dgn = "~Curb and Gutter F2" within distance = _d_D2_curb_search_distance then
+				{
+				draw text char = ^F2 Curb^ "Curb Text Symbology"
+				}
+			else if intersect dgn = "~Curb and Gutter F3" within distance = _d_D3_curb_search_distance then
+				{
+				draw text char = ^F3 Curb^ "Curb Text Symbology"
+				}
+		  else if intersect dgn = "~Curb and Gutter F4" within distance = _d_D3_curb_search_distance then
+				{
+				draw text char = ^F4 Curb^ "Curb Text Symbology"
+				}   
+		  else if intersect dgn = "~Curb and Gutter F5" within distance = _d_D3_curb_search_distance then
+				{
+				draw text char = ^F5 Curb^ "Curb Text Symbology"
+				}   
+		  else if intersect dgn = "~Curb and Gutter F6" within distance = _d_D3_curb_search_distance then
+				{
+				draw text char = ^F6 Curb^ "Curb Text Symbology"
+				}  
+		     		     
+		    /* this part marks the agg/subbase break point x-location */ 
+		      draw skip to _mp_top_back_of_curb
+		        
+		}
+	end sub /*ends sub draw_f_curb*/
+	
+	sub draw_g_curb
+		{
+		
+		if intersect dgn = "~Curb and Gutter G1" within distance = _d_G1_curb_search_distance then
+				{
+				_d_bottom_of_curb_dx = 2
+				_s_curb_type = ^g1^
+				}
+				
+			else if intersect dgn = "~Curb and Gutter G2" within distance = _d_G2_curb_search_distance then
+				{
+				_d_bottom_of_curb_dx = 4
+				_s_curb_type = ^g2^
+				}
+			
+			else
+				{
+				/* shouldn't ever see this */
+				_d_bottom_of_curb_dx = 10
+				}
+			
+			set plot parameters "top of curb symb"
+			draw slope = _d_g1_slope for dx=_d_bottom_of_curb_dx
+			 	mark _mp_bottom_of_curb
+			 	draw text char = ^_mp_bottom_of_curb^ "mp text"
+				draw text char = ^btmoc^ "fgsglabel text"
+
+		            draw dx=0 dy=2/12
+		            draw dx=1 dy=5/12
+		            draw dx=4/12 dy=0
+		            	mark _mp_top_back_of_curb
+			 	draw text char = ^_mp_top_back_of_curb^ "mp text"
+				call sub label_toc
+				mark _mp_start_of_barrier
+				
+				draw skip to _mp_start_of_barrier
+				draw skip dx=-.5 dy=0
+				
+			    
+				
+		        /* this part draws the bottom of the curb in */
+		            set plot parameters "bottom of curb symb"
+		            draw skip to _mp_top_back_of_curb
+		            draw dx=0 dy=-((15+5/8)/12+abs(_d_g_curb_depth-8/12))
+		            	mark _mp_bottom_back_of_curb
+			 						draw text char = ^_mp_bottom_back_of_curb^ "mp text"
+				
+		            draw skip to _mp_start_of_curb
+		            draw dx=0 dy=-abs(_d_g_curb_depth)
+		            
+		            	mark _mp_inside_bottom_of_curb
+		            	draw text char = ^_mp_inside_bottom_of_curb^ "mp text"
+		            
+		            draw to _mp_bottom_back_of_curb
+		            
+		            /* this part labels the curb type */
+		            draw skip to _mp_top_back_of_curb
+		            draw skip dx=-1 dy=.5
+		            
+		            if _s_curb_type = ^g1^ then
+		            	{
+		            	draw text char = ^G1 Curb^ "Curb Text Symbology"
+		            	}
+		            
+		            else if _s_curb_type = ^g2^ then
+		            	{
+		            	draw text char = ^G2 Curb^ "Curb Text Symbology"
+		            	}
+		            	
+				/* this part marks the agg/subbase break point x-location */ 
+		        draw skip to _mp_top_back_of_curb
+		        
+		   	
+		}
+	end sub /*ends sub draw_g_curb*/
+	
+	
+	sub draw_vg_curb
+		{
+		
+			set plot parameters "top of valley gutter symb"
+			draw skip to _mp_start_of_valley_gutter
+				mark x500 y500
+			draw skip rise:run = 0:1 to "~Valley Gutter"
+				mark x501 y501
+			_d_valley_gutter_width = abs(x501-x500) /* using a variable other than 4 due to trans between vg and other curb */
+			
+			draw skip to _mp_start_of_valley_gutter
+			draw slope = _d_valley_gutter_slope for dx=_d_valley_gutter_width/2
+				mark _mp_low_pt_of_valley_gutter
+				/*mark _mp_tie_aggbase_below_vg*/
+				
+				draw text char = ^_mp_low_pt_of_valley_gutter^ "mp text"
+				call sub label_vg_flow_line
+				
+			draw slope = -(_d_valley_gutter_slope) to "~Valley Gutter"
+				mark _mp_outside_of_valley_gutter
+				draw text char = ^_mp_outside_of_valley_gutter^ "mp text"
+			
+			
+			
+			draw skip to _mp_low_pt_of_valley_gutter
+			draw skip dx=0 dy=0.5
+				draw text char = ^VG^ "Curb Text Symbology"
+			draw skip to _mp_outside_of_valley_gutter
+			mark _mp_start_of_barrier
+			
+			set plot parameters "bottom of valley gutter symb"
+			draw dx=0 dy=-abs(_d_valley_gutter_depth)
+				mark _mp_outside_bottom_of_VG
+				draw text char = ^_mp_outside_bottom_of_VG^ "mp text"
+				
+			draw skip to _mp_start_of_valley_gutter
+			draw dx=0 dy=-abs(_d_valley_gutter_depth)
+				mark _mp_inside_bottom_of_VG
+				draw text char = ^_mp_inside_bottom_of_VG^ "mp text"
+			draw to _mp_outside_bottom_of_VG
+			
+			draw skip to _mp_start_of_barrier
+			draw skip dx=-.5 dy=0
+			
+			
+			_s_Curb_and_Gutter_Found = ^No^
+			_s_valley_Gutter_Found = ^yes^
+			
+			/* this part marks the agg/subbase break point x-location */ 
+			draw skip to _mp_outside_of_valley_gutter
+			
+		}
+	end sub /*ends sub draw_vg_curb*/
+	
+	
+	sub draw_bridge_app_curb
+		{
+		
+		_s_curb_type = ^Bridge Approach^
+		set plot parameters "top of curb symb"
+		draw skip to _mp_start_of_curb		
+		
+		draw slope = -2 for dx=2
+		 	mark _mp_bottom_of_curb
+		 	draw text char = ^_mp_bottom_of_curb^ "mp text"
+
+	            draw dx=0 dy=1
+	            draw dx=7/12 dy=0
+	            	mark _mp_top_back_of_curb
+		 						draw text char = ^_mp_top_back_of_curb^ "mp text"
+			call sub label_toc
+			mark _mp_start_of_barrier
+			
+			draw skip to _mp_start_of_barrier
+			draw skip dx=-.5 dy=0
+			
+			
+	        /* this part draws the bottom of the curb in */
+	            set plot parameters "bottom of curb symb"
+	            draw skip to _mp_top_back_of_curb
+	            draw dx=0 dy=-(1+9/12)
+	            	mark _mp_bottom_back_of_curb
+		 						draw text char = ^_mp_bottom_back_of_curb^ "mp text"
+			
+	            draw skip to _mp_start_of_curb
+	            draw dx=0 dy=-9/12
+	            	mark _mp_inside_bottom_of_curb
+	            	draw text char = ^_mp_inside_bottom_of_curb^ "mp text"
+	            
+	            draw to _mp_bottom_back_of_curb
+	            
+	            /* this part labels the curb type */
+	            draw skip to _mp_top_back_of_curb
+	            draw skip dx=-1 dy=.5
+	            
+	          
+	            draw text char = ^Bridge Approach^ "Curb Text Symbology"
+	            	
+	        draw skip to _mp_top_back_of_curb
+	        
+		/* for bridge approach, we need to check for guardrail if we encounter rail then draw */
+		/* a 6% slope for an additional 2' beyond the rail location */
+				
+		}
+	end sub /*ends sub draw_bridge_app_curb*/
+	
+	
+
+	
+	
+	
+	sub draw_agg_shoulder
+		{
+		
+		if _s_side_slope = ^left^ then
+			{
+			/* this part draws the agg shoulder in up to the hinge point but no farther if one exists*/
+			set plot parameters "top of agg shoulder symb"
+			draw skip to _mp_left_outside_paved_shoulder
+			draw skip dx=_d_distance_beyond_paved_shoulder_for_1on1 dy=0
+				mark _mp_break_agg_or_sub_here_at_1on1
+				
+			draw skip to _mp_left_outside_paved_shoulder
+				mark x700 y700
+			draw slope = _d_left_shoulder_slope to "~Proposed Aggregate Shoulder in DGN"
+				mark _mp_temp_point
+				mark x701 y701
+			
+							
+			set plot parameters "bottom of agg shld symb"
+			draw skip to _mp_left_outside_paved_shoulder
+			draw dx=0 dy=-abs(_d_agg_shldr_depth)
+				mark _mp_left_inside_bottom_of_agg_shldr
+				draw text char = ^_mp_left_inside_bottom_of_agg_shldr^ "mp text"	
+			
+			draw slope = _d_left_shoulder_slope to "~Proposed Aggregate Shoulder in DGN"
+				mark _mp_temp_point2
+				
+			draw skip to _mp_temp_point
+			draw skip dx=.5 dy=0
+			/* now we are 0.5' beyond the first (if more than 1) agg shoulder line in dgn */
+			}
+		
+		else if _s_side_slope = ^right^ then
+			{
+			/* this part draws the agg shoulder in up to the hinge point but no farther if one exists*/
+			set plot parameters "top of agg shoulder symb"
+			draw skip to _mp_right_outside_paved_shoulder
+			draw skip dx=_d_distance_beyond_paved_shoulder_for_1on1 dy=0
+				mark _mp_break_agg_or_sub_here_at_1on1
+			
+			
+			draw skip to _mp_right_outside_paved_shoulder
+				mark x700 y700
+			draw slope = _d_right_shoulder_slope to "~Proposed Aggregate Shoulder in DGN"
+				mark _mp_temp_point
+				mark x701 y701
+						
+			set plot parameters "bottom of agg shld symb"
+			draw skip to _mp_right_outside_paved_shoulder
+			draw dx=0 dy=-abs(_d_agg_shldr_depth)
+				mark _mp_right_inside_bottom_of_agg_shldr
+				draw text char = ^_mp_right_inside_bottom_of_agg_shldr^ "mp text"
+				
+			draw slope = _d_right_shoulder_slope to "~Proposed Aggregate Shoulder in DGN"
+				mark _mp_temp_point2
+				
+			draw skip to _mp_temp_point
+			draw skip dx=.5 dy=0
+			/* now we are 0.5' beyond the first (if more than 1) agg shoulder line in dgn */
+			}
+		
+		else
+			{
+			/* shouldn't ever see this */
+			}
+		
+		/* this part checks to see if you will have a hinge point in the agg shoulder or not */
+		if intersect dgn = "~Proposed Aggregate Shoulder in DGN" within distance = _d_agg_shoulder_search_distance then
+			{
+			/* put a hinge point in the agg shoulder */
+			draw skip to _mp_temp_point
+				if _s_side_slope = ^left^ then
+					{
+					mark _mp_left_hinge_point_agg_shldr
+					draw text char = ^_mp_left_hinge_point_agg_shldr^ "mp text"
+					
+					draw skip to _mp_temp_point2
+					mark _mp_left_bottom_hinge_point_agg_shldr
+					draw text char = ^_mp_left_bottom_hinge_point_agg_shldr^ "mp text"
+					draw skip slope = _d_left_shoulder_slope for dx=.1
+					draw skip slope = _d_left_shoulder_slope to "~Proposed Aggregate Shoulder in DGN"
+						mark _mp_left_outside_bottom_agg_shldr
+						draw text char = ^_mp_left_outside_bottom_agg_shldr^ "mp text"
+					draw to _mp_left_bottom_hinge_point_agg_shldr
+					
+					draw skip to _mp_left_hinge_point_agg_shldr
+					}
+				else if _s_side_slope = ^right^ then
+					{
+					mark _mp_right_hinge_point_agg_shldr
+					draw text char = ^_mp_right_hinge_point_agg_shldr^ "mp text"
+					
+					draw skip to _mp_temp_point2
+					mark _mp_right_bottom_hinge_point_agg_shldr
+					draw text char = ^_mp_right_bottom_hinge_point_agg_shldr^ "mp text"
+					draw skip slope = _d_right_shoulder_slope for dx=.1
+					draw skip slope = _d_right_shoulder_slope to "~Proposed Aggregate Shoulder in DGN"
+						mark _mp_right_outside_bottom_agg_shldr
+						draw text char = ^_mp_right_outside_bottom_agg_shldr^ "mp text"
+					draw to _mp_right_bottom_hinge_point_agg_shldr
+					
+					draw skip to _mp_right_hinge_point_agg_shldr
+					}
+				else
+					{
+					/* shouldn't ever see this */
+					}
+					
+				
+			_s_agg_shldr_hinge_point = ^yes^
+			
+			draw skip dx=0.25 dy=0	/* this puts us just past the first of 2 agg shoulder lines */
+			draw skip rise:run = 0:1 to "~Proposed Aggregate Shoulder in DGN"
+				mark _mp_temp_outside_agg_shldr_point1	/* will be used as one point for an intersection */
+			draw skip dx=0 dy=10
+				mark _mp_temp_outside_agg_shldr_point2  /* will be used as second point for an intersection */
+			
+			draw skip to _mp_temp_point	/* this will be the temp location of the start of the indiv tie */
+			
+			
+			
+			}
+			
+		else
+			{
+			/* no hinge in agg shoulder	 */
+			_s_agg_shldr_hinge_point = ^no^
+			
+			/* now we will finish drawing the bottom of the agg shoulder */
+			set plot parameters "bottom of agg shld symb" 
+			draw skip to _mp_temp_point2		/* this is the bottom of the agg shoulder */
+			
+			if _s_side_slope = ^left^ then
+				{
+				mark _mp_left_outside_bottom_agg_shldr
+				draw text char = ^_mp_left_outside_bottom_agg_shldr^ "mp text"
+				}
+			else if _s_side_slope = ^right^ then
+				{
+				mark _mp_right_outside_bottom_agg_shldr
+				draw text char = ^_mp_right_outside_bottom_agg_shldr^ "mp text"
+				}
+			else
+				{
+				/* shouldn't ever see this */
+				}
+				
+			draw to _mp_temp_point	/* this is the outside agg along the finish grade */
+			if _s_side_slope = ^left^ then
+				{
+				mark _mp_left_outside_agg_shldr
+				draw text char = ^_mp_left_outside_agg_shldr^ "mp text"
+				}
+			else if _s_side_slope = ^right^ then
+				{
+				mark _mp_right_outside_agg_shldr
+				draw text char = ^_mp_right_outside_agg_shldr^ "mp text"
+				}
+			else
+				{
+				/* shouldn't ever see this */
+				}
+			
+			
+			/*************************** below added by TS to add green space hinge line ****************************/
+			
+			if (intersect dgn = "~Green Space Hinge Line" within distance = _d_green_space_search_distance) then
+				{
+			
+				set plot parameters "seeding candidate"
+				draw skip to _mp_temp_point	/* this is the hinge point of any agg shoulder */
+					mark x888 y888
+				draw slope = _d_agg_shld_green_space_slope to "~Green Space Hinge Line"
+					mark _mp_temp_point
+					mark x889 y889
+					mark _mp_break_agg_or_sub_here_at_1on1	/* this changes the 1on1 location if found greenspace line */
+					mark _mp_start_point_of_indiv_tie_down
+							
+				}
+					
+			else
+				{
+				/* do nada */
+							
+				}
+						
+			
+			/*************************** above added by TS to add green space hinge line ****************************/
+			
+			
+			}
+		
+		mark _mp_start_point_of_indiv_tie_down
+		
+				
+		}
+	end sub /*ends sub draw_agg_shoulder*/
+	
+	
+	
+	sub draw_guardrail
+		{
+		/**********modified by TS to change GR placement*************/
+					
+		/* add search line to place GR and then do next two as else if */
+		if intersect dgn = "~Face of Guardrail Placement" within distance = 10 then
+			{
+			draw skip to _mp_current_eos
+			draw skip rise:run = 0:1 to "~Face of Guardrail Placement"		
+			
+			}			
+		
+		else if _s_Curb_and_Gutter_Found = ^yes^ then
+			{
+			draw skip to _mp_top_back_of_curb
+			}
+		else if _s_agg_shoulder_Found = ^yes^ then
+			{
+			draw skip to _mp_current_eos
+			
+			}
+		else
+			{
+			draw skip to _mp_current_eos
+			/* enter another option here*/
+			}
+		
+			
+		
+		/* next two lines commented out 02-11-08 by TMB */
+		/*draw skip dx=0 dy=10*/
+		/*draw skip rise:run = -1:0 to intersection x700 y700 x701 y701*/
+			
+		if _s_side_slope = ^left^ then
+			{
+			draw skip dx=-1.44 dy=0 /* this places the face of rail over the back of curb*/
+			/* this cell is type T, change to B if necessary  draw cell = GRLBLT */
+			draw cell = GR3RT  angle=0  xs=1  ys=1  lvname=XS_PR_GUARDRAIL_CELL   co=0  wt=1 lc=0
+			cell library = B:\Workspace_V8i\Standards\MDOT Consultant\Workspace\mst V8i\Libraries\Cells\road\typical.cel
+		
+			}
+			
+		else if _s_side_slope = ^right^ then
+			{
+			
+			/* this cell is type T, change to B if necessary  draw cell = GRAILB */
+			draw skip dx=3.08 dy=0 /* this places the face of rail over the back of curb*/
+			draw cell = GR3LT  angle=0  xs=1  ys=1  lvname=XS_PR_GUARDRAIL_CELL   co=0  wt=1 lc=0
+			cell library = B:\Workspace_V8i\Standards\MDOT Consultant\Workspace\mst V8i\Libraries\Cells\road\typical.cel
+		
+			}
+			
+		}
+	end sub /*ends sub draw_guardrail*/
+	
+	
+	sub draw_adv_shoulder
+		{
+		_s_found_adverse_shoulder = ^yes^
+		draw skip to _mp_start_of_barrier 
+			mark x19 y19
+		draw skip rise:run = 0:1 to "adv shoulder line"
+			mark x20 y20
+		draw skip to _mp_start_of_barrier
+		if (intersect dgn = "~Concrete Barrier Line in DGN" within distance = _d_conc_barrier_search_distance) then
+			{
+			draw skip rise:run = 0:1 to "~Concrete Barrier Line in DGN"
+				mark x21 y21
+				
+			if abs(x19-x20)>abs(x19-x21) then		/* adv shoulder is outside of barrier */
+				{
+				draw skip to _mp_outside_of_valley_gutter
+				call sub draw_singlefaced_barrier
+				}
+				
+			else if abs(x19-x20)<abs(x19-x21) then
+				{
+				/* adv shoulder is inside of barrier */
+				draw skip to _mp_start_of_barrier
+					mark _mp_start_of_adv_shoulder
+					draw text char = ^_mp_start_of_adv_shoulder^ "mp text"
+				set plot parameters "adv shoulder symb"
+				draw slope = _d_adv_shoulder_slope to "adv shoulder line"
+					mark _mp_start_of_barrier
+					mark _mp_end_of_adv_shoulder
+					draw text char = ^_mp_end_of_adv_shoulder^ "mp text"
+				
+				set plot parameters "bottom of adv shoulder symb"
+				draw skip to _mp_start_of_adv_shoulder
+				draw dx=0 dy=-abs(_d_adv_shoulder_depth)
+					mark _mp_bottom_of_start_of_adv_shoulder
+					draw text char = ^_mp_bottom_of_start_of_adv_shoulder^ "mp text"
+				
+				draw skip to _mp_end_of_adv_shoulder
+				draw dx=0 dy=-abs(_d_adv_shoulder_depth)
+					mark _mp_bottom_of_end_of_adv_shoulder
+					draw text char = ^_mp_bottom_of_end_of_adv_shoulder^ "mp text"
+				draw to _mp_bottom_of_start_of_adv_shoulder
+				
+				
+				draw skip to _mp_start_of_barrier
+				call sub draw_singlefaced_barrier
+				}
+			}
+		
+		else
+			{
+				/* adv shoulder WITHOUT OR WALL barrier */
+				draw skip to _mp_start_of_barrier
+					mark _mp_start_of_adv_shoulder
+					draw text char = ^_mp_start_of_adv_shoulder^ "mp text"
+				set plot parameters "adv shoulder symb"
+				draw slope = _d_adv_shoulder_slope to "adv shoulder line"
+					mark _mp_start_of_barrier
+					mark _mp_end_of_adv_shoulder
+					draw text char = ^_mp_end_of_adv_shoulder^ "mp text"
+				
+				set plot parameters "bottom of adv shoulder symb"
+				draw skip to _mp_start_of_adv_shoulder
+				draw dx=0 dy=-abs(_d_adv_shoulder_depth)
+					mark _mp_bottom_of_start_of_adv_shoulder
+					draw text char = ^_mp_bottom_of_start_of_adv_shoulder^ "mp text"
+				
+				draw skip to _mp_end_of_adv_shoulder
+				draw dx=0 dy=-abs(_d_adv_shoulder_depth)
+					mark _mp_bottom_of_end_of_adv_shoulder
+					draw text char = ^_mp_bottom_of_end_of_adv_shoulder^ "mp text"
+				draw to _mp_bottom_of_start_of_adv_shoulder
+				
+				draw skip to _mp_end_of_adv_shoulder
+				mark _mp_start_point_of_indiv_tie_down
+				_s_barrier_present = ^no^
+				
+				}
+		
+		
+		}
+	end sub /*ends sub draw_adv_shoulder*/
+	
+	
+	sub draw_driveway
+		{
+		if (intersect dgn = "~Proposed Commercial Bituminous Entrance" within distance = _d_driveway_search_dist) or
+				(intersect dgn = "~Proposed Private Bituminous Entrance" within distance = _d_driveway_search_dist) then
+			{
+								
+			draw skip to _mp_current_eos
+			
+			if intersect dgn = "~Proposed Driveway Detail M" within distance = 4 then
+					{
+					draw skip to _mp_current_eos
+						mark x822 y822
+					draw skip rise:run = 0:1 to "~Proposed Driveway Detail M"
+					draw skip dx=-0.5 dy=0
+						mark _mp_det_m_flowline
+						mark x823 y823
+					
+					draw skip to _mp_current_eos					
+					set plot parameters "top of curb symb"
+					draw slope = -4 to x823
+					draw slope = 4 to "~Proposed Driveway Detail M"
+						mark _mp_back_of_curb					
+					set plot parameters "bottom of curb symb"
+					draw skip to _mp_current_eos
+					draw dx=0 dy=-abs(_d_first_drive_pavement_depth)
+					draw rise:run=0:1 to "~Proposed Driveway Detail M"
+					draw to _mp_back_of_curb
+					
+					mark _mp_current_eos
+					
+						
+									
+					}
+			else if intersect dgn = "~Proposed Driveway Detail L" within distance = 4 then
+					{
+					draw skip to _mp_current_eos
+						mark x822 y822
+					draw skip rise:run = 0:1 to "~Proposed Driveway Detail L"
+					draw skip dx=-0.5 dy=0
+						mark _mp_det_l_flowline
+						mark x823 y823
+					
+					draw skip to _mp_current_eos					
+					set plot parameters "top of curb symb"
+					draw slope = -4 to x823
+					draw slope = 4 to "~Proposed Driveway Detail L"
+						mark _mp_back_of_curb					
+					set plot parameters "bottom of curb symb"
+					draw skip to _mp_current_eos
+					draw dx=0 dy=-abs(_d_first_drive_pavement_depth)
+					draw rise:run=0:1 to "~Proposed Driveway Detail L"
+					draw to _mp_back_of_curb
+					
+					mark _mp_current_eos
+					}
+			
+			else
+				{
+				/* do nothing */
+				
+				}
+			
+			
+			set plot parameters "driveway topsurf symb"
+			draw skip to _mp_current_eos
+				mark x222 y222 /* for drawing slopes */
+			draw skip rise:run = 0:1 to "~Proposed Commercial Bituminous Entrance"
+			draw skip rise:run = 0:1 to "~Proposed Private Bituminous Entrance"
+			draw skip dx=0 dy=30
+			draw skip rise:run = -1:0 to existing ground
+				mark _mp_driveway_tie
+				draw text char = ^_mp_driveway_tie^ "mp text"
+				mark x333 y333 /* for drawing slopes */
+				mark _mp_ssl
+			draw to _mp_current_eos
+			
+			/* this draws in layers of drive */
+			
+			set plot parameters "bottom of top depth symb"
+			draw skip to _mp_driveway_tie
+			draw dx=0 dy=-abs(_d_first_drive_pavement_depth)
+				mark _mp_point1
+				mark _mp_outside_bot_drive
+			draw skip to _mp_current_eos
+				draw dx=0 dy=-abs(_d_first_drive_pavement_depth)
+				mark _mp_point2
+				mark _mp_inside_bot_drive
+				draw to _mp_point1
+				
+			set plot parameters "bottom of leveling depth symb"
+			draw dx=0 dy=-abs(_d_second_drive_pavement_depth)
+				mark _mp_point1
+				mark _mp_outside_bot_drive
+			draw skip to _mp_point2
+				draw dx=0 dy=-abs(_d_second_drive_pavement_depth)
+				mark _mp_point2
+				mark _mp_inside_bot_drive
+				draw to _mp_point1
+			
+			
+			
+			call sub label_drive_slopes
+			
+			}
+		
+			
+			else if (intersect dgn = "~Proposed Commercial Aggregate Entrance" within distance = _d_driveway_search_dist) or
+							(intersect dgn = "~Proposed Private Aggregate Entrance" within distance = _d_driveway_search_dist) then
+				{
+				draw skip to _mp_current_eos
+			
+			if intersect dgn = "~Proposed Driveway Detail M" within distance = 4 then
+					{
+					draw skip to _mp_current_eos
+						mark x822 y822
+					draw skip rise:run = 0:1 to "~Proposed Driveway Detail M"
+					draw skip dx=-0.5 dy=0
+						mark _mp_det_m_flowline
+						mark x823 y823
+					
+					draw skip to _mp_current_eos					
+					set plot parameters "top of curb symb"
+					draw slope = -4 to x823
+					draw slope = 4 to "~Proposed Driveway Detail M"
+						mark _mp_back_of_curb					
+					set plot parameters "bottom of curb symb"
+					draw skip to _mp_current_eos
+					draw dx=0 dy=-abs(_d_first_drive_pavement_depth)
+					draw rise:run=0:1 to "~Proposed Driveway Detail M"
+					draw to _mp_back_of_curb
+					
+					mark _mp_current_eos
+					
+						
+									
+					}
+			else if intersect dgn = "~Proposed Driveway Detail L" within distance = 4 then
+					{
+					draw skip to _mp_current_eos
+						mark x822 y822
+					draw skip rise:run = 0:1 to "~Proposed Driveway Detail L"
+					draw skip dx=-0.5 dy=0
+						mark _mp_det_l_flowline
+						mark x823 y823
+					
+					draw skip to _mp_current_eos					
+					set plot parameters "top of curb symb"
+					draw slope = -4 to x823
+					draw slope = 4 to "~Proposed Driveway Detail L"
+						mark _mp_back_of_curb					
+					set plot parameters "bottom of curb symb"
+					draw skip to _mp_current_eos
+					draw dx=0 dy=-abs(_d_first_drive_pavement_depth)
+					draw rise:run=0:1 to "~Proposed Driveway Detail L"
+					draw to _mp_back_of_curb
+					
+					mark _mp_current_eos
+					}
+			
+			else
+				{
+				/* do nothing */
+				
+				}
+							
+				set plot parameters "driveway topsurf symb"
+				draw skip to _mp_current_eos
+					mark x222 y222 /* for drawing slopes */
+				draw skip rise:run = 0:1 to "~Proposed Commercial Aggregate Entrance"
+				draw skip rise:run = 0:1 to "~Proposed Private Aggregate Entrance"
+				draw skip dx=0 dy=100
+				draw skip rise:run = -1:0 to existing ground
+					mark _mp_driveway_tie
+					draw text char = ^_mp_driveway_tie^ "mp text"
+					mark x333 y333 /* for drawing slopes */
+					mark _mp_ssl
+				draw to _mp_current_eos
+				
+				set plot parameters "agg base symb"
+				draw skip to _mp_current_eos
+				draw dx=0 dy=-abs(_d_agg_drive_depth)
+					mark _mp_point1
+					mark _mp_inside_bot_drive
+				draw skip to _mp_driveway_tie
+				draw dx=0 dy=-abs(_d_agg_drive_depth)
+					mark _mp_outside_bot_drive
+				draw to _mp_point1
+				
+				call sub label_drive_slopes
+				
+				}
+		
+			
+			else if (intersect dgn = "~Proposed Commercial Concrete Entrance" within distance = _d_driveway_search_dist) or
+					(intersect dgn = "~Proposed Private Concrete Entrance" within distance = _d_driveway_search_dist) then
+				{
+				draw skip to _mp_current_eos
+			
+			if intersect dgn = "~Proposed Driveway Detail M" within distance = 4 then
+					{
+					draw skip to _mp_current_eos
+						mark x822 y822
+					draw skip rise:run = 0:1 to "~Proposed Driveway Detail M"
+					draw skip dx=-0.5 dy=0
+						mark _mp_det_m_flowline
+						mark x823 y823
+					
+					draw skip to _mp_current_eos					
+					set plot parameters "top of curb symb"
+					draw slope = -4 to x823
+					draw slope = 4 to "~Proposed Driveway Detail M"
+						mark _mp_back_of_curb					
+					set plot parameters "bottom of curb symb"
+					draw skip to _mp_current_eos
+					draw dx=0 dy=-abs(_d_first_drive_pavement_depth)
+					draw rise:run=0:1 to "~Proposed Driveway Detail M"
+					draw to _mp_back_of_curb
+					
+					mark _mp_current_eos
+					
+						
+									
+					}
+			else if intersect dgn = "~Proposed Driveway Detail L" within distance = 4 then
+					{
+					draw skip to _mp_current_eos
+						mark x822 y822
+					draw skip rise:run = 0:1 to "~Proposed Driveway Detail L"
+					draw skip dx=-0.5 dy=0
+						mark _mp_det_l_flowline
+						mark x823 y823
+					
+					draw skip to _mp_current_eos					
+					set plot parameters "top of curb symb"
+					draw slope = -4 to x823
+					draw slope = 4 to "~Proposed Driveway Detail L"
+						mark _mp_back_of_curb					
+					set plot parameters "bottom of curb symb"
+					draw skip to _mp_current_eos
+					draw dx=0 dy=-abs(_d_first_drive_pavement_depth)
+					draw rise:run=0:1 to "~Proposed Driveway Detail L"
+					draw to _mp_back_of_curb
+					
+					mark _mp_current_eos
+					}
+			
+			else
+				{
+				/* do nothing */
+				
+				}
+						
+				set plot parameters "driveway topsurf symb"
+				draw skip to _mp_current_eos
+					mark x222 y222 /* for drawing slopes */
+				draw skip rise:run = 0:1 to "~Proposed Commercial Concrete Entrance"
+				draw skip rise:run = 0:1 to "~Proposed Private Concrete Entrance"
+				draw skip dx=0 dy=100
+				draw skip rise:run = -1:0 to existing ground
+					mark _mp_driveway_tie
+					draw text char = ^_mp_driveway_tie^ "mp text"
+					mark x333 y333 /* for drawing slopes */
+					mark _mp_ssl
+				draw to _mp_current_eos
+				
+				/* this draws in layers of drive */
+				
+				set plot parameters "bottom of top depth symb"
+				draw skip to _mp_driveway_tie
+				draw dx=0 dy=-abs(_d_first_drive_pavement_depth)
+					mark _mp_point1
+					mark _mp_inside_bot_drive
+				draw skip to _mp_current_eos
+					draw dx=0 dy=-abs(_d_first_drive_pavement_depth)
+					mark _mp_point2
+					mark _mp_outside_bot_drive
+					draw to _mp_point1
+					
+				
+			
+				
+				
+				call sub label_drive_slopes
+			
+				}
+		
+		
+			
+			else if (intersect dgn = "~Proposed Field Entrance" within distance = _d_driveway_search_dist) then
+				{
+				draw skip to _mp_current_eos
+			
+			if intersect dgn = "~Proposed Driveway Detail M" within distance = 4 then
+					{
+					draw skip to _mp_current_eos
+						mark x822 y822
+					draw skip rise:run = 0:1 to "~Proposed Driveway Detail M"
+					draw skip dx=-0.5 dy=0
+						mark _mp_det_m_flowline
+						mark x823 y823
+					
+					draw skip to _mp_current_eos					
+					set plot parameters "top of curb symb"
+					draw slope = -4 to x823
+					draw slope = 4 to "~Proposed Driveway Detail M"
+						mark _mp_back_of_curb					
+					set plot parameters "bottom of curb symb"
+					draw skip to _mp_current_eos
+					draw dx=0 dy=-abs(_d_first_drive_pavement_depth)
+					draw rise:run=0:1 to "~Proposed Driveway Detail M"
+					draw to _mp_back_of_curb
+					
+					mark _mp_current_eos
+					
+						
+									
+					}
+			else if intersect dgn = "~Proposed Driveway Detail L" within distance = 4 then
+					{
+					draw skip to _mp_current_eos
+						mark x822 y822
+					draw skip rise:run = 0:1 to "~Proposed Driveway Detail L"
+					draw skip dx=-0.5 dy=0
+						mark _mp_det_l_flowline
+						mark x823 y823
+					
+					draw skip to _mp_current_eos					
+					set plot parameters "top of curb symb"
+					draw slope = -4 to x823
+					draw slope = 4 to "~Proposed Driveway Detail L"
+						mark _mp_back_of_curb					
+					set plot parameters "bottom of curb symb"
+					draw skip to _mp_current_eos
+					draw dx=0 dy=-abs(_d_first_drive_pavement_depth)
+					draw rise:run=0:1 to "~Proposed Driveway Detail L"
+					draw to _mp_back_of_curb
+					
+					mark _mp_current_eos
+					}
+			
+			else
+				{
+				/* do nothing */
+				
+				}
+							
+				set plot parameters "seeding candidate"
+				draw skip to _mp_current_eos
+					mark x222 y222 /* for drawing slopes */
+				draw skip rise:run = 0:1 to "~Proposed Field Entrance"
+				draw skip dx=0 dy=100
+				draw skip rise:run = -1:0 to existing ground
+					mark _mp_driveway_tie
+					draw text char = ^_mp_driveway_tie^ "mp text"
+					mark x333 y333 /* for drawing slopes */
+					mark _mp_ssl
+				draw to _mp_current_eos
+				
+				set plot parameters "agg base symb"
+				draw skip to _mp_current_eos
+				draw dx=0 dy=-abs(_d_agg_drive_depth)
+					mark _mp_point1
+					mark _mp_inside_bot_drive
+				draw skip to _mp_driveway_tie
+				draw dx=0 dy=-abs(_d_agg_drive_depth)
+					mark _mp_outside_bot_drive
+				draw to _mp_point1
+				
+				call sub label_drive_slopes
+				
+				}
+		else if intersect dgn = "~Side Road Tie Down Line" within distance = _d_driveway_search_dist then
+				{
+				draw skip to _mp_current_eos
+			
+			if intersect dgn = "~Proposed Driveway Detail M" within distance = 4 then
+					{
+					draw skip to _mp_current_eos
+						mark x822 y822
+					draw skip rise:run = 0:1 to "~Proposed Driveway Detail M"
+					draw skip dx=-0.5 dy=0
+						mark _mp_det_m_flowline
+						mark x823 y823
+					
+					draw skip to _mp_current_eos					
+					set plot parameters "top of curb symb"
+					draw slope = -4 to x823
+					draw slope = 4 to "~Proposed Driveway Detail M"
+						mark _mp_back_of_curb					
+					set plot parameters "bottom of curb symb"
+					draw skip to _mp_current_eos
+					draw dx=0 dy=-abs(_d_first_drive_pavement_depth)
+					draw rise:run=0:1 to "~Proposed Driveway Detail M"
+					draw to _mp_back_of_curb
+					
+					mark _mp_current_eos
+					
+						
+									
+					}
+			else if intersect dgn = "~Proposed Driveway Detail L" within distance = 4 then
+					{
+					draw skip to _mp_current_eos
+						mark x822 y822
+					draw skip rise:run = 0:1 to "~Proposed Driveway Detail L"
+					draw skip dx=-0.5 dy=0
+						mark _mp_det_l_flowline
+						mark x823 y823
+					
+					draw skip to _mp_current_eos					
+					set plot parameters "top of curb symb"
+					draw slope = -4 to x823
+					draw slope = 4 to "~Proposed Driveway Detail L"
+						mark _mp_back_of_curb					
+					set plot parameters "bottom of curb symb"
+					draw skip to _mp_current_eos
+					draw dx=0 dy=-abs(_d_first_drive_pavement_depth)
+					draw rise:run=0:1 to "~Proposed Driveway Detail L"
+					draw to _mp_back_of_curb
+					
+					mark _mp_current_eos
+					}
+			
+			else
+				{
+				/* do nothing */
+				
+				}
+						
+				set plot parameters "driveway topsurf symb"
+				draw skip to _mp_current_eos
+					mark x222 y222 /* for drawing slopes */
+				draw skip rise:run = 0:1 to "~Side Road Tie Down Line"
+				draw skip rise:run = 0:1 to "~Side Road Tie Down Line"
+				draw skip dx=0 dy=30
+				draw skip rise:run = -1:0 to existing ground
+					mark _mp_sideroad_tie
+					draw text char = ^_mp_sideroad_tie^ "mp text"
+					mark x333 y333 /* for drawing slopes */
+					mark _mp_ssl
+				draw to _mp_current_eos
+				
+				/* this draws in layers of drive */
+				
+				set plot parameters "bottom of top depth symb"
+				draw skip to _mp_sideroad_tie
+				draw dx=0 dy=-abs(_d_first_drive_pavement_depth)
+					mark _mp_point1
+					mark _mp_inside_bot_drive
+				draw skip to _mp_current_eos
+					draw dx=0 dy=-abs(_d_first_drive_pavement_depth)
+					mark _mp_point2
+					mark _mp_outside_bot_drive
+					draw to _mp_point1
+					
+				
+				call sub label_drive_slopes
+			
+				}
+		
+		}
+	end sub /*ends sub draw_driveway*/
+	
+	
+	sub draw_singlefaced_barrier
+		{
+		
+		if (intersect dgn = "~Concrete Barrier Single Face Type C" within distance = 15) then
+			{
+			_s_intersect_SFB_type_C = ^yes^
+			}
+		else
+			{
+			_s_intersect_SFB_type_C = ^no^
+			}
+			
+		if (intersect dgn = "~Conc Barrier, Split, Type A" within distance = 15) then
+			{
+			_s_intersect_split_type_A = ^yes^
+			}
+		else
+			{
+			_s_intersect_split_type_A = ^no^
+			}
+		
+		_s_barrier_present = ^yes^
+		
+		
+		if _s_intersect_split_type_A = ^yes^ then
+			{
+			_d_barrier_height =2+(8/12)
+			draw skip to _mp_start_of_barrier
+	  		draw text char = ^_mp_start_of_barrier^ "mp text"
+		      set plot parameters "Concrete Barrier Surface Symbology"
+		      draw dx=0 dy=3/12
+		      draw dx=7/12 dy=10/12
+		      draw dx=2/12 dy=1+(7/12)
+		      draw dx=6/12 dy=0
+		     	mark _mp_outside_top_of_conc_barrier
+		        draw text char = ^_mp_outside_top_of_conc_barrier^ "mp text"
+						mark x601 y601
+			}
+		
+		else if _s_intersect_SFB_type_C = ^yes^ then
+			{
+			_d_barrier_height = 3+(4/12)
+			draw skip to _mp_start_of_barrier
+		  draw text char = ^_mp_start_of_barrier^ "mp text"
+		  set plot parameters "Concrete Barrier Surface Symbology"
+		  draw dx=0 dy=3/12
+		  draw dx=7/12 dy=10/12
+		  draw dx=3/12 dy=2+(3/12)
+		  draw dx=9/12 dy=0
+		    mark _mp_outside_top_of_conc_barrier
+	      draw text char = ^_mp_outside_top_of_conc_barrier^ "mp text"
+				mark x601 y601
+			}
+			
+		else
+			{
+			/* this is for other barriers ie SFB A and B */
+			_d_barrier_height = 3+(4/12)
+			draw skip to _mp_start_of_barrier
+			  draw text char = ^_mp_start_of_barrier^ "mp text"
+			  set plot parameters "Concrete Barrier Surface Symbology"
+			  draw dx=0 dy=3/12
+			  draw dx=7/12 dy=10/12
+			  draw dx=3/12 dy=2+(3/12)
+			  draw dx=9/12 dy=0
+			    mark _mp_outside_top_of_conc_barrier
+		      	   draw text char = ^_mp_outside_top_of_conc_barrier^ "mp text"
+				mark x601 y601
+			}
+		
+		
+   
+            	if _s_side_slope = ^left^ then
+            		{
+            		call sub label_left_outside_top_of_SFB
+            		}
+            	else if _s_side_slope = ^right^ then
+            		{
+            		call sub label_right_outside_top_of_SFB
+            		}
+		
+	        draw skip to _mp_outside_top_of_conc_barrier 
+	        
+	        /* this next part draws the back side and bottom of the various types of SF barriers */
+	        if _s_intersect_SFB_type_C = ^yes^ then
+		        {
+		        /* plot parameters stay the same as the FG */
+		        draw skip dx=8/12 dy=-_d_barrier_height-(3/12)	/* the 3" is for the bottom of the barrier */
+		        	mark x112 y112
+		        draw skip rise:run = _d_barrier_height+(3/12):-8/12 for dy=(1.5/12) 	/* this is the start of the seeded FG...assumed 1.5" above bottom of barrier */
+		        	mark x113 y113
+		        	
+		        draw skip to _mp_outside_top_of_conc_barrier
+		        draw to x113 y113
+		        
+		        set plot parameters "Concrete Barrier subSurface Symbology"
+		        draw to x112 y112
+		        draw skip to _mp_start_of_barrier
+			draw dx=0 dy=-3/12	/* this is the inside bottom of SFB */
+			draw to x112 y112
+				mark _mp_outside_bottom_of_conc_barrier
+				draw text char = ^_mp_outside_bottom_of_conc_barrier^ "mp text"
+						
+			/* now The Todd will start the seeding stuff for this type of barrier */
+			
+			set plot parameters "seeding candidate"
+			draw skip to x113 y113	/* is where the green space line should start */
+			draw slope = _d_SFB_type_c_green_space_slope for dx = _d_SFB_type_c_green_space_distance
+				mark _mp_start_point_of_indiv_tie_down
+			
+		        }
+		else if _s_intersect_split_type_A = ^yes^ then
+			{
+			set plot parameters "Concrete Barrier subSurface Symbology"
+			draw dx=0 dy=-(2 + (8/12)+(9/12))
+				mark x112 y112
+			draw skip to _mp_start_of_barrier
+			draw dx=0 dy=-(9/12)
+			draw to x112 y112
+				mark _mp_outside_bottom_of_conc_barrier
+				draw text char = ^_mp_outside_bottom_of_conc_barrier^ "mp text"
+				
+			draw skip to _mp_outside_top_of_conc_barrier
+			mark _mp_start_point_of_indiv_tie_down
+			}
+						
+		else
+			{
+			set plot parameters "Concrete Barrier subSurface Symbology"
+			draw dx=8/12 dy=-_d_barrier_height-(9/12)	/* the 3" is for the bottom of the barrier */
+				mark x112 y112
+			draw skip to _mp_start_of_barrier
+			draw dx=0 dy=-9/12	/* this is the inside bottom of SFB */
+			draw to x112 y112
+				mark _mp_outside_bottom_of_conc_barrier
+          		draw text char = ^_mp_outside_bottom_of_conc_barrier^ "mp text"
+           		
+           		draw skip to _mp_outside_top_of_conc_barrier
+           		set plot parameters "seeding candidate"
+           		draw dx=_d_SFB_type_A_B_ditch_width/2 dy=-abs(_d_SFB_type_A_B_Vditch_depth)
+           		draw dx=_d_SFB_type_A_B_ditch_width/2 dy=abs(_d_SFB_type_A_B_Vditch_depth)
+           			mark _mp_start_point_of_indiv_tie_down
+			}  
+           	
+           	
+            	draw skip to _mp_outside_bottom_of_conc_barrier
+            	
+            	if _s_side_slope = ^left^ then
+            		{
+            		call sub label_left_outside_bottom_of_SFB
+            		}
+            	else if _s_side_slope = ^right^ then
+            		{
+            		call sub label_right_outside_bottom_of_SFB
+            		}	
+            	else
+			{
+			/* shouldn't ever see this */
+			}
+         draw skip to _mp_outside_bottom_of_conc_barrier
+	       
+	            	
+	        
+	       draw skip to _mp_start_of_barrier
+	       
+	        if intersect dgn = "draw sidewalk between SFB" with distance = 15 then 
+		        {
+		      /*  call sub draw_sidewalk_between_SFB*/
+		        }
+	        else if intersect dgn = "draw slope paving between SFB" with distance = 15 then 
+		        {
+		        call sub draw_slope_paving_from_SFB 		
+		        }
+	        else
+		        {
+		        /*this should be the tie to ex ground OR tie to other roads */
+		        /* you don't need to do anything....the check for indiv tie sub will be called later from the shoulders criteria */
+		        draw skip to _mp_start_point_of_indiv_tie_down
+		        
+		        }
+	    
+			
+		
+		}
+	end sub /*ends sub draw_single_face_barrier*/
+	
+	
+	
+	
+	
+	/*this labels the slopes on drives*/
+	sub label_drive_slopes
+			{
+			draw skip to x333 y333			
+				/* draw slope text between x222 y222 and x333 y333 */
+				_d_angle = -atan((y222-y333)/abs(x222-x333))
+				if _s_side_slope = ^left^ then 
+					{
+					draw skip dx=-(x222-x333)/2 dy=((y222-y333)/2)+.1
+					}
+				else
+					{
+					draw skip dx=(x222-x333)/2 dy=((y222-y333)/2)+.1
+					}
+				
+				
+			
+			/* draw slope text between x222 y222 and x333 y333 */
+			_d_slope_text = abs(y333-y222)/abs(x333-x222)*100
+			draw text value = _d_slope_text
+				"paved shoulder slope text"
+			
+			}			/* ends label_drive_slopes*/
+	end sub	
+	
+	
+	
+	sub draw_tie_slope
+		{	
+		set plot parameters "seeding candidate"
+		
+		if _s_Curb_and_Gutter_Found = ^yes^ then
+			{
+			draw skip to _mp_top_back_of_curb
+				mark x1 y1
+			draw skip to _mp_start_point_of_indiv_tie_down
+			 	mark x2 y2
+			 	mark x500 y500
+			}
+		else
+			{
+			draw skip to _mp_start_point_of_indiv_tie_down
+			 mark x1 y1
+			 mark x2 y2
+			 mark x500 y500
+			}
+		
+		
+			   	
+		
+		/* check to see if have a independent ditch */
+		call sub check_for_ditch /* this returns _s_independent_ditch_here = ^yes^, _s_ditch_type = ^Independent ^, _mp_y_elev_of_ditch */
+					 /* _s_dependent_ditch_here = ^yes^, _s_ditch_type = ^Dependent ^ */
+					 
+		
+		
+		if _s_independent_ditch_here = ^yes^ or _s_dependent_ditch_here = ^yes^ then
+			{
+			
+			draw skip to _mp_y_elev_of_ditch
+				mark x999 y999
+			draw skip to _mp_start_point_of_indiv_tie_down
+			draw rise:run = -1:_d_ind_tie_down_front_slope to y999
+				mark x3 y3
+				mark x510 y510
+			call sub label_seeding_slope
+			
+			draw skip to x2 y2
+			
+			/* now check to see if you intersect a shared ditch line */
+			if intersect dgn = "~shared ditch line in dgn" within distance = _d_shared_ditch_search_distance then
+				{
+				_s_shared_ditch = ^yes^
+				call sub find_closest_chain			/* this returns the following variable: _s_closest_chain */
+				call sub was_closest_chain_already_processed	/* this returns the following variable: _s_closest_chain_already_processed */
+				if _s_closest_chain_already_processed = ^yes^ then
+					{
+					/* connect this ditch bottom to the other shared ditch bottom */
+					call sub closest_chain_side_slope		/* this returns the following variable: _s_closest_chain_side_slope */
+					draw skip to x3 y3
+					call sub draw_to_tie_road_together_point
+						
+						
+					/* this part draws the symbology for determining the center of the ditch location */
+					draw skip to x3 y3
+					draw skip dx=abs(x3-x4)/2 dy=0	/* x4 was marked in the draw_to_tie_road_together_point */
+						mark _mp_center_of_ditch
+						
+					draw skip dx=0 dy=50
+					draw skip rise:run = -1:0 to existing ground
+						mark _mp_ditch_cl_at_ex_gnd
+					_s_ewks_chain = cluster baseline
+					call sub draw_ewks_limits
+					
+					_s_ewks_chain = _s_closest_chain
+						draw skip dx=0 dy=5	/* offsets the two lines so that you can see there are two ewks limits here */
+						call sub draw_ewks_limits
+						
+					set plot parameters "limits of ditch lines"
+					draw to _mp_center_of_ditch
+					draw skip to xpgl ypgl
+					draw skip dx=0 dy=50
+					draw skip rise:run = -1:0 to existing ground
+					draw to _mp_center_of_ditch
+					set plot parameters "seeding candidate"
+					}
+				else
+					{
+					/* just mark this point, don't draw anything..the other road will connect to this point after being processed*/
+					draw skip to x3 y3
+						/*mark x2 y2*/	/* this is used in the below sub....so we need to mark it here...can't do this because need x2 and x3 for intersection later on */
+					call sub mark_tie_road_together_point
+					_s_tie_ditch_without_a_profile = ^no^
+					}
+				
+				
+				
+				}
+			
+			else	/* finish the ditch */
+				{
+				draw skip to x3 y3
+				draw dx=_d_ditch_width dy=0
+					mark x4 y4
+					mark x500 y500
+				
+				/* this part draws the symbology for determining the center of the ditch location */
+				draw skip to x3 y3
+				draw skip dx=abs(x3-x4)/2 dy=0
+					mark _mp_center_of_ditch
+				draw skip dx=0 dy=50
+				draw skip rise:run = -1:0 to existing ground
+				set plot parameters "limits of ditch lines"
+				draw to _mp_center_of_ditch
+				draw skip to xpgl ypgl
+				draw skip dx=0 dy=50
+				draw skip rise:run = -1:0 to existing ground
+				draw to _mp_center_of_ditch
+				set plot parameters "seeding candidate"
+				
+				draw skip to x4 y4
+				
+				if intersect dgn = "Draw_Berm" then
+					{
+					draw skip to x4 y4
+					draw rise:run = 1:2 for dy=2
+						mark x5 y5
+					draw dx=2 dy=0
+					draw rise:run = -1:2 to exist ground
+					_s_ewks_chain = cluster baseline
+					call sub draw_ewks_limits
+					set plot parameters "seeding candidate"
+					draw skip to x5 y5
+					}
+					
+				else if intersect dgn = "~Forced Slope Tie" within distance = _d_forced_tie_slope_search_distance then
+					{
+					/* vary the back slope to tie to the forced tie line */
+					draw skip rise:run = 0:1 to "~Forced Slope Tie"
+					draw skip dx=0 dy=100
+					draw skip rise:run = -1:0 to existing ground
+						mark x5 y5
+					
+					draw to x4 y4
+					draw skip to x5 y5
+					
+					_s_ewks_chain = cluster baseline
+					call sub draw_ewks_limits
+					set plot parameters "seeding candidate"
+					draw skip to x5 y5
+					}
+				
+				else
+					{
+					/* use the backslope already defined for tieing to existing */
+					draw rise:run = 1:_d_ind_tie_down_back_slope to existing ground
+						mark x5 y5
+					_s_ewks_chain = cluster baseline
+					call sub draw_ewks_limits
+					set plot parameters "seeding candidate"
+					draw skip to x5 y5
+					}
+				mark x510 y510
+				call sub label_seeding_slope
+				
+				draw skip to x5 y5
+				
+				}
+			
+			
+			}
+		
+		
+		
+		
+		/* now check to see if you intersect a shared ditch line but do not have a ditch profile for this shape cluster */
+		else if intersect dgn = "~shared ditch line in dgn" within distance = _d_shared_ditch_search_distance then
+			{
+			call sub find_closest_chain			/* this returns the following variable: _s_closest_chain */
+			call sub was_closest_chain_already_processed	/* this returns the following variable: _s_closest_chain_already_processed */
+			if _s_closest_chain_already_processed = ^yes^ then
+				{
+				call sub closest_chain_side_slope		/* this returns the following variable: _s_closest_chain_side_slope */
+				if _s_tie_ditch_without_a_profile = ^yes^ then
+					{
+					/* this creates a v-ditch with the intersection of the front slopes */
+					call sub draw_skip_to_hinge_and_fs_line_point		/* this returns marked points 535 hinge point and 536 = bottom of fs line*/
+					
+					draw skip to x2 y2	/* hinge point for cluster you are processing */
+					draw rise:run = -1:_d_ind_tie_down_front_slope to intersection x535 y535 x536 y536
+						mark x3 y3
+						mark x510 y510
+					call sub label_seeding_slope
+					
+					draw skip to x3 y3
+						mark _mp_shared_v_ditch
+						draw text char = ^_mp_shared_v_ditch^ "mp text"
+					
+					draw to x535 y535
+					
+					/* now create a text file for the shared v-ditch */
+					
+					
+					_d_sta = CHAIN _s_chain STATION
+					_s_sta = cvt_d_sta(_d_sta)
+					_d_region = CHAIN _s_chain REGION
+					_d_elevation = y3	/* this is the shared ditch y-elevation */	
+					_s_ascii_file = ^c:\temp\shared_ditch_profile.txt^
+					
+					ascii append file = _s_ascii_file
+					ascii write file = _s_ascii_file	
+					format = ^%-10s,%-10s,%10.4f,%10.4f\n^
+					var = _s_chain, _s_sta, _d_region, _d_elevation
+					ASCII CLOSE FILE = _s_ascii_file
+					
+					draw skip to x3 y3
+						mark _mp_center_of_ditch
+						
+					draw skip dx=0 dy=50
+					draw skip rise:run = -1:0 to existing ground
+						mark  _mp_ditch_cl_at_ex_gnd
+					
+							
+					}
+				else
+					{
+					/* this assumes that the other road has already been processed and had a ditch profile */
+					/* connect this ditch bottom to the other shared ditch bottom */
+					
+					call sub draw_skip_to_tie_road_together_point	/* this draw skips to the closest chain tie point...ie bottom of ditch for y value*/
+						mark x999 y999		/* will use this later */
+						mark x4 y4
+						
+					draw skip to x2 y2	/* hinge point for cluster you are processing */
+					draw rise:run = -1:_d_ind_tie_down_front_slope to y999
+						mark x3 y3
+						mark x510 y510
+					draw to x999 y999
+					
+					call sub label_seeding_slope
+					
+					draw skip to x3 y3
+					draw skip dx=abs(x3-x999)/2 dy=0
+						mark _mp_center_of_ditch
+						
+					draw skip dx=0 dy=50
+					draw skip rise:run = -1:0 to existing ground
+						mark _mp_ditch_cl_at_ex_gnd
+					}
+				
+				
+				
+				_s_ewks_chain = cluster baseline
+				call sub draw_ewks_limits
+				
+				_s_ewks_chain = _s_closest_chain
+					draw skip dx=0 dy=5	/* offsets the two lines so that you can see there are two ewks limits here */
+					call sub draw_ewks_limits
+					
+				set plot parameters "limits of ditch lines"
+				draw skip to _mp_ditch_cl_at_ex_gnd
+				draw to _mp_center_of_ditch
+				draw skip to xpgl ypgl
+				draw skip dx=0 dy=50
+				draw skip rise:run = -1:0 to existing ground
+				draw to _mp_center_of_ditch
+				set plot parameters "seeding candidate"
+				}
+			else
+				{
+				/* there is an issue...intersected a shared ditch tie line but did not have a ditch on this shape cluster and the other one was not processed*/
+				/* OR you want a shared V-ditch without a ditch profile */
+				draw skip to _mp_start_point_of_indiv_tie_down
+					mark x533 y533
+				draw skip rise:run = -1:_d_ind_tie_down_front_slope for dx=10
+					mark x534 y534
+					mark x3 y3
+					mark x510 y510
+				call sub mark_hinge_and_fs_line_point		/* this marks points 533 and 534 with the */
+				_s_tie_ditch_without_a_profile = ^yes^
+				}
+			
+			
+			
+			}
+			
+			
+			
+			
+		else if intersect dgn = "~Forced Slope Tie" within distance = _d_forced_tie_slope_search_distance then
+			{
+			draw skip to x2 y2
+			
+			draw skip rise:run = 0:1 to "~Forced Slope Tie"
+			draw skip dx=0 dy=100
+			draw skip rise:run = -1:0 to existing ground
+				mark x3 y3
+				mark x510 y510
+				call sub label_seeding_slope
+				
+			draw skip to x3 y3
+			draw to x2 y2
+			draw skip to x3 y3
+			
+			_s_ewks_chain = cluster baseline
+			call sub draw_ewks_limits
+			set plot parameters "seeding candidate"
+			draw skip to x3 y3
+			
+			}
+			
+		else if intersect dgn = "tie roads together" within distance = _d_tie_roads_together_search_distance then
+			{
+			_s_tie_roads_together = ^yes^
+			}
+			
+			
+		else		/* this is a typical front or back slope */
+			{
+			
+			if _s_Curb_and_Gutter_Found = ^yes^ then
+				{
+				draw skip to _mp_start_point_of_indiv_tie_down
+					mark x100 y100
+				draw skip to _mp_top_back_of_curb
+					mark x101 y101
+				_d_green_distance_to_subtract_from_min_tie_distance = abs(x100-x101)
+				}
+			else
+				{
+				_d_green_distance_to_subtract_from_min_tie_distance = 0
+				}
+				
+				draw skip to x2 y2
+			
+			/* assume in a fill section */
+			draw skip rise:run = -1:_d_ind_tie_down_front_slope to existing ground
+				mark x3 y3
+			
+			if abs(x3-x2)< tolerance and (y3-y2)<tolerance then
+				{
+				/* fs didn't go anywhere, try a bs */
+				draw skip to x2 y2
+				draw skip rise:run = 1:_d_ind_tie_down_back_slope to existing ground
+					mark x3 y3
+					
+				if abs(x3-x2)<(_d_min_tie_distance-_d_green_distance_to_subtract_from_min_tie_distance) then
+					{
+					/* bs tied to existing ground but within the _d_min_tie_distance...flatten bs */
+					draw skip to x2 y2
+						mark x500 y500
+					draw skip trace out off=0 for dx=(_d_min_tie_distance-_d_green_distance_to_subtract_from_min_tie_distance)
+						mark x3 y3
+						mark x510 y510
+						call sub label_seeding_slope
+					draw skip to x3 y3
+					draw to x2 y2
+				
+					draw skip to x3 y3									
+					_s_ewks_chain = cluster baseline
+					call sub draw_ewks_limits
+					set plot parameters "seeding candidate"
+					draw skip to x3 y3
+					
+					}
+				else
+					{
+					/* bs tied to existing and was beyond _d_min_tie_distance */
+					draw skip to x2 y2
+						mark x500 y500
+					draw to x3 y3
+					mark x510 y510
+					call sub label_seeding_slope
+					
+					
+					draw skip to x3 y3
+					_s_ewks_chain = cluster baseline
+					call sub draw_ewks_limits
+					set plot parameters "seeding candidate"
+					draw skip to x3 y3
+					}
+				}
+				
+			else
+				{
+				/* check to see if fs tied far enough out */
+				if abs(x3-x2)<(_d_min_tie_distance-_d_green_distance_to_subtract_from_min_tie_distance) then
+					{
+					/* fs tied to existing ground but within the _d_min_tie_distance...flatten fs */
+					draw skip to x2 y2
+						mark x500 y500
+					draw skip trace out off=0 for dx=(_d_min_tie_distance-_d_green_distance_to_subtract_from_min_tie_distance)
+						mark x3 y3
+						mark x510 y510
+					call sub label_seeding_slope
+					
+					draw skip to x3 y3
+					draw to x2 y2
+					draw skip to x3 y3
+					
+					_s_ewks_chain = cluster baseline
+					call sub draw_ewks_limits
+					set plot parameters "seeding candidate"
+					draw skip to x3 y3
+					}
+				else
+					{
+					/* fs tied to existing and was beyond _d_min_tie_distance */
+					draw skip to x2 y2
+						mark x500 y500
+						
+					draw to x3 y3
+						mark x510 y510
+					call sub label_seeding_slope
+					
+					draw skip to x3 y3
+					
+					_s_ewks_chain = cluster baseline
+					call sub draw_ewks_limits
+					set plot parameters "seeding candidate"
+					draw skip to x3 y3
+					}
+				if px1<px2 then
+					{
+					mark _mp_left_fs_tie_point
+					draw text char = ^_mp_left_fs_tie_point^ "mp text"
+					}
+				else if px1>px2 then
+					{
+					mark _mp_right_fs_tie_point
+					draw text char = ^_mp_right_fs_tie_point^ "mp text"
+					}
+				}
+			}
+		
+		
+		
+		/* if found a hinged shoulder, then draw the vertical line in to the FS */
+		if _s_agg_shldr_hinge_point = ^yes^ then
+			{
+			set plot parameters "bottom of agg shld symb"
+			if _s_side_slope = ^left^ then		/*ssl */
+				{
+				draw skip to _mp_left_outside_bottom_agg_shldr
+				}
+				
+			else if _s_side_slope = ^right^ then	/*ssr*/
+				{
+				draw skip to _mp_right_outside_bottom_agg_shldr
+				}		
+			else
+				{
+				/* shouldn't ever see this */
+				}
+			mark x444 y444
+			
+			draw skip dx=0 dy=10
+			draw skip rise:run = -1:0 to intersection x2 y2 x3 y3
+			draw to x444 y444
+				mark _mp_outside_agg_shldr
+				draw text char = ^_mp_outside_agg_shldr^ "mp text"
+				
+			/* you are now at the outside of the agg shoulder beyond the hinge */
+			if _s_side_slope = ^left^ then		/*ssl */
+				{
+				mark _mp_left_outside_agg_shldr
+				draw text char = ^_mp_left_outside_agg_shldr^ "mp text"
+				}
+				
+			else if _s_side_slope = ^right^ then	/*ssr*/
+				{
+				mark _mp_right_outside_agg_shldr
+				draw text char = ^_mp_right_outside_agg_shldr^ "mp text"
+				}		
+			else
+				{
+				/* shouldn't ever see this */
+				}
+			
+			/* set plot parameters back to seeding just in case */
+			set plot parameters "seeding candidate"
+			}
+		
+		else
+			{
+			/* don't do anything */
+			
+			}
+		}
+		end sub 	/* ends draw_tie_slope subroutine */
+	
+	
+	
+	
+	
+	
+	
+	sub check_for_gore
+	{
+	/* start at the current edge of pavement/traveled way*/
+	
+	if _s_side_slope = ^left^ then		/*ssl */
+		{
+		draw skip to _mp_current_leop
+		}
+		
+	else if _s_side_slope = ^right^ then	/*ssr*/
+		{
+		draw skip to _mp_current_reop
+		}		
+	else
+		{
+		/* shouldn't ever see this */
+		}
+
+
+	draw skip dx=0.5 dy=0			/* this point is slightly beyond the proposed eom for this alignment */
+		mark _mp_check_for_gore_start_point
+			
+
+	/* now check to see if you encounter another edge of pavement line within the gore search distance as specified in the input variables */
+	if intersect dgn = "~Proposed EOP in dgn" within distance = _d_gore_search_distance then
+		{
+		draw skip to _mp_check_for_gore_start_point
+			mark x996 y996
+		draw skip rise:run = 0:1 to "~Proposed EOP in dgn"
+			mark x3 y3
+			
+		_d_gore_CurbSearchDistance = abs(x996-x3)		/* shouldn't find curb between the prop eom and the other side of the gore if it exists */			
+		
+		/* we still could have a different treatment other than a gore....ie narrow median, or curb nose */
+		_s_intersect_gore = ^maybe_I_will_check^
+		
+		
+		draw skip to _mp_check_for_gore_start_point
+		
+		
+	        if ((intersect dgn = "~Proposed Paved Shoulder in DGN" within distance = _d_gore_CurbSearchDistance) or
+	           (intersect dgn = "~Curb and Gutter B1" within distance = _d_gore_CurbSearchDistance) or
+	           (intersect dgn = "~Curb and Gutter B2" within distance = _d_gore_CurbSearchDistance) or
+	           (intersect dgn = "~Curb and Gutter B3" within distance = _d_gore_CurbSearchDistance) or
+	           (intersect dgn = "~Curb and Gutter C1" within distance = _d_gore_CurbSearchDistance) or
+	           (intersect dgn = "~Curb and Gutter C2" within distance = _d_gore_CurbSearchDistance) or
+	           (intersect dgn = "~Curb and Gutter C3" within distance = _d_gore_CurbSearchDistance) or
+	           (intersect dgn = "~Curb and Gutter C4" within distance = _d_gore_CurbSearchDistance) or
+	           (intersect dgn = "~Curb and Gutter C5" within distance = _d_gore_CurbSearchDistance) or
+	           (intersect dgn = "~Curb and Gutter C6" within distance = _d_gore_CurbSearchDistance) or
+	           (intersect dgn = "~Curb and Gutter D1" within distance = _d_gore_CurbSearchDistance) or
+	           (intersect dgn = "~Curb and Gutter D2" within distance = _d_gore_CurbSearchDistance) or
+	           (intersect dgn = "~Curb and Gutter D3" within distance = _d_gore_CurbSearchDistance) or
+	           (intersect dgn = "~Curb E1" within distance = _d_gore_CurbSearchDistance) or
+	           (intersect dgn = "~Curb E2" within distance = _d_gore_CurbSearchDistance) or
+	           (intersect dgn = "~Curb E4" within distance = _d_gore_CurbSearchDistance) or
+	           (intersect dgn = "~Curb and Gutter F1" within distance = _d_gore_CurbSearchDistance) or
+	           (intersect dgn = "~Curb and Gutter F2" within distance = _d_gore_CurbSearchDistance) or
+	           (intersect dgn = "~Curb and Gutter F3" within distance = _d_gore_CurbSearchDistance) or
+	           (intersect dgn = "~Curb and Gutter F4" within distance = _d_gore_CurbSearchDistance) or
+	           (intersect dgn = "~Curb and Gutter F5" within distance = _d_gore_CurbSearchDistance) or
+	           (intersect dgn = "~Curb and Gutter F6" within distance = _d_gore_CurbSearchDistance) or
+	           (intersect dgn = "~Curb and Gutter G1" within distance = _d_gore_CurbSearchDistance) or
+	           (intersect dgn = "~Curb and Gutter G2" within distance = _d_gore_CurbSearchDistance) or
+	           (intersect dgn = "~HMA Curb" within distance = _d_gore_CurbSearchDistance) or
+	           (intersect dgn = "~Valley Gutter" within distance = _d_gore_CurbSearchDistance)) then
+			{
+			_s_intersect_gore = ^no^
+			
+			}
+			
+		else
+			{
+			_s_intersect_gore = ^yes^
+			
+			
+			}
+			
+		}
+		
+	else
+		{
+		_s_intersect_gore = ^no^
+		/* don't do anything */
+		}
+	
+	
+
+	
+	}		
+	end sub	/* this ends the check_for_gore */
+	
+	
+	
+	
+	
+	
+	/* this is necessary for determining the shoulder slopes */
+	sub get_shape_file_names	/* this subroutine determines which shape input file to use for each chain*/
+	{
+		_s_chain = cluster baseline
+		
+		
+		_s_chain_1 << "chain 1"
+		_s_chain_2 << "chain 2"
+		_s_chain_3 << "chain 3"
+		_s_chain_4 << "chain 4"
+		_s_chain_5 << "chain 5"
+		_s_chain_6 << "chain 6"
+		_s_chain_7 << "chain 7"
+		_s_chain_8 << "chain 8"
+		_s_chain_9 << "chain 9"
+		_s_chain_10 << "chain 10"
+		_s_chain_11 << "chain 11"
+		_s_chain_12 << "chain 12"
+		_s_chain_13 << "chain 13"
+		_s_chain_14 << "chain 14"
+		_s_chain_15 << "chain 15"
+		_s_chain_16 << "chain 16"
+		_s_chain_17 << "chain 17"
+		_s_chain_18 << "chain 18"
+		_s_chain_19 << "chain 19"
+		_s_chain_20 << "chain 20"
+		_s_chain_21 << "chain 21"
+		_s_chain_22 << "chain 22"
+		_s_chain_23 << "chain 23"
+		_s_chain_24 << "chain 24"
+		
+		
+				
+		
+		if _s_chain = _s_chain_1 then
+			{
+			_s_ShapesFile << "chain 1 shape files"
+			}
+			
+		else if _s_chain = _s_chain_2 then
+			{
+			_s_ShapesFile << "chain 2 shape files"
+			}
+		
+		else if _s_chain = _s_chain_3 then
+			{
+			_s_ShapesFile << "chain 3 shape files"
+			}
+		
+		else if _s_chain = _s_chain_4 then
+			{
+			_s_ShapesFile << "chain 4 shape files"
+			}
+		
+		else if _s_chain = _s_chain_5 then
+			{
+			_s_ShapesFile << "chain 5 shape files"
+			}
+		
+		else if _s_chain = _s_chain_6 then
+			{
+			_s_ShapesFile << "chain 6 shape files"
+			}
+			
+		else if _s_chain = _s_chain_7 then
+			{
+			_s_ShapesFile << "chain 7 shape files"
+			}
+			
+		else if _s_chain = _s_chain_8 then
+			{
+			_s_ShapesFile << "chain 8 shape files"
+			}
+		
+		else if _s_chain = _s_chain_9 then
+			{
+			_s_ShapesFile << "chain 9 shape files"
+			}
+		
+		else if _s_chain = _s_chain_10 then
+			{
+			_s_ShapesFile << "chain 10 shape files"
+			}
+		
+		else if _s_chain = _s_chain_11 then
+			{
+			_s_ShapesFile << "chain 11 shape files"
+			}
+		
+		else if _s_chain = _s_chain_12 then
+			{
+			_s_ShapesFile << "chain 12 shape files"
+			}
+		
+		else if _s_chain = _s_chain_13 then
+			{
+			_s_ShapesFile << "chain 13 shape files"
+			}
+		
+		else if _s_chain = _s_chain_14 then
+			{
+			_s_ShapesFile << "chain 14 shape files"
+			}
+		
+		else if _s_chain = _s_chain_15 then
+			{
+			_s_ShapesFile << "chain 15 shape files"
+			}
+		
+		else if _s_chain = _s_chain_16 then
+			{
+			_s_ShapesFile << "chain 16 shape files"
+			}
+		
+		else if _s_chain = _s_chain_17 then
+			{
+			_s_ShapesFile << "chain 17 shape files"
+			}
+		
+		else if _s_chain = _s_chain_18 then
+			{
+			_s_ShapesFile << "chain 18 shape files"
+			}
+		
+		else if _s_chain = _s_chain_19 then
+			{
+			_s_ShapesFile << "chain 19 shape files"
+			}
+		
+		else if _s_chain = _s_chain_20 then
+			{
+			_s_ShapesFile << "chain 20 shape files"
+			}
+		
+		else if _s_chain = _s_chain_21 then
+			{
+			_s_ShapesFile << "chain 21 shape files"
+			}
+		else if _s_chain = _s_chain_22 then
+			{
+			_s_ShapesFile << "chain 22 shape files"
+			}
+		else if _s_chain = _s_chain_23 then
+			{
+			_s_ShapesFile << "chain 23 shape files"
+			}
+		else if _s_chain = _s_chain_24 then
+			{
+			_s_ShapesFile << "chain 24 shape files"
+			}
+		else
+			{
+			_s_ShapesFile = "could not find chain, check your input file"
+			/* shouldn't see this */
+			}
+		
+	}
+	end sub	/* ends sub get_shape_file_names */
+	
+	
+	
+/* repalced this sub with the one that was developed from indy to account for median chains*/
+sub find_closest_chain
+		{
+		/* the _s_closest_chain is the variable with the geopak chain name that is returned */
+		/* this is the closest chain used in the input file ie _s_chain_1 - _s_chain_26 or more */
+		/* that is found starting at the point that this sub is called and going out in the direction */
+		/* of the side slope call out until it finds it */
+		/* this subroutine should be called whenever you need to connect one road's points to another */
+		/* you will need to determine if the _s_closest_chain has already been processed.  IF not, then */
+		/* don't do anything and wait until it is processed at which point it should determine the closest */
+		/* chain going in the opposite direction */
+				
+		_s_chain = cluster baseline		/* this is the chain that is being processed currently*/
+		_s_profile = cluster profile		/* this is the profile for the chain that is being processed */
+		_s_cluster_tie = cluster tie
+		_s_cluster_offset = cluster offset
+		
+		draw skip to xpgl ypgl
+		mark _mp_starting_point_of_search
+			mark x998 y998
+		_d_chain_counter = 1		/* this used in the while loop below */
+		_d_min_dist_for_chain_offset = 10000	/* this is a variable that is reset once a chain has been intersected...needs to be big as a default so chains will be closer than this distance */
+		
+		
+		/* do NOT change the chain descriptions below, they need to be _s_chain_x*/
+		
+		while _d_chain_counter <= _d_number_of_chains_used	
+			{
+			_s_chain_counter_string = cvt_d_s0(_d_chain_counter)
+			_s_check_chain_string = ^_s_chain_^ + _s_chain_counter_string
+			
+			if _s_check_chain_string = ^_s_chain_1^ then
+				{
+				_s_check_chain << "chain 1"
+				_s_check_profile << "profile 1"
+				}
+			else if _s_check_chain_string = ^_s_chain_2^ then
+				{
+				_s_check_chain << "chain 2"
+				_s_check_profile << "profile 2"
+				}
+			else if _s_check_chain_string = ^_s_chain_3^ then
+				{
+				_s_check_chain << "chain 3"
+				_s_check_profile << "profile 3"
+				}
+			else if _s_check_chain_string = ^_s_chain_4^ then
+				{
+				_s_check_chain << "chain 4"
+				_s_check_profile << "profile 4"
+				}
+			else if _s_check_chain_string = ^_s_chain_5^ then
+				{
+				_s_check_chain << "chain 5"
+				_s_check_profile << "profile 5"
+				}
+			else if _s_check_chain_string = ^_s_chain_6^ then
+				{
+				_s_check_chain << "chain 6"
+				_s_check_profile << "profile 6"
+				}
+			else if _s_check_chain_string = ^_s_chain_7^ then
+				{
+				_s_check_chain << "chain 7"
+				_s_check_profile << "profile 7"
+				}
+			else if _s_check_chain_string = ^_s_chain_8^ then
+				{
+				_s_check_chain << "chain 8"
+				_s_check_profile << "profile 8"
+				}
+			else if _s_check_chain_string = ^_s_chain_9^ then
+				{
+				_s_check_chain << "chain 9"
+				_s_check_profile << "profile 9"
+				}
+			else if _s_check_chain_string = ^_s_chain_10^ then
+				{
+				_s_check_chain << "chain 10"
+				_s_check_profile << "profile 10"
+				}
+			else if _s_check_chain_string = ^_s_chain_11^ then
+				{
+				_s_check_chain << "chain 11"
+				_s_check_profile << "profile 11"
+				}
+			else if _s_check_chain_string = ^_s_chain_12^ then
+				{
+				_s_check_chain << "chain 12"
+				_s_check_profile << "profile 12"
+				}
+			else if _s_check_chain_string = ^_s_chain_13^ then
+				{
+				_s_check_chain << "chain 13"
+				_s_check_profile << "profile 13"
+				}
+			else if _s_check_chain_string = ^_s_chain_14^ then
+				{
+				_s_check_chain << "chain 14"
+				_s_check_profile << "profile 14"
+				}
+			else if _s_check_chain_string = ^_s_chain_15^ then
+				{
+				_s_check_chain << "chain 15"
+				_s_check_profile << "profile 15"
+				}
+			else if _s_check_chain_string = ^_s_chain_16^ then
+				{
+				_s_check_chain << "chain 16"
+				_s_check_profile << "profile 16"
+				}
+			else if _s_check_chain_string = ^_s_chain_17^ then
+				{
+				_s_check_chain << "chain 17"
+				_s_check_profile << "profile 17"
+				}
+			else if _s_check_chain_string = ^_s_chain_18^ then
+				{
+				_s_check_chain << "chain 18"
+				_s_check_profile << "profile 18"
+				}
+			else if _s_check_chain_string = ^_s_chain_19^ then
+				{
+				_s_check_chain << "chain 19"
+				_s_check_profile << "profile 19"
+				}
+			else if _s_check_chain_string = ^_s_chain_20^ then
+				{
+				_s_check_chain << "chain 20"
+				_s_check_profile << "profile 20"
+				}
+			else if _s_check_chain_string = ^_s_chain_21^ then
+				{
+				_s_check_chain << "chain 21"
+				_s_check_profile << "profile 21"
+				}
+			else if _s_check_chain_string = ^_s_chain_22^ then
+				{
+				_s_check_chain << "chain 22"
+				_s_check_profile << "profile 22"
+				}
+
+				
+				
+				
+			if _s_chain = _s_check_chain then
+				{
+				/* the chain name matches, but the profile names MAY not...ie running a chain down the median with 2 clusters on either side */
+				if _s_profile = _s_check_profile then
+					{
+					/* both the chain and profile matches what you are currently running....don't use this....go on to the next chain */
+					draw skip to xpgl ypgl
+					_d_900_series = 950+_d_chain_counter
+						mark x[_d_900_series] y[_d_900_series]
+					_d_chain_counter = _d_chain_counter + 1
+					continue			/*goes back to the start of the while loop */
+					}
+				else
+					{
+					/* chain name matched, but profile did NOT....running a median alignment....likely found closest chain, but need to verify */
+					
+					draw skip to _mp_starting_point_of_search
+					mark x998 y998
+					_d_chain_counter = _d_chain_counter + 1	/* need to increase the counter here just in case it doesn't hit the chain in the next statment. */
+										/* otherwise you will be in an infinite loop */
+										
+					draw skip rise:run = 0:1 to chain _s_check_chain			/* make this a draw skip */
+						mark x999 y999
+						
+					/* now check to see the difference between these two points */
+					if abs(x999 - x998)<= tolerance then
+						{
+						/* didn't intersect the chain */
+						continue			/*goes back to the start of the while loop */
+						}
+						
+					else
+						{
+						/* intersected the chain */
+						if abs(x999 - x998)<_d_min_dist_for_chain_offset then
+							{
+							/* we found a chain that is closer than the original distance or previous chain */
+							_s_closest_chain = _s_check_chain
+							_s_closest_profile = _s_check_profile
+							_d_min_dist_for_chain_offset = abs(x999 - x998)
+							_s_closest_chain_already_found = ^yes^
+
+							
+							continue
+							}
+						else
+							{
+							/* found a chain, but is not the closest chain */
+							/* don't do anything */
+							continue			/*goes back to the start of the while loop */
+							}
+						}
+					}		/* closes the else portion of if _s_profile = _s_check_profile then */
+				}			/* closes the if _s_chain = _s_check_chain then */
+					
+					
+					
+					
+					
+				else
+					{
+					/* else portion of the if _s_chain = _s_check_chain then */
+					/* the check chain does NOT match the cluster baseline....but could be the closest chain */
+					
+					draw skip to _mp_starting_point_of_search
+					mark x998 y998
+					_d_chain_counter = _d_chain_counter + 1	/* need to increase the counter here just in case it doesn't hit the chain in the next statment. */
+										/* otherwise you will be in an infinite loop */
+										
+					draw skip rise:run = 0:1 to chain _s_check_chain
+						mark x999 y999
+						
+					/* now check to see the difference between these two points */
+					if abs(x999 - x998)<= tolerance then
+						{
+						/* didn't intersect the chain */
+						continue			/*goes back to the start of the while loop */
+						}
+						
+					else
+						{
+						/* intersected the chain */
+						if abs(x999 - x998)<_d_min_dist_for_chain_offset then
+							{
+							/* we found a chain that is closer than the original distance or previous chain */
+							if (chain _s_check_chain station within profile = _s_check_profile) then
+								{
+								/* found a closer chain that is within the proposed profile of that chain....use it...that way you will avoid a situation where you have a chain but no profile */
+								_s_closest_chain = _s_check_chain
+								_s_closest_profile = _s_check_profile
+								_d_closest_chain_number = _d_chain_counter-1	/* need to subtract one...as already incremented it earlier */
+								_s_other_closest_chain = _s_check_chain
+								_s_other_closest_profile = _s_check_profile
+								_d_other_closest_chain_number = _d_chain_counter-1	/* need to subtract one...as already incremented it earlier */
+								_d_min_dist_for_chain_offset = abs(x999 - x998)
+								_s_closest_chain_already_found = ^yes^
+								}
+							else
+								{
+								/* don't do anything....found a chain but not within the profile */
+								}	
+							
+							
+							
+							continue
+							}
+						else if (abs(x999 - x998)-_d_min_dist_for_chain_offset)<2*tolerance then
+							{
+							/* found another chain that has the same offset as the one being checked */
+							draw skip to xpgl ypgl
+								mark x800 y800	/* current pgl point */
+							_d_900_series = 950+_d_chain_counter-1	/* need to subtract one...as already incremented it earlier */
+							if x[_d_900_series] then
+								{
+								/* this chain has already been processed, so we can check to see how close it is */
+								draw skip to x[_d_900_series] y[_d_900_series]
+									mark x801 y801
+									
+								_d_900_series = 950+_d_other_closest_chain_number	/* don't need to change this one...already done in the above code */
+								if x[_d_900_series] then
+									{
+									/* this chain has been processed too....assumed that we only had 2 median chains with the same offset */
+									draw skip to x[_d_900_series] y[_d_900_series]
+									mark x802 y802
+									
+									if ((x800>x801) and (x800>x802)) then
+										{
+										/* xpgl of chain you are currently processing is furthest to the right...use this formula to determine the closest chain */
+										if ((x800-x801)<= (x800-x802)) then
+											{
+											/* point x801 is closer to point x800....chain _d_chain_counter is closer */
+											_s_closest_chain = _s_check_chain
+											_s_closest_profile = _s_check_profile
+											_d_closest_chain_number = _d_chain_counter-1	/* need to subtract one...as already incremented it earlier */
+											_s_other_closest_chain = _s_check_chain
+											_s_other_closest_profile = _s_check_profile
+											_d_other_closest_chain_number = _d_chain_counter-1	/* need to subtract one...as already incremented it earlier */
+											_s_closest_chain_already_found = ^yes^
+
+											}
+										else
+											{
+											/* point x802 is closer to point x800....chain _d_other_closest_chain_number is closer */
+											_s_closest_chain = _s_other_closest_chain
+											_s_closest_profile = _s_other_closest_profile
+											_d_closest_chain_number = _d_other_closest_chain_number		/* don't need to change this one...already done in the above code */
+											_s_other_closest_chain = _s_other_closest_chain
+											_s_other_closest_profile = _s_other_closest_profile
+											_d_other_closest_chain_number = _d_other_closest_chain_number	/* don't need to change this one...already done in the above code */
+											_s_closest_chain_already_found = ^yes^
+
+											}
+										
+										}
+									else if ((x800<x801) and (x800<x802)) then
+										{
+										/* xpgl of chain you are currently processing is furthest to the left...use this formula to determine the closest chain */
+										if (abs(x800-x801)<= abs(x800-x802)) then
+											{
+											/* point x801 is closer to point x800....chain _d_chain_counter is closer */
+											/*_s_closest_chain = _s_check_chain*/
+											/*_s_closest_profile = _s_check_profile*/
+											_d_closest_chain_number = _d_chain_counter-1	/* need to subtract one...as already incremented it earlier */
+											_s_other_closest_chain = _s_check_chain
+											_s_other_closest_profile = _s_check_profile
+											_d_other_closest_chain_number = _d_chain_counter-1	/* need to subtract one...as already incremented it earlier */
+											_s_closest_chain_already_found = ^yes^
+											}
+										else
+											{
+											/* point x802 is closer to point x800....chain _d_other_closest_chain_number is closer */
+											_s_closest_chain = _s_other_closest_chain
+											_s_closest_profile = _s_other_closest_profile
+											_d_closest_chain_number = _d_other_closest_chain_number		/* don't need to change this one...already done in the above code */
+											_s_other_closest_chain = _s_other_closest_chain
+											_s_other_closest_profile = _s_other_closest_profile
+											_d_other_closest_chain_number = _d_other_closest_chain_number	/* don't need to change this one...already done in the above code */
+											_s_closest_chain_already_found = ^yes^
+											}
+											
+										}
+									else
+										{
+										draw skip to xpgl ypgl
+										draw dx=110 dy=110
+										_s_closest_chain_already_found = ^no^
+										/* hopefully you don't see this */
+										}	
+									}
+								else
+									{
+									/* can't verify...re-order the chains to avoid this situation, so median chains process first */
+									}
+								}
+							else
+								{
+								/* can't verify...re-order the chains to avoid this situation, so median chains process first */
+								}
+							
+							continue
+							}
+						else
+							{
+							/* found a chain, but is not the closest chain */
+							/* don't do anything */
+							continue			/*goes back to the start of the while loop */
+							}
+						}		/* closes the else portion of if abs(x999 - x998)<= tolerance then */
+					
+					}			/* closes the else portion of if _s_chain = _s_check_chain then */
+					
+
+			}	/* this ends the while loop */		
+		}
+	end sub			/* ends find_closest_chain */	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	sub closest_chain_side_slope
+		{
+		
+		_s_closest_chain_side_slope = ^unknown^
+		
+		draw skip to _mp_starting_point_of_search	/* this is the point where we started our search for the closest chain */
+			mark _mp_closest_chain_offset_point_1
+			
+		/* I am going in the opposite x-direction of the current chain to replicate going in the appropriate direction from the closest chain side slope */
+		draw skip dx=-1 dy=0
+			mark _mp_closest_chain_offset_point_2
+			
+		
+		_d_offset_closest_chain_1 = cogo_offsetFromChain(_mp_closest_chain_offset_point_1, _s_closest_chain)
+		_d_offset_closest_chain_2 = cogo_offsetFromChain(_mp_closest_chain_offset_point_2, _s_closest_chain)
+		
+		if _d_offset_closest_chain_1 < _d_offset_closest_chain_2 then
+			{
+			_s_closest_chain_side_slope = "right"
+						
+			}
+		
+		else if _d_offset_closest_chain_1 > _d_offset_closest_chain_2 then
+			{
+			_s_closest_chain_side_slope = "left"
+						
+			}
+		
+		else
+			{
+			/* error, no side slope determined */
+			/* this will draw a line to show err */
+			
+			set plot parameters lvname=XS_PR_SLOPE_TEXT co=0 wt=4
+			
+			draw skip to xpgl ypgl
+			
+			draw dx=20 dy=20
+			draw text char = ^NO_SIDE_SLOPE_DETERMINEDFOR_CLOSEST_CHAIN^ "mp text"
+			
+			}
+		
+		}
+	end sub		/* this ends sub closest_chain_side_slope */
+	
+	
+	
+	sub subbase_slope_check
+		{
+		
+		if Number of Pavement Points > 3 then
+			{
+			
+			_d_pavement_point = Number of Pavement Points
+			_d_pavement_point_counter = 2
+					
+			while _d_pavement_point_counter <= (_d_pavement_point-2)
+	  		{
+	  		if _d_pavement_point_counter <= 2 then  		
+		  		{
+		  		draw skip to P[_d_pavement_point_counter]
+		  			mark x10 y10
+		  		draw skip to P[_d_pavement_point_counter+1]
+		  			mark x11 y11
+		  	
+		  		if y10<y11 then
+		  			{
+		  			/*continue to compare for high point*/
+		  			
+		  			draw skip to x11 y11
+		  			mark _mp_high_point
+		  			
+		  			}
+		  			
+		  		else
+		  			{
+		  			draw skip to x10 y10
+		  			mark _mp_high_point
+		  			
+		  			
+		  			}
+	  			}
+	  	
+	  		else
+	  			{
+	  			draw skip to P[_d_pavement_point_counter+1]
+	  				mark x10 y10
+	  				
+	  			draw skip to _mp_high_point
+	  				mark x11 y11
+	  			
+	  			if y10<y11 then
+		  			{
+		  			/*previous high point is still high point*/
+		  		  			
+		  			}
+		  			
+		  		else
+		  			{
+		  			draw skip to x10 y10
+		  			mark _mp_high_point
+		  			
+		  			
+		  			}
+	  			
+	  			}	
+	  			
+	  					
+	  		_d_pavement_point_counter = _d_pavement_point_counter+1
+	  							
+	  		}
+			/* this checks each edge of pavement*/
+			
+			
+			
+			draw skip to _mp_high_point
+				mark x12 y12
+			
+			if _s_side_slope = ^left^ then
+				{
+				
+				draw skip to _mp_current_leop
+					mark x13 y13
+					mark x123 y123 /* this is used for full super width check */
+				}
+			
+			else /*ssr*/
+				{
+				
+				draw skip to _mp_current_reop
+					mark x13 y13
+					mark x123 y123 /* this is used for full super width check */
+				}
+				
+				if y12>y13 then
+					{
+					/* current high point remains high point*/
+					if abs(x12-x13)>=30 then
+						{
+						_d_SubgradeSlope = -4
+						}
+						
+					else
+						{
+						/* normal crown <30' or full super to left*/
+						_d_pavement_point = Number of Pavement Points
+						
+						draw skip to P[_d_pavement_point]
+							mark x13 y13
+						
+						draw skip to _mp_high_point
+							mark x12 y12
+						
+						if y12<y13 then
+							{
+							/*full super*/
+							draw skip to P[_d_pavement_point-1]
+							draw skip rise:run = 0:-1 to "~Proposed EOP in DGN"
+								mark x234 y234
+							
+							if abs(x123-x234)>=30 then
+								{
+								_d_SubgradeSlope = -4
+								}
+								
+							else
+								{
+								/* no pavement over 30'*/
+								}
+							
+							}
+						
+						else
+							{
+							/* not full super... like normal crown*/
+							}
+						
+						}
+					
+					}
+					
+				else
+					{
+					draw skip to x13 y13
+						mark _mp_high_point
+						mark x12 y12
+					}
+			}
+		
+		else if Number of Pavement Points = 2 then
+			{
+			
+			if Py1<Py2 then
+				{
+				/*low side of super*/
+				draw skip to _mp_center_point
+				draw skip rise:run = 0:1 to "~Proposed EOP in DGN"
+					mark x12 y12
+				
+				draw skip to _mp_center_point
+				draw skip rise:run = 0:-1 to "~Proposed EOP in DGN"
+					mark x13 y13
+				
+				if abs(x12-x13)>=30 then
+					{
+					_d_SubgradeSlope = -4
+					}
+					
+				else
+					{
+					/* less than 30 feet of pavement */
+					}
+				
+				
+				}
+			
+			else
+				{
+				/*high side of super*/
+				}
+			
+			
+			}			
+		
+		else if Number of Pavement Points = 3 then	
+			{
+			
+			if Py1<Py2 and Py2<Py3 then
+				{
+				/*low side of super*/
+				draw skip to P2
+				draw skip rise:run = 0:1 to "~Proposed EOP in DGN"
+					mark x12 y12
+				
+				draw skip to P2
+				draw skip rise:run = 0:-1 to "~Proposed EOP in DGN"
+					mark x13 y13
+				
+				if abs(x12-x13)>=30 then
+					{
+					_d_SubgradeSlope = -4
+					}
+					
+				else
+					{
+					/* less than 30 feet of pavement */
+					}
+				
+				
+				
+				
+				
+				}
+			
+			else if Py1<Py2 then
+				{
+				
+				/*normal crown*/
+				draw skip to P2
+				draw skip rise:run = 0:1 to "~Proposed EOP in DGN"
+					mark x12 y12
+				
+				draw skip to P2
+					mark x13 y13
+				
+				if abs(x12-x13)>=30 then
+					{
+					_d_SubgradeSlope = -4
+					}
+					
+				else
+					{
+					/* less than 30 feet of pavement */
+					}
+				
+				
+				}
+			
+
+			else
+				{
+				/*high side of super*/
+				}
+			
+			
+			}
+	
+	
+		}
+	end sub /*this ends sub subbase_slope_check*/
+	
+	
+	
+	sub draw_aggbase
+		{
+		set plot parameters "agg base symb"
+		draw skip to _mp_aggbase_under_eops
+		
+
+		
+		if _s_agg_beneath_side_treatment = ^yes^ then
+			{
+			/*this will now check for different side treatments that control subbase daylighting*/
+			if _s_found_sawcut_line = ^yes^ then
+				{
+				if _s_shoulder_widening_only = ^yes^ then
+					{
+					/* don't do anything....aggbase will finish below */
+					draw skip to _mp_aggbase_under_eops
+					_s_aggbase_already_tied = ^no^
+					}
+				else if _s_sawcut_with_gore = ^yes^ then
+					{
+					/* I'm not so sure that I want this criteria in this area....*/
+					draw skip to _mp_aggbase_under_eop
+					
+					draw rise:run = 1:0 for dy = _d_agg_base_depth_in_FT
+						mark _mp_aggbase_daylight
+						draw text char = ^_mp_aggbase_daylight^ "mp text"
+					
+					_s_aggbase_already_tied = ^yes^
+					}	
+				else
+					{
+					draw skip to _mp_aggbase_under_eops
+					_s_aggbase_already_tied = ^no^
+					}
+				}
+				
+			if _s_Curb_and_Gutter_Found = ^yes^ then
+				{
+				draw skip to _mp_bottom_back_of_curb
+				draw skip dx=_d_extend_agg_beyond_curb dy=0
+					mark x111 y111
+				
+				draw skip to _mp_aggbase_under_eops
+				
+				draw slope = _d_shoulderslope to x111
+					mark _mp_tie_aggbase_to_ground
+							
+				}
+			
+			else if _s_agg_shoulder_Found = ^yes^ then
+				{
+				
+				if _s_side_slope = ^left^ then
+					{
+					draw skip to _mp_left_outside_agg_shldr
+					
+										
+					}
+					
+				else if _s_side_slope = ^right^ then
+					{
+					draw skip to _mp_right_outside_agg_shldr
+					}
+				
+				
+				draw skip dx=_d_extend_agg_beyond_aggshoulder dy=0
+					mark x111 y111
+				
+				draw skip to _mp_aggbase_under_eops
+				
+				draw slope = _d_shoulderslope to x111
+					mark _mp_tie_aggbase_to_ground
+				
+							
+				}
+				
+			else if _s_driveway_here = ^yes^ then
+				{
+				/* do nothing... agg is ready to be tied up or to 1:1*/
+				mark _mp_tie_aggbase_to_ground
+				
+				draw skip to _mp_inside_bot_drive
+					mark x1 y1
+					
+				draw skip to _mp_outside_bot_drive
+					mark x2 y2
+				
+				draw skip to _mp_tie_aggbase_to_ground
+				}
+				
+			else if _s_valley_Gutter_Found = ^yes^ then
+				{
+				draw skip to _mp_outside_of_valley_gutter
+					mark x111 y111
+					
+				draw skip to _mp_aggbase_under_eops
+				
+				draw slope = _d_shoulderslope to x111
+					mark _mp_tie_aggbase_to_ground
+					mark _mp_tie_aggbase_below_vg
+					
+					
+				if _s_barrier_present = ^yes^ then
+					{
+					if _s_intersect_split_type_A = ^yes^ then
+						{
+						draw skip to _mp_tie_aggbase_below_vg
+							mark _mp_tie_aggbase_to_ground
+						}
+					
+					else
+						{
+						draw skip to _mp_outside_bottom_of_conc_barrier
+						draw skip dx=_d_extend_agg_beyond_barrier dy=0
+							mark x111 y111
+							
+						draw skip to _mp_tie_aggbase_below_vg
+						
+						draw slope = _d_shoulderslope to x111
+							mark _mp_tie_aggbase_to_ground
+						}
+					
+					
+					
+					}
+				
+				else if _s_hit_double_faced_barrier = ^yes^ then
+					{
+					/*will need to finish here with a subroutine*/
+					/* don't do anything */
+					}
+					
+				else
+					{
+					draw skip to _mp_outside_of_valley_gutter
+						mark x111 y111
+					
+					draw skip to _mp_tie_aggbase_below_vg
+					
+					draw slope = _d_shoulderslope to x111
+						mark _mp_aggbase_below_outside_vg
+									
+					draw skip dx=_d_extend_agg_beyond_curb dy=0
+						mark x111 y111
+				
+					draw skip to _mp_tie_aggbase_below_vg
+				
+					draw slope = _d_shoulderslope to x111
+						mark _mp_tie_aggbase_to_ground
+									
+										
+					}	
+				
+				
+				} /*closes if VG statement*/
+			
+			
+			else
+				{
+				/* fill in any additional senarios here*/
+				mark _mp_tie_aggbase_to_ground
+				}
+			
+			
+			
+			}
+			
+			
+		else if _s_agg_beneath_side_treatment = ^no^ then
+			{
+			/* no additional agg needed, tie aggbase*/
+			mark _mp_tie_aggbase_to_ground
+			}
+		
+	
+	
+		
+		}	/*this ends sub draw_aggbase*/
+	end sub
+	
+
+	
+	sub draw_tie_aggbase
+		{
+		set plot parameters "agg base symb"
+		draw skip to _mp_tie_aggbase_to_ground
+		
+		if _s_agg_beneath_side_treatment = ^yes^ then
+			{
+			
+					
+			if _s_aggbase_already_tied = ^yes^ then
+				{
+				/* do nothing... agg base tied */
+				}
+				
+			else	
+				{
+				if _s_bathtub_aggbase = ^yes^ then
+					{
+					
+					if _d_subbase_depth > tolerance then
+						{
+						/* draw agg to subbase points x567 y567 and x678 y678*/
+						if _s_subbase_daylighted = ^yes^ then
+							{
+							draw rise:run = 1:1 to intersection x567 y567 x678 y678
+						
+							}
+						
+						else
+							{
+							
+							/* this assumes that it will draw at shoulder slope or adverse shoulder slope*/
+							
+							if _s_found_adverse_shoulder = ^yes^ then
+								{
+								draw slope = _d_adv_SubgradeSlope to intersection x567 y567 x678 y678
+								draw to x678 y678
+								}
+								
+							else
+								{
+								draw slope = _d_shoulderslope to intersection x567 y567 x678 y678
+								draw to x678 y678
+								}
+							
+							
+							/* this closes the aggbase to the same 1:1 point from the subbase */
+							}
+						
+						}
+						
+					else
+						{
+						/* this will reset marked points for agg to tie to existing instead of subbase*/
+						draw skip to _mp_tie_aggbase_to_ground
+							mark x777 y777
+					
+						draw skip slope = _d_shoulderslope to intersection x1 y1 x2 y2
+							mark x888 y888
+					
+						if ((abs(x777-x888)>_d_max_subbase_tie_distance) or (abs(x777-x888)<=tolerance)) then
+							{
+							/*tie aggbase up at 1:1*/
+					
+							draw skip to _mp_tie_aggbase_to_ground
+							draw rise:run = 1:1 to intersection x1 y1 x2 y2
+								
+							}
+					
+						else
+							{
+							/*aggbase will daylight*/
+							draw skip to _mp_tie_aggbase_to_ground
+							draw to x888 y888
+								
+							}
+						
+						
+						}
+					
+					}
+				
+				else
+					{
+					/* draw vertically to side treatment*/
+					/*draw dx=0 dy= _d_agg_base_depth_in_FT*/
+						mark x444 y444
+					if _s_Curb_and_Gutter_Found = ^yes^ then
+						{	
+						draw skip to _mp_bottom_back_of_curb
+							mark x111 y111
+						draw skip to _mp_tie_aggbase_to_ground
+						draw rise:run = 1:0 to y111
+						draw to _mp_bottom_back_of_curb
+					
+						}
+						
+					else if _s_agg_shoulder_Found = ^yes^ then
+						{
+						if _s_agg_shldr_hinge_point = ^yes^ then
+							{
+							draw skip to x444 y444
+							if _s_side_slope = ^left^ then
+								{
+								draw to _mp_left_outside_bottom_agg_shldr
+								}
+							else
+								{
+								draw to _mp_right_outside_bottom_agg_shldr
+								}
+							}
+						else
+							{
+							/* do nothing, should be tied beneath agg shoulder*/
+							draw skip to _mp_start_point_of_indiv_tie_down
+							draw skip dx=0 dy=-abs(_d_agg_shldr_depth)
+								mark _mp_temp_1
+							draw skip to x444 y444
+							draw to _mp_temp_1
+							}
+						
+							
+													
+						}
+						
+					else if _s_driveway_here = ^yes^ then
+						{
+						draw skip to _mp_aggbase_under_eops
+						draw skip dx=0 dy= _d_agg_base_depth_in_FT
+							mark _mp_temp_1
+						draw skip to _mp_tie_aggbase_to_ground
+						draw to _mp_temp_1
+												
+						}
+						
+					else if _s_valley_Gutter_Found = ^yes^ then
+						{
+						if _s_barrier_present = ^yes^ then
+							{
+							draw skip to _mp_outside_bottom_of_conc_barrier
+								mark x111 y111
+							draw skip to x444 y444
+							draw rise:run = 1:0 to y111
+							draw to _mp_outside_bottom_of_conc_barrier
+							
+							
+							}
+							
+						else if _s_hit_double_faced_barrier = ^yes^ then
+							{
+							/*todd to fill out*/
+							}
+							
+						else
+							{
+							draw to _mp_outside_of_valley_gutter
+							}
+						}
+					
+					else
+						{
+						/*add additional side treatments here*/
+						}	
+					
+					}
+				
+					mark _mp_aggbase_daylight
+					draw text char = ^_mp_aggbase_daylight^ "mp text" 
+				}
+			}
+		
+		else if _s_agg_beneath_side_treatment = ^no^ then
+			{
+			/* tie aggbase straight up to bottom of EOPS*/
+			
+			if _d_extend_agg_beyond_paved_shoulder > tolerance and _s_curb_and_gutter_found=^no^ then
+				{
+				/* extend the aggbase beyond paved shoulder */
+				draw slope = _d_ShoulderSlope for dx= _d_extend_agg_beyond_paved_shoulder
+				
+				}
+			else
+				{
+				/* don't do anything */
+				}
+				
+			draw dx=0 dy= abs(_d_shoulder_agg_base_depth_in_FT)
+				mark _mp_aggbase_daylight
+				draw text char = ^_mp_aggbase_daylight^ "mp text"
+				
+			if _d_extend_agg_beyond_paved_shoulder > tolerance then
+				{
+				if _s_side_slope = ^left^ then
+					{
+					draw to _mp_left_outside_bottom_paved_shoulder
+					}
+				else if _s_side_slope = ^right^ then
+					{
+					draw to _mp_right_outside_bottom_paved_shoulder
+					
+					}
+				else
+					{
+					/* shouldn't ever see this */
+					}
+				}
+			else
+				{
+				/* don't do anything,, already at the bottom of paved shoulder */
+				}
+
+			}
+		
+		
+		}
+	end sub
+	
+	
+	sub general_embankment
+		{
+		/*this draws additional lines for general embankment behind curb and barrier*/
+		/*this draws additional lines for general embankment behind curb and barrier*/
+		set plot parameters "more general embankment"
+		draw skip to _mp_tie_aggbase_to_ground
+		mark x276 y276
+		draw skip slope=-2 to intersect x510 y510 x500 y500
+		mark x275 y275
+		if ABS(x276-x275)> 2*tol then
+			{
+			draw skip to _mp_tie_aggbase_to_ground
+			draw slope=-2 to intersect x510 y510 x500 y500
+			}
+		else
+			{
+			}
+		
+		
+		
+		
+		
+		}
+	end sub /*ends sub general_embankment*/
+	
+	
+	
+	
+	sub mark_and_remember_tentative_dfb_and_shoulders
+	{
+	
+	/* start at the eop */
+	/* search for dfb...measure distance */
+	/* search for shoulder before barrier */
+	/* search for vg and curb before barrier */
+	/* search for adv shoulder before barrier */
+	
+	/* find out how far the barrier is from the eop */
+	draw skip to _mp_current_eop
+		mark x1 y1
+	draw skip rise:run = 0:1 to "~Concrete Barrier Type A"
+		mark x3 y3
+	_d_barrier_distance = abs(x3-x1)+.1	/* goes 0.1' beyond the barrier line for searching */
+	
+	/* now check for regular shoulder, valley gutter, curb, or adv shoulder before it */
+	draw skip to _mp_current_eop
+	
+	if intersect dgn = "adv shoulder line" within distance = _d_barrier_distance then
+		{
+		draw skip rise:run = 0:1 to "adv shoulder line"
+			mark x4 y4
+		_d_adv_shldr_distance = abs(x4-x1)
+		_s_found_adv_shoulder = ^yes^
+		}
+	else
+		{
+		_s_found_adv_shoulder = ^no^
+		}
+	
+	draw skip to _mp_current_eop
+	if intersect dgn = "~Proposed Paved Shoulder in DGN" within distance = _d_barrier_distance then
+		{
+		draw skip rise:run = 0:1 to "~Proposed Paved Shoulder in DGN"
+			mark x5 y5
+		_d_regular_shldr_distance = abs(x5-x1)
+		_s_found_regular_shoulder = ^yes^
+		}
+	else
+		{
+		_s_found_regular_shoulder = ^no^
+		}
+		
+	draw skip to _mp_current_eop
+	if (intersect dgn = "~Curb and Gutter B1" within distance = _d_barrier_distance) then
+		{
+		draw skip rise:run = 0:1 to "~Curb and Gutter B1"
+			mark x6 y6
+		_d_curb_distance = abs(x6-x1)
+		_s_found_curb = ^yes^
+		_s_curb_found = ^B1^
+		_d_curb_dx = 32/12	/* this is the overall dx from the beginning of the curb to the top back of curb */
+		_d_curb_dy=4/12		/* this is the overall dx from the beginning of the curb to the top back of curb */
+		}
+	else if (intersect dgn = "~Curb and Gutter B2" within distance = _d_barrier_distance) then
+		{
+		draw skip rise:run = 0:1 to "~Curb and Gutter B2"
+			mark x6 y6
+		_d_curb_distance = abs(x6-x1)
+		_s_found_curb = ^yes^
+		_s_curb_found = ^B2^
+		_d_curb_dx = 32/12	/* this is the overall dx from the beginning of the curb to the top back of curb */
+		_d_curb_dy=4/12		/* this is the overall dx from the beginning of the curb to the top back of curb */
+		}
+	else if (intersect dgn = "~Curb and Gutter B3" within distance = _d_barrier_distance) then
+		{
+		draw skip rise:run = 0:1 to "~Curb and Gutter B3"
+			mark x6 y6
+		_d_curb_distance = abs(x6-x1)
+		_s_found_curb = ^yes^
+		_s_curb_found = ^B3^
+		_d_curb_dx = 32/12	/* this is the overall dx from the beginning of the curb to the top back of curb */
+		_d_curb_dy=4/12		/* this is the overall dx from the beginning of the curb to the top back of curb */
+		}
+	else if (intersect dgn = "~Curb and Gutter C1" within distance = _d_barrier_distance) then
+		{
+		draw skip rise:run = 0:1 to "~Curb and Gutter C1"
+			mark x6 y6
+		_d_curb_distance = abs(x6-x1)
+		_s_found_curb = ^yes^
+		_s_curb_found = ^C1^
+		_d_curb_dx = 18/12	/* this is the overall dx from the beginning of the curb to the top back of curb */
+		_d_curb_dy=6.125/12		/* this is the overall dx from the beginning of the curb to the top back of curb */
+		}
+	else if (intersect dgn = "~Curb and Gutter C2" within distance = _d_barrier_distance) then
+		{
+		draw skip rise:run = 0:1 to "~Curb and Gutter C2"
+			mark x6 y6
+		_d_curb_distance = abs(x6-x1)
+		_s_found_curb = ^yes^
+		_s_curb_found = ^C2^
+		_d_curb_dx = 18/12	/* this is the overall dx from the beginning of the curb to the top back of curb */
+		_d_curb_dy=6.125/12		/* this is the overall dx from the beginning of the curb to the top back of curb */
+		}
+	else if (intersect dgn = "~Curb and Gutter C3" within distance = _d_barrier_distance) then
+		{
+		draw skip rise:run = 0:1 to "~Curb and Gutter C3"
+			mark x6 y6
+		_d_curb_distance = abs(x6-x1)
+		_s_found_curb = ^yes^
+		_s_curb_found = ^C3^
+		_d_curb_dx = 24/12	/* this is the overall dx from the beginning of the curb to the top back of curb */
+		_d_curb_dy=5.625/12		/* this is the overall dx from the beginning of the curb to the top back of curb */
+		}
+	else if (intersect dgn = "~Curb and Gutter C4" within distance = _d_barrier_distance) then
+		{
+		draw skip rise:run = 0:1 to "~Curb and Gutter C4"
+			mark x6 y6
+		_d_curb_distance = abs(x6-x1)
+		_s_found_curb = ^yes^
+		_s_curb_found = ^C4^
+		_d_curb_dx = 24/12	/* this is the overall dx from the beginning of the curb to the top back of curb */
+		_d_curb_dy=5.625/12		/* this is the overall dx from the beginning of the curb to the top back of curb */
+		}
+	else if (intersect dgn = "~Curb and Gutter C5" within distance = _d_barrier_distance) then
+		{
+		draw skip rise:run = 0:1 to "~Curb and Gutter C5"
+			mark x6 y6
+		_d_curb_distance = abs(x6-x1)
+		_s_found_curb = ^yes^
+		_s_curb_found = ^C5^
+		_d_curb_dx = 30/12	/* this is the overall dx from the beginning of the curb to the top back of curb */
+		_d_curb_dy=5.125/12		/* this is the overall dx from the beginning of the curb to the top back of curb */
+		}
+	else if (intersect dgn = "~Curb and Gutter C6" within distance = _d_barrier_distance) then
+		{
+		draw skip rise:run = 0:1 to "~Curb and Gutter C6"
+			mark x6 y6
+		_d_curb_distance = abs(x6-x1)
+		_s_found_curb = ^yes^
+		_s_curb_found = ^C6^
+		_d_curb_dx = 30/12	/* this is the overall dx from the beginning of the curb to the top back of curb */
+		_d_curb_dy=5.125/12		/* this is the overall dx from the beginning of the curb to the top back of curb */
+		}
+	else if (intersect dgn = "~Curb and Gutter D1" within distance = _d_barrier_distance) then
+		{
+		draw skip rise:run = 0:1 to "~Curb and Gutter D1"
+			mark x6 y6
+		_d_curb_distance = abs(x6-x1)
+		_s_found_curb = ^yes^
+		_s_curb_found = ^D1^
+		_d_curb_dx = 30/12	/* this is the overall dx from the beginning of the curb to the top back of curb */
+		_d_curb_dy=2.75/12		/* this is the overall dx from the beginning of the curb to the top back of curb */
+		}
+	else if (intersect dgn = "~Curb and Gutter D2" within distance = _d_barrier_distance) then
+		{
+		draw skip rise:run = 0:1 to "~Curb and Gutter D2"
+			mark x6 y6
+		_d_curb_distance = abs(x6-x1)
+		_s_found_curb = ^yes^
+		_s_curb_found = ^D2^
+		_d_curb_dx = 30/12	/* this is the overall dx from the beginning of the curb to the top back of curb */
+		_d_curb_dy=2.75/12		/* this is the overall dx from the beginning of the curb to the top back of curb */
+		}
+	else if (intersect dgn = "~Curb and Gutter D3" within distance = _d_barrier_distance) then
+		{
+		draw skip rise:run = 0:1 to "~Curb and Gutter D3"
+			mark x6 y6
+		_d_curb_distance = abs(x6-x1)
+		_s_found_curb = ^yes^
+		_s_curb_found = ^D3^
+		_d_curb_dx = 30/12	/* this is the overall dx from the beginning of the curb to the top back of curb */
+		_d_curb_dy=2.75/12		/* this is the overall dx from the beginning of the curb to the top back of curb */
+		}
+	else if (intersect dgn = "~Curb E1" within distance = _d_barrier_distance) then
+		{
+		draw skip rise:run = 0:1 to "~Curb E1"
+			mark x6 y6
+		_d_curb_distance = abs(x6-x1)
+		_s_found_curb = ^yes^
+		_s_curb_found = ^E1^
+		_d_curb_dx = 8/12	/* this is the overall dx from the beginning of the curb to the top back of curb */
+		_d_curb_dy=7/12		/* this is the overall dx from the beginning of the curb to the top back of curb */
+		}
+	else if (intersect dgn = "~Curb E2" within distance = _d_barrier_distance) then
+		{
+		draw skip rise:run = 0:1 to "~Curb E2"
+			mark x6 y6
+		_d_curb_distance = abs(x6-x1)
+		_s_found_curb = ^yes^
+		_s_curb_found = ^E2^
+		_d_curb_dx = 8/12	/* this is the overall dx from the beginning of the curb to the top back of curb */
+		_d_curb_dy=7/12		/* this is the overall dx from the beginning of the curb to the top back of curb */
+		}
+	else if (intersect dgn = "~Curb E4" within distance = _d_barrier_distance) then
+		{
+		draw skip rise:run = 0:1 to "~Curb E4"
+			mark x6 y6
+		_d_curb_distance = abs(x6-x1)
+		_s_found_curb = ^yes^
+		_s_curb_found = ^E4^
+		_d_curb_dx = 8/12	/* this is the overall dx from the beginning of the curb to the top back of curb */
+		_d_curb_dy=7/12		/* this is the overall dx from the beginning of the curb to the top back of curb */
+		}
+	else if (intersect dgn = "~Curb and Gutter F1" within distance = _d_barrier_distance) then
+		{
+		draw skip rise:run = 0:1 to "~Curb and Gutter F1"
+			mark x6 y6
+		_d_curb_distance = abs(x6-x1)
+		_s_found_curb = ^yes^
+		_s_curb_found = ^F1^
+		_d_curb_dx = 18/12	/* this is the overall dx from the beginning of the curb to the top back of curb */
+		_d_curb_dy=5.125/12		/* this is the overall dx from the beginning of the curb to the top back of curb */
+		}
+	else if (intersect dgn = "~Curb and Gutter F2" within distance = _d_barrier_distance) then
+		{
+		draw skip rise:run = 0:1 to "~Curb and Gutter F2"
+			mark x6 y6
+		_d_curb_distance = abs(x6-x1)
+		_s_found_curb = ^yes^
+		_s_curb_found = ^F2^
+		_d_curb_dx = 18/12	/* this is the overall dx from the beginning of the curb to the top back of curb */
+		_d_curb_dy=5.125/12		/* this is the overall dx from the beginning of the curb to the top back of curb */
+		}
+	else if (intersect dgn = "~Curb and Gutter F3" within distance = _d_barrier_distance) then
+		{
+		draw skip rise:run = 0:1 to "~Curb and Gutter F3"
+			mark x6 y6
+		_d_curb_distance = abs(x6-x1)
+		_s_found_curb = ^yes^
+		_s_curb_found = ^F3^
+		_d_curb_dx = 24/12	/* this is the overall dx from the beginning of the curb to the top back of curb */
+		_d_curb_dy=4.625/12		/* this is the overall dx from the beginning of the curb to the top back of curb */
+		}
+	else if (intersect dgn = "~Curb and Gutter F4" within distance = _d_barrier_distance) then
+		{
+		draw skip rise:run = 0:1 to "~Curb and Gutter F4"
+			mark x6 y6
+		_d_curb_distance = abs(x6-x1)
+		_s_found_curb = ^yes^
+		_s_curb_found = ^F4^
+		_d_curb_dx = 24/12	/* this is the overall dx from the beginning of the curb to the top back of curb */
+		_d_curb_dy=4.625/12		/* this is the overall dx from the beginning of the curb to the top back of curb */
+		}
+	else if (intersect dgn = "~Curb and Gutter F5" within distance = _d_barrier_distance) then
+		{
+		draw skip rise:run = 0:1 to "~Curb and Gutter F5"
+			mark x6 y6
+		_d_curb_distance = abs(x6-x1)
+		_s_found_curb = ^yes^
+		_s_curb_found = ^F5^
+		_d_curb_dx = 30/12	/* this is the overall dx from the beginning of the curb to the top back of curb */
+		_d_curb_dy=4.125/12		/* this is the overall dx from the beginning of the curb to the top back of curb */
+		}
+	else if (intersect dgn = "~Curb and Gutter F6" within distance = _d_barrier_distance) then
+		{
+		draw skip rise:run = 0:1 to "~Curb and Gutter F6"
+			mark x6 y6
+		_d_curb_distance = abs(x6-x1)
+		_s_found_curb = ^yes^
+		_s_curb_found = ^F6^
+		_d_curb_dx = 30/12	/* this is the overall dx from the beginning of the curb to the top back of curb */
+		_d_curb_dy=4.125/12		/* this is the overall dx from the beginning of the curb to the top back of curb */
+		}
+	else if (intersect dgn = "~Curb and Gutter G1" within distance = _d_barrier_distance) then
+		{
+		draw skip rise:run = 0:1 to "~Curb and Gutter G1"
+			mark x6 y6
+		_d_curb_distance = abs(x6-x1)
+		_s_found_curb = ^yes^
+		_s_curb_found = ^G1^
+		_d_curb_dx = 3.33	/* this is the overall dx from the beginning of the curb to the top back of curb */
+		_d_curb_dy=0.5033		/* this is the overall dx from the beginning of the curb to the top back of curb */
+		}
+	else if (intersect dgn = "~Curb and Gutter G2" within distance = _d_barrier_distance) then
+		{
+		draw skip rise:run = 0:1 to "~Curb and Gutter G2"
+			mark x6 y6
+		_d_curb_distance = abs(x6-x1)
+		_s_found_curb = ^yes^
+		_s_curb_found = ^G2^
+		_d_curb_dx = 5.33	/* this is the overall dx from the beginning of the curb to the top back of curb */
+		_d_curb_dy=0.4233		/* this is the overall dx from the beginning of the curb to the top back of curb */
+		}
+	else if (intersect dgn = "~Valley Gutter" within distance = _d_barrier_distance) then
+		{
+		draw skip rise:run = 0:1 to "~Valley Gutter"
+			mark x6 y6
+		_d_curb_distance = abs(x6-x1)
+		_s_found_curb = ^yes^
+		_s_curb_found = ^VG^
+		
+		/* assuming that the width of the vg may change */
+		if _s_found_regular_shoulder = ^yes^ then
+			{
+			_d_curb_dx = abs(_d_regular_shldr_distance-_d_curb_distance)
+			}
+		else
+			{
+			_d_curb_dx = _d_curb_distance
+			}
+		_d_curb_dy=0		/* this is the overall dx from the beginning of the curb to the top back of curb */
+		}
+	else
+		{
+		/* no curb found */
+		_s_found_curb = ^no^
+		_s_curb_found = ^none^
+		}
+	
+	/* add other shoulder treatments here */
+		
+		
+	/* at this point, I have identified the different treatments that could be in the vicinity of the double faced barrier */
+	/* now I need to see how many of these we have for this cross-section */
+	/* there are more possible alternatives, however, I will only protect for the most logical */
+	
+	draw skip to _mp_current_eop
+	
+	if (((_s_found_adv_shoulder = ^yes^) and (_s_found_regular_shoulder = ^yes^) and (_s_found_curb = ^yes^))) then
+		{
+		/* adv shoulder, regular shoulder, and curb */
+		/* I am assuming that we will only have regular shoulder, then curb, then adv shoulder */
+		/* other alternatives probably won't be necessary */
+		draw skip slope = _d_ShoulderSlope to "~Proposed Paved Shoulder in DGN"
+			mark _mp_tent_eos
+		draw skip dx=_d_curb_dx dy = _d_curb_dy
+			mark _mp_tent_toc
+		draw skip slope = _d_adv_shoulder_slope to "adv shoulder line"
+			mark _mp_tent_adv_eos
+			mark _mp_tent_start_of_barrier
+		_d_adjacent_shoulder_slope = _d_adv_shoulder_slope
+		}
+	
+	else if (((_s_found_adv_shoulder = ^yes^) and (_s_found_curb = ^yes^) and (_s_found_regular_shoulder = ^no^))) then
+		{
+		/* adv shoulder and curb */
+		/* I am assuming that curb is before adv shoulder */
+			mark _mp_tent_eos
+		draw skip dx=_d_curb_dx dy = _d_curb_dy
+			mark _mp_tent_toc
+		draw skip slope = _d_adv_shoulder_slope to "adv shoulder line"
+			mark _mp_tent_adv_eos
+			mark _mp_tent_start_of_barrier
+		_d_adjacent_shoulder_slope = _d_adv_shoulder_slope
+		}
+	
+	else if (((_s_found_regular_shoulder = ^yes^) and (_s_found_curb = ^yes^) and (_s_found_adv_shoulder = ^no^))) then
+		{
+		/* regular shoulder and curb */
+		draw skip slope = _d_ShoulderSlope to "~Proposed Paved Shoulder in DGN"
+			mark _mp_tent_eos
+		draw skip dx=_d_curb_dx dy = _d_curb_dy
+			mark _mp_tent_toc
+			mark _mp_tent_adv_eos
+			mark _mp_tent_start_of_barrier
+		_d_adjacent_shoulder_slope = _d_ShoulderSlope
+		}
+		
+	else if (((_s_found_regular_shoulder = ^yes^) and (_s_found_adv_shoulder = ^no^) and (_s_found_curb = ^no^))) then
+		{
+		/* regular shoulder only */
+		draw skip slope = _d_ShoulderSlope to "~Proposed Paved Shoulder in DGN"
+			mark _mp_tent_eos
+			mark _mp_tent_toc
+			mark _mp_tent_adv_eos
+			mark _mp_tent_start_of_barrier
+		_d_adjacent_shoulder_slope = _d_ShoulderSlope
+		}
+	
+	else if (((_s_found_curb = ^yes^) and (_s_found_regular_shoulder = ^no^) and (_s_found_adv_shoulder = ^no^))) then
+		{
+		/* curb only */
+		mark _mp_tent_eos
+		draw skip dx=_d_curb_dx dy = _d_curb_dy
+			mark _mp_tent_toc
+			mark _mp_tent_adv_eos
+			mark _mp_tent_start_of_barrier
+		_d_adjacent_shoulder_slope = _d_valley_gutter_slope	/* assuming that this is valley gutter adjacent to barrier */
+		}
+		
+	else
+		{
+		/* other combinations are possible, but not likely....need to add another else if statement */
+		}
+	
+	
+	
+	call sub remember_double_face_barrier_info
+	
+		
+	}
+end sub /* ends the mark_and_remember_tentative_dfb_and_shoulders subroutine */
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+sub check_for_ditch 
+	{
+	/* if either the independent ditch or the dependent ditch are deeper than 50' below the xpgl, then I assume that we do not have a ditch*/
+	/* first I'll check for an independent ditch */
+	
+	_s_chain = cluster baseline
+	if chain _s_chain station within profile = _s_ind_ditch_profile then
+		{
+		draw skip to xpgl ypgl
+			mark x887 y887
+		draw skip to p1
+		draw skip dx=0 dy=10
+		draw skip rise:run = -1:0 to chain _s_chain profile elev = _s_ind_ditch_profile
+			mark x886 y886
+		
+		/* to minimize the number of independent ditch profiles, I am using a rule of thumb that if a ind ditch profile elevation is */
+		/* more than 50' below the plan grade, then you really don't have a ditch */
+		if y887-y886>50 then
+			{
+			/* there is no independent ditch here*/
+			_s_independent_ditch_here = ^no^
+			}
+		else
+			{
+			_s_independent_ditch_here = ^yes^
+			_s_ditch_type = ^Independent ^
+			
+			draw skip to x886 y886
+				mark _mp_y_elev_of_ditch
+			}
+		}
+		
+	else if chain _s_chain station within profile = _s_dep_ditch_profile then
+		{
+		draw skip to xpgl ypgl
+			mark x887 y887
+		draw skip dx=0 dy=10
+		draw skip rise:run = -1:0 to chain _s_chain profile elev = _s_dep_ditch_profile	
+			mark x777 y777
+		draw skip to xpgl ypgl
+		draw skip dx=0 dy=-abs(y777)
+			mark x886 y886
+			
+		if y887-y886<.1 then	/* if the dependent ditch is less than .1' deep, then you don't have a ditch....I'm assuming this */
+			{
+			/* there is no dependent ditch here*/
+			_s_dependent_ditch_here = ^no^
+			}
+		else
+			{
+			_s_dependent_ditch_here = ^yes^
+			_s_ditch_type = ^Dependent ^
+			
+			draw skip to x886 y886
+				mark _mp_y_elev_of_ditch
+			}
+		}
+		
+	
+	
+	}
+end sub 	/* this ends the sub check_for_ditch */	
+	
+	
+sub draw_pavement_and_topsoil_removal
+	{
+	_s_ex_pavt_beyond_current = ^maybe^
+	set plot parameters "pavement remove symb"
+	_d_removal_depth = _d_pavement_removal_depth
+
+	if _s_side_slope = ^left^ then
+		{
+		draw skip to xpgl ypgl
+		draw skip trace out off=0 for dx=10000	
+		draw skip rise:run = 0:-1 to "Pavt Rem Trigger Line"	/* this is how we tell we are between edges of pavement */
+		draw skip dx=0 dy=50
+		draw skip rise:run = -1:0 to existing ground
+		draw skip dx=0 dy=-abs(_d_removal_depth)
+			mark _mp_start_pavt_rem
+			mark x915 y915
+		}
+	else
+		{
+		/* this point has already been marked from ssl....draw skip to it */
+		draw skip to _mp_start_pavt_rem
+		}
+	
+	
+	if intersect dgn = "Ex Pavt Limits for XS" then
+		{
+		/* hit another pavement line, just close this material */
+		draw trace out off = -abs(_d_removal_depth) to "Ex Pavt Limits for XS"
+		draw rise:run = 1:0 to existing ground	/* closes the first pave remove */
+		_s_check_for_more = ^yes^
+		}
+	else
+		{
+		/* didn't go anywhere */
+		/* draw this material out to the end of the pattern line */
+		draw trace out off = -abs(_d_removal_depth) for dx=10000
+		draw rise:run = 1:0 to existing ground	/* closes the first pave remove */
+		_s_check_for_more = ^no^
+		}
+	
+		mark x915 y915
+		MARK X916 Y916
+	
+	
+	/* THIS DRAWS THE SHOULDER VERTICAL LINES IN*/
+	DRAW SKIP TO _mp_start_pavt_rem
+	
+	if intersect dgn = "Ex SHLDR Limits for XS" then
+		{
+		SET PLOT PARAMETERS "SHOULDER remove VERT LINE symb"
+		draw SKIP trace out off = 0 to "Ex SHLDR Limits for XS"
+			MARK X916 Y916
+		DRAW DX=0 DY=-5
+		}
+	DRAW SKIP TO X916 Y916
+	DRAW SKIP DX=.2 DY=0 
+
+	if intersect dgn = "Ex SHLDR Limits for XS" then
+		{
+		SET PLOT PARAMETERS "SHOULDER remove VERT LINE symb"
+		draw SKIP trace out off = 0 to "Ex SHLDR Limits for XS"
+			MARK X916 Y916
+		DRAW DX=0 DY=-5
+		}
+	DRAW SKIP TO X916 Y916
+	DRAW SKIP DX=.2 DY=0 
+
+	if intersect dgn = "Ex SHLDR Limits for XS" then
+		{
+		SET PLOT PARAMETERS "SHOULDER remove VERT LINE symb"
+		draw SKIP trace out off = 0 to "Ex SHLDR Limits for XS"
+			MARK X916 Y916
+		DRAW DX=0 DY=-5
+		}
+	DRAW SKIP TO X916 Y916
+	DRAW SKIP DX=.2 DY=0 
+
+	if intersect dgn = "Ex SHLDR Limits for XS" then
+		{
+		SET PLOT PARAMETERS "SHOULDER remove VERT LINE symb"
+		draw SKIP trace out off = 0 to "Ex SHLDR Limits for XS"
+			MARK X916 Y916
+		DRAW DX=0 DY=-5
+		}
+	DRAW SKIP TO X916 Y916
+	DRAW SKIP DX=.2 DY=0 
+
+	if intersect dgn = "Ex SHLDR Limits for XS" then
+		{
+		SET PLOT PARAMETERS "SHOULDER remove VERT LINE symb"
+		draw SKIP trace out off = 0 to "Ex SHLDR Limits for XS"
+			MARK X916 Y916
+		DRAW DX=0 DY=-5
+		}
+	DRAW SKIP TO X916 Y916
+	DRAW SKIP DX=.2 DY=0 
+
+	if intersect dgn = "Ex SHLDR Limits for XS" then
+		{
+		SET PLOT PARAMETERS "SHOULDER remove VERT LINE symb"
+		draw SKIP trace out off = 0 to "Ex SHLDR Limits for XS"
+			MARK X916 Y916
+		DRAW DX=0 DY=-5
+		}
+	DRAW SKIP TO X916 Y916
+	DRAW SKIP DX=.2 DY=0 
+
+	if intersect dgn = "Ex SHLDR Limits for XS" then
+		{
+		SET PLOT PARAMETERS "SHOULDER remove VERT LINE symb"
+		draw SKIP trace out off = 0 to "Ex SHLDR Limits for XS"
+			MARK X916 Y916
+		DRAW DX=0 DY=-5
+		}
+	DRAW SKIP TO X916 Y916
+	DRAW SKIP DX=.2 DY=0 
+
+	if intersect dgn = "Ex SHLDR Limits for XS" then
+		{
+		SET PLOT PARAMETERS "SHOULDER remove VERT LINE symb"
+		draw SKIP trace out off = 0 to "Ex SHLDR Limits for XS"
+			MARK X916 Y916
+		DRAW DX=0 DY=-5
+		}
+	DRAW SKIP TO X916 Y916
+	DRAW SKIP DX=.2 DY=0 
+
+	if intersect dgn = "Ex SHLDR Limits for XS" then
+		{
+		SET PLOT PARAMETERS "SHOULDER remove VERT LINE symb"
+		draw SKIP trace out off = 0 to "Ex SHLDR Limits for XS"
+			MARK X916 Y916
+		DRAW DX=0 DY=-5
+		}
+	DRAW SKIP TO X916 Y916
+	DRAW SKIP DX=.2 DY=0 
+
+	if intersect dgn = "Ex SHLDR Limits for XS" then
+		{
+		SET PLOT PARAMETERS "SHOULDER remove VERT LINE symb"
+		draw SKIP trace out off = 0 to "Ex SHLDR Limits for XS"
+			MARK X916 Y916
+		DRAW DX=0 DY=-5
+		}
+	
+	
+			
+	DRAW SKIP TO X915 Y915
+	draw skip dx=.2 dy=0
+	set plot parameters "topsoil stripping symb"
+	_d_removal_depth = _d_topsoil_stripping_depth 		
+	call sub draw_removals	
+			
+	mark x915 y915
+	draw skip dx=.2 dy=0
+	set plot parameters "pavement remove symb" 
+	_d_removal_depth = _d_pavement_removal_depth		
+	call sub draw_removals	
+	
+	mark x915 y915
+	draw skip dx=.2 dy=0
+	set plot parameters "topsoil stripping symb"
+	_d_removal_depth = _d_topsoil_stripping_depth 	
+	call sub draw_removals	
+	
+	mark x915 y915
+	draw skip dx=.2 dy=0
+	set plot parameters "pavement remove symb" 
+	_d_removal_depth = _d_pavement_removal_depth		
+	call sub draw_removals	
+	
+	mark x915 y915
+	draw skip dx=.2 dy=0
+	set plot parameters "topsoil stripping symb"
+	_d_removal_depth = _d_topsoil_stripping_depth 	
+	call sub draw_removals	
+	
+	mark x915 y915
+	draw skip dx=.2 dy=0
+	set plot parameters "pavement remove symb" 
+	_d_removal_depth = _d_pavement_removal_depth		
+	call sub draw_removals	
+	
+		
+
+	
+	}
+end sub		/* this ends the sub draw_pavement_and_topsoil_removal */
+	
+	
+	
+	
+sub draw_removals
+	{
+	if intersect dgn = "Ex Pavt Limits for XS" then
+		{
+		draw skip trace out off = -abs(_d_removal_depth) to "Ex Pavt Limits for XS"
+			mark x916 y916
+		
+		draw skip to x915 y915
+		draw dx=0 dy=-abs(_d_removal_depth)
+		draw trace out off = -abs(_d_removal_depth) to x916
+		draw rise:run = 1:0 to existing ground
+		_s_check_for_more = ^yes^
+		}
+		
+	else if _s_check_for_more = ^yes^ then
+		{
+		/* no more pave edges...draw current symb to outside of pattern line */
+		draw skip to x915 y915
+		draw dx=0 dy=-abs(_d_removal_depth)
+		draw trace out off = -abs(_d_removal_depth) for dx=10000
+		draw rise:run = 1:0 to existing ground	/* closes this remove */
+		_s_check_for_more = ^no^
+		}
+	
+	else
+		{
+		/* don't need to check for any more materials */
+		_s_check_for_more = ^no^
+		}
+	}
+end sub		/* ends the draw_removals sub */
+
+
+
+
+sub draw_double_faced_barrier
+	{
+	_d_barrier_elev_diff = abs(y100-y101)
+	
+	if y100>=y101 then
+		{
+		_s_side_low = ^right^
+		
+		if _s_side_slope = ^left^ then
+			{
+			_d_sign_variable = -1	/* necessary for a draw dx statement */
+			}
+		else if _s_side_slope = ^right^ then
+			{
+			_d_sign_variable = 1	/* necessary for a draw dx statement */
+			}
+		draw skip to x101 y101
+		draw text value = _d_barrier_elev_diff "~BARRIER ELEV DIFF Text Symbology" 
+		
+			
+		draw skip to x100 y100
+		/* now we are at the high point */
+		/* check to see how much the low point needs to be adjusted */
+			mark _mp_high_point
+			
+		/* now check to see where the barrier line intersects the shoulder line on the low side */
+		if _s_found_adv_shoulder_right_of_bar = ^yes^ then
+			{
+			draw skip dx=_d_sign_variable*(_d_normal_DF_barrier_width) dy=0
+			}
+			
+		else if _s_found_curb_right_of_bar = ^yes^ then
+			{
+			if abs(x301-x101)<= tolerance and abs(y301-y101)<= tolerance then
+				{
+				/* the lowside top of curb 301 is at the low side start of barrier 101 */
+				draw skip dx=_d_sign_variable*(_d_normal_DF_barrier_width + _d_curb_dx_right_of_barrier) dy=-_d_curb_dy_right_of_barrier
+				}
+			
+			else
+				{
+				/* curb found but assume that it is adjacent to the eop and not at barrier */
+				draw skip dx=_d_sign_variable*(_d_normal_DF_barrier_width) dy=0
+				}
+			
+			}
+		
+		/* now I should be at the high side toe of barrier elevation but on the low side...if any curb/vg is adjacent */
+		/* to the barrier, then I am beyond that too and adjusted the elevation by the delta curb elevation */
+		mark _mp_dfb_low_side_start_of_shldr_shorten
+		
+		if _s_found_adv_shoulder_right_of_bar = ^yes^ then
+			{
+			draw skip to x101 y101	/* outside edge of adverse shoulder and start of barrier */
+			}
+		else
+			{
+			draw skip to x401 y401	/* edge of paved shoulder or start of curb */
+			}
+			mark x601 y601
+		draw skip dx=_d_sign_variable*100 dy=(-1)*_d_sign_variable*_d_adjacent_shoulder_slope_right_of_bar
+			mark x701 y701
+		
+		draw skip to _mp_dfb_low_side_start_of_shldr_shorten
+		/* now see where the 6 degree slope intersects the shoulder on the low side */
+		/* 2" horizontal change for every 19" of vertical change per R-49-D */
+		draw skip dx=_d_sign_variable*(2/12) dy=-(1+7/12) to intersection x601 y601 x701 y701
+			mark _mp_new_low_side_eos
+			mark x801 y801
+		
+		if _s_found_adv_shoulder_right_of_bar = ^yes^ then
+			{
+			/* this point is the new edge of adverse shoulder */
+			_d_shoulder_shortened_distance = abs(x201-x801)
+				mark x201 y201
+			}
+			
+		else if _s_found_curb_right_of_bar = ^yes^ then
+			{
+			if abs(x301-x101)<= tolerance and abs(y301-y101)<= tolerance then
+				{
+				/* the lowside top of curb 301 is at the low side start of barrier 101 */
+				_d_shoulder_shortened_distance = abs(x801-x401)
+					mark x401 y401
+				}
+			
+			else
+				{
+				/* curb found but assume that it is adjacent to the eop and not at barrier */
+				/* I don't think I will ever see this...so it may not work */
+				_d_shoulder_shortened_distance = abs(x801-x201)
+					mark x201 y201
+				}
+			
+			}
+			
+		/* now at this point, all redefined points have been determined ....I think */
+		/* lets go back to the high point eop and start drawing */
+		
+		/* before I draw in the bottom of the shoulders, I need to re-update the depth variables */
+		/* just in case the depths differ on each side of the barrier....ie 96-39*/
+		
+		if _s_side_slope = _s_side_low then
+			{
+			/* the closest chain is the low side*/
+			/* reset the _s_chain to the current cluster baseline because it is high and draw it in */
+			_s_chain = cluster baseline
+			}
+		else
+			{
+			_s_chain = _s_closest_chain
+			}
+		call sub get_road_specific_variables
+		
+		draw skip to x500 y500
+			mark _mp_point_1
+			mark x20 y20/* needed for shoulder slopes */
+			
+		/* now check for regular shoulder and draw it in on the high side */
+		if _s_found_regular_shoulder_left_of_bar = ^yes^ then
+			{
+			set plot parameters "top of paved shld symb"
+			draw to x400 y400
+				mark _mp_point_2
+				mark x21 y21	/* needed for shoulder slopes */
+			call sub label_shoulder_slopes
+			
+			draw skip to _mp_point_2
+			_s_first_time_through = ^no^	/* need this to be no so it won't redefine mp 1 and 2 above */
+			call sub draw_shoulder_depths
+			draw skip to x400 y400		
+			}
+		else
+			{
+			/* don't do anything */
+			}
+		
+		/* now draw the curb....this will have to be modified for all types of curb */
+		if _s_found_curb_left_of_bar = ^yes^ then
+			{
+			set plot parameters "top of curb symb"
+			/* draw the actual curb in here */
+			_s_curb_found = _s_curb_found_left_of_bar	/* type of curb */
+			
+			if _s_side_slope = ^left^ then
+				{
+				_d_curb_sign_variable = -1	
+				_s_curb_chain = _s_closest_chain
+				_s_curb_side_slope = _s_closest_chain_side_slope		
+				}
+			else if _s_side_slope = ^right^ then
+				{
+				_d_curb_sign_variable = 1
+				_s_curb_chain = cluster baseline
+				_s_curb_side_slope = _s_side_slope	
+				}
+				
+			_d_curb_width = abs(x300-x400)
+			call sub draw_curb_in_double_faced_barrier_areas
+			call sub create_toc_and_flow_line_profiles
+			
+			/* PROBLEM.....NEED TO DEFINE CURB POINT IF CHAIN IS CLOSEST CHAIN BEFORE WRITE PROFILE */
+			draw skip to x300 y300
+			}
+		else
+			{
+			/* don't do anything */
+			}
+			
+		/* now draw the adverse shoulder */
+		if _s_found_adv_shoulder_left_of_bar = ^yes^ then
+			{
+			mark x20 y20	/* for shoulder slopes */
+			
+			set plot parameters "adv shoulder symb"
+			draw to x200 y200
+				mark x21 y21	/* for shoulder slopes */
+			call sub label_shoulder_slopes
+			
+			draw skip to x200 y200	
+			set plot parameters "bottom of adv shoulder symb"
+			draw dx=0 dy=-abs(_d_adv_shoulder_depth)
+				mark _mp_draw_to_this_point
+			
+			draw skip to x300 y300
+				draw dx=0 dy=-abs(_d_adv_shoulder_depth)
+				draw to _mp_draw_to_this_point
+			
+			draw skip to x200 y200
+			}
+		else
+			{
+			/* don't do anything */
+			}
+		
+		/* now start drawing the dfb from the high side */
+		/* check to see if we are at the start of barrier */
+		mark x600 y600
+		if abs(x600-x100)<=tolerance then
+			{
+			/* x-location is good for high side barrier */
+			set plot parameters "Concrete Barrier Surface Symbology"
+				mark x900 y900
+			draw dx=(_d_sign_variable)*1/12 dy=0	/* E5 joint */
+			draw dx=0 dy=3/12
+			draw dx=(_d_sign_variable*7)/12 dy=10/12
+			draw dx=(_d_sign_variable*2)/12 dy=19/12
+				mark x700 y700
+				
+			/* draw the ewks limits */
+			draw skip dx=((_d_sign_variable*10)/12)/2 dy=0
+			_s_ewks_chain = cluster baseline
+			call sub draw_ewks_limits
+			
+			draw skip dx=0 dy=5
+			_s_ewks_chain = _s_closest_chain
+			call sub draw_ewks_limits
+			
+			draw skip to x700 y700
+			draw skip dx=(_d_sign_variable*10)/12 dy=0
+				mark x800 y800
+				/* this should be the top of the barrier */
+			}
+		
+		else
+			{
+			/* we have issues */
+			draw dx=10 dy=10
+			}
+		
+			
+		/* now the high side of barrier is drawn, you will use the intersection of 700 and 800 to match top of barrier elevations */
+		/* now draw the low side elevation */
+		
+		if _s_side_slope = _s_side_low then
+			{
+			/* the closest chain is the low side*/
+			/* reset the _s_chain to the closest chain because it is low side and draw it in */
+			_s_chain = _s_closest_chain
+			}
+		else
+			{
+			_s_chain = cluster baseline
+			}
+		call sub get_road_specific_variables
+		
+		draw skip to x501 y501
+			mark _mp_point_1
+			mark x20 y20		/* for shoulder slopes */
+		
+		/* now check for regular shoulder and draw it in on the low side */
+		if _s_found_regular_shoulder_right_of_bar = ^yes^ then
+			{
+			set plot parameters "top of paved shld symb"
+			draw to x401 y401
+				mark _mp_point_2
+				mark x21 y21	/* for shoulder slopes */
+			call sub label_shoulder_slopes
+			
+			draw skip to _mp_point_2
+			_s_first_time_through = ^no^	/* need this to be no so it won't redefine mp 1 and 2 above */
+			call sub draw_shoulder_depths
+			draw skip to x401 y401		
+			}
+		else
+			{
+			/* don't do anything */
+			}
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		/* now draw the curb....this will have to be modified for all types of curb */
+		if _s_found_curb_right_of_bar = ^yes^ then
+			{
+			set plot parameters "top of curb symb"
+			/* draw the actual curb in here */
+			/* use a (-) of the sign convention variable here */
+			_s_curb_found = _s_curb_found_right_of_bar	/* type of curb */
+			
+			if _s_side_slope = ^left^ then
+				{
+				_d_curb_sign_variable = 1
+				_s_curb_chain = cluster baseline	
+				_s_curb_side_slope = _s_side_slope	
+				}
+			else if _s_side_slope = ^right^ then
+				{
+				_d_curb_sign_variable = -1
+				_s_curb_chain = _s_closest_chain
+				_s_curb_side_slope = _s_closest_chain_side_slope	
+				}
+				
+			_d_curb_width = abs(x301-x401)
+			call sub draw_curb_in_double_faced_barrier_areas
+			call sub create_toc_and_flow_line_profiles
+			draw skip to x301 y301
+			
+			
+			}
+		else
+			{
+			/* don't do anything */
+			}
+			
+		/* now draw the adverse shoulder */
+		if _s_found_adv_shoulder_right_of_bar = ^yes^ then
+			{
+			mark x20 y20	/* for shoulder slopes */
+			
+			set plot parameters "adv shoulder symb"
+			draw to x201 y201
+				mark x21 y21
+			call sub label_shoulder_slopes
+			
+			draw skip to x201 y201
+			set plot parameters "bottom of adv shoulder symb"
+			draw dx=0 dy=-abs(_d_adv_shoulder_depth)
+				mark _mp_draw_to_this_point
+			
+			draw skip to x301 y301
+				draw dx=0 dy=-abs(_d_adv_shoulder_depth)
+				draw to _mp_draw_to_this_point
+			
+			draw skip to x201 y201
+			}
+		else
+			{
+			/* don't do anything */
+			}
+		
+		
+		/* now draw the dfb in from the low side */
+		/* use a (-) of the sign convention variable here */
+		set plot parameters "Concrete Barrier Surface Symbology"
+			mark x901 y901
+		draw dx=(-1)*(_d_sign_variable)*1/12 dy=0	/* E5 joint */	
+		draw dx=0 dy=3/12
+		draw dx=(-1)*(_d_sign_variable*7)/12 dy=10/12
+		draw dx=(-1)*(_d_sign_variable*2)/12 dy=19/12 to intersection x700 y700 x800 y800
+		/* this should be the top of the barrier */
+		draw to x700 y700
+		
+		
+		/* now draw the bottom of barrier in 9" below */
+		/* two points are x900 and x901 */
+		set plot parameters "Concrete Barrier subSurface Symbology"
+		if y900>y901 then
+			{
+			draw skip to x901 y901
+			draw dx=0 dy=-9/12
+				mark x903 y903
+			draw skip to x900 y900
+			draw rise:run = -1:0 to y903
+				draw to x903 y903
+			}
+		else if y900<=y901 then
+			{
+			draw skip to x900 y900
+			draw dx=0 dy=-9/12
+				mark x902 y902
+			draw skip to x901 y901
+			draw rise:run = -1:0 to y902
+				draw to x902 y902
+			}
+		else
+			{
+			/* shouldn't ever see this */
+			}
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	else if y100<y101 then
+		{
+		_s_side_low = ^left^
+		
+		if _s_side_slope = ^left^ then
+			{
+			_d_sign_variable = 1	/* necessary for a draw dx statement */
+			}
+		else if _s_side_slope = ^right^ then
+			{
+			_d_sign_variable = -1	/* necessary for a draw dx statement */
+			}
+		draw skip to x100 y100
+		draw text value = _d_barrier_elev_diff "~BARRIER ELEV DIFF Text Symbology" 
+		
+		draw skip to x101 y101
+		/* now we are at the high point */
+		/* check to see how much the low point needs to be adjusted */
+			mark _mp_high_point
+			
+		/* now check to see where the barrier line intersects the shoulder line on the low side */
+		if _s_found_adv_shoulder_left_of_bar = ^yes^ then
+			{
+			draw skip dx=_d_sign_variable*(_d_normal_DF_barrier_width) dy=0
+			}
+			
+		else if _s_found_curb_left_of_bar = ^yes^ then
+			{
+			if abs(x300-x100)<= tolerance and abs(y300-y100)<= tolerance then
+				{
+				/* the lowside top of curb 300 is at the low side start of barrier 100 */
+				draw skip dx=_d_sign_variable*(_d_normal_DF_barrier_width + _d_curb_dx_left_of_barrier) dy=-_d_curb_dy_left_of_barrier
+				}
+			
+			else
+				{
+				/* curb found but assume that it is adjacent to the eop and not at barrier */
+				draw skip dx=_d_sign_variable*(_d_normal_DF_barrier_width) dy=0
+				}
+			
+			}
+			
+		/* now I should be at the high side toe of barrier elevation but on the low side...if any curb/vg is adjacent */
+		/* to the barrier, then I am beyond that too and adjusted the elevation by the delta curb elevation */
+		mark _mp_dfb_low_side_start_of_shldr_shorten
+		if _s_found_adv_shoulder_left_of_bar = ^yes^ then
+			{
+			draw skip to x100 y100	/* outside edge of adverse shoulder, low side start of barrier */
+			}
+		else
+			{
+			draw skip to x400 y400	/* outside of paved shoulder or start of curb */
+			}
+		
+			mark x600 y600
+		draw skip dx=_d_sign_variable*100 dy=_d_sign_variable*_d_adjacent_shoulder_slope_left_of_bar
+			mark x700 y700
+		
+		draw skip to _mp_dfb_low_side_start_of_shldr_shorten
+		/* now see where the 6 degree slope intersects the shoulder on the low side */
+		/* 2" horizontal change for every 19" of vertical change per R-49-D */
+		draw skip dx=_d_sign_variable*(2/12) dy=-(1+7/12) to intersection x600 y600 x700 y700
+			mark _mp_new_low_side_eos
+			mark x800 y800
+		
+		if _s_found_adv_shoulder_left_of_bar = ^yes^ then
+			{
+			/* this point is the new edge of adverse shoulder */
+			_d_shoulder_shortened_distance = abs(x200-x800)
+				mark x200 y200
+			}
+			
+		else if _s_found_curb_left_of_bar = ^yes^ then
+			{
+			if abs(x300-x100)<= tolerance and abs(y300-y100)<= tolerance then
+				{
+				/* the lowside top of curb 300 is at the low side start of barrier 100 */
+				_d_shoulder_shortened_distance = abs(x800-x400)
+					mark x400 y400
+				}
+			
+			else
+				{
+				/* curb found but assume that it is adjacent to the eop and not at barrier */
+				/* I don't think I will ever see this...so it may not work */
+				_d_shoulder_shortened_distance = abs(x800-x200)
+					mark x200 y200
+				}
+			
+			}
+		
+		
+		/* now at this point, all redefined points have been determined ....I think */
+		/* lets go back to the high point eop and start drawing */
+		
+		if _s_side_slope = _s_side_low then
+			{
+			/* the closest chain is the low side*/
+			/* reset the _s_chain to the current cluster baseline because it is high and draw it in */
+			_s_chain = cluster baseline
+			}
+		else
+			{
+			_s_chain = _s_closest_chain
+			}
+		call sub get_road_specific_variables
+		
+		draw skip to x501 y501
+			mark _mp_point_1
+			mark x20 y20	/* for shoulder slopes */
+			
+		/* now check for regular shoulder and draw it in on the high side */
+		if _s_found_regular_shoulder_right_of_bar = ^yes^ then
+			{
+			set plot parameters "top of paved shld symb"
+			draw to x401 y401
+				mark _mp_point_2
+				mark x21 y21	/* for shoulder slopes */
+			call sub label_shoulder_slopes
+			
+			draw skip to _mp_point_2
+			_s_first_time_through = ^no^	/* need this to be no so it won't redefine mp 1 and 2 above */
+			call sub draw_shoulder_depths
+			draw skip to x401 y401
+			}
+		else
+			{
+			/* don't do anything */
+			}
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		/* now draw the curb....this will have to be modified for all types of curb */
+		if _s_found_curb_right_of_bar = ^yes^ then
+			{
+			set plot parameters "top of curb symb"
+			/* draw the actual curb in here */
+			_s_curb_found = _s_curb_found_right_of_bar	/* type of curb */
+			if _s_side_slope = ^left^ then
+				{
+				_d_curb_sign_variable = 1
+				_s_curb_chain = _s_closest_chain
+				_s_curb_side_slope = _s_closest_chain_side_slope		
+				}
+			else if _s_side_slope = ^right^ then
+				{
+				_d_curb_sign_variable = -1
+				_s_curb_chain = cluster baseline
+				_s_curb_side_slope = _s_side_slope	
+				}
+				
+			_d_curb_width = abs(x301-x401)
+			call sub draw_curb_in_double_faced_barrier_areas
+			call sub create_toc_and_flow_line_profiles
+			draw skip to x301 y301
+
+			}
+		else
+			{
+			/* don't do anything */
+			}
+			
+		/* now draw the adverse shoulder */
+		if _s_found_adv_shoulder_right_of_bar = ^yes^ then
+			{
+			mark x20 y20	/* for shoulder slopes */
+			
+			set plot parameters "adv shoulder symb"
+			draw to x201 y201
+			mark x21 y21	/* for shoulder slopes */
+			call sub label_shoulder_slopes
+			
+			draw skip to x201 y201
+			set plot parameters "bottom of adv shoulder symb"
+			draw dx=0 dy=-abs(_d_adv_shoulder_depth)
+				mark _mp_draw_to_this_point
+			
+			draw skip to x301 y301
+				draw dx=0 dy=-abs(_d_adv_shoulder_depth)
+				draw to _mp_draw_to_this_point
+			
+			draw skip to x201 y201
+			}
+		else
+			{
+			/* don't do anything */
+			}
+		
+		/* now start drawing the dfb from the high side */
+		/* check to see if we are at the start of barrier */
+		mark x601 y601
+		if abs(x601-x101)<=tolerance then
+			{
+			/* x-location is good for high side barrier */
+			set plot parameters "Concrete Barrier Surface Symbology"
+				mark x901 y901
+			draw dx=(_d_sign_variable)*1/12 dy=0		/* E5 joint */
+			draw dx=0 dy=3/12
+			draw dx=(_d_sign_variable*7)/12 dy=10/12
+			draw dx=(_d_sign_variable*2)/12 dy=19/12
+				mark x701 y701
+				
+				
+			/* draw the ewks limits */
+			draw skip dx=((_d_sign_variable*10)/12)/2 dy=0
+			_s_ewks_chain = cluster baseline
+			call sub draw_ewks_limits
+			
+			draw skip dx=0 dy=5
+			_s_ewks_chain = _s_closest_chain
+			call sub draw_ewks_limits
+			
+			draw skip to x701 y701
+			draw skip dx=(_d_sign_variable*10)/12 dy=0
+				mark x801 y801
+				/* this should be the top of the barrier */
+			}
+		
+		else
+			{
+			/* we have issues */
+			draw dx=10 dy=10
+			}
+		
+		
+		/* now the high side of barrier is drawn, you will use the intersection of 701 and 801 to match top of barrier elevations */
+		/* now draw the low side elevation */
+		
+		if _s_side_slope = _s_side_low then
+			{
+			/* the closest chain is the low side*/
+			/* reset the _s_chain to the closest chain because it is low and draw it in */
+			_s_chain = _s_closest_chain
+			}
+		else
+			{
+			_s_chain = cluster baseline
+			}
+		call sub get_road_specific_variables
+		
+		draw skip to x500 y500
+			mark _mp_point_1
+			mark x20 y20	/* for shoulder slopes */
+			
+		/* now check for regular shoulder and draw it in on the high side */
+		if _s_found_regular_shoulder_left_of_bar = ^yes^ then
+			{
+			set plot parameters "top of paved shld symb"
+			draw to x400 y400
+				mark _mp_point_2
+				mark x21 y21	/* for shoulder slopes */
+			call sub label_shoulder_slopes
+			
+			draw skip to _mp_point_2
+			_s_first_time_through = ^no^	/* need this to be no so it won't redefine mp 1 and 2 above */
+			call sub draw_shoulder_depths
+			draw skip to x400 y400
+			}
+		else
+			{
+			/* don't do anything */
+			}
+		
+		
+		
+		
+		
+		/* now draw the curb....this will have to be modified for all types of curb */
+		if _s_found_curb_left_of_bar = ^yes^ then
+			{
+			set plot parameters "top of curb symb"
+			/* draw the actual curb in here */
+			/* use a (-) of the sign convention variable here */
+			_s_curb_found = _s_curb_found_left_of_bar	/* type of curb */
+			if _s_side_slope = ^left^ then
+				{
+				_d_curb_sign_variable = -1	
+				_s_curb_chain = _s_closest_chain
+				_s_curb_side_slope = _s_closest_chain_side_slope		
+				}
+			else if _s_side_slope = ^right^ then
+				{
+				_d_curb_sign_variable = 1
+				_s_curb_chain = cluster baseline
+				_s_curb_side_slope = _s_side_slope	
+				}
+				
+			_d_curb_width = abs(x300-x400)
+			call sub draw_curb_in_double_faced_barrier_areas
+			call sub create_toc_and_flow_line_profiles
+			
+			draw skip to x300 y300
+			
+			}
+		else
+			{
+			/* don't do anything */
+			}
+			
+		/* now draw the adverse shoulder */
+		if _s_found_adv_shoulder_left_of_bar = ^yes^ then
+			{
+			mark x20 y20	/* for shoulder slopes */
+			
+			set plot parameters "adv shoulder symb"
+			draw to x200 y200
+				mark x21 y21	/* for shoulder slopes */
+			call sub label_shoulder_slopes
+			
+			draw skip to x200 y200
+			set plot parameters "bottom of adv shoulder symb"
+			draw dx=0 dy=-abs(_d_adv_shoulder_depth)
+				mark _mp_draw_to_this_point
+			
+			draw skip to x300 y300
+				draw dx=0 dy=-abs(_d_adv_shoulder_depth)
+				draw to _mp_draw_to_this_point
+			
+			draw skip to x200 y200
+			}
+		else
+			{
+			/* don't do anything */
+			}
+		
+		
+		/* now draw the dfb in from the low side */
+		/* use a (-) of the sign convention variable here */
+		set plot parameters "Concrete Barrier Surface Symbology"
+			mark x900 y900
+		draw dx=(-1)*(_d_sign_variable)*1/12 dy=0		/* E5 joint */
+		draw dx=0 dy=3/12
+		draw dx=(-1)*(_d_sign_variable*7)/12 dy=10/12
+		draw dx=(-1)*(_d_sign_variable*2)/12 dy=19/12 to intersection x701 y701 x801 y801
+		/* this should be the top of the barrier */
+		draw to x701 y701	/* this should close the barrier */
+		
+		
+		/* now draw the bottom of barrier in 9" below */
+		/* two points are x900 and x901 */
+		set plot parameters "Concrete Barrier subSurface Symbology"
+		if y900>y901 then
+			{
+			draw skip to x901 y901
+			draw dx=0 dy=-9/12
+				mark x903 y903
+			draw skip to x900 y900
+			draw rise:run = -1:0 to y903
+				draw to x903 y903
+			}
+		else if y900<=y901 then
+			{
+			draw skip to x900 y900
+			draw dx=0 dy=-9/12
+				mark x902 y902
+			draw skip to x901 y901
+			draw rise:run = -1:0 to y902
+				draw to x902 y902
+			}
+		else
+			{
+			/* shouldn't ever see this */
+			}
+		
+		
+		}
+	
+	else
+		{
+		/* shouldn't ever see this */
+		}
+	
+	
+	
+	
+	
+	}
+end sub
+	
+
+
+
+sub draw_curb_in_double_faced_barrier_areas
+	{
+	/* draw the different types of curb in here */
+	mark _mp_starting_point_of_curb
+	if _s_curb_found = ^VG^ then
+		{
+		draw slope = -abs(_d_valley_gutter_slope) for dx=_d_curb_sign_variable*_d_curb_width/2
+			mark _mp_new_flow_line
+			mark _mp_low_pt_of_valley_gutter
+			
+		draw skip to _mp_new_flow_line
+		draw slope = abs(_d_valley_gutter_slope) for dx=_d_curb_sign_variable*_d_curb_width/2
+			mark _mp_outside_of_vg
+		set plot parameters "bottom of curb symb"
+		draw dx=0 dy=-_d_valley_gutter_depth
+			mark _mp_bottom_of_curb
+		draw skip to _mp_starting_point_of_curb
+		draw dx=0 dy=-_d_valley_gutter_depth
+		draw to _mp_bottom_of_curb
+		draw skip to _mp_outside_of_vg
+		_s_valley_Gutter_Found = ^yes^
+		_s_Curb_and_Gutter_Found = ^no^
+		}
+		
+	/* for any curb below, need to use the _d_curb_sign_variable for both the dx and dy variables */
+	
+	
+	
+	else if _s_curb_found = ^B1^ then
+		{
+		_s_Curb_and_Gutter_Found = ^yes^
+		_s_valley_Gutter_Found = ^no^
+		mark _mp_top_back_of_curb
+		}
+		
+	else if _s_curb_found = ^B2^ then
+		{
+		_s_Curb_and_Gutter_Found = ^yes^
+		_s_valley_Gutter_Found = ^no^
+		mark _mp_top_back_of_curb
+		}
+		
+	else if _s_curb_found = ^B3^ then
+		{
+		_s_Curb_and_Gutter_Found = ^yes^
+		_s_valley_Gutter_Found = ^no^
+		mark _mp_top_back_of_curb
+		}
+		
+	else if _s_curb_found = ^C1^ then
+		{
+		_s_Curb_and_Gutter_Found = ^yes^
+		_s_valley_Gutter_Found = ^no^
+		mark _mp_top_back_of_curb
+		}
+		
+	else if _s_curb_found = ^C2^ then
+		{
+		_s_Curb_and_Gutter_Found = ^yes^
+		_s_valley_Gutter_Found = ^no^
+		mark _mp_top_back_of_curb
+		}
+		
+	else if _s_curb_found = ^C3^ then
+		{
+		_s_Curb_and_Gutter_Found = ^yes^
+		_s_valley_Gutter_Found = ^no^
+		mark _mp_top_back_of_curb
+		}
+		
+	else if _s_curb_found = ^C4^ then
+		{
+		_s_Curb_and_Gutter_Found = ^yes^
+		_s_valley_Gutter_Found = ^no^
+		mark _mp_top_back_of_curb
+		}
+		
+	else if _s_curb_found = ^C5^ then
+		{
+		_s_Curb_and_Gutter_Found = ^yes^
+		_s_valley_Gutter_Found = ^no^
+		mark _mp_top_back_of_curb
+		}
+		
+	else if _s_curb_found = ^C6^ then
+		{
+		_s_Curb_and_Gutter_Found = ^yes^
+		_s_valley_Gutter_Found = ^no^
+		mark _mp_top_back_of_curb
+		}
+		
+	else if _s_curb_found = ^D1^ then
+		{
+		_s_Curb_and_Gutter_Found = ^yes^
+		_s_valley_Gutter_Found = ^no^
+		mark _mp_top_back_of_curb
+		}
+		
+	else if _s_curb_found = ^D2^ then
+		{
+		_s_Curb_and_Gutter_Found = ^yes^
+		_s_valley_Gutter_Found = ^no^
+		mark _mp_top_back_of_curb
+		}
+		
+	else if _s_curb_found = ^D3^ then
+		{
+		_s_Curb_and_Gutter_Found = ^yes^
+		_s_valley_Gutter_Found = ^no^
+		mark _mp_top_back_of_curb
+		}
+		
+	else if _s_curb_found = ^E1^ then
+		{
+		_s_Curb_and_Gutter_Found = ^yes^
+		_s_valley_Gutter_Found = ^no^
+		mark _mp_top_back_of_curb
+		}
+		
+	else if _s_curb_found = ^E2^ then
+		{
+		_s_Curb_and_Gutter_Found = ^yes^
+		_s_valley_Gutter_Found = ^no^
+		mark _mp_top_back_of_curb
+		}
+		
+	else if _s_curb_found = ^E4^ then
+		{
+		_s_Curb_and_Gutter_Found = ^yes^
+		_s_valley_Gutter_Found = ^no^
+		mark _mp_top_back_of_curb
+		}
+		
+	else if _s_curb_found = ^F1^ then
+		{
+		_s_Curb_and_Gutter_Found = ^yes^
+		_s_valley_Gutter_Found = ^no^
+		mark _mp_top_back_of_curb
+		}
+		
+	else if _s_curb_found = ^F2^ then
+		{
+		_s_Curb_and_Gutter_Found = ^yes^
+		_s_valley_Gutter_Found = ^no^
+		mark _mp_top_back_of_curb
+		}
+		
+	else if _s_curb_found = ^F3^ then
+		{
+		_s_Curb_and_Gutter_Found = ^yes^
+		_s_valley_Gutter_Found = ^no^
+		mark _mp_top_back_of_curb
+		}
+		
+	else if _s_curb_found = ^F4^ then
+		{
+		_s_Curb_and_Gutter_Found = ^yes^
+		_s_valley_Gutter_Found = ^no^
+		mark _mp_top_back_of_curb
+		}
+		
+	else if _s_curb_found = ^F5^ then
+		{
+		_s_Curb_and_Gutter_Found = ^yes^
+		_s_valley_Gutter_Found = ^no^
+		mark _mp_top_back_of_curb
+		}
+		
+	else if _s_curb_found = ^F6^ then
+		{
+		_s_Curb_and_Gutter_Found = ^yes^
+		_s_valley_Gutter_Found = ^no^
+		mark _mp_top_back_of_curb
+		}
+		
+	else if _s_curb_found = ^G1^ then
+		{
+		_s_Curb_and_Gutter_Found = ^yes^
+		_s_valley_Gutter_Found = ^no^
+		mark _mp_top_back_of_curb
+		}
+		
+	else if _s_curb_found = ^G2^ then
+		{
+		_s_Curb_and_Gutter_Found = ^yes^
+		_s_valley_Gutter_Found = ^no^
+		mark _mp_top_back_of_curb
+		}
+		
+
+	
+	
+	
+	}
+end sub		/* ends the sub draw_curb_in_double_faced_barrier_areas */
+
+
+
+sub write_profile
+		{
+		if _d_file_counter>1.1 then
+			{
+			mark x78 y78
+			ascii append file = _s_ascii_file
+			ascii write file = _s_ascii_file	
+			format = ^%-10s,%-10s,%10.4f,%10.4f\n^
+			var = _s_chain, _s_sta, _d_region, _d_elevation
+			ASCII CLOSE FILE = _s_ascii_file
+			}
+		else
+			{
+			mark x79 y79
+			ascii open file = _s_ascii_file	
+			ascii write file = _s_ascii_file	
+			format = ^%-10s,%-10s,%10.4f,%10.4f\n^
+			var = _s_chain, _s_sta, _d_region, _d_elevation
+			ASCII CLOSE FILE = _s_ascii_file
+			}
+		
+			
+		}
+		END SUB
+
+	
+	
+	
+	
+	sub draw_sidewalk_between_SFB
+		{
+		set plot parameters "Sidewalk Cap for Concrete Barrier Symbology"
+		draw skip to _mp_outside_top_of_conc_barrier	/* this is the outside of the current cluster */
+			mark x900 y900
+		draw skip to _mp_outside_bottom_of_conc_barrier /* this is the outside of the current cluster */
+			mark x901 y901
+		
+				draw skip to x900 y900
+				if _s_closest_chain_side_slope = ^left^ then
+					{
+					/* connect to the left edge of the closest chain barrier */
+					call sub draw_to_left_outside_top_of_SFB
+						mark x902 y902
+						
+					set plot parameters "bottom of SFB granular fill symb"
+					draw skip to x901 y901
+						mark x1 y1	/* used for tieing aggbase and subbase */
+						mark x2 y2	/* used for tieing aggbase and subbase */
+					call sub draw_to_left_outside_bottom_of_SFB
+						mark x903 y903
+						mark x3 y3	/* used for tieing aggbase and subbase */
+					}
+				else if  _s_closest_chain_side_slope = ^right^ then
+					{
+					/* connect to the right edge of the closest chain barrier */
+					call sub draw_to_right_outside_top_of_SFB
+						mark x902 y902
+					
+					set plot parameters "bottom of SFB granular fill symb"
+					draw skip to x901 y901
+						mark x1 y1	/* used for tieing aggbase and subbase */
+						mark x2 y2	/* used for tieing aggbase and subbase */
+					call sub draw_to_right_outside_bottom_of_SFB
+						mark x903 y903
+						mark x3 y3	/* used for tieing aggbase and subbase */
+					}
+				
+				/* now draw the bottom of the sidewalk */
+				set plot parameters "bottom of SFB sidewalk cap symb"
+				draw skip to x900 y900
+				draw skip dx=-5 dy=-_d_SFB_sidewalk_cap_depth
+				draw skip rise:run = 0:1 to intersection x900 y900 x901 y901
+					mark x904 y904
+					
+					
+				draw skip to x902 y902
+				draw skip dx=-5 dy=-_d_SFB_sidewalk_cap_depth
+				draw skip rise:run = 0:1 to intersection x902 y902 x903 y903
+					mark x905 y905
+					
+				draw to x904 y904
+				
+				/* now position the cursor for the ewks limits */
+				draw skip to x900 y900
+				draw skip dx=abs(x900-x902)/2 dy=(y902-y900)/2
+					mark x906 y906
+					
+				call sub tie_aggbase_and_subbase_below_split_barrier
+				
+				draw skip to x906 y906	/* location for ewks lines */
+				
+		}
+	end sub
+
+
+
+sub tie_aggbase_and_subbase_below_dfb
+	{
+	set plot parameters "subbase symb"
+	call sub draw_skip_to_closest_chain_subbase_under_eop_point
+	draw to _mp_subbase_beneath_eop
+	
+	set plot parameters "agg base symb"
+	call sub draw_skip_to_closest_chain_aggbase_under_eops
+		mark _mp_agg_under_dfb_1
+	call sub draw_skip_to_aggbase_under_eops
+		mark _mp_agg_under_dfb_2
+	draw to _mp_agg_under_dfb_1
+	        
+	}
+end sub
+
+
+sub tie_aggbase_and_subbase_below_split_barrier
+	{
+	set plot parameters "subbase symb"
+	call sub draw_skip_to_subbase_under_split_barrier	/* this is the subbase point under the flow line of vg */
+		mark _mp_agg_under_split_1
+	call sub draw_skip_to_subbase_under_closest_split_barrier	/* this is the subbase point for the closest chain under the flow line of vg */
+		mark _mp_agg_under_split_2
+	draw to _mp_agg_under_split_1
+	
+	set plot parameters "agg base symb"
+	call sub draw_skip_to_aggbase_under_split_barrier	/* this is the aggbase point under the toe of barrier */
+		mark _mp_agg_under_split_3
+	call sub draw_skip_to_aggbase_under_closest_split_barrier	/* this is the aggbase point for the closest chain under the toe of barrier */
+		mark _mp_agg_under_split_4
+	draw to _mp_agg_under_split_3
+	
+	}
+end sub
+	
+	}
+	
+else
+	{
+	
+	}
+	

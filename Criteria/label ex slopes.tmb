@@ -1,0 +1,66 @@
+
+
+
+if right side then
+	{
+	draw skip to XS EG LT PT
+		mark x1 y1
+		
+	draw skip to XS EG RT PT
+		mark x100 y100
+		
+	draw skip to x1 y1
+	draw skip trace out off=0 to endpoint
+		mark x2 y2
+	
+	draw slope text between x1 y1 and x2 y2
+		number of decimal places = 2
+		offset = 0.5
+		format = 1:run /* always uses 1 as rise value (ex. 1:.5) */
+		co = 4
+		wt=1
+		th=.3
+		tw=.3
+		
+		draw skip to x2 y2
+			mark x1 y1
+		draw skip trace out off=0 for dx=.1
+			mark x2 y2
+	
+	while x2<x100
+	{
+	draw skip to x1 y1
+		draw skip trace out off=0 to endpoint
+		mark x2 y2
+		
+	call sub Label_FS
+	}
+	
+	}
+	
+else
+		{
+		/* don't do anything*/
+		}
+
+
+
+sub Label_FS
+		{
+		draw slope text between x1 y1 and x2 y2
+		number of decimal places = 2
+		offset = 0.5
+		format = 1:run /* always uses 1 as rise value (ex. 1:.5) */
+		co = 4
+		wt=1
+		th=.3
+		tw=.3
+		
+		draw skip to x2 y2
+			mark x1 y1
+		draw skip trace out off=0 for dx=.1
+			mark x2 y2
+		}
+end sub
+
+

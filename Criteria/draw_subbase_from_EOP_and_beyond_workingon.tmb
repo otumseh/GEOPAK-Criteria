@@ -1,0 +1,587 @@
+
+			
+			
+xcode = 1
+plot parameters "road symb"
+
+if p1 then
+	{
+	/* from draw_sub_to_EOP.tmb:  the subbase should start at _mp_subbase_beneath_eop and go out at slope=_d_SubgradeSlope.... both of which have previously been defined*/
+	
+	
+	
+	
+	if _d_subbase_depth > tolerance then
+		{
+		draw skip to xpgl ypgl 
+		
+		set plot parameters "subbase symb"
+			
+		/* continue subbase at _d_SubgradeSlope to EOPS*/
+			
+		draw skip to _mp_current_eos
+			mark x111 y111
+			
+		draw skip to _mp_subbase_beneath_eop	/*this is below EOP, or 3' inside on high side super*/
+			
+		draw slope = _d_SubgradeSlope to x111
+			mark _mp_subbase_beneath_EOPS
+			draw text char = ^_mp_subbase_beneath_EOPS^ "mp text"
+			mark x567 y567
+		
+		
+		
+		if intersect dgn = "~Subbase Break Line DGN" within distance = _d_subbase_break_search_distance then
+			{
+			/*this uses a line to set the 1:1 break point for subbase*/
+			
+			draw skip to xpgl ypgl
+			draw skip rise:run = 0:1 to "~Subbase Break Line DGN"
+				mark x111 y111
+			
+			draw skip to _mp_subbase_beneath_EOPS
+			
+			draw slope = _d_SubgradeSlope to x111
+				mark x567 y567	/*this will be used for tieing agg base*/
+		
+			}
+			
+		
+		else
+			{	
+				/*this will now check for different side treatments that control subbase daylighting*/
+			if _s_found_sawcut_line = ^yes^ then
+				{
+				if _s_shoulder_widening_only = ^yes^ then
+					{
+					draw skip to _mp_subbase_beneath_EOPS
+						mark x567 y567
+						
+					draw skip to _mp_aggbase_under_eops
+						mark x678 y678
+					call sub label_aggbase_under_eops
+					
+					_s_subbase_already_tied = ^no^
+					}
+				else if _s_sawcut_with_gore = ^yes^ then
+					{
+					/* I'm not so sure that I want this criteria in this area....*/
+					draw skip rise:run = 0:1 to "~Sawcut Line in DGN"
+					draw skip dx=-abs(_d_subbase_depth) dy=0
+						mark x111 y111
+						
+					draw skip to _mp_subbase_beneath_EOPS
+					draw slope = _d_SubgradeSlope to x111
+						mark x567 y567	/*this will be used for tieing agg base*/
+					
+					draw to _mp_aggbase_under_eop /* this should be directly below the sawcut line drawing away at a 1:1*/
+						mark x678 y678	/*this will be used for tieing agg base*/
+					
+					_s_subbase_already_tied = ^yes^
+					}
+				else
+					{
+					_s_subbase_already_tied = ^no^
+					}
+				}
+				
+			else
+				{
+				/* need to finish subbase for other conditions other than sawcut */
+				_s_subbase_already_tied = ^no^
+				}
+				
+				
+			if _s_subbase_already_tied = ^no^ then
+				{	
+			
+				if _s_Curb_and_Gutter_Found = ^yes^ then
+					{
+					draw skip to _mp_bottom_back_of_curb
+					draw skip dx=_d_distance_for_subbase_break_outside_curb dy=0
+						mark x111 y111
+					
+					draw skip to _mp_subbase_beneath_EOPS
+					
+					draw slope = _d_SubgradeSlope to x111
+						mark _mp_tie_subbase_to_ground
+						mark x567 y567	/*this will be used for tieing agg base to 1:1 if present*/
+								
+					}
+				
+				else if _s_agg_shoulder_Found = ^yes^ then
+				/*else if _s_agg_shoulder_Found = ^yes^ or _s_agg_shoulder_Found = ^yes_but_no_to_trick_criteria^ then*/	/* use this if you want aggbase and subbase to extend to outside of green space line */
+					{
+					
+					if _s_side_slope = ^left^ then
+						{
+						draw skip to _mp_left_outside_agg_shldr
+						}
+						
+					else if _s_side_slope = ^right^ then
+						{
+						draw skip to _mp_right_outside_agg_shldr
+						}
+					mark x444 y444		/* will use this below after checking for a green space line */
+					
+					/* added this next part to see if have a green space line outside of the agg shoulder for the I-96 okemos job */
+					draw skip to _mp_current_eos
+					if (intersect dgn = "~Green Space Hinge Line" within distance = _d_green_space_search_distance) then
+						{
+						draw skip to _mp_break_agg_or_sub_here_at_1on1
+							mark x111 y111
+						}
+					else
+						{
+						draw skip to x444 y444	/* temp point marked above before moving to the _mp_current_eos */
+						draw skip dx=_d_distance_for_subbase_break_outside_agg_shoulder dy=0
+							mark x111 y111
+						}
+					
+					
+					
+					draw skip to _mp_subbase_beneath_EOPS
+					
+					draw slope = _d_SubgradeSlope to x111
+						mark _mp_tie_subbase_to_ground
+						mark x567 y567	/*this will be used for tieing agg base to 1:1 if present*/
+								
+					}
+					
+				else if _s_driveway_here = ^yes^ then
+					{
+					/*tie subbase up at 1:1 from EOPS*/
+					mark x567 y567	/*this will be used for tieing agg base*/
+					
+					draw skip to _mp_inside_bot_drive
+						mark x222 y222
+						
+					draw skip to _mp_outside_bot_drive
+						mark x333 y333
+					
+					draw skip to _mp_subbase_beneath_EOPS
+					
+					draw rise:run = 1:1 to intersection x222 y222 x333 y333
+						mark x678 y678	/*this will be used for tieing agg base*/
+								
+					_s_subbase_already_tied = ^yes^
+					}
+					
+				else if _s_valley_Gutter_Found = ^yes^ then
+					{
+					draw skip to _mp_low_pt_of_valley_gutter
+						mark x111 y111
+						
+					draw skip to _mp_subbase_beneath_EOPS
+					
+					draw slope = _d_SubgradeSlope to x111
+						mark _mp_tie_subbase_below_vg
+						
+					if _s_barrier_present = ^yes^ then
+						{
+						if _s_intersect_split_type_A = ^yes^ then
+							{
+							draw skip to _mp_tie_subbase_below_vg
+								mark _mp_tie_subbase_to_ground
+								mark x567 y567	/*this will be used for tieing agg base to 1:1 if present*/
+							}
+						else
+							{
+							draw skip to _mp_outside_bottom_of_conc_barrier
+							draw skip dx=_d_distance_for_subbase_break_outside_barrier dy=0
+								mark x111 y111
+								
+							draw skip to _mp_tie_subbase_below_vg
+							
+							draw slope = abs(_d_adv_SubgradeSlope) to x111
+								mark _mp_tie_subbase_to_ground
+								mark x567 y567	/*this will be used for tieing agg base to 1:1 if present*/
+							}
+						
+						
+						
+						}
+					
+					else if _s_hit_double_faced_barrier = ^yes^ then
+						{
+						/* don't do anything yet*/
+						
+						
+						
+						}
+						
+					else if _s_tie_roads_together = ^yes^ then
+						{
+						/* don't do anything yet*/
+						
+						
+						_s_subbase_already_tied = ^no^
+						_s_aggbase_already_tied = ^no^
+						}
+						
+					else
+						{
+						draw skip to _mp_outside_of_valley_gutter
+							mark x111 y111
+						
+						draw skip to _mp_tie_subbase_below_vg
+						
+						draw slope = abs(_d_adv_SubgradeSlope) to x111
+							mark _mp_subbase_below_outside_vg
+										
+						draw skip dx=_d_distance_for_subbase_break_outside_curb dy=0
+							mark x111 y111
+					
+						draw skip to _mp_subbase_below_outside_vg
+					
+						draw slope = abs(_d_adv_SubgradeSlope) to x111
+							mark _mp_tie_subbase_to_ground
+							mark x567 y567	/*this will be used for tieing agg base to 1:1 if present*/
+						
+											
+						}	
+					
+					
+					} /*closes if VG statement*/
+								
+				else
+					{
+					/* fill in any additional senarios here*/
+					/* assuming go outside of paved shoulder and tie subbase here */
+					
+					draw skip to _mp_current_eos
+					draw skip dx=_d_distance_beyond_paved_shoulder_for_1on1 dy=0
+						mark x111 y111
+					
+					draw skip to _mp_subbase_beneath_EOPS
+					
+					draw slope = _d_SubgradeSlope to x111
+						mark _mp_tie_subbase_to_ground
+						mark x567 y567	/*this will be used for tieing agg base to 1:1 if present*/
+					}
+				}
+				
+			else
+				{
+				/* don't do anything */
+				/* subbase is already drawn in here */
+				}
+			}
+		
+		
+/***************************now tie subbase to existing ground**********************************************/		
+		
+		
+		if _s_subbase_already_tied = ^yes^ then
+			{
+			/*move onto agg base, subbase tied already*/
+			}
+		
+		else
+			{
+			if _s_tie_roads_together = ^yes^ then
+				{
+				/* don't do anything yet....*/
+				}
+			
+			else
+				{
+				/* now check to see if subbase will daylight or go up at 1:1*/
+				
+				draw skip to x567 y567
+				
+				
+				
+				if _s_valley_Gutter_Found = ^yes^ then
+					{
+					/* valley gutter goes up at _d_adv_SubgradeSlope because of UD*/
+					
+					if abs(x1-x2)<=tolerance and abs(y1-y2)<=tolerance then
+						{
+						draw skip slope = abs(_d_adv_SubgradeSlope) to intersection x2 y2 x3 y3
+							mark x678 y678
+						}
+					else
+						{
+						draw skip slope = abs(_d_adv_SubgradeSlope) to intersection x1 y1 x2 y2
+							mark x678 y678
+						}
+					
+						
+					if abs(x567-x678)>_d_max_subbase_tie_distance or abs(x567-x678)<=tolerance then
+						{
+						/*tie subbase up at 1:1*/
+						
+						draw skip to x567 y567
+						draw skip rise:run = 1:1 to intersection x1 y1 x2 y2
+							mark x678 y678
+							
+						if abs(x678-x1)<= abs(x2-x1) and abs(x678-x2)<= abs(x2-x1) then
+							{
+							/* subbase tied between x1 and x2....draw it in */
+							draw skip to x567 y567
+							draw to x678 y678
+							mark _mp_subbase_daylight
+							draw text char = ^_mp_subbase_daylight^ "mp text"
+							}
+						else
+							{
+							/* subbase tied beyond x1 and x2, try x2 and x3 */
+							draw skip to x567 y567
+							draw skip rise:run = 1:1 to intersection x2 y2 x3 y3
+								mark x678 y678
+							
+							if abs(x678-x2)<= abs(x3-x2) and abs(x678-x3)<= abs(x3-x2) then
+								{
+								/* subbase tied between x2 and x3....draw it in */
+								draw skip to x567 y567
+								draw to x678 y678
+								mark _mp_subbase_daylight
+								draw text char = ^_mp_subbase_daylight^ "mp text"
+								}
+							else
+								{
+								/* subbase tied beyond x2 and x3, try x3 and x4 */
+								/* you may NOT have x4 (ditch bottom) in your sections, but we hope so */
+								/* or you be hand closing this one */
+								draw skip to x567 y567
+								draw rise:run = 1:1 for dx = .5	/* this gives you something to extend if it doesn't close */
+								draw rise:run = 1:1 to intersection x3 y3 x4 y4
+								mark x678 y678
+								}
+							}
+							
+						
+						_s_subbase_daylighted = ^no^
+						
+						}
+						
+					else
+						{
+						/*subbase will daylight*/
+						draw skip to x567 y567
+						draw to x678 y678
+							mark _mp_subbase_daylight
+							draw text char = ^_mp_subbase_daylight^ "mp text"
+						
+						_s_subbase_daylighted = ^yes^	
+						}
+					
+					}
+					
+				else
+					{
+					/*all other treatments assumed to draw out at _d_SubgradeSlope*/
+					
+					if _s_tie_roads_together = ^yes^ then
+						{
+						/* don't do anything yet....still need aggbase point */
+						}
+					else
+						{
+							
+						/* if have curb, then x1 and x2 are not same point */
+						/* if no curb, x1 and x2 are same point */	
+						if abs(x1-x2)<=tolerance and abs(y1-y2)<=tolerance then
+							{
+							draw skip slope = _d_SubgradeSlope to intersection x2 y2 x3 y3
+							
+								mark x678 y678
+								
+							if y3-y678>2*tol then
+								{
+								draw skip to x567 y567
+								mark x678 y678
+								}
+							else
+								{
+								}
+							}
+						else
+							{
+							draw skip slope = _d_SubgradeSlope to intersection x1 y1 x2 y2
+								mark x678 y678
+								
+							if ((abs(x567-x678)>_d_max_subbase_tie_distance) or (abs(x567-x678)<tolerance)) then
+								{
+								/* this should account for when have curb with a short greenspace...try to daylight between x2 and x3 if x1 and x2 didn't work */
+								draw skip to x567 y567
+								draw skip slope = _d_SubgradeSlope to intersection x2 y2 x3 y3
+									mark x678 y678
+								}
+							}
+						
+							
+						if ((abs(x567-x678)>_d_max_subbase_tie_distance) or (abs(x567-x678)<=tolerance) or _s_try_to_daylight_subbase = ^no^) then
+							{
+							/*tie subbase up at 1:1*/
+							
+							draw skip to x567 y567
+							draw skip rise:run = 1:1 to intersection x1 y1 x2 y2
+								mark x678 y678
+								
+							if abs(x678-x1)<= abs(x2-x1) and abs(x678-x2)<= abs(x2-x1) then
+								{
+								/* subbase tied between x1 and x2....draw it in */
+								draw skip to x567 y567
+								draw to x678 y678
+								mark _mp_subbase_daylight
+								draw text char = ^_mp_subbase_daylight^ "mp text"
+								}
+							else
+								{
+								/* subbase tied beyond x1 and x2, try x2 and x3 */
+								draw skip to x567 y567
+								draw skip rise:run = 1:1 to intersection x2 y2 x3 y3
+									mark x678 y678
+								
+								if abs(x678-x2)<= abs(x3-x2) and abs(x678-x3)<= abs(x3-x2) then
+									{
+									/* subbase tied between x2 and x3....draw it in */
+									draw skip to x567 y567
+									draw to x678 y678
+									mark _mp_subbase_daylight
+									draw text char = ^_mp_subbase_daylight^ "mp text"
+									}
+								else
+									{
+									/* subbase tied beyond x2 and x3, try x3 and x4 */
+									/* you may NOT have x4 (ditch bottom) in your sections, but we hope so */
+									/* or you be hand closing this one */
+									draw skip to x567 y567
+									draw rise:run = 1:1 for dx = .5	/* this gives you something to extend if it doesn't close */
+									draw rise:run = 1:1 to intersection x3 y3 x4 y4
+									mark x678 y678
+									}
+								}
+								
+							
+							_s_subbase_daylighted = ^no^
+							
+							}
+							
+						else
+							{
+							/*subbase will daylight*/
+							draw skip to x567 y567
+							draw to x678 y678
+								mark _mp_subbase_daylight
+								draw text char = ^_mp_subbase_daylight^ "mp text"
+							
+							_s_subbase_daylighted = ^yes^
+								
+							}
+						}
+					}
+				}
+			
+			}
+		}
+	else /* closes if _d_subbase_depth > tolerance then statement */
+		{
+		
+				
+		}
+	
+	
+	/***************************now tie agg base **********************************************/
+	
+	call sub draw_aggbase
+	
+	/* now the aggbase point has been marked....should be able to finish the tie roads */
+	if _s_tie_roads_together = ^yes^ then
+		{
+		if _s_intersect_split_type_A = ^yes^ then
+			{
+			draw skip to _mp_outside_bottom_of_conc_barrier
+			}
+		
+		else
+			{
+			draw skip to x2 y2
+			}
+		
+		call sub mark_tie_road_together_point	
+				
+		call sub find_closest_chain			/* this returns the following variable: _s_closest_chain */
+		call sub was_closest_chain_already_processed	/* this returns the following variable: _s_closest_chain_already_processed */
+		if _s_closest_chain_already_processed = ^yes^ then
+			{
+			
+			/* connect this ditch bottom to the other shared ditch bottom */
+			call sub closest_chain_side_slope		/* this returns the following variable: _s_closest_chain_side_slope */
+			
+			if _s_intersect_split_type_A = ^yes^ then
+				{
+				call sub draw_sidewalk_between_SFB
+				call sub draw_agg_and_sub_below_split_barrier
+				
+				
+				draw skip to x906 y906	/* half way between barriers for ewks limits */
+				}
+			else
+				{
+				set plot parameters "seeding candidate"
+				draw skip to x500 y500	/* start of tie down for current chain, marked above */
+				call sub draw_to_tie_road_together_point	/* this connects the two roads together */
+					mark x510 y510
+					mark x4 y4
+				call sub label_seeding_slope
+					
+				draw skip to x500 y500
+				draw skip dx=abs(x510-x500)/2 dy=50
+				draw skip rise:run = -1:0 to existing ground
+				}
+			
+				mark x599 y599
+			_s_ewks_chain = cluster baseline
+			call sub draw_ewks_limits
+			
+			draw skip to x599 y599
+			draw skip dx=0 dy=5
+			_s_ewks_chain = _s_closest_chain
+			call sub draw_ewks_limits
+			
+			
+			set plot parameters "seeding candidate"
+								
+			draw skip to x510 y510
+			
+				
+			}
+		else
+			{
+			/* just mark this point, don't draw anything...the other road will connect to this point when it is processed*/
+			draw skip to _mp_start_point_of_indiv_tie_down
+			call sub mark_tie_road_together_point
+				
+			}
+		}
+	
+	else
+		{
+		call sub draw_tie_aggbase
+		}
+	
+	
+	if _s_use_general_embankment = ^yes^ then
+		{
+		
+		call sub general_embankment
+		
+		}
+		
+	else
+		{
+		
+		}
+	
+	}	
+	
+else	/* closes initial if p1 */
+	{
+	
+	}	
+	
+
+

@@ -1,0 +1,1083 @@
+
+xcode = 1
+plot parameters "road symb"
+
+if p1 then
+	{
+
+sub shoulder_slope	/* this subroutine calculates the R-107 shoulder slope by checking the shape file(s) */
+			/* the output is the variable _d_ShoulderSlope */
+		{
+		
+		 _d_TotalPavementPoints = number of pavement points
+		   
+		    draw skip to px1 py1
+		    mark _mp_eop
+		    
+		    if _s_side_slope = ^left^ then
+		    	{
+		    	draw skip to _mp_current_leop
+		    	mark x543 y543
+		    	
+		    	}
+		    
+		    else if _s_side_slope = ^right^ then
+		    	{
+		    	draw skip to _mp_current_reop
+		    	mark x543 y543
+		    	
+		    	}
+		    	
+		    	
+		    else
+		    	{
+		    	/* don't do anything */
+		    	
+		    	}
+		    	
+    mark x543 y543
+    draw skip to px1 py1
+    mark _mp_eop
+    draw skip to xpgl ypgl
+    mark _mp_tmp
+    mark _mp_pgl
+    draw skip to x543 y543
+    _s_chain_name = cluster baseline
+    _d_offset = cogo_OffsetFromChain(_mp_eop,_s_chain_name)
+    _d_normal_crown_cross_slope = "Normal Crown Slope"
+    _d_start = 0
+    _d_exit = 0
+    _d_current_station = CHAIN _s_chain_name STATION
+    _s_current_station = cvt_d_sta(_d_current_station)
+    _d_current_region = CHAIN _s_chain_name REGION
+    _s_current_region = cvt_d_s0(_d_current_region)
+
+    /*_d_current_DAC = CVT_StaReg_DistAlongChain (_s_current_station,_s_current_region,_s_chain_name)*/
+
+    _d_current_DAC = cogo_DistAlongChain(_mp_tmp,_s_chain_name)
+    _d_stop = 0
+    _s_pgl_chain = cluster pgl chain
+
+    /* determine name of shapes input file */
+    _s_fn1 = ^none^
+    _s_fn2 = ^none^
+    _s_fn3 = ^none^
+    _s_fn4 = ^none^
+    _s_fn5 = ^none^
+    _s_fn6 = ^none^
+    _s_fn7 = ^none^
+    _s_fn8 = ^none^
+    _s_fn9 = ^none^
+    _s_fn10 = ^none^
+    _s_fn11 = ^none^
+    _s_fn12 = ^none^
+    _s_fn13 = ^none^
+    _s_fn14 = ^none^
+    _s_ShapesFile << "Shapes Input File Names"
+    _s_ascii_file = ^ShapesFileNames.txt^
+    call sub get_shape_file_names
+    
+    ASCII OPEN FILE = _s_ascii_file
+    ASCII WRITE FILE = _s_ascii_file
+    FORMAT = ^%s \n^
+    VAR = _s_ShapesFile
+    ASCII CLOSE FILE = _s_ascii_file
+    _s_format_temp = "%[^,],%[^,],%[^,],%[^,],%[^,],%[^,],%[^,],%[^,],%[^,],%[^,],%[^,],%[^,],%[^,],%[^,],"
+    ASCII OPEN READONLY FILE = _s_ascii_file
+    ASCII READ FILE = _s_ascii_file
+    format = _s_format_temp
+    var = _s_fn1,_s_fn2,_s_fn3,_s_fn4,_s_fn5,_s_fn6,_s_fn7,_s_fn8,_s_fn9,_s_fn10,_s_fn11,_s_fn12,_s_fn13,_s_fn14
+    ASCII CLOSE FILE = _s_ascii_file
+    _d_done = 0
+    _d_continue = 0
+
+    _d_filename_counter = 1
+    _s_test = _s_fn1
+
+    while not _s_test = ^none^
+      {
+      
+        if not (_s_test = ^none^) and (_d_done = 0) then
+          {
+          
+            ASCII OPEN READONLY FILE = _s_test
+            _d_stop = 0
+            while not end of file and (_d_stop = 0)	/* _d_stop=1 if _s_fld4 = ^=^ */
+              {
+              
+                ASCII READ FILE = _s_test
+                format = ^%s %s %s %s %s^
+                var = _s_fld1,_s_fld2,_s_fld3,_s_fld4,_s_fl5
+                if (_s_fld4 = ^=^) then /* Takes pointer to first line below auto shape set */
+                  {
+                  
+                    if(_s_fl5 = _s_chain_name) then
+                      {
+                      
+                        _d_continue = 1
+                        
+                      }
+                    _d_stop=1 /* While Killer */
+                    _d_internal_stop = 0
+                    while (_d_internal_stop = 0) and (_d_continue = 1)	/* this continues reading the file until it reaches the "filler line station" line */
+                      {
+                      
+                        ASCII READ FILE = _s_test
+                        format = ^%s %s %s %s %s^
+                        var = _s_fld1,_s_fld2,_s_fld3,_s_fld4,_s_fl5
+                        if (_s_fld1 = ^filler^) then
+                          {
+                          
+                            _d_internal_stop = 1
+                            
+                          }
+                          
+                      }
+
+                    /* Now at first station in first block */
+                    ASCII READ FILE = _s_test
+                    format = ^%s %s %s %s %s^
+                    var = _s_fld1,_s_fld2,_s_fld3,_s_fld4,_s_fl5
+                    
+                    /* _d_continue = 1 if the chain name in the shape input file matches the cluster being processed*/
+                    if (_s_fld2 = ^R^) and (_d_continue = 1) then /* station equations are present and the chain name in the shape input file matches the cluster being processed*/
+                      {
+                      
+                        _d_First_Line_DAC = CVT_StaReg_DistAlongChain (_s_fld1,_s_fld3,_s_chain_name)
+                        
+                      }
+                      
+                    else if (_d_continue = 1) then	/* station equations are NOT present and the chain name in the shape input file matches the cluster being processed*/	
+                      {
+                      
+                        _s_fld3 = ^1^
+                        _d_First_Line_DAC = CVT_StaReg_DistAlongChain (_s_fld1,_s_fld3,_s_chain_name)
+                        
+                      }
+                      
+                    _d_internal_stop = 0
+                    while (_d_internal_stop = 0) and (_d_continue = 1)	/* internal stop was just set to 0; and the chain name in the shape input file matches the cluster being processed*/
+                      {
+                        ASCII READ FILE = _s_test
+                        format = ^%s %s %s %s %s^
+                        var = _s_fld1,_s_fld2,_s_fld3,_s_fld4,_s_fl5
+
+			/* this starts at the beginning of this file IF either another shape cluster is found OR you are at the end of the file where the plot parameters are */
+                        if (_s_fld1 = ^auto^) or (_s_fld1 = ^plot^) then
+                          {
+                          
+                            _d_internal_stop = 1
+                            
+                          }
+
+                        if (_s_fld2 = ^R^) and (_d_internal_stop = 0) then /* station equations are present and has NOT encountered the next shape cluster auto or end of file plot parameters */
+                          {
+                          
+                            _d_Second_Line_DAC = CVT_StaReg_DistAlongChain (_s_fld1,_s_fld3,_s_chain_name)
+                          
+                          }
+                        else if (_d_internal_stop = 0) then	/* station equations are NOT present and has NOT encountered the next shape cluster auto or end of file plot parameters */
+                          {
+                          
+                            _s_fld3 = ^1^
+
+                            _d_Second_Line_DAC = CVT_StaReg_DistAlongChain (_s_fld1,_s_fld3,_s_chain_name)
+                         
+                          }
+
+
+
+			/* at this point, you have the first two station lines in the shape cluster you are currnetly running. The chain already matches the one you are currently processing */
+                        if (_d_Second_Line_DAC < tolerance) then
+                          {
+                          
+                            _d_internal_stop = 1
+                         
+                          }
+
+                       else if (abs(_d_current_DAC-_d_First_Line_DAC) < tolerance) or
+                           (abs(_d_current_DAC-_d_Second_Line_DAC) < tolerance) or
+                           ((_d_current_DAC > _d_First_Line_DAC) and
+                           (_d_current_DAC < _d_Second_Line_DAC))then
+                          {
+                          
+                            /* you will see this IF the current station MATCHES the first or second station line OR you are between the two stations....you still could be processing an incorrect shape cluster auto set IF your offsets don't match your Px1 offset */
+                            _d_done = 1 /* If Killer */
+                            _s_ShapesFile = _s_test
+                            ASCII CLOSE FILE = _s_test
+                            _d_internal_stop = 1
+                            
+                          }
+                          
+			/* I put the following line in AN else statment...
+			before it was just after the above else if closing brace todd bonzelet 6-3-05 */
+			else
+				{
+				
+				_d_First_Line_DAC = _d_Second_Line_DAC 	
+				
+				}
+                      }
+                      
+                  } /* End if loop */
+                  
+              } /* End While Loop */
+              
+          }/* End if loop */
+          
+        _d_filename_counter = _d_filename_counter + 1
+        if (_d_filename_counter = 2) then
+          {
+          
+            _s_test = _s_fn2
+            
+          }
+          
+        else if (_d_filename_counter = 3) then
+          {
+          
+            _s_test = _s_fn3
+            
+          }
+          
+        else if (_d_filename_counter = 4) then
+          {
+          
+            _s_test = _s_fn4
+            
+          }
+          
+        else if (_d_filename_counter = 5) then
+          {
+          
+            _s_test = _s_fn5
+            
+          }
+          
+        else if (_d_filename_counter = 6) then
+          {
+          
+            _s_test = _s_fn6
+            
+          }
+          
+        else if (_d_filename_counter = 7) then
+          {
+          
+            _s_test = _s_fn7
+            
+          }
+          
+        else if (_d_filename_counter = 8) then
+          {
+          
+            _s_test = _s_fn8
+            
+          }
+          
+        else if (_d_filename_counter = 9) then
+          {
+          
+            _s_test = _s_fn9
+            
+          }
+          
+        else if (_d_filename_counter = 10) then
+          {
+          
+            _s_test = _s_fn10
+            
+          }
+          
+        else if (_d_filename_counter = 11) then
+          {
+          
+            _s_test = _s_fn11
+            
+          }
+          
+        else if (_d_filename_counter = 12) then
+          {
+          
+            _s_test = _s_fn12
+            
+          }
+          
+        else if (_d_filename_counter = 13) then
+          {
+          
+            _s_test = _s_fn13
+            
+          }
+          
+        else if (_d_filename_counter = 14) then
+          {
+          
+            _s_test = _s_fn14
+            
+          }
+          
+        else
+          {
+          
+            _s_test = ^none^
+            
+          }
+          
+      } /* End while for file name test */
+
+
+/* at this point, we should have the correct shape input file???  
+   OR atleast the first block in it that your current station is bounded....but it could be the wrong offset */
+    draw skip to px1 py1
+    mark _mp_eop
+    draw skip to x543 y543
+    if not _s_pgl_chain = ^^  then
+      {
+      
+        draw skip trace in off =0 for dx=1000
+        draw skip dx=1 dy=0 to chain _s_pgl_chain
+        mark x544 y544
+        draw skip trace in off=0 for dx=1000
+        draw skip dx=1 dy=0 to chain _s_chain_name
+        mark x545 y545
+        _d_offset = _d_offset - (x544 - x545)
+        _s_PGL_Alignment = ^Yes^
+        _d_cluster_offset = CLUSTER OFFSET
+        
+      }
+      
+     else
+     	{
+     	
+     	_s_PGL_Alignment = ^No^
+     	
+     	}
+
+    draw skip to x543 y543
+    ASCII OPEN READONLY FILE = _s_ShapesFile
+    _d_stop = 0
+    while (_d_stop = 0) and NOT (END OF FILE)
+      {
+      
+        While NOT (END OF FILE) and _d_exit = 0
+          {
+          
+            ASCII READ FILE = _s_ShapesFile
+            FORMAT = ^%s %lf^
+            VAR = _s_one, _d_two
+            if (_s_one = ^chain^) then
+            
+              {
+              
+                _d_exit = 1
+                
+              }
+              
+          }
+        
+        /* the next line that you read in will be the cogo chain and the first offset value of the first auto shape set */
+        _d_exit = 0
+        _d_counter = 0
+        While NOT (END OF FILE) and _d_counter < 1 and _d_stop = 0
+          {
+          
+            ASCII READ FILE = _s_ShapesFile
+            FORMAT = ^%s %s^
+            VAR = _s_one, _s_two
+            _d_two_prev = cvt_s_d(_s_two)
+            ASCII READ FILE = _s_ShapesFile
+            FORMAT = ^%s %s^
+            VAR = _s_one, _s_two
+            _d_two_ahead = cvt_s_d(_s_two)
+            _d_counter = _d_counter + 1
+            if (_s_PGL_Alignment = ^No^) then
+              {
+              
+                if (((_d_offset + 2 * tolerance) >= _d_two_prev) and ((_d_offset - 2 * tolerance) <= _d_two_ahead)) or
+                   (((_d_offset + 2 * tolerance) >= _d_two_ahead) and ((_d_offset - 2 * tolerance) <= _d_two_prev))then
+                  {
+                  
+                    _d_stop = 1
+                    /* Read down one line */
+                    ASCII READ FILE = _s_ShapesFile
+                    FORMAT = ^%s %s^
+                    VAR = _s_one, _s_two
+                    
+                  }
+                  
+              } /* End PGL alignment check */
+
+            else if (_s_PGL_Alignment = ^Yes^) then
+              {
+              
+                if (((_d_offset + 2 * tolerance) >= _d_two_prev) and ((_d_offset - 2 * tolerance) <= _d_two_ahead)) or 
+                   (((_d_offset + 2 * tolerance) >= _d_two_ahead) and ((_d_offset - 2 * tolerance) <= _d_two_prev)) and 
+                   (_s_PGL_Chain = _s_one) then
+                   
+                  {
+                    _d_stop = 1
+                    /* Read down one line */
+                    ASCII READ FILE = _s_ShapesFile
+                    FORMAT = ^%s %s^
+                    VAR = _s_one, _s_two
+                    
+                  }
+                  
+              } /* End PGL alignment check */
+              
+          } /* End internal while loop */
+          
+       }
+
+/* Now in correct station and offset block, read ascii file to determine back and ahead */
+/* stations, regions, and cross slopes */
+    _d_stop = 0
+    While NOT (END OF FILE) and _d_stop = 0
+      {
+      
+        ASCII READ FILE = _s_ShapesFile
+        FORMAT = ^%s %s %s %s^
+        VAR = _s_one, _s_two , _s_three, _s_four
+        if (_s_two = ^R^) then /* station equations are present */
+          {
+          
+            _d_End_DAC = CVT_StaReg_DistAlongChain (_s_one,_s_three,_s_chain_name)
+            _d_four = cvt_s_d(_s_four)
+            _d_end_slope = _d_four
+            
+          }
+          
+        else
+          {
+          
+            _s_three = ^1^
+            _d_End_DAC = CVT_StaReg_DistAlongChain (_s_one,_s_three,_s_chain_name)
+            _d_two = cvt_s_d(_s_two)
+            _d_end_slope = _d_two
+            
+          }
+          
+        if (_d_End_DAC < tolerance) then /* first station matches first cross section */
+          {
+          
+            _d_Begin_DAC = _d_End_DAC
+            _d_begin_slope = _d_end_slope
+            
+          }
+          
+        else if ((_d_current_DAC - _d_End_DAC) > 2 * tolerance ) then
+          {
+          
+            _d_Begin_DAC = _d_End_DAC
+            _d_begin_slope = _d_end_slope
+            
+          }
+          
+        else
+          {
+          
+            _d_stop = 1
+            
+          }
+          
+      }
+      
+
+/* Compute distance between beginning and ending station */
+    _d_transition_distance = _d_End_DAC - _d_Begin_DAC
+    if (_d_transition_distance > tolerance) then
+      {
+      
+        _d_Pavement_Rate_of_Transition = (_d_end_slope-_d_begin_slope)/_d_transition_distance
+        _d_Pavement_Slope = _d_begin_slope + (_d_Pavement_Rate_of_Transition * (_d_Current_DAC - _d_Begin_DAC))
+     
+      }
+      
+    else
+      {
+      
+        _d_Pavement_Slope = _d_end_slope
+        
+      }
+      
+   /* I commented out the line below 6-3-05 todd bonzelet*/
+   /* _d_Pavement_Slope = _d_begin_slope + (_d_Pavement_Rate_of_Transition * (_d_Current_DAC - _d_Begin_DAC))*/
+   
+    if (pave slope < 0) then
+      {
+      
+        _d_Pavement_Slope = -1 * abs(_d_Pavement_Slope)
+        
+      }
+    else
+      {
+      
+        _d_Pavement_Slope = abs(_d_Pavement_Slope)
+        
+      }
+      
+if (abs(_mp_pgl.off - _mp_eop.off) < tolerance) then
+  {
+  
+    _d_begin_slope = -1*_d_begin_slope
+    _d_end_slope = -1*_d_end_slope
+    
+  }
+
+/* Case 1 --> Begin station cross slope at normal crown and ahead station cross slope at full S.E. */
+    if (abs(_d_begin_slope - "Normal Crown Slope") < tolerance) and
+       (abs(_d_end_slope - "Normal Crown Slope") > tolerance) then
+      {
+      
+         _d_slope1 = (-1*abs(_d_StdShoulderSlope))
+         /* Calculate the shoulder slope "slope2" in full super elevation */
+         if (_d_end_slope <= (-1*abs(_d_StdShoulderSlope))) then /* Low side super elevation */
+           {
+           
+             _d_slope2 = _d_end_slope
+             
+           }
+           
+         else if (_d_end_slope > 5) then /* High side super where super exceeds 5% */
+           {
+           
+           /* Override request for high side of surperelevation                            */
+           /* If override variable is changed to ^Yes^ the shoulder slope shall equal -1%  */
+           /* If override variable is left at ^No^ or any other value the shoulder slope   */
+           /* will equal the superelevation slope.                                         */ 
+           if _s_OverrideShldrSlope = ^Yes^ then
+             {
+             
+             _d_slope2 = -1
+             
+             }
+             
+           else
+             {
+             
+             _d_slope2 = _d_end_slope
+             
+             }
+             
+           /* End override for high side of Superelevation  */
+           
+           }
+           
+         else if (_d_end_slope >= 3) and (_d_end_slope <= 5) then /* Shoulder = -1% */
+           {
+           
+             _d_slope2 = -1
+             
+           }
+           
+         else if (_d_end_slope >= 0) and (_d_end_slope < 3) then /* roll over */
+           {
+           
+             _d_slope2 = _d_end_slope - abs(_d_StdShoulderSlope)
+             
+           }
+           
+         else /* normal shoulder slope */
+           {
+           
+             _d_slope2 = (-1*abs(_d_StdShoulderSlope))
+             
+           }
+
+      }
+      
+/* Case 2 --> Begin station cross slope at full S.E. and ahead station cross slope at normal crown */
+    else if (abs(_d_begin_slope - "Normal Crown Slope") > tolerance) and
+            (abs(_d_end_slope - "Normal Crown Slope") < tolerance) then
+      {
+      
+         _d_slope2 = (-1*abs(_d_StdShoulderSlope))
+         /* Calculate the shoulder slope "slope2" in full super elevation */
+         if (_d_begin_slope <= (-1*abs(_d_StdShoulderSlope))) then /* Low side super elevation */
+           {
+           
+             _d_slope1 = _d_begin_slope
+             
+           }
+           
+         else if (_d_begin_slope > 5) then /* High side super where super exceeds 5% */
+           {
+           
+           /* Override request for high side of surperelevation                            */
+           /* If override variable is changed to ^Yes^ the shoulder slope shall equal -1%  */
+           /* If override variable is left at ^No^ or any other value the shoulder slope   */
+           /* will equal the superelevation slope.                                         */ 
+           if _s_OverrideShldrSlope = ^Yes^ then
+             {
+             
+             _d_slope1 = -1
+             
+             }
+             
+           else
+             {
+             
+             _d_slope1 = _d_begin_slope
+             
+             }
+             
+           /* End override for high side of Superelevation  */
+
+           }
+           
+         else if (_d_begin_slope >= 3) and (_d_begin_slope <= 5) then /* Shoulder = -1% */
+           {
+           
+             _d_slope1 = -1
+             
+           }
+           
+         else if (_d_begin_slope >= 0) and (_d_begin_slope < 3) then /* roll over */
+           {
+           
+             _d_slope1 = _d_begin_slope - abs(_d_StdShoulderSlope)
+             
+           }
+           
+         else /* normal shoulder slope */
+           {
+           
+             _d_slope1 = (-1*abs(_d_StdShoulderSlope))
+             
+           }
+           
+      }
+      
+/* Case 3 --> Begin station cross slope at normal crown and ahead station cross slope at normal crown */
+    else if (abs(_d_begin_slope - "Normal Crown Slope") < tolerance) and
+            (abs(_d_end_slope - "Normal Crown Slope") < tolerance) then
+      {
+      
+        _d_slope1 = (-1*abs(_d_StdShoulderSlope))
+        _d_slope2 = (-1*abs(_d_StdShoulderSlope))
+        
+      }
+      
+/* Case 4 --> Begin station cross slope at full S.E. and ahead station cross slope at full S.E. with same cross slopes */
+    else if (abs(_d_begin_slope - "Normal Crown Slope") > tolerance) and
+            (abs(_d_end_slope - "Normal Crown Slope") > tolerance)  and
+            (abs(_d_begin_slope - _d_end_slope) < tolerance) then
+      {
+      
+         if (_d_end_slope <= (-1*abs(_d_StdShoulderSlope))) then /* Low side super elevation */
+           {
+           
+             _d_slope2 = _d_end_slope
+             
+           }
+           
+         else if (_d_end_slope > 5) then /* High side super where super exceeds 5% */
+           {
+           
+           /* Override request for high side of surperelevation                            */
+           /* If override variable is changed to ^Yes^ the shoulder slope shall equal -1%  */
+           /* If override variable is left at ^No^ or any other value the shoulder slope   */
+           /* will equal the superelevation slope.                                         */ 
+           if _s_OverrideShldrSlope = ^Yes^ then
+             {
+             
+             _d_slope2 = -1
+             
+             }
+             
+           else
+             {
+             
+             _d_slope2 = _d_end_slope
+             
+             }
+             
+           /* End override for high side of Superelevation  */
+
+           }
+           
+         else if (_d_end_slope >= 3) and (_d_end_slope <= 5) then /* Shoulder = -1% */
+           {
+           
+             _d_slope2 = -1
+             
+           }
+           
+         else if (_d_end_slope >= 0) and (_d_end_slope < 3) then /* roll over */
+           {
+           
+             _d_slope2 = _d_end_slope - abs(_d_StdShoulderSlope)
+             
+           }
+           
+         else /* normal shoulder slope */
+           {
+           
+             _d_slope2 = (-1*abs(_d_StdShoulderSlope))
+             
+           }
+           
+         _d_slope1 = _d_slope2
+         
+      } /* End Case 4 */
+      
+/* Case 5 --> Begin station cross slope at full S.E. and ahead station cross slope at full S.E. with diff. cross slopes */
+    else if (abs(_d_begin_slope - "Normal Crown Slope") > tolerance) and
+            (abs(_d_end_slope - "Normal Crown Slope") > tolerance)  and
+            (abs(_d_begin_slope - _d_end_slope) > tolerance) then
+      {
+      
+         /* Calculate the shoulder slope "slope2" in full super elevation */
+         if (_d_begin_slope <= (-1*abs(_d_StdShoulderSlope))) then /* Low side super elevation */
+           {
+           
+             _d_slope1 = _d_begin_slope
+             
+           }
+           
+         else if (_d_begin_slope > 5) then /* High side super where super exceeds 5% */
+           {
+           
+           /* Override request for high side of surperelevation                            */
+           /* If override variable is changed to ^Yes^ the shoulder slope shall equal -1%  */
+           /* If override variable is left at ^No^ or any other value the shoulder slope   */
+           /* will equal the superelevation slope.                                         */ 
+           if _s_OverrideShldrSlope = ^Yes^ then
+             {
+             
+             _d_slope1 = -1
+             
+             }
+             
+           else
+             {
+             
+             _d_slope1 = _d_begin_slope
+             
+             }
+             
+           /* End override for high side of Superelevation  */
+
+           }
+           
+         else if (_d_begin_slope >= 3) and (_d_begin_slope <= 5) then /* Shoulder = -1% */
+           {
+           
+             _d_slope1 = -1
+             
+           }
+           
+         else if (_d_begin_slope >= 0) and (_d_begin_slope < 3) then /* roll over */
+           {
+           
+             _d_slope1 = _d_begin_slope - abs(_d_StdShoulderSlope)
+             
+           }
+           
+         else /* normal shoulder slope */
+           {
+           
+             _d_slope1 = (-1*abs(_d_StdShoulderSlope))
+             
+           }
+           
+         /* Calculate the shoulder slope "slope2" in full super elevation */
+         if (_d_end_slope <= (-1*abs(_d_StdShoulderSlope))) then /* Low side super elevation */
+           {
+           
+             _d_slope2 = _d_end_slope
+             
+           }
+           
+         else if (_d_end_slope > 5) then /* High side super where super exceeds 5% */
+           {
+           
+           /* Override request for high side of surperelevation                            */
+           /* If override variable is changed to ^Yes^ the shoulder slope shall equal -1%  */
+           /* If override variable is left at ^No^ or any other value the shoulder slope   */
+           /* will equal the superelevation slope.                                         */ 
+           if _s_OverrideShldrSlope = ^Yes^ then
+             {
+             
+             _d_slope2 = -1
+             
+             }
+             
+           else
+             {
+             
+             _d_slope2 = _d_end_slope
+             
+             }
+           /* End override for high side of Superelevation  */
+
+           }
+           
+         else if (_d_end_slope >= 3) and (_d_end_slope <= 5) then /* Shoulder = -1% */
+           {
+           
+             _d_slope2 = -1
+             
+           }
+           
+         else if (_d_end_slope >= 0) and (_d_end_slope < 3) then /* roll over */
+           {
+           
+             _d_slope2 = _d_end_slope - abs(_d_StdShoulderSlope)
+             
+           }
+           
+         else /* normal shoulder slope */
+           {
+           
+             _d_slope2 = (-1*abs(_d_StdShoulderSlope))
+             
+           }
+
+      } /* End Case 5 */
+
+    /* Compute Paved Shoulder Slope */
+    if (abs(_d_transition_distance) < tolerance) then /* added for a saftey valve to avoid divide by zero */
+      {
+      
+        _d_Shoulder_Rate_of_Transition = 0
+        
+      }
+      
+    else
+      {  
+      
+        _d_Shoulder_Rate_of_Transition = (_d_slope2-_d_slope1)/_d_transition_distance
+        
+      }  
+      
+    _d_ShoulderSlope = _d_slope1 + (_d_Shoulder_Rate_of_Transition * (_d_Current_DAC - _d_Begin_DAC))
+    ASCII CLOSE FILE = _s_ShapesFile
+    /* reset shoulder slope for low side super elevation */
+    if (-_d_Pavement_Slope <= "Normal Crown Slope") and (-_d_Pavement_Slope >= (-1*abs(_d_StdShoulderSlope))) then
+      {
+      
+        _d_ShoulderSlope = -1*abs(_d_StdShoulderSlope)
+        
+      }
+      
+    else if (-_d_Pavement_Slope <  (-1*abs(_d_StdShoulderSlope))) then
+      {
+      
+        _d_ShoulderSlope = -_d_Pavement_Slope
+        
+      }
+      
+    /* _d_ShoulderSlope = _d_ShoulderSlope * abs(cos(_d_angle)) */
+    
+  }	
+  end sub	/* ends sub shoulder_slope */
+  
+  
+  
+  
+ 
+  
+  sub subgrade_slope		/* this subroutine calculates the R-107 subgrade slope by checking the shape file(s) */
+				/* the output is the variable _d_SubgradeSlope */
+{
+	if _s_side_slope = ^left^ then
+		{
+		draw skip to _mp_current_leop
+		mark x666 y666
+		
+		}
+		
+	else if _s_side_slope = ^right^ then
+		{
+		draw skip to _mp_current_reop
+		mark x666 y666
+		}
+	else
+		{
+		/* shouldn't see this .... would get an error cuz mp x666 probably is not defined */
+		}
+
+/* Case 1 --> Begin station cross slope at normal crown and ahead station cross slope at full S.E. */
+    if (abs(_d_begin_slope - "Normal Crown Slope") < tolerance) and
+       (abs(_d_end_slope - "Normal Crown Slope") > tolerance) then
+      {
+         _d_slope3 = -2
+         /* Calculate the subgrade slope "slope4" in full super elevation */
+         /* Low side super elevation and pavt width greater than 30 feet */
+         if (_d_end_slope <= (-1*abs("Normal Crown Slope"))) and
+            (_d_TotalPavementPoints > 3) or (abs(px1-px2) > 30) or (abs(px2-x666) > 30) then
+           {
+             _d_slope4 = -2
+           }
+         else if (_d_end_slope <= (-1*abs("Normal Crown Slope"))) then /* Low side super elevation and pavt width greater than 30 feet */
+           {
+             _d_slope4 = -2
+           }
+         else if (_d_end_slope > 5) then /* High side super elevation and super greater than 4% */
+           {
+             _d_slope4 = _d_end_slope
+           }
+         else
+           {
+             _d_slope4 = -2
+           }
+      }
+
+/* Case 2 --> Begin station cross slope at full S.E. and ahead station cross slope at normal crown */
+    else if (abs(_d_begin_slope - "Normal Crown Slope") > tolerance) and
+            (abs(_d_end_slope - "Normal Crown Slope") < tolerance) then
+      {
+         _d_slope4 = -2
+         /* Calculate the subgrade slope "slope3" in full super elevation */
+         /* Low side super elevation and pavt width greater than 30 feet */
+         if (_d_begin_slope <= (-1*abs("Normal Crown Slope"))) and
+            (_d_TotalPavementPoints > 3) or (abs(px1-px2) > 30) or (abs(px2-x666) > 30) then
+           {
+             _d_slope3 = -2
+           }
+         else if (_d_begin_slope <= (-1*abs("Normal Crown Slope")))then /* Low side super elevation and pavt width greater than 30 feet */
+           {
+             _d_slope3 = -2
+           }
+         else if (_d_begin_slope > 5) then /* High side super elevation and super greater than 4% */
+           {
+             _d_slope3 = _d_begin_slope
+           }
+         else
+           {
+             _d_slope3 = -2
+           }
+      }
+
+/* Case 3 --> Begin station cross slope at normal crown and ahead station cross slope at normal crown */
+    else if (abs(_d_begin_slope - "Normal Crown Slope") < tolerance) and
+            (abs(_d_end_slope - "Normal Crown Slope") < tolerance) then
+      {
+        if (_d_TotalPavementPoints > 3) or (abs(px1-px2) > 30) or (abs(px2-x666) > 30) then
+          {
+            _d_slope3 = -2
+            _d_slope4 = -2
+          }
+        else
+          {
+            _d_slope3 = -2
+            _d_slope4 = -2
+          }
+      }
+/* Case 4 --> Begin station cross slope at full S.E. and ahead station cross slope at full S.E. with same cross slopes */
+    else if (abs(_d_begin_slope - "Normal Crown Slope") > tolerance) and
+            (abs(_d_end_slope - "Normal Crown Slope") > tolerance)  and
+            (abs(_d_begin_slope - _d_end_slope) < tolerance) then
+      {
+         /* Low side super elevation */
+         if (_d_end_slope <= (-1*abs("Normal Crown Slope"))) and
+            (_d_TotalPavementPoints > 3) or (abs(px1-px2) > 30) or (abs(px2-x666) > 30)  then
+           {
+             _d_slope4 = -2
+           }
+         else if (_d_end_slope <= (-1*abs("Normal Crown Slope"))) then /* Low side super elevation */
+           {
+             _d_slope4 = -2
+           }
+         else if (-_d_Pavement_Slope <= (-1*abs("Normal Crown Slope"))) then
+           {
+             _d_slope4 = -2
+           }
+         else if (_d_end_slope > 5) then /* High side super elevation and super greater than 4% */
+           {
+             _d_slope4 = _d_end_slope
+           }
+         else
+           {
+             _d_slope4 = -2
+           }
+
+         _d_slope3 = _d_slope4
+      } /* End Case 4 */
+
+
+/* Case 5 --> Begin station cross slope at full S.E. and ahead station cross slope at full S.E. with diff. cross slopes */
+    else if (abs(_d_begin_slope - "Normal Crown Slope") > tolerance) and
+            (abs(_d_end_slope - "Normal Crown Slope") > tolerance)  and
+            (abs(_d_begin_slope - _d_end_slope) > tolerance) then
+      {
+         /* Low side super elevation and pavt width greater than 30 feet */
+         if (_d_begin_slope <= (-1*abs("Normal Crown Slope"))) and
+            (_d_TotalPavementPoints > 3) or (abs(px1-px2) > 30) or (abs(px2-x666) > 30) then
+           {
+             _d_slope3 = -2
+           }
+         else if (_d_begin_slope <= (-1*abs("Normal Crown Slope"))) then /* Low side super elevation and pavt width greater than 30 feet */
+           {
+             _d_slope3 = -2
+           }
+         else if (_d_begin_slope > 5) then /* High side super elevation and super greater than 4% */
+           {
+             _d_slope3 = _d_begin_slope
+           }
+         else
+           {
+             _d_slope3 = -2
+           }
+         /* Low side super elevation and pavt width greater than 30 feet */
+         if (_d_end_slope <= (-1*abs("Normal Crown Slope"))) and
+            (_d_TotalPavementPoints > 3) or (abs(px1-px2) > 30) or (abs(px2-x666) > 30) then
+           {
+             _d_slope4 = -2
+           }
+         else if (_d_end_slope <= (-1*abs("Normal Crown Slope"))) then /* Low side super elevation and pavt width less than 30 feet */
+           {
+             _d_slope4 = -2
+           }
+         else if (_d_end_slope > 5) then /* High side super elevation and super greater than 4% */
+           {
+             _d_slope4 = _d_end_slope
+           }
+         else
+           {
+             _d_slope4 = -2
+           }
+      } /* End Case 5 */
+
+    /* Compute Paved Shoulder Slope */
+    _d_Subgrade_Rate_of_Transition = (_d_slope4-_d_slope3)/_d_transition_distance
+    _d_SubgradeSlope = _d_slope3 + (_d_Subgrade_Rate_of_Transition * (_d_Current_DAC - _d_begin_DAC))
+
+
+
+  }	/* ends sub subgrade_slope */
+end sub
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	}
+			/* closes initial if p1 */
+	
+
+else	
+	{
+	
+	}
+	
+	
+	
+
+	
+	
+	

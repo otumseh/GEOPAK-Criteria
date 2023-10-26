@@ -1,0 +1,669 @@
+
+			
+			
+xcode = 1
+plot parameters "road symb"
+
+if p1 then
+	{	
+	call sub check_for_gore
+	call sub check_for_double_faced_barrier
+	
+	
+/* want to get and remember shoulder slopes regardless of if we found barrier or not */
+_s_prf_chain = cluster baseline	/* used for determining the shoulder slope profile */
+
+	if _s_side_slope = ^left^ then
+		{
+		/* have the criteria determine what the slopes are for each chain */
+		
+		/* if you have a profile for shoulder slope, use it to determine shoulder slopes*/
+		if chain _s_prf_chain station within profile = _s_shoulder_slope_profile then
+			{
+			mark _mp_go_back_to_here
+			draw skip to xpgl ypgl
+			draw skip rise:run = -1:0 to chain _s_prf_chain profile elev = _s_shoulder_slope_profile
+				mark x191 y191
+			_d_ShoulderSlope = y191
+			draw skip to _mp_go_back_to_here
+			}
+		/* if not, use MDOT criteria */
+		else
+			{
+			call sub shoulder_slope
+			}
+		
+		call sub subgrade_slope
+		_d_left_shoulder_slope = _d_ShoulderSlope
+		_d_left_subgrade_slope = _d_SubgradeSlope
+		call sub remember_shoulder_and_sub_slopes
+		draw skip to p1
+			mark _mp_start_point_of_indiv_tie_down
+				
+		draw skip to _mp_current_leop
+			mark _mp_current_eos
+		}
+			
+	else if _s_side_slope = ^right^ then
+		{
+		/* have the criteria determine what the slopes are for each chain */
+		/* if you have a profile for shoulder slope, use it to determine shoulder slopes*/
+		if chain _s_prf_chain station within profile = _s_shoulder_slope_profile then
+			{
+			mark _mp_go_back_to_here
+			draw skip to xpgl ypgl
+			draw skip rise:run = -1:0 to chain _s_prf_chain profile elev = _s_shoulder_slope_profile
+				mark x191 y191
+			_d_ShoulderSlope = y191
+			draw skip to _mp_go_back_to_here
+			}
+		/* if not, use MDOT criteria */
+		else
+			{
+			call sub shoulder_slope
+			}
+		call sub subgrade_slope
+		_d_right_shoulder_slope =_d_ShoulderSlope
+		_d_right_subgrade_slope = _d_SubgradeSlope
+		call sub remember_shoulder_and_sub_slopes
+		draw skip to p1
+			mark _mp_start_point_of_indiv_tie_down
+				
+		draw skip to _mp_current_reop
+			mark _mp_current_eos
+		}
+			
+		else
+		{
+		/* shouldn't ever see this */
+		}
+	
+	
+	
+	if _s_intersect_gore=^no^ and _s_hit_double_faced_barrier = ^no^ then		/* draw paved shoulders - valley gutter - curb and gutter - conc barrier here */
+		{
+		
+		
+		/*draw shoulder*/
+		
+		call sub draw_shoulder
+		draw skip to _mp_current_eos
+		
+		/* now check for different side treatments*/
+	
+		
+		/*D curb check*/
+		if ((intersect dgn = "~Curb and Gutter D1" within distance = _d_D1_curb_search_distance)) or
+			(intersect dgn = "~Curb and Gutter D2" within distance = _d_D2_curb_search_distance) or
+			(intersect dgn = "~Curb and Gutter D3" within distance = _d_D3_curb_search_distance)then
+			{
+			
+			
+			call sub draw_d_curb
+			
+			draw skip to _mp_top_back_of_curb
+			
+			if _s_draw_green_space_behind_curb = ^yes^ then
+				{
+				set plot parameters "seeding candidate"
+				/* I am assuming that behind d curb should be an earth shoulder and not a green space width variable */
+				draw slope = _d_green_space_slope for dx=_d_earth_shoulder_width_behind_curb
+				}
+			else
+				{
+				/* don't need any additional green space behind curb */
+				}
+			
+			mark _mp_start_point_of_indiv_tie_down
+			
+			_s_Curb_and_Gutter_Found = ^yes^
+			_s_valley_Gutter_Found = ^no^	
+			
+			/*call sub draw_tie_slope*/		
+			
+			}
+			
+		/*B curb check*/	
+		else if ((intersect dgn = "~Curb and Gutter B1" within distance = _d_D1_curb_search_distance)) or
+			(intersect dgn = "~Curb and Gutter B2" within distance = _d_D2_curb_search_distance) or
+			(intersect dgn = "~Curb and Gutter B3" within distance = _d_D3_curb_search_distance)then
+			{
+			
+			call sub draw_b_curb
+			draw skip to _mp_top_back_of_curb
+			
+			if _s_draw_green_space_behind_curb = ^yes^ then
+				{
+				set plot parameters "seeding candidate"
+				/* I am assuming that behind b curb should be an green space with a green space slope */
+				draw slope = _d_green_space_slope for dx=_d_green_space_distance
+				}
+			else
+				{
+				/* don't need any additional green space behind curb */
+				}
+			
+			mark _mp_start_point_of_indiv_tie_down
+			
+			_s_Curb_and_Gutter_Found = ^yes^
+			_s_valley_Gutter_Found = ^no^	
+			
+			
+			/*call sub draw_tie_slope*/
+			
+			
+			} 
+		
+		/*C curb check*/	
+		else if ((intersect dgn = "~Curb and Gutter C1" within distance = _d_D1_curb_search_distance)) or
+			(intersect dgn = "~Curb and Gutter C2" within distance = _d_D2_curb_search_distance) or
+			(intersect dgn = "~Curb and Gutter C3" within distance = _d_D2_curb_search_distance) or
+			(intersect dgn = "~Curb and Gutter C4" within distance = _d_D2_curb_search_distance) or
+			(intersect dgn = "~Curb and Gutter C5" within distance = _d_D2_curb_search_distance) or
+			(intersect dgn = "~Curb and Gutter C6" within distance = _d_D3_curb_search_distance)then
+			{
+			
+			call sub draw_c_curb
+			draw skip to _mp_top_back_of_curb
+			
+			if _s_draw_green_space_behind_curb = ^yes^ then
+				{
+				set plot parameters "seeding candidate"
+				/* I am assuming that behind b curb should be an green space with a green space slope */
+				draw slope = _d_green_space_slope for dx=_d_green_space_distance
+				}
+			else
+				{
+				/* don't need any additional green space behind curb */
+				}
+			
+			mark _mp_start_point_of_indiv_tie_down
+			
+			_s_Curb_and_Gutter_Found = ^yes^
+			_s_valley_Gutter_Found = ^no^	
+			
+			/*call sub draw_tie_slope*/
+			
+			} 
+		
+		/*F curb check*/	
+		else if ((intersect dgn = "~Curb and Gutter F1" within distance = _d_D1_curb_search_distance)) or
+			(intersect dgn = "~Curb and Gutter F2" within distance = _d_D2_curb_search_distance) or
+			(intersect dgn = "~Curb and Gutter F3" within distance = _d_D2_curb_search_distance) or
+			(intersect dgn = "~Curb and Gutter F4" within distance = _d_D2_curb_search_distance) or
+			(intersect dgn = "~Curb and Gutter F5" within distance = _d_D2_curb_search_distance) or
+			(intersect dgn = "~Curb and Gutter F6" within distance = _d_D3_curb_search_distance)then
+			{
+			
+			call sub draw_f_curb
+			draw skip to _mp_top_back_of_curb
+			
+			if _s_draw_green_space_behind_curb = ^yes^ then
+				{
+				set plot parameters "seeding candidate"
+				/* I am assuming that behind b curb should be an green space with a green space slope */
+				draw slope = _d_green_space_slope for dx=_d_green_space_distance
+				}
+			else
+				{
+				/* don't need any additional green space behind curb */
+				}
+			
+			mark _mp_start_point_of_indiv_tie_down
+			
+			_s_Curb_and_Gutter_Found = ^yes^
+			_s_valley_Gutter_Found = ^no^	
+			
+			/*call sub draw_tie_slope*/
+			
+			}
+		
+		
+		
+		/*G curb check*/
+		else if ((intersect dgn = "~Curb and Gutter G1" within distance = _d_G1_curb_search_distance)) or
+		         (intersect dgn = "~Curb and Gutter G2" within distance = _d_G2_curb_search_distance) then
+			{
+			
+			call sub draw_g_curb
+			draw skip to _mp_top_back_of_curb
+			
+			if _s_draw_green_space_behind_curb = ^yes^ then
+				{
+				set plot parameters "seeding candidate"
+				/* I am assuming that behind b curb should be an green space with a green space slope */
+				draw slope = _d_green_space_slope for dx=_d_green_space_distance
+				}
+			else
+				{
+				/* don't need any additional green space behind curb */
+				}
+			
+			mark _mp_start_point_of_indiv_tie_down
+			
+			_s_Curb_and_Gutter_Found = ^yes^
+			_s_valley_Gutter_Found = ^no^
+			
+			/*call sub draw_tie_slope*/
+			
+			}
+	
+		/*VG curb check*/
+		else if (intersect dgn = "~Valley Gutter" within distance = _d_valley_gutter_search_distance) then
+			{
+			
+			call sub draw_vg_curb
+			
+			_s_Curb_and_Gutter_Found = ^no^
+			_s_valley_Gutter_Found = ^yes^			
+			
+			/* will need to check to see if intersect barrier and adv shoulder, then tie down */
+			/* call sub draw_tie_slope */
+			}
+		
+		/*Bridge Approach curb check*/
+		else if (intersect dgn = "~Bdg Appr Curb Gutter" within distance = _d_Bdg_appr_curb_srch_dist) then
+			{
+			
+			call sub draw_bridge_app_curb
+			
+			draw skip to _mp_top_back_of_curb
+			
+			if _s_draw_green_space_behind_curb = ^yes^ then
+				{
+				set plot parameters "seeding candidate"
+				/* I am assuming that behind b curb should be an green space with a green space slope */
+				draw slope = _d_green_space_slope for dx=_d_green_space_distance
+				}
+			else
+				{
+				/* don't need any additional green space behind curb */
+				}
+			
+			mark _mp_start_point_of_indiv_tie_down
+						
+			_s_Curb_and_Gutter_Found = ^yes^
+			_s_valley_Gutter_Found = ^no^
+			
+			/*call sub draw_tie_slope*/
+			
+			}
+		
+		/*HMA curb check*/
+		else if intersect dgn = "~HMA Curb" within distance = _d_HMA_curb_search_distance then
+			{
+			
+			call sub draw_HMA_curb
+			
+			draw skip to _mp_top_back_of_curb
+			
+			if _s_draw_green_space_behind_curb = ^yes^ then
+				{
+				set plot parameters "seeding candidate"
+				/* I am assuming that behind b curb should be an green space with a green space slope */
+				draw slope = _d_green_space_slope for dx=_d_green_space_distance
+				}
+			else
+				{
+				/* don't need any additional green space behind curb */
+				}
+			
+			mark _mp_start_point_of_indiv_tie_down
+			
+			_s_Curb_and_Gutter_Found = ^yes^
+			_s_valley_Gutter_Found = ^no^	
+			
+			/*call sub draw_tie_slope*/	
+			
+			}
+	
+		/*Agg Shoulder check*/
+		else if intersect dgn = "~Proposed Aggregate Shoulder in DGN" within distance = _d_agg_shoulder_search_distance then
+			{
+			_s_agg_beneath_side_treatment = ^no^ /*mod by tvo - delete if messing stuff up*/
+			
+			call sub draw_agg_shoulder
+			
+			mark _mp_start_point_of_indiv_tie_down
+			
+			_s_Curb_and_Gutter_Found = ^no^
+			_s_valley_Gutter_Found = ^no^
+			_s_agg_shoulder_Found = ^yes^
+			
+			/*call sub draw_tie_slope*/
+			
+			}
+			
+		else if (intersect dgn = "~Proposed Commercial Concrete Entrance" within distance = _d_driveway_search_dist) or
+			(intersect dgn = "~Proposed Commercial Bituminous Entrance" within distance = _d_driveway_search_dist) or
+			(intersect dgn = "~Proposed Commercial Aggregate Entrance" within distance = _d_driveway_search_dist) or
+			(intersect dgn = "~Proposed Private Concrete Entrance" within distance = _d_driveway_search_dist) or
+			(intersect dgn = "~Proposed Private Bituminous Entrance" within distance = _d_driveway_search_dist) or
+			(intersect dgn = "~Proposed Private Aggregate Entrance" within distance = _d_driveway_search_dist) or
+			(intersect dgn = "~Proposed Field Entrance" within distance = _d_driveway_search_dist) then
+			{
+			/* don't do anything....just don't want it to tie to existing ground....code to draw driveway is below */		
+			
+					
+			}
+	
+		
+		else
+			{
+			
+			/*enter any additional side treatments here*/
+			/* assuming go outside of paved shoulder and tie subbase here */
+			draw skip to _mp_current_eos
+			mark _mp_start_point_of_indiv_tie_down
+			
+			_s_Curb_and_Gutter_Found = ^no^
+			_s_valley_Gutter_Found = ^no^
+			_s_agg_shoulder_Found = ^no^
+			
+			/*call sub draw_tie_slope*/
+			}
+		
+		
+		/* now check for additional side treatments beyond curb/shoulder */
+		
+		
+		/*Guardrail check*/
+		
+		mark _mp_starting_point_of_barrier_or_wall
+		
+		draw skip to _mp_current_eos
+		
+		
+		if intersect dgn = "~Guardrail, Type T" within distance = 10 then
+			{
+			/* can insert type b into trigger "~Guardrail, Type B" */
+			
+			call sub draw_tie_slope
+			call sub draw_guardrail
+					
+			
+			}
+		
+		
+		/*adv Shoulder check*/
+		else if (intersect dgn = "adv shoulder line" within distance = _d_adv_shoulder_paving_distance) then
+			{
+			draw skip to _mp_starting_point_of_barrier_or_wall
+			call sub draw_adv_shoulder
+			/* will need to check for barrier here too */
+			if (intersect dgn = "~existing Retaining Wall" within distance = _d_retaining_wall_search_distance) or
+			(intersect dgn = "~prop Retaining Wall" within distance = _d_retaining_wall_search_distance)then
+				{
+		
+				call sub draw_retaining_wall
+		
+				}
+			else if ((intersect dgn = "~Concrete Barrier Single Face Type A" within distance = _d_conc_barrier_search_distance) or
+		  		 (intersect dgn = "~Concrete Barrier Single Face Type B" within distance = _d_conc_barrier_search_distance) or
+		  		 (intersect dgn = "~Concrete Barrier Single Face Type C" within distance = _d_conc_barrier_search_distance) or
+		 		 (intersect dgn = "~Conc Barrier, Split, Type A" within distance = _d_conc_barrier_search_distance) or
+		 		 (intersect dgn = "~Bridge Barrier Railing, Type 4" within distance = _d_conc_barrier_search_distance) or
+				 (intersect dgn = "~Bridge Barrier Railing, Type 5" within distance = _d_conc_barrier_search_distance)) then
+				{
+				
+				call sub draw_singlefaced_barrier
+				
+				call sub draw_tie_slope
+				
+				_s_barrier_present = ^yes^			
+				}		
+			}
+		
+		
+		/*Driveway check*/
+		else if (intersect dgn = "~Proposed Commercial Concrete Entrance" within distance = _d_driveway_search_dist) or
+			(intersect dgn = "~Proposed Commercial Bituminous Entrance" within distance = _d_driveway_search_dist) or
+			(intersect dgn = "~Proposed Commercial Aggregate Entrance" within distance = _d_driveway_search_dist) or
+			(intersect dgn = "~Proposed Private Concrete Entrance" within distance = _d_driveway_search_dist) or
+			(intersect dgn = "~Proposed Private Bituminous Entrance" within distance = _d_driveway_search_dist) or
+			(intersect dgn = "~Proposed Private Aggregate Entrance" within distance = _d_driveway_search_dist) or
+			(intersect dgn = "~Proposed Field Entrance" within distance = _d_driveway_search_dist) or
+			(intersect dgn = "~Side Road Tie Down Line" within distance = _d_driveway_search_dist) then
+			{
+					
+			
+			_s_driveway_here = ^yes^
+			_s_Curb_and_Gutter_Found = ^no^
+			_s_valley_Gutter_Found = ^no^
+			
+			call sub draw_driveway
+			
+			}
+	
+		
+		/*Single Face barrier check*/
+		else if ((intersect dgn = "~Concrete Barrier Single Face Type A" within distance = _d_conc_barrier_search_distance) or
+	  		 (intersect dgn = "~Concrete Barrier Single Face Type B" within distance = _d_conc_barrier_search_distance) or
+	  		 (intersect dgn = "~Concrete Barrier Single Face Type C" within distance = _d_conc_barrier_search_distance) or
+	 		 (intersect dgn = "~Conc Barrier, Split, Type A" within distance = _d_conc_barrier_search_distance) or
+	 		 (intersect dgn = "~Bridge Barrier Railing, Type 4" within distance = _d_conc_barrier_search_distance) or
+			 (intersect dgn = "~Bridge Barrier Railing, Type 5" within distance = _d_conc_barrier_search_distance)) then
+			{
+			draw skip to _mp_starting_point_of_barrier_or_wall
+			call sub draw_singlefaced_barrier
+			
+			if _s_intersect_split_type_A = ^yes^ then
+				{
+				
+				draw skip to _mp_start_of_barrier
+	       
+	       			 if intersect dgn = "draw sidewalk between SFB" with distance = 15 then 
+	       			 	{
+	       			 	/* don't draw a tie slope*/
+	       			 	/* should connect to another road */
+	       			 	_s_tie_roads_together = ^yes^ then
+	       			 	}
+	       			 
+	       			 else
+	       			 	{
+	       			 	call sub draw_tie_slope
+	       			 	}
+				
+				}
+			
+			else
+				{
+				call sub draw_tie_slope
+				}
+			
+			
+			_s_barrier_present = ^yes^			
+			}
+	
+		
+		/*Retaining wall check*/
+		else if (intersect dgn = "~existing Retaining Wall" within distance = _d_retaining_wall_search_distance) or
+			(intersect dgn = "~prop Retaining Wall" within distance = _d_retaining_wall_search_distance)then
+			{
+			draw skip to _mp_starting_point_of_barrier_or_wall
+			call sub draw_retaining_wall
+	
+			}
+			
+		else if (intersect dgn = "~Proposed Sidewalk" within distance = _d_sidewalk_search_distance) then
+			{
+			if (intersect dgn = "~Proposed Sidewalk 3IN" within distance = _d_sidewalk_search_distance) then
+				{
+				_d_sidewalk_depth = 3/12
+				}
+			else if (intersect dgn = "~Proposed Sidewalk 4IN" within distance = _d_sidewalk_search_distance) then
+				{
+				_d_sidewalk_depth = 4/12
+				}
+			else if (intersect dgn = "~Proposed Sidewalk 6IN" within distance = _d_sidewalk_search_distance) then
+				{
+				_d_sidewalk_depth = 6/12
+				}
+			else if (intersect dgn = "~Proposed Sidewalk 7IN" within distance = _d_sidewalk_search_distance) then
+				{
+				_d_sidewalk_depth = 7/12
+				}
+			else 
+				{
+				_d_sidewalk_depth = _d_default_sidewalk_depth
+				}
+			
+			draw skip to _mp_starting_point_of_barrier_or_wall
+			draw skip slope = _d_sidewalk_green_space_slope to "~Proposed Sidewalk"
+			draw skip dx=.1 dy=0
+			if (intersect dgn = "~Proposed Sidewalk" within distance = _d_sidewalk_search_distance) then
+				{
+				draw skip to _mp_starting_point_of_barrier_or_wall
+				set plot parameters "seeding candidate"
+				draw slope = _d_sidewalk_green_space_slope to "~Proposed Sidewalk"
+					mark _mp_starting_point_of_sidewalk
+				set plot parameters "top of sidewalk"
+				draw skip slope = _d_sidewalk_slope for dx=.2
+				draw skip slope = _d_sidewalk_slope to "~Proposed Sidewalk"
+					mark _mp_end_point_of_sidewalk
+					mark _mp_start_point_of_indiv_tie_down
+				draw to _mp_starting_point_of_sidewalk
+				
+				}
+			else
+				{
+				/* only one sidewalk line in plan view, assume sidewalk starts where you left off above  */
+				draw skip to _mp_starting_point_of_barrier_or_wall
+					mark _mp_starting_point_of_sidewalk
+				set plot parameters "top of sidewalk"
+				draw skip slope = _d_sidewalk_slope for dx=.2
+				draw skip slope = _d_sidewalk_slope to "~Proposed Sidewalk"
+					mark _mp_end_point_of_sidewalk
+					mark _mp_start_point_of_indiv_tie_down
+				draw to _mp_starting_point_of_sidewalk
+				
+				}
+			
+			/* now draw the bottom of the sidewalk */
+			set plot parameters "bottom of sidewalk"
+			draw skip to _mp_starting_point_of_sidewalk
+			draw dx=0 dy=-abs(_d_sidewalk_depth)
+				mark _mp_bottom_of_sidewalk_start
+			draw skip to _mp_end_point_of_sidewalk
+			draw dx=0 dy=-abs(_d_sidewalk_depth)
+				mark _mp_bottom_of_sidewalk_end
+			draw to _mp_bottom_of_sidewalk_start
+			/******************following added by TVO on 5/20/10**************/
+			if intersect dgn = "~Green Space Hinge Line" within distance = _d_green_space_search_distance then
+				{
+				draw skip to _mp_start_point_of_indiv_tie_down
+				set plot parameters "seeding candidate"
+				draw slope = _d_green_space_slope to "~Green Space Hinge Line"
+				mark _mp_start_point_of_indiv_tie_down
+				}
+			else
+				{
+				/*do nothing*/
+				}  
+			
+			/*****************************************************************/
+			
+			draw skip to _mp_end_point_of_sidewalk
+			call sub draw_tie_slope
+			
+			}
+		
+		else if (intersect dgn = "~Green Space Hinge Line" within distance = _d_green_space_search_distance) then
+			{
+			if _s_agg_shoulder_Found = ^yes^ then
+				{
+				
+				set plot parameters "seeding candidate"
+				draw skip to _mp_temp_point	/* this is the hinge point of any agg shoulder */
+					mark x888 y888
+				draw slope = _d_agg_shld_green_space_slope to "~Green Space Hinge Line"
+					mark _mp_temp_point
+					mark x889 y889
+					mark _mp_break_agg_or_sub_here_at_1on1	/* this changes the 1on1 location if found greenspace line */
+					mark _mp_start_point_of_indiv_tie_down
+					
+				if _s_agg_shldr_hinge_point = ^yes^ then
+					{
+					/* close agg shoulder to 1:10 line above */
+					if _s_side_slope = ^left^ then
+						{
+						draw skip to _mp_left_outside_bottom_agg_shldr
+					
+						}
+					else
+						{
+						draw skip to _mp_right_outside_bottom_agg_shldr
+						
+						}
+					/* now close the agg shoulder to the green space line */
+					set plot parameters "bottom of agg shld symb"
+					draw rise:run = 1:0 to intersection x888 y888 x889 y889
+					/* now trick criteria by saying that there is not an agg shoulder */
+					_s_agg_shoulder_Found = ^yes_but_no_to_trick_criteria^
+					_s_agg_shldr_hinge_point = ^yes_but_no_to_trick_criteria^
+					
+					}
+				else
+					{
+					/* don't do anything */
+					}
+				}
+			else
+				{
+				/* will have to do this one later...only protecting for above one for now */
+				}
+			draw skip to _mp_start_point_of_indiv_tie_down
+			
+			call sub draw_tie_slope
+			}
+			
+		else
+			{
+			/* add additional side treatments here*/
+			/* BUT KEEP THE LAST ELSE AS BELOW */
+			call sub draw_tie_slope
+			
+			
+			}
+		
+	
+	
+		} /*closes if gore=no and no double faced barrier */
+		
+		
+		
+		
+	else if _s_intersect_gore=^yes^ then		/* found gore */
+		{
+		call sub find_closest_chain			/* this returns the following variable: _s_closest_chain */
+		call sub was_closest_chain_already_processed	/* this returns the following variable: _s_closest_chain_already_processed */
+		if _s_closest_chain_already_processed = ^yes^ then
+			{
+			call sub closest_chain_side_slope		/* this returns the following variable: _s_closest_chain_side_slope */
+			call sub draw_gore				/* this draws the gores in */
+			}
+		else
+			{
+			/* don't do anything */
+			}			
+
+		}
+			
+	else if _s_hit_double_faced_barrier = ^yes^ then	/* found double faced barrier */
+		{
+		/* don't do anything yet */
+		call sub draw_aggbase
+		}
+		
+	else
+		{
+		/* should not see this */
+		}
+	
+	
+	}	/* closes if p1 statement*/
+	
+else	/* closes initial if p1 */
+	{
+	
+	}	

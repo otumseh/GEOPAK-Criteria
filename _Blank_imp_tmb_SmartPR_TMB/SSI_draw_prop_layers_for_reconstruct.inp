@@ -1,0 +1,223 @@
+/* TOTAL OF 15 PROJ SPECIFIC CHAINS IN THIS FILE*/
+/* TOTAL OF 325 PROJ SPECIFIC CHAINS IN THE STANDARD PROJ SPECIFIC FILES*/
+
+define "profile 1" 	NB75_PR		/* PRI75NB24L	*/
+define "profile 2" REV_PRI75SB24R
+
+	
+
+
+define "chain 1" 	NB75	
+define "chain 2" sb75_pr
+
+
+
+
+
+
+/* Change these values one time per project*/
+define "job" 467
+define "pattern file" G:\Projects 2019A\19213\Earthworks\I-75 Sections.dgn
+define "shape file" G:\Projects 2019A\19213\Earthworks\I-75 Sections.dgn
+define "EXISTING TOPO DGN" G:\Projects 2019A\19213\Earthworks\19213_pavt_rem_file.dwg
+define "PROPOSED PLAN DGN" G:\Projects 2019A\19213\Earthworks\I-75_Linework.dwg
+define "xs file" G:\Projects 2019A\19213\Earthworks\I-75 Sections.dgn
+
+
+
+define "shape cluster tie" 0.000
+
+define "CROSS SECTION DGN" "xs file"
+
+
+
+define "mp text" lvname=XS_MARKED_POINT_TEXT co=240 wt=0 th=.0225 tw=.018 just=lb angle=90 number of decimal places = 0 offset=0 
+define "fgsglabel text" lvname=XS_MARKED_POINT_TEXT co=0 wt=0 th=.0225 tw=.018 just=lb angle=90 number of decimal places = 3 offset=0
+define "road slope text" lvname=XS_PR_SLOPE_TEXT co=0 wt=1 th=1.2 tw=1.0 just=cb number of decimal places = 2 offset=.5
+define "paved shoulder slope text" lvname=XS_PR_SLOPE_TEXT co=5 wt=1 th=1.2 tw=1.0 just=cb number of decimal places = 2 offset=.1
+define "gore slope text" lvname=XS_PR_SLOPE_TEXT co=6 wt=1 th=1.2 tw=1.0 just=cb number of decimal places = 2 offset=.1
+define "seeding slope text" lvname=XS_PR_SLOPE_TEXT co=2 wt=1 th=1.2 tw=1.0 just=cb number of decimal places = 2 offset=.1 format = 1:run /* always uses 1 as rise value (ex. 1:.5) */ 
+define "subbase slope text" lvname=XS_PR_SUBBASE_SUBGRD_SLOPE_TEXT co=39 wt=1 th=1.2 tw=1.0 just=cb number of decimal places = 2 offset=.1
+define "ditch type text" lvname=XS_PR_SPECIAL_DITCH_LABEL co=40 wt=1 th=1.2 tw=1.0 just=cb number of decimal places = 2 offset=.1
+define "ditch elev text" lvname=XS_PR_SPECIAL_DITCH_LABEL co=41 wt=1 th=1.2 tw=1.0 just=cb number of decimal places = 2 offset=.1
+define "invert elev text" lvname=XS_PR_ELEV_TEXT co=42 wt=1 th=1.2 tw=1.0 just=cb number of decimal places = 2 offset=.1
+
+
+define "Curb Text Symbology" lvname=scratch_level_D co=0 wt=1 th=.3 tw=0.375 just=lb number of decimal places = 2 offset=.1
+define "~General Message Text Symbology" lvname=scratch_level_A co=0 wt=1 th=1.2 tw=1 just=cb angle=0 number of decimal places = 2 offset=.5
+define "~BARRIER ELEV DIFF Text Symbology" lvname=scratch_level_B co=0 wt=1 th=1.2 tw=1 just=lb angle=90 number of decimal places = 2 offset=.1
+define "Shorten Shoulder Message Text Symbology" lvname=scratch_level_C co=0 wt=1 th=.3 tw=0.375 just=lb angle=90 number of decimal places = 2 offset=.1
+                
+define "error text" lvname=XS_WARNING_TEXT co=0 wt=0 th=.225 tw=.18 just=lb angle=90 number of decimal places = 3 offset=0
+define "tolerance" 0.001
+
+
+/* DRAWING SYMBOLOGY*/
+
+/* SAMPLE - DEFINE "road symb" lvname=XS_PR_PAVT_SURF co=1 wt=1 lc=0*/
+
+DEFINE "PROP TRAVEL WAY SYMB" lvname=Surf_RdBed_Pr_Base_XS co=10 wt=1 lc=0
+DEFINE "PROP SHLDR SYMB" lvname=Surf_RdBed_Pr_Base_XS co=13 wt=1 lc=0
+DEFINE "PROP OGDC SYMB" lvname=Surf_RdBed_Pr_Base_OGDC_XS co=2 wt=1 lc=0
+DEFINE "PROP AGGBASE SYMB" lvname=Surf_RdBed_Pr_Base_Agg_XS co=4 wt=1 lc=0
+DEFINE "PROP SUBBASE SYMB" lvname=Surf_RdBed_Pr_SubBase_XS co=3 wt=1 lc=0
+DEFINE "PROP GORE SYMB" lvname=Surf_RdBed_Pr_Base_XS co=1 wt=1 lc=0
+DEFINE "PROP RAMP PAVEMENT SYMB" lvname=Surf_RdBed_Pr_Base_XS co=7 wt=1 lc=0
+DEFINE "PROP OVERLAY SYMB" lvname=Surf_RdBed_Pr_Base_XS co=0 wt=1 lc=0
+DEFINE "PROP VG SYMB" lvname=Surf_RdBed_Pr_Base_XS co=247 wt=1 lc=0
+DEFINE "PROP ADV SHLDR SYMB" lvname=Surf_RdBed_Pr_Base_XS co=240 wt=1 lc=0
+DEFINE "PROP EMBANKMENT SYMB" lvname=Earth_Embankment_Pr_XS co=170 wt=1 lc=0
+DEFINE "PROP Turf Establishment SYMB" lvname=XS_Pr_Topsoil_Subgrade co=240 wt=1 lc=0
+DEFINE "PROP AGG SHLDR SYMB" lvname=Surf_RdBed_Pr_Base_XS co=6 wt=1 lc=0
+DEFINE "exc limit symb 1" lvname=Excavation_Limits co=1 wt=1 lc=0
+DEFINE "exc limit symb 2" lvname=Excavation_Limits co=2 wt=1 lc=0
+
+/* SEARCH PARAMETERS */
+
+/* Plan View Removed Paved Shoulder */
+define_dgn "~Prop_EOP" \
+dgn="PROPOSED PLAN DGN" \
+lvname = Surf_TravelWay_Pr_HMA_Prdctn_Edge
+
+/* Plan View Removed Paved Shoulder */
+define_dgn "~Prop_GORE" \
+dgn="PROPOSED PLAN DGN" \
+lvname = FULL_DEPTH_GORE
+
+/* Plan View Removed Paved Shoulder */
+define_dgn "~Prop_RAMP" \
+dgn="PROPOSED PLAN DGN" \
+lvname = FULL_DEPTH_RAMP_EOP
+
+/* Plan View Removed Paved Shoulder */
+define_dgn "~Prop_FULL_DEPTH_SHLDR" \
+dgn="PROPOSED PLAN DGN" \
+lvname = Surf_Shldr_Pr_HMA_Edge
+
+/* Plan View Removed Paved Shoulder */
+define_dgn "~Prop_AGG_SHLDR" \
+dgn="PROPOSED PLAN DGN" \
+lvname = Surf_Shldr_Pr_Agg_Edge~
+
+/* Plan View Removed Paved Shoulder */
+define_dgn "~Prop_MILL_TIE" \
+dgn="PROPOSED PLAN DGN" \
+lvname = Tie_To_Existing
+
+/* Plan View Removed Paved Shoulder */
+define_dgn "~Prop_Outside_VG" \
+dgn="PROPOSED PLAN DGN" \
+lvname = Outside_VG
+
+/* Plan View Removed Paved Shoulder */
+define_dgn "~Prop_Median_VG" \
+dgn="PROPOSED PLAN DGN" \
+lvname = VG-8_inch
+
+/* Plan View Removed Paved Shoulder */
+define_dgn "~Prop_Adverse_shldr" \
+dgn="PROPOSED PLAN DGN" \
+lvname = Adverse_Shldr_full_depth
+
+/* Plan View Removed Paved Shoulder */
+define_dgn "~Prop_SINGLE_FACED_BARRIER" \
+dgn="PROPOSED PLAN DGN" \
+lvname = Barr_Conc_Pr_SingleFace_A_Top_Edge_$Ft
+
+/* Plan View Removed Paved Shoulder */
+define_dgn "~Prop_CurbGut" \
+dgn="PROPOSED PLAN DGN" \
+lvname = CurbGut_Std_Pr_B1_Back_$Ft,CurbGut_ShldrGut_Pr_D1_Det1_Back_$Ea
+
+
+
+
+
+
+
+
+
+
+Proposed xs
+ 
+tolerance = 0.00100000
+ 
+
+xs dgn = "xs file"
+Existing ground line
+	co = 10
+	lvname = DTM_PR_XS		/*XS_EX_GROUND_SURFACE, DTM_EX_XS - note, the existing ground for this file is the proposed finished grade */
+	/*lc = 2*/
+	/*wt = 0*/
+        type = line, line_string
+ 
+
+
+
+Pattern dgn = "pattern file"
+    pattern set
+        job number = "job" 
+        baseline = "CHAIN 1"		/*"chain 1"*/
+        horiz scale = 10.0
+        vert scale = 10.0
+        lvname= default
+        co = 64	
+	type = line, line_string
+	
+  
+
+
+        
+Criteria for Shape Cluster              
+   shape cluster baseline  = "chain 1"
+   shape cluster profile   = "profile 1"
+    shape cluster tie 	= 0
+    
+    side slope LT 
+     include G:\Projects 2019A\19213\Earthworks\draw_layers_for_reconstruct.tmb
+     
+     
+
+    side slope RT /*where cha "chain 1" sta >= 102+00 and cha "chain 1" sta <= 105+00"*/
+     include G:\Projects 2019A\19213\Earthworks\draw_layers_for_reconstruct.tmb
+     
+     
+     
+Criteria for Shape Cluster             
+   shape cluster baseline  = "chain 2"
+   shape cluster profile   = "profile 2"
+   shape cluster tie       = 0
+   
+    side slope LT 
+     include G:\Projects 2019A\19213\Earthworks\draw_layers_for_reconstruct.tmb
+    
+     
+    side slope RT 
+     include G:\Projects 2019A\19213\Earthworks\draw_layers_for_reconstruct.tmb
+
+
+
+
+
+
+Plot Parameters
+ 
+        Line
+            lvname = scratch_level_E
+            co = 3
+            wt = 1
+            lc = 0
+ 
+    Pavement Thickness = 0
+    Apply all trans def         /* this setting utilizes the super transtion types specified in the shape file */
+        			/* Apply trans def =  .... this overrides the type of super transtion (linear, parabolic) and lets you specify a type based on a number...not sure but 1 = linear, 2 = parabolic...maybe*/
+        			/* Fill gaps between clusters   ...use when connecting criteria between 2 shapes using the same shape cluster chain... ditch */
+        			/*  Intersect between Clusters   this would automatically trim criteria lines between 2 shape clusters which utilize different shape cluster baselines....ie would create a v ditch when your criteria specifies a "X" type of ditch */
+    Process Clusters as Indicated
+    Remove Skew Effect    			/* Remove Skewed Effect or Add skew effect */
+    /*Process Only Sections With Existing Ground*/
+ 
+Write XS Into Dgn = "xs file"
+
+
+

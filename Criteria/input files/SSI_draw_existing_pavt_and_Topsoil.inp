@@ -1,0 +1,853 @@
+/* TOTAL OF 15 PROJ SPECIFIC CHAINS IN THIS FILE*/
+/* TOTAL OF 325 PROJ SPECIFIC CHAINS IN THE STANDARD PROJ SPECIFIC FILES*/
+
+define "profile 1" prWB69	
+define "profile 2" GPK_CH_B
+define "profile 3" GPK_CH_C
+define "profile 4" GPK_CH_D	
+define "profile 5" GPK_CH_E
+define "profile 6" GPK_CH_F	
+define "profile 7" GPK_CH_G		
+define "profile 8" GPK_CH_H		
+define "profile 9" GPK_CH_I		
+define "profile 10" GPK_CH_J		
+define "profile 11" GPK_CH_K
+define "profile 12" GPK_CH_L
+define "profile 13" GPK_CH_M
+define "profile 14" GPK_CH_N
+define "profile 15" GPK_CH_O		
+define "profile 16" GPK_CH_P		
+define "profile 17" GPK_CH_Q		
+define "profile 18" GPK_CH_R	
+define "profile 19" GPK_CH_S	
+define "profile 20" GPK_CH_T		
+define "profile 21" GPK_CH_U		
+define "profile 22" GPK_CH_V
+define "profile 23" GPK_CH_W
+define "profile 24" GPK_CH_X
+	
+
+
+define "chain 1" pr_WB69		
+define "chain 2" GPK_CH_B
+define "chain 3" GPK_CH_C
+define "chain 4" GPK_CH_D
+define "chain 5" GPK_CH_E
+define "chain 6" GPK_CH_F
+define "chain 7" GPK_CH_G
+define "chain 8" GPK_CH_H
+define "chain 9" GPK_CH_I
+define "chain 10" GPK_CH_J
+define "chain 11" GPK_CH_K
+define "chain 12" GPK_CH_L
+define "chain 13" GPK_CH_M
+define "chain 14" GPK_CH_N
+define "chain 15" GPK_CH_O
+define "chain 16" GPK_CH_P
+define "chain 17" GPK_CH_Q
+define "chain 18" GPK_CH_R
+define "chain 19" GPK_CH_S
+define "chain 20" GPK_CH_T
+define "chain 21" GPK_CH_U
+define "chain 22" GPK_CH_V
+define "chain 23" GPK_CH_W
+define "chain 24" GPK_CH_X
+
+
+
+/* if have more than one file then...define "chain 1 shape files" C:\96-39_shapes\196_PR.inp,C:\96-39_shapes\sxe2.inp */
+define "chain 1 shape files" M:\Projects\12943230\cadd\geopak\Input\Shape\dont_find.INP
+define "chain 2 shape files" M:\Projects\12943230\cadd\geopak\Input\Shape\GPK_CH_B.INP
+define "chain 3 shape files" M:\Projects\12943230\cadd\geopak\input\SHAPE\GPK_CH_C.INP
+define "chain 4 shape files" M:\Projects\12943230\cadd\geopak\input\SHAPE\GPK_CH_D.INP
+define "chain 5 shape files" M:\Projects\12943230\cadd\geopak\input\SHAPE\GPK_CH_E.INP
+define "chain 6 shape files" M:\Projects\12943230\cadd\geopak\input\SHAPE\GPK_CH_F.INP
+define "chain 7 shape files" M:\Projects\12943230\cadd\geopak\input\SHAPE\GPK_CH_G.INP
+define "chain 8 shape files" M:\Projects\12943230\cadd\geopak\input\SHAPE\GPK_CH_H.INP
+
+
+define "chain 9 shape files" M:\Projects\12943230\cadd\geopak\input\SHAPE\GPK_CH_I.inp
+define "chain 10 shape files" M:\Projects\12943230\cadd\geopak\input\SHAPE\GPK_CH_J.inp
+define "chain 11 shape files" M:\Projects\12943230\cadd\geopak\input\SHAPE\GPK_CH_K.INP
+define "chain 12 shape files" M:\Projects\12943230\cadd\geopak\input\SHAPE\GPK_CH_L.inp
+define "chain 13 shape files" M:\Projects\12943230\cadd\geopak\input\SHAPE\GPK_CH_M.inp
+define "chain 14 shape files" M:\Projects\12943230\cadd\geopak\input\SHAPE\GPK_CH_N.INP
+
+define "chain 15 shape files" M:\Projects\12943230\cadd\geopak\input\SHAPE\GPK_CH_O.INP
+define "chain 16 shape files" M:\Projects\12943230\cadd\geopak\input\SHAPE\GPK_CH_P.INP
+define "chain 17 shape files" M:\Projects\12943230\cadd\geopak\input\SHAPE\GPK_CH_Q.INP
+define "chain 18 shape files" M:\Projects\12943230\cadd\geopak\input\SHAPE\GPK_CH_R.INP
+define "chain 19 shape files" M:\Projects\12943230\cadd\geopak\input\SHAPE\GPK_CH_S.INP
+define "chain 20 shape files" M:\Projects\12943230\cadd\geopak\input\SHAPE\GPK_CH_T.inp
+define "chain 21 shape files" M:\Projects\12943230\cadd\geopak\input\SHAPE\GPK_CH_U.INP
+define "chain 22 shape files" M:\Projects\12943230\cadd\geopak\input\SHAPE\GPK_CH_V.INP
+define "chain 23 shape files" M:\Projects\12943230\cadd\geopak\input\SHAPE\GPK_CH_W.INP
+define "chain 24 shape files" M:\Projects\12943230\cadd\geopak\input\SHAPE\GPK_CH_X.INP
+
+
+
+define "GPK_CH_A_ind_left_profile_name" none
+define "GPK_CH_A_ind_right_profile_name" none
+define "GPK_CH_A_dep_left_profile_name" none 		
+define "GPK_CH_A_dep_right_profile_name" none		
+define "GPK_CH_A_left_FS_profile_name" none	
+define "GPK_CH_A_right_FS_profile_name" none	
+define "GPK_CH_A_left_BS_profile_name" none		
+define "GPK_CH_A_right_BS_profile_name" none	
+define "GPK_CH_A_left_ditch_width_profile_name" none	
+define "GPK_CH_A_right_ditch_width_profile_name" none	
+define "GPK_CH_A_left_shldr_slope_profile" none	
+define "GPK_CH_A_right_shldr_slope_profile" none
+
+define "GPK_CH_B_ind_left_profile_name" none
+define "GPK_CH_B_ind_right_profile_name" none
+define "GPK_CH_B_dep_left_profile_name" none 		
+define "GPK_CH_B_dep_right_profile_name" none		
+define "GPK_CH_B_left_FS_profile_name" none	
+define "GPK_CH_B_right_FS_profile_name" none	
+define "GPK_CH_B_left_BS_profile_name" none		
+define "GPK_CH_B_right_BS_profile_name" none	
+define "GPK_CH_B_left_ditch_width_profile_name" none	
+define "GPK_CH_B_right_ditch_width_profile_name" none	
+define "GPK_CH_B_left_shldr_slope_profile" none	
+define "GPK_CH_B_right_shldr_slope_profile" none	
+
+define "GPK_CH_C_ind_left_profile_name" none
+define "GPK_CH_C_ind_right_profile_name" none
+define "GPK_CH_C_dep_left_profile_name" none 		
+define "GPK_CH_C_dep_right_profile_name" none		
+define "GPK_CH_C_left_FS_profile_name" none	
+define "GPK_CH_C_right_FS_profile_name" none	
+define "GPK_CH_C_left_BS_profile_name" none		
+define "GPK_CH_C_right_BS_profile_name" none	
+define "GPK_CH_C_left_ditch_width_profile_name" none	
+define "GPK_CH_C_right_ditch_width_profile_name" none	
+define "GPK_CH_C_left_shldr_slope_profile" none	
+define "GPK_CH_C_right_shldr_slope_profile" none	
+
+define "GPK_CH_D_ind_left_profile_name" none
+define "GPK_CH_D_ind_right_profile_name" none
+define "GPK_CH_D_dep_left_profile_name" none 		
+define "GPK_CH_D_dep_right_profile_name" none		
+define "GPK_CH_D_left_FS_profile_name" none	
+define "GPK_CH_D_right_FS_profile_name" none	
+define "GPK_CH_D_left_BS_profile_name" none		
+define "GPK_CH_D_right_BS_profile_name" none	
+define "GPK_CH_D_left_ditch_width_profile_name" none	
+define "GPK_CH_D_right_ditch_width_profile_name" none	
+define "GPK_CH_D_left_shldr_slope_profile" none	
+define "GPK_CH_D_right_shldr_slope_profile" none	
+
+define "GPK_CH_E_ind_left_profile_name" none
+define "GPK_CH_E_ind_right_profile_name" none
+define "GPK_CH_E_dep_left_profile_name" none 		
+define "GPK_CH_E_dep_right_profile_name" none	
+define "GPK_CH_E_left_FS_profile_name" none		
+define "GPK_CH_E_right_FS_profile_name" none		
+define "GPK_CH_E_left_BS_profile_name" none		
+define "GPK_CH_E_right_BS_profile_name" none
+define "GPK_CH_E_left_ditch_width_profile_name" none	
+define "GPK_CH_E_right_ditch_width_profile_name" none		
+define "GPK_CH_E_left_shldr_slope_profile" none	
+define "GPK_CH_E_right_shldr_slope_profile" none	
+	
+define "GPK_CH_F_ind_left_profile_name" none
+define "GPK_CH_F_ind_right_profile_name" none
+define "GPK_CH_F_dep_left_profile_name" none 		
+define "GPK_CH_F_dep_right_profile_name" none
+define "GPK_CH_F_left_FS_profile_name" none		
+define "GPK_CH_F_right_FS_profile_name" none		
+define "GPK_CH_F_left_BS_profile_name" none		
+define "GPK_CH_F_right_BS_profile_name" none	
+define "GPK_CH_F_left_ditch_width_profile_name" none	
+define "GPK_CH_F_right_ditch_width_profile_name" none			
+define "GPK_CH_F_left_shldr_slope_profile" none	
+define "GPK_CH_F_right_shldr_slope_profile" none	
+
+define "GPK_CH_G_ind_left_profile_name" none
+define "GPK_CH_G_ind_right_profile_name" none
+define "GPK_CH_G_dep_left_profile_name" none 		
+define "GPK_CH_G_dep_right_profile_name" none
+define "GPK_CH_G_left_FS_profile_name" none		
+define "GPK_CH_G_right_FS_profile_name" none		
+define "GPK_CH_G_left_BS_profile_name" none		
+define "GPK_CH_G_right_BS_profile_name" none	
+define "GPK_CH_G_left_ditch_width_profile_name" none	
+define "GPK_CH_G_right_ditch_width_profile_name" none			
+define "GPK_CH_G_left_shldr_slope_profile" none	
+define "GPK_CH_G_right_shldr_slope_profile" none
+
+define "GPK_CH_H_ind_left_profile_name" none
+define "GPK_CH_H_ind_right_profile_name" none	
+define "GPK_CH_H_dep_left_profile_name" none 		
+define "GPK_CH_H_dep_right_profile_name" none
+define "GPK_CH_H_left_FS_profile_name" none		
+define "GPK_CH_H_right_FS_profile_name" none		
+define "GPK_CH_H_left_BS_profile_name" none		
+define "GPK_CH_H_right_BS_profile_name" none	
+define "GPK_CH_H_left_ditch_width_profile_name" none	
+define "GPK_CH_H_right_ditch_width_profile_name" none			
+define "GPK_CH_H_left_shldr_slope_profile" none	
+define "GPK_CH_H_right_shldr_slope_profile" none		
+
+define "GPK_CH_I_ind_left_profile_name" none
+define "GPK_CH_I_ind_right_profile_name" none	
+define "GPK_CH_I_dep_left_profile_name" none 		
+define "GPK_CH_I_dep_right_profile_name" none
+define "GPK_CH_I_left_FS_profile_name" none		
+define "GPK_CH_I_right_FS_profile_name" none		
+define "GPK_CH_I_left_BS_profile_name" none		
+define "GPK_CH_I_right_BS_profile_name" none
+define "GPK_CH_I_left_ditch_width_profile_name" none	
+define "GPK_CH_I_right_ditch_width_profile_name" none			
+define "GPK_CH_I_left_shldr_slope_profile" none	
+define "GPK_CH_I_right_shldr_slope_profile" none
+
+define "GPK_CH_J_ind_left_profile_name" none
+define "GPK_CH_J_ind_right_profile_name" none
+define "GPK_CH_J_dep_left_profile_name" none 		
+define "GPK_CH_J_dep_right_profile_name" none
+define "GPK_CH_J_left_FS_profile_name" none		
+define "GPK_CH_J_right_FS_profile_name" none		
+define "GPK_CH_J_left_BS_profile_name" none		
+define "GPK_CH_J_right_BS_profile_name" none	
+define "GPK_CH_J_left_ditch_width_profile_name" none	
+define "GPK_CH_J_right_ditch_width_profile_name" none		
+define "GPK_CH_J_left_shldr_slope_profile" none	
+define "GPK_CH_J_right_shldr_slope_profile" none
+
+define "GPK_CH_K_ind_left_profile_name" none
+define "GPK_CH_K_ind_right_profile_name" none
+define "GPK_CH_K_dep_left_profile_name" none 		
+define "GPK_CH_K_dep_right_profile_name" none	
+define "GPK_CH_K_left_FS_profile_name" none		
+define "GPK_CH_K_right_FS_profile_name" none		
+define "GPK_CH_K_left_BS_profile_name" none		
+define "GPK_CH_K_right_BS_profile_name" none	
+define "GPK_CH_K_left_ditch_width_profile_name" none	
+define "GPK_CH_K_right_ditch_width_profile_name" none		
+define "GPK_CH_K_left_shldr_slope_profile" none	
+define "GPK_CH_K_right_shldr_slope_profile" none	
+
+define "GPK_CH_L_ind_left_profile_name" none
+define "GPK_CH_L_ind_right_profile_name" none
+define "GPK_CH_L_dep_left_profile_name" none 		
+define "GPK_CH_L_dep_right_profile_name" none	
+define "GPK_CH_L_left_FS_profile_name" none		
+define "GPK_CH_L_right_FS_profile_name" none		
+define "GPK_CH_L_left_BS_profile_name" none		
+define "GPK_CH_L_right_BS_profile_name" none
+define "GPK_CH_L_left_ditch_width_profile_name" none	
+define "GPK_CH_L_right_ditch_width_profile_name" none	
+define "GPK_CH_L_left_shldr_slope_profile" none	
+define "GPK_CH_L_right_shldr_slope_profile" none	
+
+define "GPK_CH_M_ind_left_profile_name" none
+define "GPK_CH_M_ind_right_profile_name" none
+define "GPK_CH_M_dep_left_profile_name" none 		
+define "GPK_CH_M_dep_right_profile_name" none
+define "GPK_CH_M_left_FS_profile_name" none		
+define "GPK_CH_M_right_FS_profile_name" none		
+define "GPK_CH_M_left_BS_profile_name" none		
+define "GPK_CH_M_right_BS_profile_name" none	
+define "GPK_CH_M_left_ditch_width_profile_name" none	
+define "GPK_CH_M_right_ditch_width_profile_name" none		
+define "GPK_CH_M_left_shldr_slope_profile" none	
+define "GPK_CH_M_right_shldr_slope_profile" none
+
+define "GPK_CH_N_ind_left_profile_name" none
+define "GPK_CH_N_ind_right_profile_name" none
+define "GPK_CH_N_dep_left_profile_name" none 		
+define "GPK_CH_N_dep_right_profile_name" none	
+define "GPK_CH_N_left_FS_profile_name" none		
+define "GPK_CH_N_right_FS_profile_name" none		
+define "GPK_CH_N_left_BS_profile_name" none		
+define "GPK_CH_N_right_BS_profile_name" none
+define "GPK_CH_N_left_ditch_width_profile_name" none	
+define "GPK_CH_N_right_ditch_width_profile_name" none	
+define "GPK_CH_N_left_shldr_slope_profile" none	
+define "GPK_CH_N_right_shldr_slope_profile" none
+
+define "GPK_CH_O_ind_left_profile_name" none
+define "GPK_CH_O_ind_right_profile_name" none
+define "GPK_CH_O_dep_left_profile_name" none 		
+define "GPK_CH_O_dep_right_profile_name" none	
+define "GPK_CH_O_left_FS_profile_name" none		
+define "GPK_CH_O_right_FS_profile_name" none		
+define "GPK_CH_O_left_BS_profile_name" none		
+define "GPK_CH_O_right_BS_profile_name" none
+define "GPK_CH_O_left_ditch_width_profile_name" none	
+define "GPK_CH_O_right_ditch_width_profile_name" none	
+define "GPK_CH_O_left_shldr_slope_profile" none	
+define "GPK_CH_O_right_shldr_slope_profile" none	
+
+define "GPK_CH_P_ind_left_profile_name" none
+define "GPK_CH_P_ind_right_profile_name" none
+define "GPK_CH_P_dep_left_profile_name" none 		
+define "GPK_CH_P_dep_right_profile_name" none	
+define "GPK_CH_P_left_FS_profile_name" none		
+define "GPK_CH_P_right_FS_profile_name" none		
+define "GPK_CH_P_left_BS_profile_name" none		
+define "GPK_CH_P_right_BS_profile_name" none
+define "GPK_CH_P_left_ditch_width_profile_name" none	
+define "GPK_CH_P_right_ditch_width_profile_name" none	
+define "GPK_CH_P_left_shldr_slope_profile" none	
+define "GPK_CH_P_right_shldr_slope_profile" none	
+
+define "GPK_CH_Q_ind_left_profile_name" none	
+define "GPK_CH_Q_ind_right_profile_name" none	
+define "GPK_CH_Q_dep_left_profile_name" none 		
+define "GPK_CH_Q_dep_right_profile_name" none	
+define "GPK_CH_Q_left_FS_profile_name" none		
+define "GPK_CH_Q_right_FS_profile_name" none		
+define "GPK_CH_Q_left_BS_profile_name" none		
+define "GPK_CH_Q_right_BS_profile_name" none
+define "GPK_CH_Q_left_ditch_width_profile_name" none	
+define "GPK_CH_Q_right_ditch_width_profile_name" none	
+define "GPK_CH_Q_left_shldr_slope_profile" none	
+define "GPK_CH_Q_right_shldr_slope_profile" none	
+
+define "GPK_CH_R_ind_left_profile_name" none	
+define "GPK_CH_R_ind_right_profile_name" none	
+define "GPK_CH_R_dep_left_profile_name" none 		
+define "GPK_CH_R_dep_right_profile_name" none	
+define "GPK_CH_R_left_FS_profile_name" none		
+define "GPK_CH_R_right_FS_profile_name" none		
+define "GPK_CH_R_left_BS_profile_name" none		
+define "GPK_CH_R_right_BS_profile_name" none
+define "GPK_CH_R_left_ditch_width_profile_name" none	
+define "GPK_CH_R_right_ditch_width_profile_name" none	
+define "GPK_CH_R_left_shldr_slope_profile" none	
+define "GPK_CH_R_right_shldr_slope_profile" none	
+
+define "GPK_CH_S_ind_left_profile_name" none
+define "GPK_CH_S_ind_right_profile_name" none
+define "GPK_CH_S_dep_left_profile_name" none 		
+define "GPK_CH_S_dep_right_profile_name" none	
+define "GPK_CH_S_left_FS_profile_name" none		
+define "GPK_CH_S_right_FS_profile_name" none		
+define "GPK_CH_S_left_BS_profile_name" none		
+define "GPK_CH_S_right_BS_profile_name" none
+define "GPK_CH_S_left_ditch_width_profile_name" none	
+define "GPK_CH_S_right_ditch_width_profile_name" none	
+define "GPK_CH_S_left_shldr_slope_profile" none	
+define "GPK_CH_S_right_shldr_slope_profile" none	
+
+define "GPK_CH_T_ind_left_profile_name" none	
+define "GPK_CH_T_ind_right_profile_name" none	
+define "GPK_CH_T_dep_left_profile_name" none 		
+define "GPK_CH_T_dep_right_profile_name" none	
+define "GPK_CH_T_left_FS_profile_name" none		
+define "GPK_CH_T_right_FS_profile_name" none		
+define "GPK_CH_T_left_BS_profile_name" none		
+define "GPK_CH_T_right_BS_profile_name" none
+define "GPK_CH_T_left_ditch_width_profile_name" none	
+define "GPK_CH_T_right_ditch_width_profile_name" none
+define "GPK_CH_T_left_shldr_slope_profile" none	
+define "GPK_CH_T_right_shldr_slope_profile" none		
+
+define "GPK_CH_U_ind_left_profile_name" none
+define "GPK_CH_U_ind_right_profile_name" none
+define "GPK_CH_U_dep_left_profile_name" none 		
+define "GPK_CH_U_dep_right_profile_name" none	
+define "GPK_CH_U_left_FS_profile_name" none		
+define "GPK_CH_U_right_FS_profile_name" none		
+define "GPK_CH_U_left_BS_profile_name" none		
+define "GPK_CH_U_right_BS_profile_name" none
+define "GPK_CH_U_left_ditch_width_profile_name" none	
+define "GPK_CH_U_right_ditch_width_profile_name" none	
+define "GPK_CH_U_left_shldr_slope_profile" none	
+define "GPK_CH_U_right_shldr_slope_profile" none	
+
+define "GPK_CH_V_ind_left_profile_name" none		
+define "GPK_CH_V_ind_right_profile_name" none
+define "GPK_CH_V_dep_left_profile_name" none 		
+define "GPK_CH_V_dep_right_profile_name" none		
+define "GPK_CH_V_left_FS_profile_name"  none	
+define "GPK_CH_V_right_FS_profile_name" none	
+define "GPK_CH_V_left_BS_profile_name" none		
+define "GPK_CH_V_right_BS_profile_name" none	
+define "GPK_CH_V_left_ditch_width_profile_name" none	
+define "GPK_CH_V_right_ditch_width_profile_name" none	
+define "GPK_CH_V_left_shldr_slope_profile" none	
+define "GPK_CH_V_right_shldr_slope_profile" none	
+
+define "GPK_CH_W_ind_left_profile_name" none		
+define "GPK_CH_W_ind_right_profile_name" none
+define "GPK_CH_W_dep_left_profile_name" none 		
+define "GPK_CH_W_dep_right_profile_name" none		
+define "GPK_CH_W_left_FS_profile_name"  none	
+define "GPK_CH_W_right_FS_profile_name" none	
+define "GPK_CH_W_left_BS_profile_name" none		
+define "GPK_CH_W_right_BS_profile_name" none
+define "GPK_CH_W_left_ditch_width_profile_name" none
+define "GPK_CH_W_right_ditch_width_profile_name" none	
+define "GPK_CH_W_left_shldr_slope_profile" none
+define "GPK_CH_W_right_shldr_slope_profile" none	
+
+define "GPK_CH_X_ind_left_profile_name" none		
+define "GPK_CH_X_ind_right_profile_name" none
+define "GPK_CH_X_dep_left_profile_name" none 		
+define "GPK_CH_X_dep_right_profile_name" none		
+define "GPK_CH_X_left_FS_profile_name"  none	
+define "GPK_CH_X_right_FS_profile_name" none	
+define "GPK_CH_X_left_BS_profile_name" none		
+define "GPK_CH_X_right_BS_profile_name" none
+define "GPK_CH_X_left_ditch_width_profile_name" none		
+define "GPK_CH_X_right_ditch_width_profile_name" none	
+define "GPK_CH_X_left_shldr_slope_profile" none		
+define "GPK_CH_X_right_shldr_slope_profile" none	
+
+
+
+
+
+
+
+
+
+/*update files based on FBO or programmed*/
+define "DDB Location" C:\MDOT Consultant\Workspace\geopak_V8i\DnCMan\DnCMan.ddb
+
+/* Change these values one time per project*/
+define "job" 198
+define "pattern file" C:\SSI_Projects\14672 (94-69)\Earthwork Working\wb69_Sections_TOPSOIL_PAVEMENT.dgn
+define "shape file" C:\SSI_Projects\14672 (94-69)\Earthwork Working\wb69_Sections_TOPSOIL_PAVEMENT.dgn
+define "EXISTING TOPO DGN" C:\SSI_Projects\14672 (94-69)\Earthwork Working\85489_pavt_rem_file.dgn
+
+define "xs file" C:\SSI_Projects\14672 (94-69)\Earthwork Working\wb69_Sections_TOPSOIL_PAVEMENT.dgn
+
+
+
+define "shape cluster tie" 0.000
+
+define "CROSS SECTION DGN" "xs file"
+define "PROPOSED PLAN DGN" R:\Resources\Tran\60490057-MDOTI75\PlanSet\road\dontfind.dgn
+define "RIGHT OF WAY DGN" R:\Resources\Tran\60490057-MDOTI75\PlanSet\Geopak\dontfind.dgn
+
+define "GEOPAK LINES DGN" R:\Resources\Tran\60490057-MDOTI75\PlanSet\Geopak\dontfind.dgn
+define "NORMAL CROWN SLOPE" -2
+define "SHAPES INPUT FILE NAMES" C:\will_not_find.inp
+define "drainage dgn" M:\Projects\12943230\CADD\Road\84004_Drainage_DONTFIND.ref
+define "wetland dgn" M:\Projects\12943230\CADD\survey\84004_survey_DONTFIND.ref
+
+
+define "mp text" lvname=XS_MARKED_POINT_TEXT co=1 wt=0 th=.0225 tw=.018 just=lb angle=90 number of decimal places = 0 offset=0 
+define "fgsglabel text" lvname=XS_MARKED_POINT_TEXT co=0 wt=0 th=.0225 tw=.018 just=lb angle=90 number of decimal places = 3 offset=0
+define "road slope text" lvname=XS_PR_SLOPE_TEXT co=0 wt=1 th=1.2 tw=1.0 just=cb number of decimal places = 2 offset=.5
+define "paved shoulder slope text" lvname=XS_PR_SLOPE_TEXT co=5 wt=1 th=1.2 tw=1.0 just=cb number of decimal places = 2 offset=.1
+define "gore slope text" lvname=XS_PR_SLOPE_TEXT co=6 wt=1 th=1.2 tw=1.0 just=cb number of decimal places = 2 offset=.1
+define "seeding slope text" lvname=XS_PR_SLOPE_TEXT co=2 wt=1 th=1.2 tw=1.0 just=cb number of decimal places = 2 offset=.1 format = 1:run /* always uses 1 as rise value (ex. 1:.5) */ 
+define "subbase slope text" lvname=XS_PR_SUBBASE_SUBGRD_SLOPE_TEXT co=39 wt=1 th=1.2 tw=1.0 just=cb number of decimal places = 2 offset=.1
+define "ditch type text" lvname=XS_PR_SPECIAL_DITCH_LABEL co=40 wt=1 th=1.2 tw=1.0 just=cb number of decimal places = 2 offset=.1
+define "ditch elev text" lvname=XS_PR_SPECIAL_DITCH_LABEL co=41 wt=1 th=1.2 tw=1.0 just=cb number of decimal places = 2 offset=.1
+define "invert elev text" lvname=XS_PR_ELEV_TEXT co=42 wt=1 th=1.2 tw=1.0 just=cb number of decimal places = 2 offset=.1
+
+
+define "Curb Text Symbology" lvname=scratch_level_D co=0 wt=1 th=.3 tw=0.375 just=lb number of decimal places = 2 offset=.1
+define "~General Message Text Symbology" lvname=scratch_level_A co=0 wt=1 th=1.2 tw=1 just=cb angle=0 number of decimal places = 2 offset=.5
+define "~BARRIER ELEV DIFF Text Symbology" lvname=scratch_level_B co=0 wt=1 th=1.2 tw=1 just=lb angle=90 number of decimal places = 2 offset=.1
+define "Shorten Shoulder Message Text Symbology" lvname=scratch_level_C co=0 wt=1 th=.3 tw=0.375 just=lb angle=90 number of decimal places = 2 offset=.1
+                
+define "error text" lvname=XS_WARNING_TEXT co=0 wt=0 th=.225 tw=.18 just=lb angle=90 number of decimal places = 3 offset=0
+define "tolerance" 0.001
+
+
+Proposed xs
+ 
+tolerance = 0.00100000
+ 
+
+xs dgn = "xs file"
+Existing ground line
+	/*co = 1,2*/
+	lvname = XS_EX_GROUND_SURFACE, DTM_EX_XS
+	/*lc = 2*/
+	/*wt = 0*/
+        type = line, line_string
+ 
+
+
+
+Pattern dgn = "pattern file"
+    pattern set
+        job number = "job"
+        baseline = "chain 1"
+        horiz scale = 10.0
+        vert scale = 10.0
+        lvname= DEFAULT
+        co = 0		
+	type = line, line_string
+	
+  
+
+
+        
+Criteria for Shape Cluster              
+   shape cluster baseline  = "chain 1"
+   shape cluster profile   = "profile 1"
+    shape cluster tie 	= 0
+    
+    side slope LT 
+     include C:\Criteria\PROJ_SPECIFIC_ddb_attributes_AND_SYMB.TMB
+     include C:\Criteria\WORKSPACE_DDB_ATTRIBUTES_v8i.TDS
+     include C:\Criteria\other_input_variables.tmb
+     include C:\Criteria\GENERAL_subroutines_new_workingon.tmb
+     include C:\Criteria\proj_specific_subroutines_new.tmb
+     include C:\Criteria\ALL_INCLUDE_FILES_new.TMB
+     
+     
+
+    side slope RT /*where cha "chain 1" sta >= 102+00 and cha "chain 1" sta <= 105+00"*/
+     include C:\Criteria\other_input_variables.tmb
+     include C:\Criteria\ALL_INCLUDE_FILES_new.TMB
+     
+     
+     
+Criteria for Shape Cluster             
+   shape cluster baseline  = "chain 2"
+   shape cluster profile   = "profile 2"
+   shape cluster tie       = "shape cluster tie"
+   
+    side slope LT 
+     include C:\Criteria\ALL_INCLUDE_FILES_new.TMB
+    
+     
+    side slope RT 
+     include C:\Criteria\ALL_INCLUDE_FILES_new.TMB
+
+
+
+Criteria for Shape Cluster              
+   shape cluster baseline  = "chain 3"
+   shape cluster profile   = "profile 3"
+   shape cluster tie       =  "shape cluster tie"
+   
+    side slope LT 
+     include C:\Criteria\ALL_INCLUDE_FILES_new.TMB
+     
+     
+
+    side slope RT 
+     include C:\Criteria\ALL_INCLUDE_FILES_new.TMB
+     
+     
+     
+
+Criteria for Shape Cluster               
+   shape cluster baseline  = "chain 4"
+   shape cluster profile   = "profile 4"
+   shape cluster tie       = "shape cluster tie"
+   
+    side slope LT 
+     include C:\Criteria\ALL_INCLUDE_FILES_new.TMB
+     
+     
+
+    side slope RT 
+     include C:\Criteria\ALL_INCLUDE_FILES_new.TMB
+   
+        
+
+Criteria for Shape Cluster               
+   shape cluster baseline  = "chain 5"
+   shape cluster profile   = "profile 5"
+   shape cluster tie       = "shape cluster tie"
+   
+    side slope LT 
+     include C:\Criteria\ALL_INCLUDE_FILES_new.TMB
+     
+     
+
+    side slope RT 
+     include C:\Criteria\ALL_INCLUDE_FILES_new.TMB
+
+
+Criteria for Shape Cluster             
+   shape cluster baseline  = "chain 6"
+   shape cluster profile   = "profile 6"
+   shape cluster tie       = "shape cluster tie"
+   
+    side slope LT 
+     include C:\Criteria\ALL_INCLUDE_FILES_new.TMB
+     
+     
+
+    side slope RT 
+     include C:\Criteria\ALL_INCLUDE_FILES_new.TMB
+
+
+
+
+Criteria for Shape Cluster              
+   shape cluster baseline  = "chain 7"
+   shape cluster profile   = "profile 7"
+   shape cluster tie       = "shape cluster tie"
+   
+    side slope LT 
+     include C:\Criteria\ALL_INCLUDE_FILES_new.TMB
+     
+     
+
+    side slope RT 
+     include C:\Criteria\ALL_INCLUDE_FILES_new.TMB
+
+
+
+Criteria for Shape Cluster              
+   shape cluster baseline  = "chain 8"
+   shape cluster profile   = "profile 8"
+   shape cluster tie       = "shape cluster tie"
+   
+    side slope LT 
+     include C:\Criteria\ALL_INCLUDE_FILES_new.TMB
+     
+     
+
+    side slope RT 
+     include C:\Criteria\ALL_INCLUDE_FILES_new.TMB
+
+Criteria for Shape Cluster              
+   shape cluster baseline  = "chain 9"
+   shape cluster profile   = "profile 9"
+   shape cluster tie       = "shape cluster tie"
+   
+    side slope LT 
+     include C:\Criteria\ALL_INCLUDE_FILES_new.TMB
+     
+     
+
+    side slope RT 
+     include C:\Criteria\ALL_INCLUDE_FILES_new.TMB
+
+
+
+Criteria for Shape Cluster              
+   shape cluster baseline  = "chain 10"
+   shape cluster profile   = "profile 10"
+   shape cluster tie       = "shape cluster tie"
+   
+    side slope LT 
+     include C:\Criteria\ALL_INCLUDE_FILES_new.TMB
+     
+     
+
+    side slope RT 
+     include C:\Criteria\ALL_INCLUDE_FILES_new.TMB
+
+
+Criteria for Shape Cluster             
+   shape cluster baseline  = "chain 11"
+   shape cluster profile   = "profile 11"
+   shape cluster tie       = "shape cluster tie"
+   
+    side slope LT 
+     include C:\Criteria\ALL_INCLUDE_FILES_new.TMB
+     
+     
+
+    side slope RT 
+     include C:\Criteria\ALL_INCLUDE_FILES_new.TMB
+     
+
+
+Criteria for Shape Cluster              
+   shape cluster baseline  = "chain 12"
+   shape cluster profile   = "profile 12"
+   shape cluster tie       = "shape cluster tie"
+   
+    side slope LT 
+     include C:\Criteria\ALL_INCLUDE_FILES_new.TMB
+     
+     
+
+    side slope RT 
+     include C:\Criteria\ALL_INCLUDE_FILES_new.TMB
+
+
+Criteria for Shape Cluster              
+   shape cluster baseline  = "chain 13"
+   shape cluster profile   = "profile 13"
+   shape cluster tie       = "shape cluster tie"
+   
+    side slope LT 
+     include C:\Criteria\ALL_INCLUDE_FILES_new.TMB
+     
+     
+
+    side slope RT 
+     include C:\Criteria\ALL_INCLUDE_FILES_new.TMB
+     
+Criteria for Shape Cluster              
+   shape cluster baseline  = "chain 14"
+   shape cluster profile   = "profile 14"
+   shape cluster tie       = "shape cluster tie"
+   
+    side slope LT 
+     include C:\Criteria\ALL_INCLUDE_FILES_new.TMB
+     
+     
+
+    side slope RT 
+     include C:\Criteria\ALL_INCLUDE_FILES_new.TMB
+
+
+Criteria for Shape Cluster              
+   shape cluster baseline  = "chain 15"
+   shape cluster profile   = "profile 15"
+   shape cluster tie       = "shape cluster tie"
+   
+    side slope LT 
+     include C:\Criteria\ALL_INCLUDE_FILES_new.TMB
+     
+     
+
+    side slope RT 
+     include C:\Criteria\ALL_INCLUDE_FILES_new.TMB
+     
+Criteria for Shape Cluster              
+   shape cluster baseline  = "chain 16"
+   shape cluster profile   = "profile 16"
+   shape cluster tie       = "shape cluster tie"
+   
+    side slope LT 
+     include C:\Criteria\ALL_INCLUDE_FILES_new.TMB
+     
+     
+
+    side slope RT 
+     include C:\Criteria\ALL_INCLUDE_FILES_new.TMB
+
+
+Criteria for Shape Cluster              
+   shape cluster baseline  = "chain 17"
+   shape cluster profile   = "profile 17"
+   shape cluster tie       = "shape cluster tie"
+   
+    side slope LT 
+     include C:\Criteria\ALL_INCLUDE_FILES_new.TMB
+     
+     
+
+    side slope RT 
+     include C:\Criteria\ALL_INCLUDE_FILES_new.TMB
+     
+
+
+
+Criteria for Shape Cluster              
+   shape cluster baseline  = "chain 18"
+   shape cluster profile   = "profile 18"
+   shape cluster tie       = "shape cluster tie"
+   
+    side slope LT 
+     include C:\Criteria\ALL_INCLUDE_FILES_new.TMB
+     
+     
+
+    side slope RT 
+     include C:\Criteria\ALL_INCLUDE_FILES_new.TMB
+     
+Criteria for Shape Cluster              
+   shape cluster baseline  = "chain 19"
+   shape cluster profile   = "profile 19"
+   shape cluster tie       = "shape cluster tie"
+   
+    side slope LT 
+     include C:\Criteria\ALL_INCLUDE_FILES_new.TMB
+     
+     
+
+    side slope RT 
+     include C:\Criteria\ALL_INCLUDE_FILES_new.TMB
+
+
+Criteria for Shape Cluster              
+   shape cluster baseline  = "chain 20"
+   shape cluster profile   = "profile 20"
+   shape cluster tie       = "shape cluster tie"
+   
+    side slope LT 
+     include C:\Criteria\ALL_INCLUDE_FILES_new.TMB
+     
+     
+
+    side slope RT 
+     include C:\Criteria\ALL_INCLUDE_FILES_new.TMB
+     
+Criteria for Shape Cluster              
+   shape cluster baseline  = "chain 21"
+   shape cluster profile   = "profile 21"
+   shape cluster tie       = "shape cluster tie"
+   
+    side slope LT 
+     include C:\Criteria\ALL_INCLUDE_FILES_new.TMB
+     
+     
+
+    side slope RT 
+     include C:\Criteria\ALL_INCLUDE_FILES_new.TMB
+     
+Criteria for Shape Cluster              
+   shape cluster baseline  = "chain 22"
+   shape cluster profile   = "profile 22"
+   shape cluster tie       = "shape cluster tie"
+   
+    side slope LT 
+     include C:\Criteria\ALL_INCLUDE_FILES_new.TMB
+     
+     
+
+    side slope RT 
+     include C:\Criteria\ALL_INCLUDE_FILES_new.TMB
+     
+     
+Criteria for Shape Cluster              
+   shape cluster baseline  = "chain 23"
+   shape cluster profile   = "profile 23"
+   shape cluster tie       = "shape cluster tie"
+   
+    side slope LT 
+     include C:\Criteria\ALL_INCLUDE_FILES_new.TMB
+     
+     
+
+    side slope RT 
+     include C:\Criteria\ALL_INCLUDE_FILES_new.TMB
+
+
+Criteria for Shape Cluster              
+   shape cluster baseline  = "chain 24"
+   shape cluster profile   = "profile 24"
+   shape cluster tie       = "shape cluster tie"
+   
+    side slope LT 
+    include C:\Criteria\ALL_INCLUDE_FILES_new.TMB
+    
+
+    side slope RT 
+    include C:\Criteria\ALL_INCLUDE_FILES_new.TMB
+  
+
+
+Plot Parameters
+ 
+        Line
+            lvname = scratch_level_E
+            co = 3
+            wt = 1
+            lc = 0
+ 
+    Pavement Thickness = 0
+    Apply all trans def         /* this setting utilizes the super transtion types specified in the shape file */
+        			/* Apply trans def =  .... this overrides the type of super transtion (linear, parabolic) and lets you specify a type based on a number...not sure but 1 = linear, 2 = parabolic...maybe*/
+        			/* Fill gaps between clusters   ...use when connecting criteria between 2 shapes using the same shape cluster chain... ditch */
+        			/*  Intersect between Clusters   this would automatically trim criteria lines between 2 shape clusters which utilize different shape cluster baselines....ie would create a v ditch when your criteria specifies a "X" type of ditch */
+    Process Clusters as Indicated
+    Remove Skew Effect    			/* Remove Skewed Effect or Add skew effect */
+    /*Process Only Sections With Existing Ground*/
+ 
+Write XS Into Dgn = "xs file"
+
+
+

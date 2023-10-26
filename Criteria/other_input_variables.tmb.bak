@@ -1,0 +1,1500 @@
+xcode=1
+if p1 then
+	{
+	/* TOTAL OF 16 PROJ SPECIFIC CHAINS IN THIS FILE*/
+	
+	/* THESE ARE THE UNSUITABLE MATERIAL DEPTHS*/
+	_d_pavement_removal_depth = 2/12		/* this is how much pavement that will be removed via pavement remove */
+	_d_topsoil_stripping_depth =8/12		/* 6 inches */
+	
+	
+	
+	
+	_s_conc_pavement = ^yes^
+	_d_sw_removal_depth=4/12
+	_d_green_space_search_distance = 10
+	_d_agg_shld_green_space_slope = 1
+	
+	_d_min_tie_distance =10		/* this is the min dx length of a FS or BS tie to existing, unless the fs/bs dy is above this value in a steep fs/bs area*/
+	
+	_d_file_counter = 10000
+	_s_ascii_file = ^nothing_yet^
+	_d_region = 10000
+	_d_elevation = 10000
+	_s_tie_roads_together = ^maybe^
+	_d_max_connect_subbase_distance_for_2_roads = 7
+	_s_sawcut_with_gore = ^maybe^
+	_s_found_sawcut_line = ^maybe^
+	_s_found_prop_eop = ^maybe^
+	_s_shoulder_widening_only = ^maybe^
+	
+	
+	_s_shoulder_widening_only = ^maybe^
+	_s_closest_chain = ^notsetyet^
+	_s_ewks_chain = ^notsetyet^
+	_d_sidewalk_search_distance = 15
+	_d_sidewalk_green_space_slope = 1	/* 1:10 */
+	_d_sidewalk_slope = 2
+	_d_default_sidewalk_depth = 4/12		/* this will NOT be used if it hits a sidewalk ddb attribute with a depth specified */
+	
+	/* not used */
+	
+	/* not used */
+	_s_draw_pavement_courses = ^Yes^			/* If ^Yes^, then the criteria will draw the courses in, */
+								/* if anything else, then it will NOT 	*/
+								/* THIS DOESN'T WORK SO WELL...LEAVE SET TO YES */
+
+	_s_any_chain_been_processed = ^no^
+	
+		
+	_d_pavement_point_counter=1000 /*this is a place holder until it's redefined*/
+	_d_pavement_point = Number of Pavement Points
+	
+	
+	_d_forced_tie_slope_search_distance = 50	/* this is the search distance from the start of tie down to the actual ddb forced tie line */
+	_d_shared_ditch_search_distance = 40		/* this is the search distance from the inside bottom of one ditch to the plan view line */
+	_d_tie_roads_together_search_distance =50	/* this is the search distance from the individual tie down point of one road to the plan view line */
+	
+	
+	_d_prop_eop_search_distance_from_p2 = 90	/* this is the search distance from p2 to the prop eop line assuming full reconstruction */
+	_d_sawcut_search_distance = 50			/* this is the search distance from p2 to the sawcut line to see if it should tie to exisitng at this point */
+	_d_sawcut_widening_eop_search_distance = 21.9	/* this is the search distance from slightly beyond the sawcut line to determine if you have a lane widening*/
+							/* if it finds a prop eop WITHOUT a gore line (ddb tbd) within this distance, then it will draw in a pavement course */
+	_d_dfb_search_distance_from_prop_eop = 15	/* this is the distance from prop eop to look for double face barrier */
+	
+	
+	
+	
+	_s_tie_ditch_BS_to_row = ^yes^	/* must also intersect "tie ditch to row line" in dgn */
+	_d_guardrail_search_distance = 12
+	
+	/* this is the distance from the high side of the DFB where the 1 on 1 line will start to go up */
+	_d_subbase_dist_from_dfb_high_side_1on1 = .5
+	_d_curb_dx_right_of_barrier = 1000	/* this is used for dfb criteria and will be redefined */
+	_d_curb_dy_right_of_barrier = 1000	/* this is used for dfb criteria and will be redefined */
+	_d_curb_dx_left_of_barrier = 1000	/* this is used for dfb criteria and will be redefined */
+	_d_curb_dy_left_of_barrier = 1000	/* this is used for dfb criteria and will be redefined */
+	_d_adjacent_shoulder_slope_right_of_bar = 1000	/* this is used for dfb criteria and will be redefined */
+	_d_adjacent_shoulder_slope_left_of_bar = 1000	/* this is used for dfb criteria and will be redefined */
+	
+	/* I'd like to delete these....but need to edit code first */
+	_d_distance_for_agg_break_outside_curb = 10		/* break agg slope up at 1:1 this far outside curb*/
+	_d_distance_for_agg_break_outside_barrier = 10 		/* break agg slope up at 1:1 this far outside barrier*/
+	
+
+	_d_SFB_type_c_green_space_slope = -4
+	_d_SFB_type_c_green_space_distance = 1
+	_d_SFB_type_A_B_ditch_width = 1		/* note this is the entire width of the V-ditch */
+	_d_SFB_type_A_B_Vditch_depth = 4/12	/* note this is the depth of the V-ditch at the top of the SFB type A or B */
+	
+	
+	/* THESE ARE JUST TEMPORARY PLACE HOLDERS...THEY WILL BE REDEFINED YES OR NO */
+	_s_Curb_and_Gutter_Found = ^maybe^	/* this will be redefined if curb is found */
+	_s_valley_Gutter_Found = ^maybe^ 	/* this will be redefined if vg is found */
+	_s_independent_ditch_here = ^maybe^
+	_s_found_prop_eop = ^maybe^
+	_s_intersect_gore  = ^maybe^
+	_s_dependent_ditch_here = ^maybe^
+	_s_ditch_type = ^maybe^
+	_s_barrier_present = ^maybe^
+	_s_intersect_SFB_type_C = ^maybe^
+	_s_intersect_split_type_A = ^maybe^
+	_s_able_to_1on1_dfb_subbase = ^maybe^
+	_s_found_sawcut_line = ^maybe^
+	_s_tie_roads_together = ^maybe^
+	_s_closest_chain_already_processed = ^maybe^	/* this is a variable that is set in the sub was_closest_chain_already_processed*/
+							/* it is utilized to determine if the gore, double faced barrier and other shared items */
+							/* can be drawn in or if it has to wait until the other shared road cluster is processed */
+	_s_agg_shldr_hinge_point = ^maybe^	/* this will be yes if it hits 2 agg shoulder lines in dgn */
+	_s_hit_double_faced_barrier = ^no^	/* this is a variable that is changed if it finds double faced barrier*/
+						/* if ^Yes^ then the criteria won't draw the shared shoulders, VG and barrier due*/
+						/* to changes in elevations between the two roads */
+	
+	_s_first_time_through = ^yes^		/* leave this alone...it will change to ^no^ if double faced barrier is encountered */
+	_s_side_slope = ^unknown^
+	_s_curb_side_slope = ^unknown^
+	_s_agg_shoulder_Found = ^maybe^
+	_s_subbase_already_tied = ^maybe^
+	_s_driveway_here = ^maybe^
+	_s_subbase_daylighted = ^maybe^
+	_s_aggbase_already_tied = ^maybe^
+	_s_found_adv_shoulder = ^maybe^
+	_s_found_regular_shoulder = ^maybe^
+	_s_found_curb = ^maybe^
+	_s_curb_found = ^none^
+	_s_found_adv_shoulder_right_of_bar = ^maybe^
+	_s_found_adv_shoulder_left_of_bar = ^maybe^
+	_s_found_curb_right_of_bar = ^maybe^
+	_s_found_curb_left_of_bar = ^maybe^
+	_s_found_regular_shoulder_right_of_bar = ^maybe^
+	_s_found_regular_shoulder_left_of_bar = ^maybe^
+	_s_curb_found_right_of_bar = ^maybe^
+	_s_curb_found_left_of_bar = ^maybe^
+	
+	
+	/* THESE ARE JUST TEMPORARY PLACE HOLDERS...THEY WILL BE REDEFINED WITH THE APPROPRIATE R-107 VALUES */
+	_d_outside_subgrade_slope = 50
+	_d_shoulderslope = 50
+	_d_left_shoulder_slope = 50
+	_d_right_shoulder_slope = 50
+	_d_left_subgrade_slope = 50
+	_d_right_subgrade_slope = 50
+	_d_subgradeslope = 50
+	_d_left_outside_subgrade_slope = 50
+	_d_right_outside_subgrade_slope = 50
+	
+	
+	/* THESE ARE THE VARIOUS SEARCH DISTANCES */
+	_d_D1_curb_search_distance = 5
+	_d_D2_curb_search_distance = 5
+	_d_D3_curb_search_distance = 5
+	_d_G1_curb_search_distance = 6
+	_d_G2_curb_search_distance = 6
+	_d_Bdg_appr_curb_srch_dist = 7
+	_d_agg_shoulder_search_distance = 3.1
+	_d_shoulder_search_distance = 19.1	/* was 15.5 */
+	_d_gore_search_distance = 23
+	_d_valley_gutter_search_distance = 6
+	_d_conc_barrier_search_distance = 15
+	_d_retaining_wall_search_distance = 10
+	_d_adv_shoulder_paving_distance = 15	/* search distance to find adv shoulder*/
+	_d_tie_FG_together_search_distance = 15
+	_d_indiv_tie_down_search_distance = 20	/* need a line within 20 feet of the back of curb */
+	_d_HMA_curb_search_distance = 25
+	_d_driveway_search_dist = 55
+	_d_subbase_break_search_distance = 75
+	
+	
+	/* THESE ARE THE PAVEMENT DESIGN PARAMETERS */
+	
+			/* THIS IS THE MAIN OVERLAY DEPTHS */
+	_d_number_of_overlay_courses = 2			/* this tells the criteria how may courses to use for drawing the roadway */
+	_d_first_overlay_pavement_depth_in_FT = 1.5/12		/* top course */
+	_d_second_overlay_pavement_depth_in_FT = 2/12		/* leveling course */
+	_d_third_overlay_pavement_depth_in_FT = 0/12		/* base course	*/
+	
+	if _s_conc_pavement = ^yes^ then
+		{
+		_s_shoulder_and_lanes_same_material = ^no^ 		/* If ^Yes^, and the corresponding depths are equal, the */
+								/* criteria will not draw a vertical line between the shoulder and */
+								/* the lane pavement depths */
+		/* THIS IS THE MAIN ROADWAY DEPTHS */
+		_d_number_of_pavement_courses = 1			/* this tells the criteria how may courses to use for drawing the roadway */
+		_d_first_course_pavement_depth_in_FT = 11.5/12		/* top course */
+		_d_second_course_pavement_depth_in_FT = 0/12		/* leveling course */
+		_d_third_course_pavement_depth_in_FT = 0/12		/* base course	*/
+		_d_fourth_course_pavement_depth_in_FT = 0/12		/* directly below base course */
+		_d_fifth_course_pavement_depth_in_FT = 0/12		/* second layer below base course */
+		_d_sixth_course_pavement_depth_in_FT = 0/12		/* third layer below base course */
+		_d_total_road_pave_depth = _d_first_course_pavement_depth_in_FT+_d_second_course_pavement_depth_in_FT+_d_third_course_pavement_depth_in_FT+_d_fourth_course_pavement_depth_in_FT+_d_fifth_course_pavement_depth_in_FT+_d_sixth_course_pavement_depth_in_FT
+		
+	
+	
+		
+		/* THESE ARE THE PAVED SHOULDER DEPTHS....NOTE IF TAPERED SHOULDER, THEN SET THE BELOW VALUES TOO */
+		_d_number_of_shoulder_courses = 1	/* this tells the criteria how may courses to use for drawing the shoulders */
+		_d_first_course_inside_shdr_depth_in_FT = 11.5/12	/* shoulder top course */
+		_d_second_course_inside_shdr_depth_in_FT = 0/12		/* shoulder leveling course */
+		_d_third_course_inside_shdr_depth_in_FT = 0/12		/* shoulder base course	*/
+		_d_fourth_course_inside_shdr_depth_in_FT = 0/12		/* shoulder directly below base course */
+		_d_fifth_course_inside_shdr_depth_in_FT = 0/12		/* shoulder second layer below base course */
+		_d_sixth_course_inside_shdr_depth_in_FT = 0/12		/* shoulder third layer below base course */
+		
+	
+		/* IF TAPERED SHOULDER THEN THESE VALUES SHOULD BE DIFFERENT THAN THE ABOVE VALUES */
+		mark _mp_go_back_to_here
+		draw skip to p1
+		if intersect dgn = "tapered shoulder trigger line" within distance = 10 then
+			{
+			_d_first_course_outside_shdr_depth_in_FT = 11.5/12	/* shoulder top course */
+			_d_second_course_outside_shdr_depth_in_FT = 0/12	/* shoulder leveling course */
+			_d_third_course_outside_shdr_depth_in_FT = 0/12		/* shoulder base course	*/
+			_d_fourth_course_outside_shdr_depth_in_FT = 0/12	/* shoulder directly below base course */
+			_d_fifth_course_outside_shdr_depth_in_FT = 0/12		/* shoulder second layer below base course */
+			_d_sixth_course_outside_shdr_depth_in_FT = 0/12		/* shoulder third layer below base course */
+			}
+		else
+			{
+			_d_first_course_outside_shdr_depth_in_FT = 11.5/12	/* shoulder top course */
+			_d_second_course_outside_shdr_depth_in_FT = 0/12	/* shoulder leveling course */
+			_d_third_course_outside_shdr_depth_in_FT = 0/12		/* shoulder base course	*/
+			_d_fourth_course_outside_shdr_depth_in_FT = 0/12	/* shoulder directly below base course */
+			_d_fifth_course_outside_shdr_depth_in_FT = 0/12		/* shoulder second layer below base course */
+			_d_sixth_course_outside_shdr_depth_in_FT = 0/12		/* shoulder third layer below base course */
+			}
+		draw skip to _mp_go_back_to_here
+		
+		
+		/*this is the driveway depths*/
+		
+		_d_first_drive_pavement_depth	= 6/12
+		_d_second_drive_pavement_depth = 0/12
+		
+		_d_agg_drive_depth = 6/12
+			
+		/* THIS IS THE PAVED GORE DEPTHS */	
+		/* _d_number_of_gore_courses = 1		this tells the criteria how may courses to use for drawing the gores */
+		_d_first_course_gore_depth_in_FT = 11.5/12		/* gore top course */
+		_d_second_course_gore_depth_in_FT = 0/12		/* gore leveling course */
+		_d_third_course_gore_depth_in_FT = 0/12			/* gore base course	*/
+		_d_fourth_course_gore_depth_in_FT = 0/12		/* gore directly below base course */
+		_d_fifth_course_gore_depth_in_FT = 0/12			/* gore second layer below base course */
+		_d_sixth_course_gore_depth_in_FT = 0/12			/* gore third layer below base course */
+		/* _d_total_gore_pave_depth = _d_first_course_gore_depth_in_FT+_d_second_course_gore_depth_in_FT+_d_third_course_gore_depth_in_FT+_d_fourth_course_gore_depth_in_FT+_d_fifth_course_gore_depth_in_FT+_d_sixth_course_gore_depth_in_FT */
+		}
+		
+	else /*hma pavement*/
+		{
+		_s_shoulder_and_lanes_same_material = ^no^ 		/* If ^Yes^, and the corresponding depths are equal, the */
+									/* criteria will not draw a vertical line between the shoulder and */
+									/* the lane pavement depths */
+		/* THIS IS THE MAIN ROADWAY DEPTHS */
+		_d_number_of_pavement_courses = 3			/* this tells the criteria how may courses to use for drawing the roadway */
+		_d_first_course_pavement_depth_in_FT = 2/12		/* top course */
+		_d_second_course_pavement_depth_in_FT = 2.5/12		/* leveling course */
+		_d_third_course_pavement_depth_in_FT = 8.5/12		/* base course	*/
+		_d_fourth_course_pavement_depth_in_FT = 0/12		/* directly below base course */
+		_d_fifth_course_pavement_depth_in_FT = 0/12		/* second layer below base course */
+		_d_sixth_course_pavement_depth_in_FT = 0/12		/* third layer below base course */
+		_d_total_road_pave_depth = _d_first_course_pavement_depth_in_FT+_d_second_course_pavement_depth_in_FT+_d_third_course_pavement_depth_in_FT+_d_fourth_course_pavement_depth_in_FT+_d_fifth_course_pavement_depth_in_FT+_d_sixth_course_pavement_depth_in_FT
+		
+		
+		
+			
+		/* THESE ARE THE PAVED SHOULDER DEPTHS....NOTE IF TAPERED SHOULDER, THEN SET THE BELOW VALUES TOO */
+		_d_number_of_shoulder_courses = 3	/* this tells the criteria how may courses to use for drawing the shoulders */
+		_d_first_course_inside_shdr_depth_in_FT = 2/12	/* shoulder top course */
+		_d_second_course_inside_shdr_depth_in_FT = 2.5/12		/* shoulder leveling course */
+		_d_third_course_inside_shdr_depth_in_FT = 8.5/12		/* shoulder base course	*/
+		_d_fourth_course_inside_shdr_depth_in_FT = 0/12		/* shoulder directly below base course */
+		_d_fifth_course_inside_shdr_depth_in_FT = 0/12		/* shoulder second layer below base course */
+		_d_sixth_course_inside_shdr_depth_in_FT = 0/12		/* shoulder third layer below base course */
+		
+		
+		/* IF TAPERED SHOULDER THEN THESE VALUES SHOULD BE DIFFERENT THAN THE ABOVE VALUES */
+		mark _mp_go_back_to_here
+		draw skip to p1
+		if intersect dgn = "tapered shoulder trigger line" within distance = 10 then
+			{
+			_d_first_course_outside_shdr_depth_in_FT = 2/12	/* shoulder top course */
+			_d_second_course_outside_shdr_depth_in_FT = 2.5/12	/* shoulder leveling course */
+			_d_third_course_outside_shdr_depth_in_FT = 8.5/12		/* shoulder base course	*/
+			_d_fourth_course_outside_shdr_depth_in_FT = 0/12	/* shoulder directly below base course */
+			_d_fifth_course_outside_shdr_depth_in_FT = 0/12		/* shoulder second layer below base course */
+			_d_sixth_course_outside_shdr_depth_in_FT = 0/12		/* shoulder third layer below base course */
+			}
+		else
+			{
+			_d_first_course_outside_shdr_depth_in_FT = 2/12	/* shoulder top course */
+			_d_second_course_outside_shdr_depth_in_FT = 2.5/12	/* shoulder leveling course */
+			_d_third_course_outside_shdr_depth_in_FT = 8.5/12		/* shoulder base course	*/
+			_d_fourth_course_outside_shdr_depth_in_FT = 0/12	/* shoulder directly below base course */
+			_d_fifth_course_outside_shdr_depth_in_FT = 0/12		/* shoulder second layer below base course */
+			_d_sixth_course_outside_shdr_depth_in_FT = 0/12		/* shoulder third layer below base course */
+			}
+		draw skip to _mp_go_back_to_here
+		
+		
+		/*this is the driveway depths*/
+		
+		_d_first_drive_pavement_depth	= 6/12
+		_d_second_drive_pavement_depth = 0/12
+		
+		_d_agg_drive_depth = 6/12
+			
+		/* THIS IS THE PAVED GORE DEPTHS */	
+		/* _d_number_of_gore_courses = 1		this tells the criteria how may courses to use for drawing the gores */
+		_d_first_course_gore_depth_in_FT = 2/12		/* gore top course */
+		_d_second_course_gore_depth_in_FT = 2.5/12		/* gore leveling course */
+		_d_third_course_gore_depth_in_FT = 8.5/12			/* gore base course	*/
+		_d_fourth_course_gore_depth_in_FT = 0/12		/* gore directly below base course */
+		_d_fifth_course_gore_depth_in_FT = 0/12			/* gore second layer below base course */
+		_d_sixth_course_gore_depth_in_FT = 0/12			/* gore third layer below base course */
+		/* _d_total_gore_pave_depth = _d_first_course_gore_depth_in_FT+_d_second_course_gore_depth_in_FT+_d_third_course_gore_depth_in_FT+_d_fourth_course_gore_depth_in_FT+_d_fifth_course_gore_depth_in_FT+_d_sixth_course_gore_depth_in_FT */
+		
+		} /*end if _s_conc_pavement = ^yes^ statement*/
+	
+	
+					   
+	
+	
+	
+	/* THIS IS THE AGG SHOULDER DEPTH */
+	_d_agg_shldr_depth = 11.5/12
+	
+	
+	
+	/* AGG BASE PARAMETERS */
+	_d_agg_base_depth_in_FT = 6/12				/* agg base depth under the road */
+	_d_shoulder_agg_base_depth_in_FT = 6/12			/* agg base depth under the shoulder */
+	_d_dist_down_to_bottom_of_aggbase_under_road = (_d_total_road_pave_depth+_d_agg_base_depth_in_FT)
+	
+	
+	_d_AGG_break_distance_outside_eos = 2			/* break aggs slope 2' from eos for low side */
+	_d_AGG_break_distance_inside_eos = -1			/* break agg slope 1' inside eos for high side */
+	
+	
+	_d_distance_for_subbase_break_outside_curb = 1		/* break agg slope up at 1:1 this far outside curb*/
+	_d_distance_for_subbase_break_outside_vg = 1		/* break agg slope up at 1:1 this far outside VG IF no barrier found */
+	_d_distance_for_subbase_break_outside_barrier = 1 	/* break agg slope up at 1:1 this far outside barrier*/
+	_d_distance_beyond_paved_shoulder_for_1on1 = 2		/* this is the distance beyond the outside edge of paved shoulder (with an agg shoulder) where the subbase will be broken at a 1on1*/
+	
+	_s_try_to_daylight_subbase = ^no^			/* if no, will draw subbase up at a 1:1 regardless of whether or not it could daylight */
+	_s_extend_aggbase_to_subbase_1on1 = ^no^		/* if yes, the aggbase will be extended to the subbase 1 on 1 line regardless of other variables below as long as subbase did NOT daylight */
+	_d_extend_agg_beyond_curb = 1		/* if subbase daylights or _s_extend_aggbase_to_subbase_1on1 = ^yes^,and draw agg under curb = yes, then extend by this distance */
+	_d_extend_agg_beyond_vg = 1		/* if subbase daylights or _s_extend_aggbase_to_subbase_1on1 = ^yes^,and draw agg under vg = yes, then extend by this distance IF no barrier found*/
+	_d_extend_agg_beyond_barrier = 1.5	/* if subbase daylights or _s_extend_aggbase_to_subbase_1on1 = ^yes^,and draw agg under barrier = yes, then extend by this distance */
+	_d_extend_agg_beyond_paved_shoulder = 2	/* if no curb, vg, or barrier OR you have all variables set to no, this is the distance it will extend the agg beyond the paved shoulder */
+	_d_distance_for_subbase_break_outside_agg_shoulder = 1 
+	_s_agg_beneath_side_treatment = ^yes^	/*yes means agg will draw beneath curb, agg shoulder, barrier, etc*/
+	_s_bathtub_aggbase = ^yes^	/*this draws aggbase up at 1:1 if yes, otherwise closes straight up*/
+	_d_extend_agg_beyond_aggshoulder = 1
+	_s_remove_shoulders_in_pavt_rem = ^yes^ /* this adjusts pavt rem to include shoulders*/
+	
+	_s_use_general_embankment = ^yes^			/* yes or no */	/* this is material above agg base and outside curb/vb/barrier */
+	_d_general_embankment_slope = -2	/* this is the slope of the line of addional embankment from bottom of curb, vg, barrier, or shoulder to the subbase 1 on 1 or FS/BS daylight line */
+	
+	
+	
+	/* SUBBASE PARAMETERS */
+	_d_subbase_depth = 18/12
+	_d_distance_down_to_subbase = _d_dist_down_to_bottom_of_aggbase_under_road + _d_subbase_depth	
+	_d_subbase_high_pt_slope_break_distance = 0		/* 3 per R-107-E see note below for description */
+	_d_default_outside_distance = 0				/* see note below for description */
+	_d_adv_SubgradeSlope = 2	/*this is the slope coming off a drain location*/
+	_d_max_subbase_tie_distance = 10	/*this is the maximum distance to front slope that you want subbase to tie to*/
+	
+	
+	
+	/*_d_distance_down_to_subbase is measured from the proposed finish
+	grade to the bottom of subbase.
+		
+	_d_subbase_high_pt_slope_break_distance is the distance per R-107 from the
+	high side edge of metal to where the highside subbase is broken at 2% down
+	for superelevations of 4% or less
+		
+	_d_default_outside_distance is a generic distance from the proposed edge of metals
+	that the subbase will be drawn out to.  This is used as a test to see if the subbase
+	slope break is being drawn correctly.  You can set this value to 0 and then draw the
+	remaining portion of the subbase (from the edge of metal) to whereever you want.  You
+	will need to use the following slope variable to get the appropriate slope:
+	_d_outside_subgrade_slope (this variable was defined in the determine_subbase_slope_breaks.tmb
+	file.  in that file the _d_outside_subgrade_slope was set to _d_right_outside_subbase_slope
+	for all ssr conditions and the _d_outside_subgrade_slope was set to _d_left_outside_subbase_slope
+	for all ssl conditions.) THE _d_outside_subgrade_slope VARIABLE IS USED FOR BOTH THE SSR AND
+	SSL CONDITIONS....IT WILL NOT STORE BOTH LEFT AND RIGHT AT THE SAME TIME.	*/
+	
+	
+	
+	/* IF _S_DRAW_GREEN_SPACE_BEHIND_CURB = ^YES^ AND YOU HAVE A CURB AND GUTTER, IT WILL EITHER DRAW AN EARTH SHOULDER TO A PLAN VIEW PROP AGG SHOULDER OR DRAW A GREEN SPACE */
+	_s_draw_green_space_behind_curb = ^yes^
+	_d_green_space_slope = 1			/* 1% up */
+	_d_green_space_distance = 1			/* 1 foot */
+	_d_earth_shoulder_width_behind_curb = 6
+	
+	
+	
+	/* THESE ARE DITCH PARAMETERS */
+	/* ENTER THE DEPENDENT AND INDEPENDENT PROFILES IN THE IF ELSE STATEMENT BELOW */
+	/* DEPENDENT PROFILES SHOULD HAVE A VALUE OF THE DEPTH OF THE DEPENDENT DITCH...IE 4' DEEP ==> PROFILE SHOULD BE 4 AT THAT STATION */
+	_d_ditch_fs = 6				/* 1:4 fs - in a ditch section, this will be assigned to the default fs above */
+	
+	_d_ditch_bs = 3				/* 1:3 bs - in a ditch section, this will be assigned to the default bs above */
+	_s_ditch_width_profile = ^none^
+	
+	
+	
+	
+ 
+ 	
+
+ 
+ 	
+
+
+
+	
+	
+	call sub side_slope
+	
+	_s_chain = cluster baseline
+	if _s_chain = "GPK_CH_A" then
+		{
+		_s_GPK_CH_A_already_processed = ^yes^
+		if _s_side_slope = ^left^ then
+			{
+			_s_ind_ditch_profile << "GPK_CH_A_ind_left_profile_name"	
+			_s_dep_ditch_profile << "GPK_CH_A_dep_left_profile_name"
+			_s_BS_profile << "GPK_CH_A_left_BS_profile_name"
+			_s_FS_profile << "GPK_CH_A_left_FS_profile_name"
+			_s_ditch_width_profile << "GPK_CH_A_left_ditch_width_profile_name" 
+			_s_shoulder_slope_profile << "GPK_CH_A_left_shldr_slope_profile"
+			}
+			
+		else if _s_side_slope = ^right^ then
+			{
+			_s_ind_ditch_profile << "GPK_CH_A_ind_right_profile_name"
+			_s_dep_ditch_profile << "GPK_CH_A_dep_right_profile_name"
+			_s_BS_profile << "GPK_CH_A_right_BS_profile_name"
+			_s_FS_profile << "GPK_CH_A_right_FS_profile_name"
+			_s_ditch_width_profile << "GPK_CH_A_right_ditch_width_profile_name" 
+			_s_shoulder_slope_profile << "GPK_CH_A_right_shldr_slope_profile"
+			}
+			
+		}
+				
+	else if _s_chain = "GPK_CH_B" then
+		{
+		_s_GPK_CH_B_already_processed = ^yes^
+		if _s_side_slope = ^left^ then
+			{
+			_s_ind_ditch_profile << "GPK_CH_B_ind_left_profile_name"	
+			_s_dep_ditch_profile << "GPK_CH_B_dep_left_profile_name"
+			_s_BS_profile << "GPK_CH_B_left_BS_profile_name"
+			_s_FS_profile << "GPK_CH_B_left_FS_profile_name"
+			_s_ditch_width_profile << "GPK_CH_B_left_ditch_width_profile_name" 	
+			_s_shoulder_slope_profile << "GPK_CH_B_left_shldr_slope_profile"
+			}
+			
+		else if _s_side_slope = ^right^ then
+			{
+			_s_ind_ditch_profile << "GPK_CH_B_ind_right_profile_name"
+			_s_dep_ditch_profile << "GPK_CH_B_dep_right_profile_name"
+			_s_BS_profile << "GPK_CH_B_right_BS_profile_name"
+			_s_FS_profile << "GPK_CH_B_right_FS_profile_name"
+			_s_ditch_width_profile << "GPK_CH_B_right_ditch_width_profile_name" 
+			_s_shoulder_slope_profile << "GPK_CH_B_right_shldr_slope_profile"
+			}
+			
+		}
+	
+	else if _s_chain = "GPK_CH_C" then
+		{
+		_s_GPK_CH_C_already_processed = ^yes^
+		if _s_side_slope = ^left^ then
+			{
+			_s_ind_ditch_profile << "GPK_CH_C_ind_left_profile_name"	
+			_s_dep_ditch_profile << "GPK_CH_C_dep_left_profile_name"
+			_s_BS_profile << "GPK_CH_C_left_BS_profile_name"
+			_s_FS_profile << "GPK_CH_C_left_FS_profile_name"
+			_s_ditch_width_profile <<  "GPK_CH_C_left_ditch_width_profile_name" 
+			_s_shoulder_slope_profile << "GPK_CH_C_left_shldr_slope_profile"
+			
+			}
+			
+		else if _s_side_slope = ^right^ then
+			{
+			_s_ind_ditch_profile << "GPK_CH_C_ind_right_profile_name"
+			_s_dep_ditch_profile << "GPK_CH_C_dep_right_profile_name"
+			_s_BS_profile << "GPK_CH_C_right_BS_profile_name"
+			_s_FS_profile << "GPK_CH_C_right_FS_profile_name"
+			_s_ditch_width_profile <<  "GPK_CH_C_right_ditch_width_profile_name" 
+			_s_shoulder_slope_profile << "GPK_CH_C_right_shldr_slope_profile"
+			}
+			
+		}
+	
+	else if _s_chain = "GPK_CH_D" then
+		{
+		_s_GPK_CH_D_already_processed = ^yes^
+		if _s_side_slope = ^left^ then
+			{
+			_s_ind_ditch_profile << "GPK_CH_D_ind_left_profile_name"	
+			_s_dep_ditch_profile << "GPK_CH_D_dep_left_profile_name"
+			_s_BS_profile << "GPK_CH_D_left_BS_profile_name"
+			_s_FS_profile << "GPK_CH_D_left_FS_profile_name"
+			_s_ditch_width_profile << "GPK_CH_D_left_ditch_width_profile_name"
+			_s_shoulder_slope_profile << "GPK_CH_D_left_shldr_slope_profile"
+			}
+			
+		else if _s_side_slope = ^right^ then
+			{
+			_s_ind_ditch_profile << "GPK_CH_D_ind_right_profile_name"
+			_s_dep_ditch_profile << "GPK_CH_D_dep_right_profile_name"
+			_s_BS_profile << "GPK_CH_D_right_BS_profile_name"
+			_s_FS_profile << "GPK_CH_D_right_FS_profile_name"
+			_s_ditch_width_profile << "GPK_CH_D_right_ditch_width_profile_name" 	
+			_s_shoulder_slope_profile << "GPK_CH_D_right_shldr_slope_profile"
+			}
+			
+		}	
+		
+	else if _s_chain = "GPK_CH_E" then
+		{
+		_s_GPK_CH_E_already_processed = ^yes^
+		if _s_side_slope = ^left^ then
+			{
+			_s_ind_ditch_profile << "GPK_CH_E_ind_left_profile_name"	
+			_s_dep_ditch_profile << "GPK_CH_E_dep_left_profile_name"
+			_s_BS_profile << "GPK_CH_E_left_BS_profile_name"
+			_s_FS_profile << "GPK_CH_E_left_FS_profile_name"
+			_s_ditch_width_profile << "GPK_CH_E_left_ditch_width_profile_name"
+			_s_shoulder_slope_profile << "GPK_CH_E_left_shldr_slope_profile"	
+			}
+			
+		else if _s_side_slope = ^right^ then
+			{
+			_s_ind_ditch_profile << "GPK_CH_E_ind_right_profile_name"
+			_s_dep_ditch_profile << "GPK_CH_E_dep_right_profile_name"
+			_s_BS_profile << "GPK_CH_E_right_BS_profile_name"
+			_s_FS_profile << "GPK_CH_E_right_FS_profile_name"
+			_s_ditch_width_profile <<  "GPK_CH_E_right_ditch_width_profile_name"	
+			_s_shoulder_slope_profile << "GPK_CH_E_right_shldr_slope_profile"	
+			}
+			
+		}
+		
+	else if _s_chain = "GPK_CH_F" then
+		{
+		_s_GPK_CH_F_already_processed = ^yes^
+		if _s_side_slope = ^left^ then
+			{
+			_s_ind_ditch_profile << "GPK_CH_F_ind_left_profile_name"	
+			_s_dep_ditch_profile << "GPK_CH_F_dep_left_profile_name"
+			_s_BS_profile << "GPK_CH_F_left_BS_profile_name"
+			_s_FS_profile << "GPK_CH_F_left_FS_profile_name"
+			_s_ditch_width_profile << "GPK_CH_F_left_ditch_width_profile_name"	
+			_s_shoulder_slope_profile << "GPK_CH_F_left_shldr_slope_profile"	
+			}
+			
+		else if _s_side_slope = ^right^ then
+			{
+			_s_ind_ditch_profile << "GPK_CH_F_ind_right_profile_name"
+			_s_dep_ditch_profile << "GPK_CH_F_dep_right_profile_name"
+			_s_BS_profile << "GPK_CH_F_right_BS_profile_name"
+			_s_FS_profile << "GPK_CH_F_right_FS_profile_name"
+			_s_ditch_width_profile <<  "GPK_CH_F_right_ditch_width_profile_name"	
+			_s_shoulder_slope_profile << "GPK_CH_F_right_shldr_slope_profile"	
+			}
+			
+		}
+		
+	else if _s_chain = "GPK_CH_G" then
+		{
+		_s_GPK_CH_G_already_processed = ^yes^
+		if _s_side_slope = ^left^ then
+			{
+			_s_ind_ditch_profile << "GPK_CH_G_ind_left_profile_name"	
+			_s_dep_ditch_profile << "GPK_CH_G_dep_left_profile_name"
+			_s_BS_profile << "GPK_CH_G_left_BS_profile_name"
+			_s_FS_profile << "GPK_CH_G_left_FS_profile_name"
+			_s_ditch_width_profile << "GPK_CH_G_left_ditch_width_profile_name"
+			_s_shoulder_slope_profile << "GPK_CH_G_left_shldr_slope_profile"	
+			}
+			
+		else if _s_side_slope = ^right^ then
+			{
+			_s_ind_ditch_profile << "GPK_CH_G_ind_right_profile_name"
+			_s_dep_ditch_profile << "GPK_CH_G_dep_right_profile_name"
+			_s_BS_profile << "GPK_CH_G_right_BS_profile_name"
+			_s_FS_profile << "GPK_CH_G_right_FS_profile_name"
+			_s_ditch_width_profile <<  "GPK_CH_G_right_ditch_width_profile_name"	
+			_s_shoulder_slope_profile << "GPK_CH_G_right_shldr_slope_profile"	
+			}
+			
+		}
+	
+	else if _s_chain = "GPK_CH_H" then
+		{
+		_s_GPK_CH_H_already_processed = ^yes^
+		if _s_side_slope = ^left^ then
+			{
+			_s_ind_ditch_profile << "GPK_CH_H_ind_left_profile_name"	
+			_s_dep_ditch_profile << "GPK_CH_H_dep_left_profile_name"
+			_s_BS_profile << "GPK_CH_H_left_BS_profile_name"
+			_s_FS_profile << "GPK_CH_H_left_FS_profile_name"
+			_s_ditch_width_profile << "GPK_CH_H_left_ditch_width_profile_name"	
+			_s_shoulder_slope_profile << "GPK_CH_H_left_shldr_slope_profile"	
+			}
+			
+		else if _s_side_slope = ^right^ then
+			{
+			_s_ind_ditch_profile << "GPK_CH_H_ind_right_profile_name"
+			_s_dep_ditch_profile << "GPK_CH_H_dep_right_profile_name"
+			_s_BS_profile << "GPK_CH_H_right_BS_profile_name"
+			_s_FS_profile << "GPK_CH_H_right_FS_profile_name"
+			_s_ditch_width_profile <<  "GPK_CH_H_right_ditch_width_profile_name"
+			_s_shoulder_slope_profile << "GPK_CH_H_right_shldr_slope_profile"		
+			}
+			
+		}
+	
+	else if _s_chain = "GPK_CH_I" then
+		{
+		_s_GPK_CH_I_already_processed = ^yes^
+		if _s_side_slope = ^left^ then
+			{
+			_s_ind_ditch_profile << "GPK_CH_I_ind_left_profile_name"	
+			_s_dep_ditch_profile << "GPK_CH_I_dep_left_profile_name"
+			_s_BS_profile << "GPK_CH_I_left_BS_profile_name"
+			_s_FS_profile << "GPK_CH_I_left_FS_profile_name"
+			_s_ditch_width_profile << "GPK_CH_I_left_ditch_width_profile_name"
+			_s_shoulder_slope_profile << "GPK_CH_I_left_shldr_slope_profile"
+			}
+			
+		else if _s_side_slope = ^right^ then
+			{
+			_s_ind_ditch_profile << "GPK_CH_I_ind_right_profile_name"
+			_s_dep_ditch_profile << "GPK_CH_I_dep_right_profile_name"
+			_s_BS_profile << "GPK_CH_I_right_BS_profile_name"
+			_s_FS_profile << "GPK_CH_I_right_FS_profile_name"
+			_s_ditch_width_profile <<  "GPK_CH_I_right_ditch_width_profile_name"	
+			_s_shoulder_slope_profile << "GPK_CH_I_right_shldr_slope_profile"	
+			}
+			
+		}
+	
+	else if _s_chain = "GPK_CH_J" then
+		{
+		_s_GPK_CH_J_already_processed = ^yes^
+		if _s_side_slope = ^left^ then
+			{
+			_s_ind_ditch_profile << "GPK_CH_J_ind_left_profile_name"	
+			_s_dep_ditch_profile << "GPK_CH_J_dep_left_profile_name"
+			_s_BS_profile << "GPK_CH_J_left_BS_profile_name"
+			_s_FS_profile << "GPK_CH_J_left_FS_profile_name"
+			_s_ditch_width_profile << "GPK_CH_J_left_ditch_width_profile_name"	
+			_s_shoulder_slope_profile << "GPK_CH_J_left_shldr_slope_profile"	
+			}
+			
+		else if _s_side_slope = ^right^ then
+			{
+			_s_ind_ditch_profile << "GPK_CH_J_ind_right_profile_name"
+			_s_dep_ditch_profile << "GPK_CH_J_dep_right_profile_name"
+			_s_BS_profile << "GPK_CH_J_right_BS_profile_name"
+			_s_FS_profile << "GPK_CH_J_right_FS_profile_name"
+			_s_ditch_width_profile <<  "GPK_CH_J_right_ditch_width_profile_name"	
+			_s_shoulder_slope_profile << "GPK_CH_J_right_shldr_slope_profile"	
+			}
+			
+		}
+	
+ 	
+ 	
+	else if _s_chain = "GPK_CH_K" then
+		{
+		_s_GPK_CH_K_already_processed = ^yes^
+		if _s_side_slope = ^left^ then
+			{
+			_s_ind_ditch_profile << "GPK_CH_K_ind_left_profile_name"	
+			_s_dep_ditch_profile << "GPK_CH_K_dep_left_profile_name"
+			_s_BS_profile << "GPK_CH_K_left_BS_profile_name"
+			_s_FS_profile << "GPK_CH_K_left_FS_profile_name"
+			_s_ditch_width_profile <<  "GPK_CH_K_left_ditch_width_profile_name" 
+			_s_shoulder_slope_profile << "GPK_CH_K_left_shldr_slope_profile"	
+			}
+			
+		else if _s_side_slope = ^right^ then
+			{
+			_s_ind_ditch_profile << "GPK_CH_K_ind_right_profile_name"
+			_s_dep_ditch_profile << "GPK_CH_K_dep_right_profile_name"
+			_s_BS_profile << "GPK_CH_K_right_BS_profile_name"
+			_s_FS_profile << "GPK_CH_K_right_FS_profile_name"
+			_s_ditch_width_profile << "GPK_CH_K_right_ditch_width_profile_name" 	
+			_s_shoulder_slope_profile << "GPK_CH_K_right_shldr_slope_profile"		
+			}
+			
+		}
+		
+	else if _s_chain = "GPK_CH_M" then
+		{
+		_s_GPK_CH_M_already_processed = ^yes^
+		if _s_side_slope = ^left^ then
+			{
+			_s_ind_ditch_profile << "GPK_CH_M_ind_left_profile_name"	
+			_s_dep_ditch_profile << "GPK_CH_M_dep_left_profile_name"
+			_s_BS_profile << "GPK_CH_M_left_BS_profile_name"
+			_s_FS_profile << "GPK_CH_M_left_FS_profile_name"
+			_s_ditch_width_profile << "GPK_CH_M_left_ditch_width_profile_name" 	
+			_s_shoulder_slope_profile << "GPK_CH_M_left_shldr_slope_profile"
+			}
+			
+		else if _s_side_slope = ^right^ then
+			{
+			_s_ind_ditch_profile << "GPK_CH_M_ind_right_profile_name"
+			_s_dep_ditch_profile << "GPK_CH_M_dep_right_profile_name"
+			_s_BS_profile << "GPK_CH_M_right_BS_profile_name"
+			_s_FS_profile << "GPK_CH_M_right_FS_profile_name"
+			_s_ditch_width_profile << "GPK_CH_M_right_ditch_width_profile_name" 
+			_s_shoulder_slope_profile << "GPK_CH_M_right_shldr_slope_profile"	
+			}
+			
+		}
+		
+	else if _s_chain = "GPK_CH_N" then
+		{
+		_s_GPK_CH_N_already_processed = ^yes^
+		if _s_side_slope = ^left^ then
+			{
+			_s_ind_ditch_profile << "GPK_CH_N_ind_left_profile_name"	
+			_s_dep_ditch_profile << "GPK_CH_N_dep_left_profile_name"
+			_s_BS_profile << "GPK_CH_N_left_BS_profile_name"
+			_s_FS_profile << "GPK_CH_N_left_FS_profile_name"
+			_s_ditch_width_profile << "GPK_CH_N_left_ditch_width_profile_name" 
+			_s_shoulder_slope_profile << "GPK_CH_N_left_shldr_slope_profile"	
+			}
+			
+		else if _s_side_slope = ^right^ then
+			{
+			_s_ind_ditch_profile << "GPK_CH_N_ind_right_profile_name"
+			_s_dep_ditch_profile << "GPK_CH_N_dep_right_profile_name"
+			_s_BS_profile << "GPK_CH_N_right_BS_profile_name"
+			_s_FS_profile << "GPK_CH_N_right_FS_profile_name"
+			_s_ditch_width_profile << "GPK_CH_N_right_ditch_width_profile_name" 
+			_s_shoulder_slope_profile << "GPK_CH_N_right_shldr_slope_profile"	
+			}
+			
+		}
+	
+	else if _s_chain = "GPK_CH_P" then
+		{
+		_s_GPK_CH_P_already_processed = ^yes^
+		if _s_side_slope = ^left^ then
+			{
+			_s_ind_ditch_profile << "GPK_CH_P_ind_left_profile_name"	
+			_s_dep_ditch_profile << "GPK_CH_P_dep_left_profile_name"
+			_s_BS_profile << "GPK_CH_P_left_BS_profile_name"
+			_s_FS_profile << "GPK_CH_P_left_FS_profile_name"
+			_s_ditch_width_profile << "GPK_CH_P_left_ditch_width_profile_name" 	
+			_s_shoulder_slope_profile << "GPK_CH_P_left_shldr_slope_profile"	
+			}
+			
+		else if _s_side_slope = ^right^ then
+			{
+			_s_ind_ditch_profile << "GPK_CH_P_ind_right_profile_name"
+			_s_dep_ditch_profile << "GPK_CH_P_dep_right_profile_name"
+			_s_BS_profile << "GPK_CH_P_right_BS_profile_name"
+			_s_FS_profile << "GPK_CH_P_right_FS_profile_name"
+			_s_ditch_width_profile << "GPK_CH_P_right_ditch_width_profile_name" 	
+			_s_shoulder_slope_profile << "GPK_CH_P_right_shldr_slope_profile"	
+			}
+			
+		}
+	
+	else if _s_chain = "GPK_CH_L" then
+		{
+		_s_GPK_CH_L_already_processed = ^yes^
+		if _s_side_slope = ^left^ then
+			{
+			_s_ind_ditch_profile << "GPK_CH_L_ind_left_profile_name"	
+			_s_dep_ditch_profile << "GPK_CH_L_dep_left_profile_name"
+			_s_BS_profile << "GPK_CH_L_left_BS_profile_name"
+			_s_FS_profile << "GPK_CH_L_left_FS_profile_name"
+			_s_ditch_width_profile << "GPK_CH_L_left_ditch_width_profile_name" 
+			_s_shoulder_slope_profile << "GPK_CH_L_left_shldr_slope_profile"
+			}
+			
+		else if _s_side_slope = ^right^ then
+			{
+			_s_ind_ditch_profile << "GPK_CH_L_ind_right_profile_name"
+			_s_dep_ditch_profile << "GPK_CH_L_dep_right_profile_name"
+			_s_BS_profile << "GPK_CH_L_right_BS_profile_name"
+			_s_FS_profile << "GPK_CH_L_right_FS_profile_name"
+			_s_ditch_width_profile << "GPK_CH_L_right_ditch_width_profile_name" 	
+			_s_shoulder_slope_profile << "GPK_CH_L_right_shldr_slope_profile"	
+			}
+			
+		}
+	
+	else if _s_chain = "GPK_CH_O" then
+		{
+		_s_GPK_CH_O_already_processed = ^yes^
+		if _s_side_slope = ^left^ then
+			{
+			_s_ind_ditch_profile << "GPK_CH_O_ind_left_profile_name"	
+			_s_dep_ditch_profile << "GPK_CH_O_dep_left_profile_name"
+			_s_BS_profile << "GPK_CH_O_left_BS_profile_name"
+			_s_FS_profile << "GPK_CH_O_left_FS_profile_name"
+			_s_ditch_width_profile << "GPK_CH_O_left_ditch_width_profile_name" 	
+			_s_shoulder_slope_profile << "GPK_CH_O_left_shldr_slope_profile"	
+			}
+			
+		else if _s_side_slope = ^right^ then
+			{
+			_s_ind_ditch_profile << "GPK_CH_O_ind_right_profile_name"
+			_s_dep_ditch_profile << "GPK_CH_O_dep_right_profile_name"
+			_s_BS_profile << "GPK_CH_O_right_BS_profile_name"
+			_s_FS_profile << "GPK_CH_O_right_FS_profile_name"
+			_s_ditch_width_profile << "GPK_CH_O_right_ditch_width_profile_name" 	
+			_s_shoulder_slope_profile << "GPK_CH_O_right_shldr_slope_profile"
+			}
+			
+		}
+	
+	else if _s_chain = "GPK_CH_Q" then
+		{
+		_s_GPK_CH_Q_already_processed = ^yes^
+		if _s_side_slope = ^left^ then
+			{
+			_s_ind_ditch_profile << "GPK_CH_Q_ind_left_profile_name"	
+			_s_dep_ditch_profile << "GPK_CH_Q_ind_left_profile_name"
+			_s_BS_profile << "GPK_CH_Q_left_BS_profile_name"
+			_s_FS_profile << "GPK_CH_Q_left_FS_profile_name"
+			_s_ditch_width_profile << "GPK_CH_Q_left_ditch_width_profile_name" 	
+			_s_shoulder_slope_profile << "GPK_CH_Q_left_shldr_slope_profile"
+			}
+			
+		else if _s_side_slope = ^right^ then
+			{
+			_s_ind_ditch_profile << "GPK_CH_Q_ind_right_profile_name"
+			_s_dep_ditch_profile << "GPK_CH_Q_dep_right_profile_name"
+			_s_BS_profile << "GPK_CH_Q_right_BS_profile_name"
+			_s_FS_profile << "GPK_CH_Q_right_FS_profile_name"
+			_s_ditch_width_profile << "GPK_CH_Q_right_ditch_width_profile_name" 
+			_s_shoulder_slope_profile << "GPK_CH_Q_right_shldr_slope_profile"	
+			}
+			
+		}
+		
+ 		
+	else if _s_chain = "GPK_CH_R" then
+		{
+		_s_GPK_CH_R_already_processed = ^yes^
+		if _s_side_slope = ^left^ then
+			{
+			_s_ind_ditch_profile << "GPK_CH_R_ind_left_profile_name"	
+			_s_dep_ditch_profile << "GPK_CH_R_dep_left_profile_name"
+			_s_BS_profile << "GPK_CH_R_left_BS_profile_name"
+			_s_FS_profile << "GPK_CH_R_left_FS_profile_name"
+			_s_ditch_width_profile << "GPK_CH_R_left_ditch_width_profile_name"	
+			_s_shoulder_slope_profile << "GPK_CH_R_left_shldr_slope_profile"
+			}
+			
+		else if _s_side_slope = ^right^ then
+			{
+			_s_ind_ditch_profile << "GPK_CH_R_ind_right_profile_name"
+			_s_dep_ditch_profile << "GPK_CH_R_dep_right_profile_name"
+			_s_BS_profile << "GPK_CH_R_right_BS_profile_name"
+			_s_FS_profile << "GPK_CH_R_right_FS_profile_name"
+			_s_ditch_width_profile << "GPK_CH_R_right_ditch_width_profile_name" 	
+			_s_shoulder_slope_profile << "GPK_CH_R_right_shldr_slope_profile"	
+			}
+			
+		}
+	
+		
+	else if _s_chain = "GPK_CH_S" then
+		{
+		_s_GPK_CH_S_already_processed = ^yes^
+		if _s_side_slope = ^left^ then
+			{
+			_s_ind_ditch_profile << "GPK_CH_S_ind_left_profile_name"	
+			_s_dep_ditch_profile << "GPK_CH_S_dep_left_profile_name"
+			_s_BS_profile << "GPK_CH_S_left_BS_profile_name"
+			_s_FS_profile << "GPK_CH_S_left_FS_profile_name"
+			_s_ditch_width_profile << "GPK_CH_S_left_ditch_width_profile_name" 
+			_s_shoulder_slope_profile << "GPK_CH_S_left_shldr_slope_profile"	
+			}
+			
+		else if _s_side_slope = ^right^ then
+			{
+			_s_ind_ditch_profile << "GPK_CH_S_ind_right_profile_name"
+			_s_dep_ditch_profile << "GPK_CH_S_dep_right_profile_name"
+			_s_BS_profile << "GPK_CH_S_right_BS_profile_name"
+			_s_FS_profile << "GPK_CH_S_right_FS_profile_name"
+			_s_ditch_width_profile << "GPK_CH_S_right_ditch_width_profile_name" 	
+			_s_shoulder_slope_profile << "GPK_CH_S_right_shldr_slope_profile"	
+			}
+			
+		}
+	
+	else if _s_chain = "GPK_CH_T" then
+		{
+		_s_GPK_CH_T_already_processed = ^yes^
+		if _s_side_slope = ^left^ then
+			{
+			_s_ind_ditch_profile << "GPK_CH_T_ind_left_profile_name"	
+			_s_dep_ditch_profile << "GPK_CH_T_dep_left_profile_name"
+			_s_BS_profile << "GPK_CH_T_left_BS_profile_name"
+			_s_FS_profile << "GPK_CH_T_left_FS_profile_name"
+			_s_ditch_width_profile << "GPK_CH_T_left_ditch_width_profile_name" 		
+			_s_shoulder_slope_profile << "GPK_CH_T_left_shldr_slope_profile"	
+			}
+			
+		else if _s_side_slope = ^right^ then
+			{
+			_s_ind_ditch_profile << "GPK_CH_T_ind_right_profile_name"
+			_s_dep_ditch_profile << "GPK_CH_T_dep_right_profile_name"
+			_s_BS_profile << "GPK_CH_T_right_BS_profile_name"
+			_s_FS_profile << "GPK_CH_T_right_FS_profile_name"
+			_s_ditch_width_profile << "GPK_CH_T_right_ditch_width_profile_name" 	
+			_s_shoulder_slope_profile << "GPK_CH_T_right_shldr_slope_profile"
+			}
+			
+		}
+	
+	else if _s_chain = "GPK_CH_U" then
+		{
+		_s_GPK_CH_U_already_processed = ^yes^
+		if _s_side_slope = ^left^ then
+			{
+			_s_ind_ditch_profile << "GPK_CH_U_ind_left_profile_name"	
+			_s_dep_ditch_profile << "GPK_CH_U_dep_left_profile_name"
+			_s_BS_profile << "GPK_CH_U_left_BS_profile_name"
+			_s_FS_profile << "GPK_CH_U_left_FS_profile_name"
+			_s_ditch_width_profile << "GPK_CH_U_left_ditch_width_profile_name" 	
+			_s_shoulder_slope_profile << "GPK_CH_U_left_shldr_slope_profile"
+			}
+			
+		else if _s_side_slope = ^right^ then
+			{
+			_s_ind_ditch_profile << "GPK_CH_U_ind_right_profile_name"
+			_s_dep_ditch_profile << "GPK_CH_U_dep_right_profile_name"
+			_s_BS_profile << "GPK_CH_U_right_BS_profile_name"
+			_s_FS_profile << "GPK_CH_U_right_FS_profile_name"
+			_s_ditch_width_profile << "GPK_CH_U_right_ditch_width_profile_name"	
+			_s_shoulder_slope_profile << "GPK_CH_U_right_shldr_slope_profile"	
+			}
+			
+		}
+		
+		
+  	
+
+
+ 		
+  	
+
+	else if _s_chain = "GPK_CH_X" then
+		{
+		_s_GPK_CH_X_already_processed = ^yes^
+		if _s_side_slope = ^left^ then
+			{
+			_s_ind_ditch_profile << "GPK_CH_X_ind_left_profile_name"	
+			_s_dep_ditch_profile << "GPK_CH_X_dep_left_profile_name"
+			_s_BS_profile << "GPK_CH_X_left_BS_profile_name"
+			_s_FS_profile << "GPK_CH_X_left_FS_profile_name"
+			_s_ditch_width_profile << "GPK_CH_X_left_ditch_width_profile_name"
+			_s_shoulder_slope_profile << "GPK_CH_X_left_shldr_slope_profile"	
+			}
+			
+		else if _s_side_slope = ^right^ then
+			{
+			_s_ind_ditch_profile << "GPK_CH_X_ind_right_profile_name"
+			_s_dep_ditch_profile << "GPK_CH_X_dep_right_profile_name"
+			_s_BS_profile << "GPK_CH_X_right_BS_profile_name"
+			_s_FS_profile << "GPK_CH_X_right_FS_profile_name"
+			_s_ditch_width_profile << "GPK_CH_X_right_ditch_width_profile_name"	
+			_s_shoulder_slope_profile << "GPK_CH_X_right_shldr_slope_profile"			
+			}
+			
+		}
+
+	else if _s_chain = "GPK_CH_W" then
+		{
+		_s_GPK_CH_W_already_processed = ^yes^
+		if _s_side_slope = ^left^ then
+			{
+			_s_ind_ditch_profile << "GPK_CH_W_ind_left_profile_name"	
+			_s_dep_ditch_profile << "GPK_CH_W_dep_left_profile_name"
+			_s_BS_profile << "GPK_CH_W_left_BS_profile_name"
+			_s_FS_profile << "GPK_CH_W_left_FS_profile_name"
+			_s_ditch_width_profile << "GPK_CH_W_left_ditch_width_profile_name" 	
+			_s_shoulder_slope_profile << "GPK_CH_W_left_shldr_slope_profile"
+			}
+			
+		else if _s_side_slope = ^right^ then
+			{
+			_s_ind_ditch_profile << "GPK_CH_W_ind_right_profile_name"
+			_s_dep_ditch_profile << "GPK_CH_W_dep_right_profile_name"
+			_s_BS_profile << "GPK_CH_W_right_BS_profile_name"
+			_s_FS_profile << "GPK_CH_W_right_FS_profile_name"
+			_s_ditch_width_profile << "GPK_CH_W_right_ditch_width_profile_name"	
+			_s_shoulder_slope_profile << "GPK_CH_W_right_shldr_slope_profile"
+			}
+			
+		}
+
+ 	
+ 	
+	else if _s_chain = "GPK_CH_V" then
+		{
+		_s_GPK_CH_V_already_processed = ^yes^
+		if _s_side_slope = ^left^ then
+			{
+			_s_ind_ditch_profile << "GPK_CH_V_ind_left_profile_name"	
+			_s_dep_ditch_profile << "GPK_CH_V_dep_left_profile_name"
+			_s_BS_profile << "GPK_CH_V_left_BS_profile_name"
+			_s_FS_profile << "GPK_CH_V_left_FS_profile_name"
+			_s_ditch_width_profile << "GPK_CH_V_left_ditch_width_profile_name" 	
+			_s_shoulder_slope_profile << "GPK_CH_V_left_shldr_slope_profile"	
+			}
+			
+		else if _s_side_slope = ^right^ then
+			{
+			_s_ind_ditch_profile << "GPK_CH_V_ind_right_profile_name"
+			_s_dep_ditch_profile << "GPK_CH_V_dep_right_profile_name"
+			_s_BS_profile << "GPK_CH_V_right_BS_profile_name"
+			_s_FS_profile << "GPK_CH_V_right_FS_profile_name"
+			_s_ditch_width_profile << "GPK_CH_V_right_ditch_width_profile_name" 	
+			_s_shoulder_slope_profile << "GPK_CH_V_right_shldr_slope_profile"	
+			}
+			
+		}
+		
+	else
+		{
+		/* enter other chains here */
+		
+		}
+	
+	
+	/* THIS IS THE FS/BS STUFF FOR TIEING DOWN TO EXISTING GROUND....COULD USE A PROFILE INSTEAD */
+	
+	_s_chain = cluster baseline
+	if chain _s_chain sta within profile = _s_FS_profile then
+		{
+		mark _mp_go_back_to_here
+		
+		draw skip to xpgl ypgl
+		draw skip rise:run = -1:0 to chain _s_chain profile elev = _s_FS_profile
+			mark x999 y999
+			
+		_d_ind_tie_down_front_slope = y999
+		
+		
+		/* the below variable will NOT be needed for the revised criteria 5-3-07 */
+		_d_ind_tie_down_default_front_slope = y999
+		
+		draw skip to _mp_go_back_to_here
+		
+		}
+		
+	else
+		
+		{
+		_d_ind_tie_down_front_slope = 6				/* 1:6 FS */
+		}
+		
+	
+	if chain _s_chain sta within profile = _s_BS_profile then
+		{
+		mark _mp_go_back_to_here
+		
+		draw skip to xpgl ypgl
+		draw skip rise:run = -1:0 to chain _s_chain profile elev = _s_BS_profile
+			mark x999 y999
+		
+		_d_ind_tie_down_back_slope = y999
+		
+		/* the below variables will NOT be needed for the revised criteria 5-3-07 */
+		_d_ind_tie_down_default_back_slope =  y999
+		_d_tie_down_max_back_slope = y999
+		_d_ditch_bs = y999
+		
+		draw skip to _mp_go_back_to_here
+		
+		}
+		
+	else
+		{
+		_d_ind_tie_down_back_slope = 2			
+		_d_tie_down_max_back_slope = 2				
+		
+		}
+		
+		
+	if chain _s_chain sta within profile = _s_ditch_width_profile then
+		{
+		mark _mp_go_back_to_here
+		
+		draw skip to xpgl ypgl
+		draw skip rise:run = -1:0 to chain _s_chain profile elev = _s_ditch_width_profile
+			mark x999 y999
+		_d_ditch_width = y999
+		
+		draw skip to _mp_go_back_to_here
+		
+		}
+		
+	else
+		{
+		
+		_d_ditch_width = 4			/* bottom of ditch width*/	
+			
+		}		
+
+	
+	
+	/* adv SHOULDER IE BEHIND VG AND CURB TO RETAING WALL OR BARRIER */
+	
+	_d_adv_shoulder_slope = 4
+	_d_adv_shoulder_depth = 10/12		/* 10 inches */
+	
+	
+	
+	
+	
+	/* OTHER VARIABLES */
+	_d_SFB_sidewalk_cap_depth = 4/12		/* THIS IS THE SIDEWALK CAP DEPTH BETWEEN SFB AND SFB */
+	
+	
+	
+	/* THESE ARE STANDARDS, BUT COULD BE UPDATED BASED ON PROJECT SPECIFIC NEEDS */
+	
+	_d_g1_slope = -4
+	_d_g2_slope = -4
+	_d_valley_gutter_slope = -4
+	_d_valley_gutter_width = 4 			/* I am no longer using 4' as a standard....I need it to float due to transitions to other curb types and the structures at M-39*/
+	_d_normal_DF_barrier_width = 28/12 +2/12		/* 2' 4" barrier per R-49-D section AA and 2" for E5 joints*/
+	_d_StdShoulderSlope = -4			/* this is the default value for shoulder slopes in normal crown sections */
+	
+	_d_g_curb_depth = 10/12				/*normal depth is 8/12, but we have a 10" conc pavement and shoulder */
+	
+	
+	_d_curb_depth = 9/12				/* this is the standard d curb depth at eop, but will be redefined based on type of d enountered*/
+	_d_valley_gutter_depth = 9/12			/* depth of valley gutter from either outside end...not the low point */
+		
+	
+	/* these variables are required for the sub shoulder_slope in the get_shape_names_and_slope_values.tmb */
+	_s_OverrideShldrSlope = ^No^  	/* If ^Yes^, the shoulder will be -1 for any super over 5% */
+				      	/* if any other value, the shoulder slopes will be the rate of super if over 5%*/
+	
+
+	
+	_s_chain = cluster baseline
+	call sub get_road_specific_variables
+	
+	/* this sub is needed again for the double face barrier between the two expresses....eb needs to be drawn from wb, but needs it's own depths*/
+	sub get_road_specific_variables
+		{
+	if (_s_chain = "junk_chain_xxx") then
+	   
+	   
+	   	{
+	   	/* if you have different pavement designs on either side of a double faced barrier, then you should enter */
+	   	/*the pavement, shoulder and gore depths here again...it would be called by the sub actually_draw_barrier */
+	   	_d_valley_gutter_depth = 12/12
+	   	
+	   	_d_first_course_outside_shdr_depth_in_FT = 12/12	/* shoulder top course */
+		_d_second_course_outside_shdr_depth_in_FT = 0/12	/* shoulder leveling course */
+		_d_third_course_outside_shdr_depth_in_FT = 0/12		/* shoulder base course	*/
+		_d_fourth_course_outside_shdr_depth_in_FT = 0/12	/* shoulder directly below base course */
+		_d_fifth_course_outside_shdr_depth_in_FT = 0/12		/* shoulder second layer below base course */
+		_d_sixth_course_outside_shdr_depth_in_FT = 0/12		/* shoulder third layer below base course */
+	   	}
+	   
+	   
+	
+	else
+	   	{
+	   	_d_valley_gutter_depth = 10/12
+	   	
+	  	mark _mp_go_back_to_here
+		draw skip to p1
+		if intersect dgn = "tapered shoulder trigger line" within distance = 10 then
+			{
+			_d_first_course_outside_shdr_depth_in_FT = 10/12	/* shoulder top course */
+			_d_second_course_outside_shdr_depth_in_FT = 0/12	/* shoulder leveling course */
+			_d_third_course_outside_shdr_depth_in_FT = 0/12		/* shoulder base course	*/
+			_d_fourth_course_outside_shdr_depth_in_FT = 0/12	/* shoulder directly below base course */
+			_d_fifth_course_outside_shdr_depth_in_FT = 0/12		/* shoulder second layer below base course */
+			_d_sixth_course_outside_shdr_depth_in_FT = 0/12		/* shoulder third layer below base course */
+			}
+		else
+			{
+		/*_d_first_course_outside_shdr_depth_in_FT = 9/12	
+			_d_second_course_outside_shdr_depth_in_FT = 0/12	
+			_d_third_course_outside_shdr_depth_in_FT = 0/12		
+			_d_fourth_course_outside_shdr_depth_in_FT = 0/12	
+			_d_fifth_course_outside_shdr_depth_in_FT = 0/12		
+			_d_sixth_course_outside_shdr_depth_in_FT = 0/12	*/	
+			}
+		draw skip to _mp_go_back_to_here
+	   	}
+	
+	   }
+	end sub	/* ends the sub get_road_specific_variables */
+	
+	
+	
+	
+	
+	
+	
+	
+	if (not _mp_do_once_left) and _s_side_slope = ^left^ then
+		{
+		
+		/* reset the variables for the first cluster in the first xs */	
+			
+			_s_GPK_CH_A_already_processed = ^no^
+			_s_GPK_CH_B_already_processed = ^no^
+			_s_GPK_CH_C_already_processed = ^no^
+			_s_GPK_CH_D_already_processed = ^no^
+			_s_GPK_CH_E_already_processed = ^no^
+			_s_GPK_CH_F_already_processed = ^no^
+			_s_GPK_CH_G_already_processed = ^no^
+			_s_GPK_CH_H_already_processed = ^no^
+			_s_GPK_CH_I_already_processed = ^no^
+			_s_GPK_CH_J_already_processed = ^no^
+			_s_GPK_CH_K_already_processed = ^no^
+			_s_GPK_CH_M_already_processed = ^no^
+			_s_GPK_CH_N_already_processed = ^no^
+			_s_GPK_CH_P_already_processed = ^no^
+			_s_GPK_CH_L_already_processed = ^no^
+			_s_GPK_CH_O_already_processed = ^no^
+			_s_GPK_CH_Q_already_processed = ^no^
+			_s_GPK_CH_R_already_processed = ^no^
+			_s_GPK_CH_S_already_processed = ^no^
+			_s_GPK_CH_T_already_processed = ^no^
+			_s_GPK_CH_U_already_processed = ^no^
+			_s_GPK_CH_X_already_processed = ^no^
+			_s_GPK_CH_W_already_processed = ^no^
+			_s_GPK_CH_V_already_processed = ^no^
+		
+		
+			draw skip to XS BL PT
+			mark _mp_comparison_point_1
+			mark _mp_do_once_left
+			
+			draw skip to p1
+			call sub draw_pavement_and_topsoil_removal
+			draw skip to p1
+			include C:\Criteria\draw_row.TMB
+			
+			draw skip to p2
+			include C:\Criteria\draw_wetland.TMB
+			
+			
+		/* run this one time to determine the max number of chains used to speed up cross-sections */
+		/* I will determine the number of chains that are listed in the input file */
+			/* assuming that if the beginning of the chain name is "GPK_PR_" then is should not be counted */
+			_d_chain_counter = 22	/* start with maximum number of chains, which is 22 */
+			
+			while _d_chain_counter >= 1	
+			{
+			_s_chain_counter_string = cvt_d_s0(_d_chain_counter)
+			_s_check_chain_string = ^_s_chain_^ + _s_chain_counter_string
+			
+			if _s_check_chain_string = ^_s_chain_1^ then
+				{
+				_s_check_chain << "chain 1"
+				}
+			else if _s_check_chain_string = ^_s_chain_2^ then
+				{
+				_s_check_chain << "chain 2"
+				}
+			else if _s_check_chain_string = ^_s_chain_3^ then
+				{
+				_s_check_chain << "chain 3"
+				}
+			else if _s_check_chain_string = ^_s_chain_4^ then
+				{
+				_s_check_chain << "chain 4"
+				}
+			else if _s_check_chain_string = ^_s_chain_5^ then
+				{
+				_s_check_chain << "chain 5"
+				}
+			else if _s_check_chain_string = ^_s_chain_6^ then
+				{
+				_s_check_chain << "chain 6"
+				}
+			else if _s_check_chain_string = ^_s_chain_7^ then
+				{
+				_s_check_chain << "chain 7"
+				}
+			else if _s_check_chain_string = ^_s_chain_8^ then
+				{
+				_s_check_chain << "chain 8"
+				}
+			else if _s_check_chain_string = ^_s_chain_9^ then
+				{
+				_s_check_chain << "chain 9"
+				}
+			else if _s_check_chain_string = ^_s_chain_10^ then
+				{
+				_s_check_chain << "chain 10"
+				}
+			else if _s_check_chain_string = ^_s_chain_11^ then
+				{
+				_s_check_chain << "chain 11"
+				}
+			else if _s_check_chain_string = ^_s_chain_12^ then
+				{
+				_s_check_chain << "chain 12"
+				}
+			else if _s_check_chain_string = ^_s_chain_13^ then
+				{
+				_s_check_chain << "chain 13"
+				}
+			else if _s_check_chain_string = ^_s_chain_14^ then
+				{
+				_s_check_chain << "chain 14"
+				}
+			else if _s_check_chain_string = ^_s_chain_15^ then
+				{
+				_s_check_chain << "chain 15"
+				}
+			else if _s_check_chain_string = ^_s_chain_16^ then
+				{
+				_s_check_chain << "chain 16"
+				}
+			else if _s_check_chain_string = ^_s_chain_17^ then
+				{
+				_s_check_chain << "chain 17"
+				}
+			else if _s_check_chain_string = ^_s_chain_18^ then
+				{
+				_s_check_chain << "chain 18"
+				}
+			else if _s_check_chain_string = ^_s_chain_19^ then
+				{
+				_s_check_chain << "chain 19"
+				}
+			else if _s_check_chain_string = ^_s_chain_20^ then
+				{
+				_s_check_chain << "chain 20"
+				}
+			else if _s_check_chain_string = ^_s_chain_21^ then
+				{
+				_s_check_chain << "chain 21"
+				}
+			else if _s_check_chain_string = ^_s_chain_22^ then
+				{
+				_s_check_chain << "chain 22"
+				}
+			
+			_s_full_text = 	_s_check_chain
+			_s_sub_text = _s_full_text[1:7]
+			
+			if _s_sub_text = ^GPK_CH_^ then
+				{
+				/* keep checking .... this is not an acutal chain */
+				_d_chain_counter = _d_chain_counter-1
+				continue
+				}
+			else
+				{
+				_d_number_of_chains_used = _d_chain_counter
+				_d_chain_counter = 0
+				continue
+				}
+	
+			}	/* this ends the while loop */
+		}
+		
+	else if (not _mp_do_once_right) and _s_side_slope = ^right^ then
+		{
+		draw skip to XS BL PT
+		mark _mp_comparison_point_3
+		mark _mp_do_once_right
+		
+		draw skip to p1
+		call sub draw_pavement_and_topsoil_removal
+		draw skip to p1
+		include C:\Criteria\draw_row.TMB
+		
+		draw skip to p2
+		include C:\Criteria\draw_wetland.TMB
+		}
+	
+	else
+		{
+			/* you are NOT on the first xs in the xs file */
+			
+			if _s_side_slope = ^left^ then
+				{
+				draw skip to XS BL PT
+				mark _mp_comparison_point_2
+				}
+			
+			else if _s_side_slope = ^right^ then
+				{
+				draw skip to XS BL PT
+				mark _mp_comparison_point_4
+				}
+				
+				
+			if ((_s_side_slope = ^left^) and (abs(_mp_comparison_point_1.x-_mp_comparison_point_2.x)<tolerance and (_mp_comparison_point_1.y-_mp_comparison_point_2.y)<tolerance)) then
+				{
+				/* this is NOT the first cluster to be processed in this section */
+				/* don't reset any variables */
+				}
+				
+			else if ((_s_side_slope = ^right^) and (abs(_mp_comparison_point_3.x-_mp_comparison_point_4.x)<tolerance and (_mp_comparison_point_3.y-_mp_comparison_point_4.y)<tolerance)) then
+				{
+				/* this is NOT the first cluster to be processed in this section */
+				/* don't reset any variables */
+				}
+			else
+				{
+				/* you are processing the first side slope of the first shape cluster on this particular cross-section */
+				/* reset the already processed variables and call draw draw pavement removal and topsoil stripping */
+				
+				
+				
+				if _s_side_slope = ^left^ then
+					{
+					draw skip to _mp_comparison_point_2
+					 mark _mp_comparison_point_1
+					 
+					 
+					_s_GPK_CH_A_already_processed = ^no^
+					_s_GPK_CH_B_already_processed = ^no^
+					_s_GPK_CH_C_already_processed = ^no^
+					_s_GPK_CH_D_already_processed = ^no^
+					_s_GPK_CH_E_already_processed = ^no^
+					_s_GPK_CH_F_already_processed = ^no^
+					_s_GPK_CH_G_already_processed = ^no^
+					_s_GPK_CH_H_already_processed = ^no^
+					_s_GPK_CH_I_already_processed = ^no^
+					_s_GPK_CH_J_already_processed = ^no^
+					_s_GPK_CH_K_already_processed = ^no^
+					_s_GPK_CH_M_already_processed = ^no^
+					_s_GPK_CH_N_already_processed = ^no^
+					_s_GPK_CH_P_already_processed = ^no^
+					_s_GPK_CH_L_already_processed = ^no^
+					_s_GPK_CH_O_already_processed = ^no^
+					_s_GPK_CH_Q_already_processed = ^no^
+					_s_GPK_CH_R_already_processed = ^no^
+					_s_GPK_CH_S_already_processed = ^no^
+					_s_GPK_CH_T_already_processed = ^no^
+					_s_GPK_CH_U_already_processed = ^no^
+					_s_GPK_CH_X_already_processed = ^no^
+					_s_GPK_CH_W_already_processed = ^no^
+					_s_GPK_CH_V_already_processed = ^no^
+					}
+				
+				else if _s_side_slope = ^right^ then
+					{
+					draw skip to _mp_comparison_point_4
+					 mark _mp_comparison_point_3
+					}
+				draw skip to p1
+				include C:\Criteria\draw_row.TMB
+				draw skip to p1
+				call sub draw_pavement_and_topsoil_removal
+				
+				}
+			}
+	
+	
+	
+		
+	/* the values below are used to write to an ascii file for flow/toc and pgl extension */
+	mark x77 y77
+	
+	
+/* this is used for the create profile input files*/
+/* if encounter dfb, then will reset this variable for each side of the barrier */
+if _s_side_slope = ^left^ then
+	{
+	_s_curb_side_slope = ^left^
+	}
+
+else if _s_side_slope = ^right^ then
+	{
+	_s_curb_side_slope = ^right^
+	}
+	
+	
+	
+	}
+	
+else
+	{
+	
+	}
+	

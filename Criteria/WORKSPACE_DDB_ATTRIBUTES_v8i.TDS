@@ -1,0 +1,787 @@
+/* Variables Definition File 12-01-2004 */
+/* variables.x                                                          */
+/* Use of gpklines.dgn file removed from this and all other criteria files on 6/20/05 by Heath Oeltjen. */
+
+/************************************************************************/
+/*                                                                      */
+/* This criteria file holds all the variables. The user should make all */
+/* variable changes in this file only.                                  */
+/*                                                                      */
+/*                                                                      */
+/*  IMPORTANT ---> All Variables and Define Statments must remain in    */
+/*                 this file, DO NOT DELETE UNUSED ITEMS!!!             */
+/*  Notes:                                                              */
+/*                                                                      */
+/*  View(s) drawn to: none                                              */
+/*                                                                      */
+/************************************************************************/
+
+
+
+
+
+
+
+
+
+
+
+/*  REMOVED VALLEY GUTTER FROM THIS FILE AND PUT IT IN PROJ SPECIFIC SO SEARCHES IN GEOPAK LINES */
+/*  REMOVED "~Existing ROW" AND "~Proposed ROW" FROM THIS FILE.  THEY ARE IN PROJ SPEC BUT NOT DDB ATTRIBUTES */
+
+
+/* Plan View Removed Paved Shoulder */
+define_dgn "~Removed Paved Shoulder" \
+dgn="Existing Topo DGN" \
+lvname = SHOULDER_PAVED_RM
+
+
+
+
+
+
+
+
+
+/****** Cross Section DGN Variables *************** 01-07-2003 ***********/
+
+/* Cross Section View Existing Subsurface Symbologies Used for Topsoil Placement Typical Only */
+/* Include exist. pavt., exist. pavt. subbase, exist. shoulder, & exist. sidewalk */
+define_dgn "~Existing Subsurfaces" \
+dgn = "Cross Section DGN" \
+lvname = XS_EX_PAVT_SUBGRD,XS_EX_PAVT_SUBBASE_SUBGRD,XS_EX_SHLDR_PAVED_SUBGRD,XS_EX_SWALK_SUBGRD \
+co = bylevel \
+lc = bylevel \
+wt = bylevel
+
+
+
+
+
+/******************************* TOPO.DGN & PLAN.DGN ELEMENTS SCANNED BY CRITERIA FILES ************************************/
+
+
+/**************** Plan DGN Variables *************** 02-06-2003 ***********/
+
+
+/* Plan View Proposed HMA Curb */
+define_dgn "~HMA Curb" \
+dgn="Proposed Plan DGN" \
+ddb = "DDB Location" \
+feature = Plan Features/805 HMA Curb/8050001
+
+
+
+
+
+
+
+
+
+/* Plan View Proposed Cold Mill Limits */
+define_dgn "~Edge of Cold Mill" \
+dgn="Proposed Plan DGN" \
+lvname = PAVT_LINE_EX
+
+/* Plan View Existing Wetland Limits */
+define_dgn "~Wetland" \
+dgn="Existing Topo DGN" \
+lvname = WETLAND_EX, WETLAND_RM
+
+
+/* Plan View Face of Guardrail Placement */
+define_dgn "~Face of Guardrail Placement" \
+dgn="Geopak Lines DGN"\
+lvname = FACE_OF_GUARDRAIL
+
+
+/* Plan View Proposed Detail M */
+define_dgn "~Proposed Driveway Detail M"\
+dgn="Proposed Plan DGN"\
+lvname = CurbGut_Std_Pr_F4_DetM_Back
+
+/* Plan View Proposed Detail L */
+define_dgn "~Proposed Driveway Detail L"\
+dgn="Proposed Plan DGN"\
+lvname = CurbGut_Std_Pr_F4_DetL_Back_$Ft
+
+
+
+/* Plan View Existing Limited Access ROW Symbology and Drawing Name */
+define_dgn "~Existing Limited Access ROW"\
+dgn="Right of Way DGN"\
+LVName=Bndry_ROW_Ex_Line_LimAccess_Legal_GS,Bndry_ROW_Ex_Line_FreeAccess_Legal_GS
+
+/* Plan View Proposed Limited Access ROW Symbology and Drawing Name */
+define_dgn "~Proposed Limited Access ROW"\
+dgn="Right of Way DGN"\
+LVName=Bndry_ROW_PR_Line_LimAccess_Legal,Bndry_ROW_PR_Line_FreeAccess_Legal,Bndry_ROW_Temp_ConsentAgree_Line
+
+/* Plan View Existing Fence Symbology and Drawing Name */
+define_dgn "~Existing Fence" \
+dgn="EXISTING TOPO DGN"\
+LVNAME=FENCE_EX
+
+/* Plan View Proposed Fence Symbology and Drawing Name */
+define_dgn "~Proposed Fence" \
+dgn="EXISTING TOPO DGN"\
+LVNAME=FENCE_MISC_PR, FENCE_CHAINLINK_PR, FENCE_WOVENWIRE_PR
+
+/* Plan View Proposed Temporary Construction Easement Symbology and Drawing Name */
+define_dgn "~Temporary Construction Easement"\
+dgn="Right of Way DGN"\
+lvname=Bndry_ROW_Temp_ConsentAgree_Line
+
+/* Plan View Proposed Permanent Construction Easement Symbology and Drawing Name */
+define_dgn "~Permanent Construction Easement"\
+dgn="Right of Way DGN"\
+ddb = "DDB Location" \
+feature = Plan Features/Geopak XS Scan Lines/Plan DGN/Right of Way/CNST_EAS_P
+
+/* Plan View Existing Edge of Pavement Symbology and Drawing Name */
+define_dgn "~Existing Edge of Pavement"\
+dgn="Existing Topo DGN"\
+ddb = "DDB Location" \
+feature = Plan Features/Geopak XS Scan Lines/Topo DGN/EOP_E
+
+
+
+/* Plan View Proposed Edge of Pavement Symbology and Drawing Name */
+define_dgn "~Proposed EOP in DGN"\
+dgn="Proposed Plan DGN"\
+lvname=Surf_Travelway_Pr_Conc_Prdctn_Edge,Surf_Travelway_Pr_HMA_Prdctn_Edge,Surf_Travelway_Pr_Conc_Misc_Edge_Internal,Surf_TravelWay_Pr_Conc_Misc_NonReinf_11in_$Syd,Surf_Travelway_Pr_Conc_Misc_Edge_Internal,Surf_TravelWay_Pr_Conc_Misc_NonReinf_09in_$Syd
+
+
+/* Plan View Proposed Sawcut Line */
+define_dgn "~Sawcut Line in DGN"\
+dgn="Geopak Lines DGN"\
+lvname=Scratch_Level_01~\
+Co=3\
+Wt=1
+
+/* Plan View Existing Edge of Paved Shoulder Symbology and Drawing Name */
+define_dgn "~Existing Paved Shoulder"\
+dgn="Existing Topo DGN"\
+ddb = "DDB Location" \
+feature = Plan Features/Geopak XS Scan Lines/Topo DGN/PAV_SH_E
+
+/* Plan View Proposed Edge of Paved Shoulder */
+define_dgn "~Proposed Paved Shoulder in DGN"\
+dgn="Proposed Plan DGN"\
+lvname=Surf_shldr_Pr_Conc_Edge,Surf_shldr_Pr_HMA_Edge
+
+
+/* Plan View Proposed Outside Aggregate Shoulder */
+define_dgn "~Proposed Aggregate Shoulder in DGN"\
+dgn="Proposed Plan DGN"\
+lvname=Surf_Shldr_Pr_Agg_Edge~
+
+/* Plan View Proposed Type B1 Curb and Gutter */
+define_dgn "~Curb and Gutter B1"\
+dgn="Proposed Plan DGN"\
+lvname = CurbGut_Std_Pr_B1_Back_$Ft
+
+/* Plan View Proposed Type B2 Curb and Gutter */
+define_dgn "~Curb and Gutter B2"\
+dgn="Proposed Plan DGN"\
+lvname = CurbGut_Std_Pr_B2_Back_$Ft
+
+/* Plan View Proposed Type B3 Curb and Gutter */
+define_dgn "~Curb and Gutter B3"\
+dgn="Proposed Plan DGN"\
+lvname = CurbGut_Std_Pr_B3_Back_$Ft
+
+/* Plan View Proposed Type C1 Curb and Gutter */
+define_dgn "~Curb and Gutter C1"\
+dgn="Proposed Plan DGN"\
+ddb = "DDB Location" \
+feature = Plan Features/Geopak XS Scan Lines/Plan DGN/Curb & Gutter/8020020
+
+/* Plan View Proposed Type C2 Curb and Gutter */
+define_dgn "~Curb and Gutter C2"\
+dgn="Proposed Plan DGN"\
+ddb = "DDB Location" \
+feature = Plan Features/Geopak XS Scan Lines/Plan DGN/Curb & Gutter/8020021
+
+/* Plan View Proposed Type C3 Curb and Gutter */
+define_dgn "~Curb and Gutter C3"\
+dgn="Proposed Plan DGN"\
+ddb = "DDB Location" \
+feature = Plan Features/Geopak XS Scan Lines/Plan DGN/Curb & Gutter/8020022
+
+/* Plan View Proposed Type C4 Curb and Gutter */
+define_dgn "~Curb and Gutter C4"\
+dgn="Proposed Plan DGN"\
+lvname = CurbGut_Std_Pr_C4_Back_$Ft
+
+/* Plan View Proposed Type C5 Curb and Gutter */
+define_dgn "~Curb and Gutter C5"\
+dgn="Proposed Plan DGN"\
+ddb = "DDB Location" \
+feature = Plan Features/Geopak XS Scan Lines/Plan DGN/Curb & Gutter/8020024
+
+/* Plan View Proposed Type C6 Curb and Gutter */
+define_dgn "~Curb and Gutter C6"\
+dgn="Proposed Plan DGN"\
+ddb = "DDB Location" \
+feature = Plan Features/Geopak XS Scan Lines/Plan DGN/Curb & Gutter/8020025
+
+/* Plan View Proposed Type D1 Curb and Gutter */
+define_dgn "~Curb and Gutter D1"\
+dgn="Proposed Plan DGN"\
+lvname=CurbGut_Std_Pr_D1_Back_$Ft
+
+/* Plan View Proposed Type D2 Curb and Gutter */
+define_dgn "~Curb and Gutter D2"\
+dgn="Proposed Plan DGN"\
+lvname=CurbGut_Std_Pr_D2_Back_$Ft
+
+/* Plan View Proposed Type D3 Curb and Gutter */
+define_dgn "~Curb and Gutter D3"\
+dgn="Proposed Plan DGN"\
+lvname=CurbGut_Std_Pr_D3_Back_$Ft
+
+/* Plan View Proposed Type F1 Curb and Gutter */
+define_dgn "~Curb and Gutter F1"\
+dgn="Proposed Plan DGN"\
+ddb = "DDB Location" \
+feature = Plan Features/Geopak XS Scan Lines/Plan DGN/Curb & Gutter/8020035
+
+/* Plan View Proposed Type F2 Curb and Gutter */
+define_dgn "~Curb and Gutter F2"\
+dgn="Proposed Plan DGN"\
+ddb = "DDB Location" \
+feature = Plan Features/Geopak XS Scan Lines/Plan DGN/Curb & Gutter/8020036
+
+/* Plan View Proposed Type F3 Curb and Gutter */
+define_dgn "~Curb and Gutter F3"\
+dgn="Proposed Plan DGN"\
+ddb = "DDB Location" \
+feature = Plan Features/Geopak XS Scan Lines/Plan DGN/Curb & Gutter/8020037
+
+/* Plan View Proposed Type F4 Curb and Gutter */
+define_dgn "~Curb and Gutter F4"\
+dgn="Proposed Plan DGN"\
+lvname = CurbGut_Std_Pr_F4_Back_$Ft
+
+/* Plan View Proposed Type F5 Curb and Gutter */
+define_dgn "~Curb and Gutter F5"\
+dgn="Proposed Plan DGN"\
+ddb = "DDB Location" \
+feature = Plan Features/Geopak XS Scan Lines/Plan DGN/Curb & Gutter/8020039
+
+/* Plan View Proposed Type F6 Curb and Gutter */
+define_dgn "~Curb and Gutter F6"\
+dgn="Proposed Plan DGN"\
+ddb = "DDB Location" \
+feature = Plan Features/Geopak XS Scan Lines/Plan DGN/Curb & Gutter/8020040
+
+/* Plan View Proposed Type E1 Curb */
+define_dgn "~Curb E1"\
+dgn="Proposed Plan DGN"\
+ddb = "DDB Location" \
+feature = Plan Features/Geopak XS Scan Lines/Plan DGN/Curb & Gutter/8020001
+
+/* Plan View Proposed Type E2 Curb */
+define_dgn "~Curb E2"\
+dgn="Proposed Plan DGN"\
+ddb = "DDB Location" \
+feature = Plan Features/Geopak XS Scan Lines/Plan DGN/Curb & Gutter/8020002
+
+/* Plan View Proposed Type E4 Curb */
+define_dgn "~Curb E4"\
+dgn="Proposed Plan DGN"\
+ddb = "DDB Location" \
+feature = Plan Features/Geopak XS Scan Lines/Plan DGN/Curb & Gutter/8020004
+
+/* Plan View Proposed Type G1 Curb and Gutter */
+define_dgn "~Curb and Gutter G1"\
+dgn="Proposed Plan DGN"\
+ddb = "DDB Location" \
+feature = Plan Features/Geopak XS Scan Lines/Plan DGN/Curb & Gutter/8020005
+
+/* Plan View Proposed Type G2 Curb and Gutter */
+define_dgn "~Curb and Gutter G2"\
+dgn="Proposed Plan DGN"\
+ddb = "DDB Location" \
+feature = Plan Features/Geopak XS Scan Lines/Plan DGN/Curb & Gutter/8020006
+
+
+
+
+
+/* Plan View Proposed Guardrail */
+define_dgn "~Guardrail"\
+dgn="Proposed Plan DGN"\
+lvname = GUARDRAIL_B_PR
+
+/* Plan View Proposed Guardrail Type B */
+define_dgn "~Guardrail, Type B"\
+dgn="Proposed Plan DGN"\
+ddb = "DDB Location" \
+feature = Plan Features/807 Guardrail/8070000
+
+/* Plan View Proposed Guardrail, Curved, Type B */
+define_dgn "~Guardrail, Curved, Type B"\
+dgn="Proposed Plan DGN"\
+ddb = "DDB Location" \
+feature = Plan Features/Geopak XS Scan Lines/Plan DGN/Guardrail/8070010
+
+/* Plan View Proposed Guardrail Type B, Temp */
+define_dgn "~Guardrail, Type B, Temp"\
+dgn="Proposed Plan DGN"\
+ddb = "DDB Location" \
+feature = Plan Features/Geopak XS Scan Lines/Plan DGN/Guardrail/8070005
+
+/* Plan View Proposed Guardrail Type BD */
+define_dgn "~Guardrail, Type BD"\
+dgn="Proposed Plan DGN"\
+ddb = "DDB Location" \
+feature = Plan Features/Geopak XS Scan Lines/Plan DGN/Guardrail/8070001
+
+/* Plan View Proposed Guardrail Type BD, Temp */
+define_dgn "~Guardrail, Type BD, Temp"\
+dgn="Proposed Plan DGN"\
+ddb = "DDB Location" \
+feature = Plan Features/Geopak XS Scan Lines/Plan DGN/Guardrail/8070006
+
+/* Plan View Proposed Guardrail Type T **************************************************************************/
+define_dgn "~Guardrail, Type T"\
+dgn="Proposed Plan DGN"\
+lvname = Barr_GdRail_PR_T_Face_$Ft
+
+/* ddb = "DDB Location" \
+feature = Plan Features/Geopak XS Scan Lines/Plan DGN/Guardrail/8070002 */
+
+/* Plan View Proposed Guardrail, Curved, Type T */
+define_dgn "~Guardrail, Curved, Type T"\
+dgn="Proposed Plan DGN"\
+ddb = "DDB Location" \
+feature = Plan Features/Geopak XS Scan Lines/Plan DGN/Guardrail/8070011
+
+/* Plan View Proposed Guardrail Type T, Temp */
+define_dgn "~Guardrail, Type T, Temp"\
+dgn="Proposed Plan DGN"\
+ddb = "DDB Location" \
+feature = Plan Features/Geopak XS Scan Lines/Plan DGN/Guardrail/8070007
+
+/* Plan View Proposed Guardrail Type TD */
+define_dgn "~Guardrail, Type TD"\
+dgn="Proposed Plan DGN"\
+ddb = "DDB Location" \
+feature = Plan Features/Geopak XS Scan Lines/Plan DGN/Guardrail/8070003
+
+/* Plan View Proposed Guardrail Type TD, Temp */
+define_dgn "~Guardrail, Type TD, Temp"\
+dgn="Proposed Plan DGN"\
+ddb = "DDB Location" \
+feature = Plan Features/Geopak XS Scan Lines/Plan DGN/Guardrail/8070008
+
+
+/* Plan View Misc Guardrail */
+define_dgn "~Misc Guardrail"\
+dgn="Proposed Plan DGN"\
+LVNAME=GUARDRAIL_MISC_PR
+
+
+/* Plan View Proposed Commercial Concrete Driveway Tie Down Line */
+define_dgn "~Proposed Commercial Concrete Entrance"\
+dgn="Proposed Plan DGN"\
+lvname = Surf_DrWay_Pr_Conc_Edge_ConstLimit
+
+/* Plan View Proposed Commercial Bituminous Driveway Tie Down Line *************************************/
+define_dgn "~Proposed Commercial Bituminous Entrance"\
+dgn="Proposed Plan DGN"\
+lvname = Surf_DrWay_Pr_HMA_Appr_Edge_ConstLimit
+
+/* Plan View Proposed Commercial Aggregate Driveway Tie Down Line */
+define_dgn "~Proposed Commercial Aggregate Entrance"\
+dgn="Proposed Plan DGN"\
+ddb = "DDB Location" \
+feature = Plan Features/Geopak XS Scan Lines/Plan DGN/Tie Down Lines/Driveway Tie Down Lines/Commercial/COM_AGG_DR
+
+/* Plan View Proposed Private Concrete Driveway Tie Down Line */
+define_dgn "~Proposed Private Concrete Entrance"\
+lvname = Surf_DrWay_Pr_Conc_Edge_ConstLimit
+
+/* Plan View Proposed Private Bituminous Driveway Tie Down Line */
+define_dgn "~Proposed Private Bituminous Entrance"\
+dgn="Proposed Plan DGN"\
+lvname = Surf_DrWay_Pr_HMA_Appr_Edge_ConstLimit
+
+/* Plan View Proposed Private Aggregate Driveway Tie Down Line */
+define_dgn "~Proposed Private Aggregate Entrance"\
+dgn="Proposed Plan DGN"\
+ddb = "DDB Location" \
+feature = Plan Features/Geopak XS Scan Lines/Plan DGN/Tie Down Lines/Driveway Tie Down Lines/Private/PVT_AGG_DR
+
+/* Plan View Proposed Earth Field Driveway Tie Down Line */
+define_dgn "~Proposed Field Entrance"\
+dgn="Proposed Plan DGN"\
+ddb = "DDB Location" \
+feature = Plan Features/Geopak XS Scan Lines/Plan DGN/Tie Down Lines/Driveway Tie Down Lines/Field/FIELD_DR
+
+/* Plan View Existing Edge of Sidewalk */
+define_dgn "~Existing Sidewalk"\
+dgn="Existing Topo DGN"\
+ddb = "DDB Location" \
+feature = Plan Features/Geopak XS Scan Lines/Topo DGN/SWLK_E
+
+/* Plan View Proposed Sidewalk */
+define_dgn "~Proposed Sidewalk"\
+dgn="Proposed Plan DGN"\
+lvname = Surf_Sidewalk_Pr_Conc_Edge
+
+
+
+/* Plan View Proposed Sidewalk 3 Inch */
+define_dgn "~Proposed Sidewalk 3IN"\
+dgn="Proposed Plan DGN"\
+ddb = "DDB Location" \
+feature = Plan Features/Geopak XS Scan Lines/Plan DGN/Sidewalk & Ramp/8030001
+
+/* Plan View Proposed Sidewalk 4 Inch */
+define_dgn "~Proposed Sidewalk 4IN"\
+dgn="Proposed Plan DGN"\
+ddb = "DDB Location" \
+feature = Plan Features/Geopak XS Scan Lines/Plan DGN/Sidewalk & Ramp/8030002
+
+/* Plan View Proposed Sidewalk 6 Inch */
+define_dgn "~Proposed Sidewalk 6IN"\
+dgn="Proposed Plan DGN"\
+ddb = "DDB Location" \
+feature = Plan Features/Geopak XS Scan Lines/Plan DGN/Sidewalk & Ramp/8030003
+
+/* Plan View Proposed Sidewalk 7 Inch */
+define_dgn "~Proposed Sidewalk 7IN"\
+dgn="Proposed Plan DGN"\
+ddb = "DDB Location" \
+feature = Plan Features/Geopak XS Scan Lines/Plan DGN/Sidewalk & Ramp/8030004
+
+/* Plan View Proposed Sidewalk Ramp */
+define_dgn "~Proposed Sidewalk Ramp"\
+dgn="Proposed Plan DGN"\
+ddb = "DDB Location" \
+feature = Plan Features/Geopak XS Scan Lines/Plan DGN/Sidewalk & Ramp/8030010
+
+/* Plan View Proposed Retaining Wall */
+define_dgn "~Retaining Wall"\
+dgn="Proposed Plan DGN"\
+ddb = "DDB Location" \
+feature = Plan Features/Geopak XS Scan Lines/Plan DGN/Retaining Wall/RET_WALL_P
+
+/* Plan View Green Space Hinge Line To Control the width of green space between shoulder and ditch */
+define_dgn "~Green Space Hinge Line"\
+dgn="Geopak Lines DGN"\
+lvname=Scratch_Level_05~\
+co=5
+
+/* Plan View Proposed Excavation Limit Tie Down Line (Forced Slope Tie) */
+define_dgn "~Forced Slope Tie"\
+dgn="GEOPAK LINES DGN"\
+lvname=Slope_BreakLine_Pr_SSL_Misc~
+
+/* Plan View Proposed Side Road Tie Down Line */
+define_dgn "~Side Road Tie Down Line"\
+dgn="Proposed Plan DGN"\
+ddb = "DDB Location" \
+feature = Plan Features/Geopak XS Scan Lines/Plan DGN/Tie Down Lines/Side Road Tie Down Line/SIDE_RD_TIE
+
+/* this is what criteria looks for for drawing the limits of pavt for pavt removal symb */
+define_dgn "Draw_Berm"\
+dgn="Geopak Lines DGN"\
+lvname = Draw_Berm
+
+
+
+/************************************* CROSS SECTION ELEMENTS DRAWN TO XS.DGN ************************************/
+
+
+/************** Cross Section Text Size Calculation ***************************************************************/
+
+
+
+if (p1) then                                             /* Always True (Default) */
+  {
+/*    _d_TextSize = ("xs scale" * 0.06	)  */                 /* Computes size of text to use in cross section drawing */
+  }
+
+
+define "~text offset"                          (_d_TextSize*1.0)
+
+
+
+/************* Symbology Variables *****************************/
+
+define "~Extend Ground Line Symbology" wt=bylevel co=bylevel lc=bylevel lvname=XS_EX_GROUND_SURFACE_EXTEND
+
+define "~Existing ROW XS Line" \
+ddb = "DDB Location" \
+feature = Cross Section Features/Existing Roadway Features/XS_EXROW
+
+define "~Existing ROW XS Text" wt=bylevel co=bylevel lc=bylevel just=rc th=_d_TextSize tw=_d_TextSize*0.83 ft=8 angle=90 lvname=XS_EX_ROW_LINE_TEXT
+
+define "~Exist Topsoil Symbology" \
+ddb = "DDB Location" \
+feature = Cross Section Features/Existing Roadway Features/XS_EXTOPSOIL
+
+define "~Exist Pavement Symbology" \
+ddb = "DDB Location" \
+feature = Cross Section Features/Existing Roadway Features/XS_EXPAV
+
+define "~Exist Pavement Subbase Symbology" \
+ddb = "DDB Location" \
+feature = Cross Section Features/Existing Roadway Features/XS_EXSUBB
+
+define "~Exist Shoulder Symbology" \
+ddb = "DDB Location" \
+feature = Cross Section Features/Existing Roadway Features/XS_EXSHLDR
+
+define "~Exist Sidewalk Symbology" \
+ddb = "DDB Location" \
+feature = Cross Section Features/Existing Roadway Features/XS_EXSW
+
+define "~Proposed ROW XS Line" \
+ddb = "DDB Location" \
+feature = Cross Section Features/Proposed Roadway Features/XS_PRROW
+
+define "~Proposed ROW XS Text" wt=bylevel co=bylevel lc=bylevel just=rc th=_d_TextSize tw=_d_TextSize*0.83 ft=8 angle=90 lvname=XS_PR_ROW_LINE_TEXT
+
+define "~Proposed Easement XS Line" \
+ddb = "DDB Location" \
+feature = Cross Section Features/Proposed Roadway Features/XS_PR_CONST_EASEMENT_LINE
+
+define "~Proposed Easement XS Text" wt=bylevel co=bylevel lc=bylevel just=rc th=_d_TextSize tw=_d_TextSize*0.83 ft=8 angle=90 lvname=XS_PR_CONST_EASEMENT_TEXT
+
+define "~Median Surface Symbology" \
+ddb = "DDB Location" \
+feature = Cross Section Features/Proposed Roadway Features/XS_MEDSURF
+
+define "~Median Subgrade Symbology" \
+ddb = "DDB Location" \
+feature = Cross Section Features/Proposed Roadway Features/XS_MEDSUBG
+
+define "~Pavement Surface Symbology" \
+ddb = "DDB Location" \
+feature = Cross Section Features/Proposed Roadway Features/XS_PAVESURF
+
+define "~CL Elevation Text Symbology" wt=bylevel co=bylevel lc=bylevel just=lt th=_d_TextSize tw=_d_TextSize*0.83 ft=8 off=_d_TextSize/2 angle=90 lvname=XS_PR_CL_EL_TEXT
+
+define "~Slope Text Symbology" wt=bylevel co=bylevel lc=bylevel number of decimal places=2 format=% just=cb th=_d_TextSize tw=_d_TextSize*0.83 off=_d_TextSize/2 ft=8 lvname=XS_PR_PAVT_SURF_SLOPE_TEXT
+
+define "~Pavement Layer1 Symbology" \
+ddb = "DDB Location" \
+feature = Cross Section Features/Proposed Roadway Features/XS_PAVELAY1
+
+define "~Pavement Layer2 Symbology" \
+ddb = "DDB Location" \
+feature = Cross Section Features/Proposed Roadway Features/XS_PAVELAY2
+
+define "~Pavement Layer3 Symbology" \
+ddb = "DDB Location" \
+feature = Cross Section Features/Proposed Roadway Features/XS_PAVELAY3
+
+define "~Crack Relief Layer Symbology" \
+ddb = "DDB Location" \
+feature = Cross Section Features/Proposed Roadway Features/XS_CKRELLAY
+
+define "~Wedge Layer Symbology" \
+ddb = "DDB Location" \
+feature = Cross Section Features/Proposed Roadway Features/XS_WEDLAY
+
+define "~Milling Symbology" \
+ddb = "DDB Location" \
+feature = Cross Section Features/Proposed Roadway Features/XS_MILL
+
+define "~Curb Surface Symbology" \
+ddb = "DDB Location" \
+feature = Cross Section Features/Proposed Roadway Features/XS_CURBSURF
+
+define "~Curb Subgrade Symbology" \
+ddb = "DDB Location" \
+feature = Cross Section Features/Proposed Roadway Features/XS_CURBSUBG
+
+define "~Shoulder Surface Symbology" \
+ddb = "DDB Location" \
+feature = Cross Section Features/Proposed Roadway Features/XS_SHLDRSUR
+
+define "~Shoulder Layer1 Symbology" \
+ddb = "DDB Location" \
+feature = Cross Section Features/Proposed Roadway Features/XS_SHLDRLY1
+
+define "~Shoulder Layer2 Symbology" \
+ddb = "DDB Location" \
+feature = Cross Section Features/Proposed Roadway Features/XS_SHLDRLY2
+
+define "~Agg Shoulder Subgrade Symbology" \
+ddb = "DDB Location" \
+feature = Cross Section Features/Proposed Roadway Features/XS_AGGSHLDR
+
+define "~AggBase Symbology" \
+ddb = "DDB Location" \
+feature = Cross Section Features/Proposed Roadway Features/XS_AGGBASE
+
+define "~Subbase Symbology" \
+ddb = "DDB Location" \
+feature = Cross Section Features/Proposed Roadway Features/XS_SUBBASE
+
+define "~Subgrade Slope Text" wt=bylevel co=bylevel lc=bylevel number of decimal places=1 format=% just=ct th=_d_TextSize tw=_d_TextSize*0.83 off=-_d_TextSize/2 ft=8 lvname=XS_PR_SUBBASE_SUBGRD_SLOPE_TEXT
+
+define "~Green Space Symbology" \
+ddb = "DDB Location" \
+feature = Cross Section Features/Proposed Roadway Features/XS_GREENSPA
+
+define "~Sidewalk Surface Symbology" \
+ddb = "DDB Location" \
+feature = Cross Section Features/Proposed Roadway Features/XS_SWSURF
+
+define "~Sidewalk Subgrade Symbology" \
+ddb = "DDB Location" \
+feature = Cross Section Features/Proposed Roadway Features/XS_SWSUBG
+
+define "~Sidewalk Subbase Symbology" \
+ddb = "DDB Location" \
+feature = Cross Section Features/Proposed Roadway Features/XS_SWSUBB
+
+define "~Guardrail Cell Symbology" cell library = typical.cel angle=0 xs=1 ys=1 co=bylevel wt=bylevel lvname=XS_PR_GUARDRAIL_CELL
+
+define "~Concrete Barrier Surface Symbology"    \
+ddb = "DDB Location" \
+feature = Cross Section Features/Proposed Roadway Features/XS_CBSURF
+
+define "~Concrete Barr Subgrade Symbology" \
+ddb = "DDB Location" \
+feature = Cross Section Features/Proposed Roadway Features/XS_CBSUBG
+
+define "~Conc Bar Bottom Slab Symbology" \
+ddb = "DDB Location" \
+feature = Cross Section Features/Proposed Roadway Features/XS_CBBTSLB
+
+define "~Concrete Barrier Symbology" \
+ddb = "DDB Location" \
+feature = Cross Section Features/Proposed Roadway Features/XS_CBARR
+
+define "~Concrete Barrier Fill Slab Symbology"  \
+ddb = "DDB Location" \
+feature = Cross Section Features/Proposed Roadway Features/XS_CBFILSLB
+
+define "~Concrete Barrier Fill Symbology" \
+ddb = "DDB Location" \
+feature = Cross Section Features/Proposed Roadway Features/XS_CBFILL
+
+define "~Retaining Wall Surface Symbology" \
+ddb = "DDB Location" \
+feature = Cross Section Features/Proposed Roadway Features/XS_RETWALSU
+
+define "~Retaining Wall Subgrade Symbology" \
+ddb = "DDB Location" \
+feature = Cross Section Features/Proposed Roadway Features/XS_RETWALSB
+
+define "~Wall Excavation Symbology" \
+ddb = "DDB Location" \
+feature = Cross Section Features/Proposed Roadway Features/XS_RETWALEXC
+
+define "~Slope Symbology" \
+ddb = "DDB Location" \
+feature = Cross Section Features/Proposed Roadway Features/XS_SLOPE
+
+define "~Ditch Slope Text Symbology" wt=bylevel co=bylevel lc=bylevel number of decimal places=1 format=rise:run just=cb th=_d_TextSize tw=_d_TextSize*0.83 off=_d_TextSize/2 ft=8 lvname=XS_PR_SLOPE_TEXT
+
+define "~Special Ditch Label Symbology" wt=bylevel co=bylevel lc=bylevel th=_d_TextSize*1.0 tw=_d_TextSize*0.83 ft=8 just=ct lvname=XS_PR_SPECIAL_DITCH_LABEL 
+
+define "~Excavation limits" \
+ddb = "DDB Location" \
+feature = Cross Section Features/XS Generated Plan Lines/XS_EXCLIM
+
+define "~Excavation Limits Text Symbology" wt=0 co=bylevel lc=0 just=cc th=_d_TextSize tw=_d_TextSize*0.83 ft=8 off=_d_TextSize/2 angle=90 lvname=EXCAV_LIMIT_GPK_PR 
+
+define "~Entrance Surface Symbology" \
+ddb = "DDB Location" \
+feature = Cross Section Features/Proposed Roadway Features/XS_ENTRSURF
+
+define "~Entrance Subgrade Symbology" \
+ddb = "DDB Location" \
+feature = Cross Section Features/Proposed Roadway Features/XS_ENTRSUBG
+
+define "~Hidden Ditch Line Symbology" \
+ddb = "DDB Location" \
+feature = Cross Section Features/Proposed Roadway Features/XS_HIDDEN
+
+define "~Side Road Tie Down Symbology" \
+ddb = "DDB Location" \
+feature = Cross Section Features/Proposed Roadway Features/XS_SDRDTIE
+
+
+
+
+
+
+DEFINE "road symb" lvname=XS_PR_PAVT_SURF co=1 wt=1 lc=0
+DEFINE "bottom of top depth symb" lvname=XS_PR_PAVT_LAYER3_SUBGRD co=11 wt=1 lc=0
+DEFINE "bottom of leveling depth symb" lvname=XS_PR_PAVT_LAYER2_SUBGRD co=3 wt=1 lc=0
+DEFINE "bottom of base depth symb" lvname=XS_PR_PAVT_LAYER1_SUBGRD co=4 wt=1 lc=0
+DEFINE "top of paved shld symb" lvname=XS_PR_SHLDR_SURF co=5 wt=1 lc=0
+DEFINE "bottom of shld top depth symb" lvname=XS_PR_SHLDR_PAVED_LAYER2_SUBGRD co=6 wt=1 lc=0
+DEFINE "bottom of shld leveling depth symb" lvname=XS_PR_SHLDR_PAVED_LAYER1_SUBGRD co=7 wt=1 lc=0
+DEFINE "bottom of shld base depth symb" lvname=XS_PR_SHLDR_PAVED_LAYER1_SUBGRD co=12 wt=1 lc=0
+DEFINE "top of curb symb" lvname=XS_PR_CURB_GUT_SURF co=9 wt=1 lc=0
+DEFINE "bottom of curb symb" lvname=XS_PR_CURB_GUT_SUBGRD co=10 wt=1 lc=0
+DEFINE "seeding candidate" lvname=XS_PR_SLOPE_SURF co=2 wt=1 lc=0
+DEFINE "top of agg shoulder symb" lvname=XS_PR_SHLDR_SURF co=5 wt=1 lc=0
+DEFINE "bottom of agg shld symb" lvname=XS_PR_SHLDR_AGG_SUBGRD co=13 wt=1 lc=0
+DEFINE "agg base symb" lvname=XS_PR_AGGBASE_SUBGRD co=15 wt=1 lc=0
+DEFINE "subbase symb" lvname=XS_PR_SUBBASE_SUBGRD co=14 wt=1 lc=0
+DEFINE "pavement remove symb" lvname=XS_EX_PAVT_SUBGRD co=14 wt=1 lc=0
+DEFINE "earthwork limits" lvname=XS_LABEL_DELIMITER co=38 wt=4 lc=0
+DEFINE "driveway symb" lvname=driveway_appr_hma_pr co=42 wt=1 lc=0
+DEFINE "Prop Topsoil Symbology" lvname=xs_pr_greenspace_surf co=186 wt=1 lc=0
+DEFINE "XS ROW Symb" lvname=xs_ex_row_line co=5 wt=0 lc=0
+DEFINE "driveway topsurf symb" lvname=xs_pr_driveway_surf co=bylevel wt=bylevel lc=bylevel
+DEFINE "XS WETLAND Symb" lvname=WETLAND_EX co=8 wt=3 lc=2
+DEFINE "wall symbology" lvname=XS_PR_RET_WALL_SURF co=183 wt=3 lc=0
+
+
+
+/* cold milling */
+DEFINE "milling symb" lvname=XS_PR_PAVT_MILLING_SUBGRD co=22 wt=1 lc=0
+DEFINE "top of wedging symb" lvname=XS_PR_PAVT_WEDGE_LAYER_SUBGRD co=28 wt=1 lc=0
+DEFINE "shoulder trenching symb" lvname=XS_EX_SHLDR_PAVED_SUBGRD co=29 wt=1 lc=0
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/************************************* CROSS SECTION ELEMENTS DRAWN TO PLAN.DGN ************************************/
+
+
+/* Ditch Bottom */
+define "~Plan View Ditch Symbology" \
+ddb = "DDB Location" \
+feature = Cross Section Features/XS Generated Plan Lines/XS_DITCH
+
+/* Ditch Centerline Flow Arrows (cells) */
+define "~Plan View Flow Arrow Symbology" cell=grade cell library=typical.cel wt=bylevel co=bylevel angle=_d_angle xs=2 ys=2 lvname=DRAIN_DITCH_CL_GPK_PR
+
+
+
+
+/*********************************************************************************************/ 
+
+/*************** Show Marked Point Text for Debugging *****************************************/
+if (p1) then                                            
+  {
+    _s_show_marked_point_text = ^no^ /* use yes or no in carets */
+  }
+/**********************************************************************************************/  
+

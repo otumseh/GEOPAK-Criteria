@@ -1,0 +1,236 @@
+xsection
+
+earthwork
+tolerance = .04
+
+xs dgn = G:\Projects 2018A\18303\Earthworks\M-46 sections_1.dgn
+    
+    proposed finish grade
+        soil type = suitable_grading
+        roadway exc mult factor = 1
+        fill mult factor = 1
+        type = line, line_string
+        lvname =  DTM_Pr_XS,FG_Surface,Slope_Pr_XS,Surf_Shldr_Pr_Agg_XS,Surf_Shldr_Pr_Conc_xs,Surf_TravelWay_Pr_Conc_XS,Surf_Sidewalk_Pr_Conc_XS,CurbGut_Pr_XS,Barr_Conc_Pr_XS,Surf_TravelWay_Pr_HMA_XS,Surf_Shldr_Pr_Conc_XS
+              
+     
+    existing unsuitable material
+        soil type = topsoil_stripping
+        roadway exc mult factor = 1
+        subsoil exc mult factor = 1
+        fill mult factor = 1
+            type = line, line_string
+            lvname = XS_EX_TOPSOIL_SUBGRD
+            
+
+    existing unsuitable material
+        soil type = pavement_remove
+        roadway exc mult factor = 1
+        subsoil exc mult factor = 1
+        fill mult factor = 1
+            type = line, line_string
+            lvname = XS_EX_PAVT_SUBGRD
+
+    existing unsuitable material
+        soil type = sidewalk_remove
+        roadway exc mult factor = 1
+        subsoil exc mult factor = 1
+        fill mult factor = 1
+            type = line, line_string
+            lvname = XS_EX_SW_SUBGRD
+            
+     
+     proposed undercut
+        soil type = subbase
+        roadway exc mult factor = 1
+        subsoil exc mult factor = 1
+        fill mult factor = 1
+            type = line, line_string
+            lvname = Surf_RdBed_Pr_SubBase_XS
+            
+    proposed undercut
+        soil type = Prop_topsoil
+        roadway exc mult factor = 1
+        subsoil exc mult factor = 1
+        fill mult factor = 1
+            type = line, line_string
+            lvname = XS_pr_TOPSOIL_SUBGRD
+			
+     proposed undercut
+        soil type = OGDC
+        roadway exc mult factor = 1
+        subsoil exc mult factor = 1
+        fill mult factor = 1
+            type = line, line_string
+            lvname = Surf_RdBed_Pr_Base_OGDC_XS
+
+ proposed undercut
+        soil type = HMA_layers
+        roadway exc mult factor = 1
+        subsoil exc mult factor = 1
+        fill mult factor = 1
+            type = line, line_string
+            lvname = Surf_RdBed_Pr_Base_XS
+			
+	proposed undercut
+        soil type = Agg_Base
+        roadway exc mult factor = 1
+        subsoil exc mult factor = 1
+        fill mult factor = 1
+            type = line, line_string
+            lvname = Surf_RdBed_Pr_Base_Agg_XS
+            
+      proposed undercut
+        soil type = Barrier_Backfill
+        roadway exc mult factor = 1
+        subsoil exc mult factor = 1
+        fill mult factor = 1
+            type = line, line_string
+            lvname = Barr_Conc_Pr_Split_A_Back  
+
+
+proposed undercut
+        soil type = Extra_Embankment
+        roadway exc mult factor = 1
+        subsoil exc mult factor = 1
+        fill mult factor = 1
+            type = line, line_string
+            lvname = Earth_Embankment_PR_XS
+            
+            
+       existing ground line
+        soil type = suitable_grading
+        roadway exc mult factor = 1
+        fill mult factor = 1
+        type = line,line_string
+        lvname = DTM_EX_XS
+	/*co=bylevel*/
+       /* lc = BYLEVEL*/
+       /*  wt = BYLEVEL*/
+                
+          
+ 
+        
+   
+   excavation limits
+        
+        lvname= Excavation_Limits		
+        co= 1
+        
+
+    write earthwork shapes
+        plot param
+        lvname = Earth_Work_Shapes_XS~
+        co = 155
+        lc = 4
+        wt = 3
+        stratify shape color
+    
+    
+     write column base ascii file =  G:\Projects 2018A\18303\Earthworks\M-46 sections_1.txt
+
+	
+
+		column 1 formula = ["suitable_grading", common exc, end area]
+			+["suitable_grading", subgrade exc, end area]
+			+["suitable_grading", subsoil exc, end area]
+			+["topsoil_stripping", common exc, end area]
+			+ ["topsoil_stripping", subgrade exc, end area]
+			+ [ "topsoil_stripping",subsoil exc, end area]
+			
+	column 1 number of decimal place = 2
+	column 1 total length = 9
+		
+	column 2 formula = ["suitable_grading", fill, end area]
+			+["Extra_Embankment", fill, end area]
+	column 2 number of decimal place = 2
+	column 2 total length = 9
+
+	column 3 formula = ["subbase", fill, end area]
+	column 3 number of decimal place = 2
+	column 3 total length = 9
+	
+	column 4 formula = ["OGDC", fill, end area]
+	column 4 number of decimal place = 2
+	column 4 total length = 9	
+	
+	column 5 formula = ["Barrier_Backfill", fill, end area]
+	column 5 number of decimal place = 2
+	column 5 total length = 9	
+	
+		
+	column 6 formula = ["topsoil_stripping", common exc, end area]
+				   + ["topsoil_stripping", subgrade exc, end area]
+				   + [ "topsoil_stripping",subsoil exc, end area]
+	column 6 number of decimal place = 2
+	column 6 total length = 9
+	
+	column 7 formula = ["pavement_remove", common exc, end area]
+			+ ["pavement_remove", subgrade exc, end area]
+			+ [ "pavement_remove",subsoil exc, end area]
+	column 7 number of decimal place = 2
+	column 7 total length = 9
+
+	
+	
+	
+	
+	
+	
+	
+	
+	column 8 formula = ["suitable_grading", common exc, unadj vol]
+			+["suitable_grading", subgrade exc, unadj vol]
+			+["suitable_grading", subsoil exc, unadj vol]
+			+["topsoil_stripping", common exc, unadj vol]
+			+ ["topsoil_stripping", subgrade exc, unadj vol]
+			+ [ "topsoil_stripping",subsoil exc, unadj vol]
+			
+	column 8 number of decimal place = 0
+	column 8 total length = 9
+		
+	column 9 formula = ["suitable_grading", fill, unadj vol]
+			+["Extra_Embankment", fill, unadj vol]
+	column 9 number of decimal place = 0
+	column 9 total length = 9
+
+	column 10 formula = ["subbase", fill, unadj vol]
+	column 10 number of decimal place = 0
+	column 10 total length = 9
+	
+	column 11 formula = ["OGDC", fill, unadj vol]
+	column 11 number of decimal place = 0
+	column 11 total length = 9	
+	
+	column 12 formula = ["HMA_Layers", fill, unadj vol]
+	column 12 number of decimal place = 0
+	column 12 total length = 9
+
+	column 13 formula = ["Barrier_Backfill", fill, unadj vol]
+	column 13 number of decimal place = 0
+	column 13 total length = 9	
+	
+		
+	column 14 formula = ["topsoil_stripping", common exc, unadj vol]
+				   + ["topsoil_stripping", subgrade exc, unadj vol]
+				   + [ "topsoil_stripping",subsoil exc, unadj vol]
+	column 14 number of decimal place = 0
+	column 14 total length = 9
+	
+	column 15 formula = ["pavement_remove", common exc, unadj vol]
+			+ ["pavement_remove", subgrade exc, unadj vol]
+			+ [ "pavement_remove",subsoil exc, unadj vol]
+	column 15 number of decimal place = 0
+	column 15 total length = 9
+
+    
+    
+   calculate only between excavation limits
+   
+   
+    
+    End Area Decimal Places = 4
+    process earthwork for baseline = M-46_L	
+        job number = 505
+        beg sta = 383+50 R 1
+        end sta = 304+50 R 2
+	

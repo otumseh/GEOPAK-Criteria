@@ -1,0 +1,57 @@
+/* Right of Way File */
+/* row.x 12-02-2002                                                     */
+/************************************************************************/
+/*                                                                      */
+/*                                                                      */
+/*  This criteria file draws and labels the existing and proposed row,  */
+/*  as well as any construction easements.                              */
+/*                                                                      */
+/*  Notes:                                                              */
+/*                                                                      */
+/*  View(s) drawn to: xs (2D)                                           */
+/*                                                                      */
+/*  Variables to be set by User:                                        */
+/*                                                                      */
+/*                    "Right of Way Line Height"                        */
+/*                    _d_TextSize                                       */
+/*                                                                      */
+/*  Required marked points from other criteria files:                   */
+/*     none                                                             */
+/*                                                                      */
+/*  Points marked in this file:                                         */
+/*     none                                                             */
+/*                                                                      */
+/************************************************************************/
+
+
+
+if (p1) then /* Reset pointer to baseline */
+  {
+   	
+	
+	define "exc limit symb" lvname=Excavation_Limits co=5 wt=1 lc=0
+	
+   
+     set plot parameters "exc limit symb"
+
+mark x111 y111
+	draw skip to xpgl ypgl
+	draw skip rise:run = 0:1 to "Prop_BOC"
+	draw skip dx=1 dy=0
+	draw skip dx=0 dy=-10
+	draw dx=0 dy=20
+
+	draw skip dx=40 dy=0
+	draw dx=0 dy=-20
+
+    
+   
+  }
+
+
+else
+	{
+	
+	}
+	
+

@@ -1,0 +1,162 @@
+/* Right of Way File */
+/* row.x 12-02-2002                                                     */
+/************************************************************************/
+/*                                                                      */
+/*                                                                      */
+/*  This criteria file draws and labels the existing and proposed row,  */
+/*  as well as any construction easements.                              */
+/*                                                                      */
+/*  Notes:                                                              */
+/*                                                                      */
+/*  View(s) drawn to: xs (2D)                                           */
+/*                                                                      */
+/*  Variables to be set by User:                                        */
+/*                                                                      */
+/*                    "Right of Way Line Height"                        */
+/*                    _d_TextSize                                       */
+/*                                                                      */
+/*  Required marked points from other criteria files:                   */
+/*     none                                                             */
+/*                                                                      */
+/*  Points marked in this file:                                         */
+/*     none                                                             */
+/*                                                                      */
+/************************************************************************/
+
+
+
+if (p1) then /* Reset pointer to baseline */
+  {
+   	
+	
+	define "ex row symb" lvname=XS_EX_ROW_LINE co=0 wt=1 lc=0
+	define "prop row symb" lvname=XS_PR_ROW_LINE co=5 wt=1 lc=0
+	define "ex row text" lvname=XS_EX_ROW_LINE_TEXT co=0 wt=0 th=1.2 tw=1 just=cb angle=0 number of decimal places = 0 offset=1 
+	define "prop row text" lvname=XS_PR_ROW_LINE_TEXT co=5 wt=0 th=1.2 tw=1 just=cb angle=0 number of decimal places = 0 offset=1
+	
+	define "ex fence symb" lvname=XS_GENERAL_MESSAGE_TEXT co=7 wt=1 lc=0
+	define "ex fence text" lvname=XS_GENERAL_MESSAGE_TEXT co=7 wt=0 th=1.2 tw=1 just=cb angle=0 number of decimal places = 0 offset=1
+	define "PR fence symb" lvname=XS_GENERAL_MESSAGE_TEXT co=8 wt=1 lc=0
+	define "PR fence text" lvname=XS_GENERAL_MESSAGE_TEXT co=8 wt=0 th=1.2 tw=1 just=cb angle=0 number of decimal places = 0 offset=1
+	
+    remove skew effect
+    
+_d_row_counter = 1
+
+while _d_row_counter<=1
+	{
+    DRAW SKIP TO P1
+    
+    if (intersect dgn = "~Existing ROW") then
+    	{
+	    draw skip to xpgl ypgl
+	    draw skip rise:run = 0:1 to "~Existing ROW"
+	    draw skip rise:run = 1:0 for dy=80
+	    draw skip rise:run = -1:0 to existing ground
+	    set plot parameters "ex row symb"
+	    draw dx=0 dy=5
+	    draw text char = ^Existing Row^ "ex row text"
+	 }
+     else
+     	{
+     	
+     	}
+     
+    DRAW SKIP TO P1
+    if (intersect dgn = "~Proposed ROW") then
+    	{
+	    draw skip to xpgl ypgl
+	    draw skip rise:run = 0:1 to "~Proposed ROW"
+	    draw skip rise:run = 1:0 for dy=80
+	    draw skip rise:run = -1:0 to existing ground
+	    set plot parameters "prop row symb"
+	    draw dx=0 dy=5
+	    draw text char = ^Proposed Row^ "prop row text"
+	}
+	
+	else
+		{
+		
+		}
+ 	DRAW SKIP TO P1
+     if (intersect dgn = "~Proposed Limited Access ROW") then
+    	{
+	    draw skip to xpgl ypgl
+	    draw skip rise:run = 0:1 to "~Proposed Limited Access ROW"
+	    draw skip rise:run = 1:0 for dy=80
+	    draw skip rise:run = -1:0 to existing ground
+	    set plot parameters "prop row symb"
+	    draw dx=0 dy=5
+	    draw text char = ^Proposed LA Row^ "prop row text"
+	}
+	
+	else
+		{
+		
+		}
+		
+DRAW SKIP TO P1
+     if (intersect dgn = "~Existing Limited Access ROW") then
+    	{
+	    draw skip to xpgl ypgl
+	    draw skip rise:run = 0:1 to "~Existing Limited Access ROW"
+	    draw skip rise:run = 1:0 for dy=80
+	    draw skip rise:run = -1:0 to existing ground
+	    set plot parameters "ex row symb"
+	    draw dx=0 dy=5
+	    draw text char = ^Existing LA Row^ "ex row text"
+	}
+	
+	else
+		{
+		
+		}
+		
+
+DRAW SKIP TO P1
+     if (intersect dgn = "~Existing Fence") then
+    	{
+	    draw skip to xpgl ypgl
+	    draw skip rise:run = 0:1 to "~Existing Fence"
+	    draw skip rise:run = 1:0 for dy=80
+	    draw skip rise:run = -1:0 to existing ground
+	    set plot parameters "ex fence symb"
+	    draw dx=0 dy=5
+	    draw text char = ^Existing Fence^ "ex fence text"
+	}
+	
+	else
+		{
+		
+		}
+
+DRAW SKIP TO P1
+     if (intersect dgn = "~Proposed Fence") then
+    	{
+	    draw skip to xpgl ypgl
+	    draw skip rise:run = 0:1 to "~Proposed Fence"
+	    draw skip rise:run = 1:0 for dy=80
+	    draw skip rise:run = -1:0 to existing ground
+	    set plot parameters "pr fence symb"
+	    draw dx=0 dy=5
+	    draw text char = ^Proposed Fence^ "pr fence text"
+	}
+	
+	else
+		{
+		
+		}
+
+
+	_d_row_counter = _d_row_counter +1
+	}	/* ends while loop */
+	
+  }
+
+
+else
+	{
+	
+	}
+	
+

@@ -1,0 +1,741 @@
+
+
+
+
+/**************** Global Variables *******************************/
+/* this was not included in chucks criteria */
+
+/**************** XS DGN Variables **************************/
+
+
+/* TOTAL OF 4 PROJ SPECIFIC CHAINS IN THIS FILE*/
+
+/* proposed finish grade symbology*/
+Define "road symb" lvname=XS_PR_PAVT_SURF co=1 wt=1 lc=0
+define "seeding candidate" lvname=XS_PR_GREENSPACE_SURF co=2 wt=1 lc=0
+define "non-seeding candidate" lvname=XS_PR_RET_WALL_SURF co=3 wt=1 lc=0
+define "top of valley gutter symb" lvname=XS_PR_CURB_GUT_SURF co=4 wt=1 lc=0
+define "top of paved shld symb" lvname=XS_PR_SHLDR_SURF co=5 wt=1 lc=0
+Define "gore symb" lvname=XS_PR_PAVT_SURF co=6 wt=1 lc=0
+define "top of agg shoulder symb" lvname=XS_PR_SHLDR_SURF co=8 wt=1 lc=0
+define "top of curb symb" lvname=XS_PR_CURB_GUT_SURF co=9 wt=1 lc=0  
+define "Concrete Barrier Surface Symbology" lvname=XS_PR_BARRIER_SURF co=10 wt=1 lc=0
+define "Sidewalk Cap for Concrete Barrier Symbology" lvname=XS_PR_SIDEWALK_SURF co=15 wt=1 lc=0
+define "adv shoulder symb" lvname=XS_PR_SHLDR_SURF co=22 wt=1 lc=0
+define "prop retaining wall symb" lvname=XS_PR_RET_WALL_SURF co=23 wt=1 lc=0
+define "top of sidewalk" lvname=XS_PR_SIDEWALK_SURF co=24 wt=1 lc=0
+
+define "limits of ditch lines" lvname=DRAIN_DITCH_PR co=0 wt=0 lc=6
+
+/* other non-finish grade symbology*/
+
+define "bottom of top depth symb" lvname=XS_PR_PAVT_LAYER1_SUBGRD co=0 wt=1 lc=0
+define "bottom of leveling depth symb" lvname=XS_PR_PAVT_LAYER2_SUBGRD co=2 wt=1 lc=0
+define "bottom of base depth symb" lvname=XS_PR_PAVT_LAYER3_SUBGRD co=3 wt=1 lc=0
+define "bottom of fourth depth symb" lvname=XS_PR_PAVT_LAYER3_SUBGRD co=4 wt=1 lc=0
+define "bottom of fifth depth symb" lvname=XS_PR_PAVT_LAYER3_SUBGRD co=5 wt=1 lc=0
+define "bottom of sixth depth symb" lvname=XS_PR_PAVT_LAYER3_SUBGRD co=6 wt=1 lc=0
+
+define "bottom of shld top depth symb" lvname=XS_PR_SHLDR_PAVED_LAYER1_SUBGRD co=2 wt=1 lc=0
+define "bottom of shld leveling depth symb" lvname=XS_PR_SHLDR_PAVED_LAYER2_SUBGRD co=3 wt=1 lc=0
+define "bottom of shld base depth symb" lvname=XS_PR_SHLDR_PAVED_LAYER2_SUBGRD co=4 wt=1 lc=0
+define "bottom of shld fourth depth symb" lvname=XS_PR_SHLDR_PAVED_LAYER2_SUBGRD co=5 wt=1 lc=0
+define "bottom of shld fifth depth symb" lvname=XS_PR_SHLDR_PAVED_LAYER2_SUBGRD co=6 wt=1 lc=0
+define "bottom of shld sixth depth symb" lvname=XS_PR_SHLDR_PAVED_LAYER2_SUBGRD co=7 wt=1 lc=0
+define "bottom of gore top depth symb" lvname=XS_PR_PAVT_LAYER1_SUBGRD co=8 wt=1 lc=0
+define "bottom of gore leveling depth symb" lvname=XS_PR_PAVT_LAYER2_SUBGRD co=9 wt=1 lc=0
+define "bottom of gore base depth symb" lvname=XS_PR_PAVT_LAYER3_SUBGRD co=10 wt=1 lc=0
+define "bottom of gore fourth depth symb" lvname=XS_PR_PAVT_LAYER3_SUBGRD co=11 wt=1 lc=0
+define "bottom of gore fifth depth symb" lvname=XS_PR_PAVT_LAYER3_SUBGRD co=12 wt=1 lc=0
+define "bottom of gore sixth depth symb" lvname=XS_PR_PAVT_LAYER3_SUBGRD co=13 wt=1 lc=0
+define "bottom of valley gutter symb" lvname=XS_PR_CURB_GUT_SUBGRD co=14 wt=1 lc=0
+define "bottom of agg shld symb" lvname=XS_PR_SHLDR_AGG_SUBGRD co=15 wt=1 lc=0
+define "bottom of adv shoulder symb" lvname=XS_PR_SHLDR_PAVED_LAYER1_SUBGRD co=28 wt=1 lc=0
+
+define "agg base symb" lvname=XS_PR_AGGBASE_SUBGRD co=18 wt=1 lc=0
+
+define "bottom of SFB sidewalk cap symb" lvname=XS_PR_AGGBASE_SUBGRD co=29 wt=1 lc=0
+define "bottom of SFB granular fill symb" lvname=XS_PR_BARRIER_FILL_SUBGRD co=26 wt=1 lc=0
+
+define "bottom of curb symb" lvname=XS_PR_CURB_GUT_SUBGRD co=19 wt=1 lc=0
+define "Concrete Barrier subSurface Symbology" lvname=XS_PR_BARRIER_SUBGRD co=20 wt=1 lc=0
+define "Conc Barrier Bottom Slab Symbology" lvname=XS_PR_BARRIER_BOTTOM_SLAB_SUBGRD co=21 wt=1 lc=0
+
+define "topsoil stripping symb" lvname=XS_EX_TOPSOIL_SUBGRD co=20 wt=1 lc=1
+define "pavement remove symb" lvname=XS_EX_PAVT_SUBGRD co=0 wt=1 lc=1
+define "SHOULDER remove VERT LINE symb" lvname=XS_EX_PAVT_vERT_LINE co=2 wt=1 lc=2
+DEFINE "sidewalk remove symb"lvname=XS_EX_SW_SUBGRD co=7 wt=1 lc=1
+
+define "subbase symb" lvname=XS_PR_SUBBASE_SUBGRD co=39 wt=1 lc=0
+define "more general embankment" lvname=XS_PR_AGGBASE_SUBGRD co=43 wt=1 lc=0
+define "bottom of sidewalk" lvname=XS_PR_SIDEWALK_SUBGRD co=44 wt=1 lc=0
+
+define "GPK_CH_A_ew_xs_limits_symb" lvname=EXCAV_LIMIT_GPK_PR co=1 wt=5 lc=0
+define "GPK_CH_B_ew_xs_limits_symb" lvname=EXCAV_LIMIT_GPK_PR co=2 wt=5 lc=0
+define "GPK_CH_C_ew_xs_limits_symb" lvname=EXCAV_LIMIT_GPK_PR co=3 wt=5 lc=0
+define "GPK_CH_D_ew_xs_limits_symb" lvname=EXCAV_LIMIT_GPK_PR co=4 wt=5 lc=0
+define "GPK_CH_E_ew_xs_limits_symb" lvname=EXCAV_LIMIT_GPK_PR co=5 wt=5 lc=0
+define "GPK_CH_F_ew_xs_limits_symb" lvname=EXCAV_LIMIT_GPK_PR co=6 wt=5 lc=0
+define "GPK_CH_G_ew_xs_limits_symb" lvname=EXCAV_LIMIT_GPK_PR co=7 wt=5 lc=0
+define "GPK_CH_H_ew_xs_limits_symb" lvname=EXCAV_LIMIT_GPK_PR co=8 wt=5 lc=0
+define "GPK_CH_I_ew_xs_limits_symb" lvname=EXCAV_LIMIT_GPK_PR co=9 wt=5 lc=0
+define "GPK_CH_J_ew_xs_limits_symb" lvname=EXCAV_LIMIT_GPK_PR co=10 wt=5 lc=0
+define "GPK_CH_K_ew_xs_limits_symb" lvname=EXCAV_LIMIT_GPK_PR co=11 wt=5 lc=0
+define "GPK_CH_L_ew_xs_limits_symb" lvname=EXCAV_LIMIT_GPK_PR co=12 wt=5 lc=0
+define "GPK_CH_M_ew_xs_limits_symb"  lvname=EXCAV_LIMIT_GPK_PR co=13 wt=5 lc=0
+define "GPK_CH_N_ew_xs_limits_symb"  lvname=EXCAV_LIMIT_GPK_PR co=14 wt=5 lc=0
+define "GPK_CH_O_ew_xs_limits_symb" lvname=EXCAV_LIMIT_GPK_PR co=15 wt=5 lc=0
+define "GPK_CH_P_ew_xs_limits_symb" lvname=EXCAV_LIMIT_GPK_PR co=16 wt=5 lc=0
+define "GPK_CH_Q_ew_xs_limits_symb"  lvname=EXCAV_LIMIT_GPK_PR co=17 wt=5 lc=0
+define "GPK_CH_R_ew_xs_limits_symb"  lvname=EXCAV_LIMIT_GPK_PR co=18 wt=5 lc=0
+define "GPK_CH_S_ew_xs_limits_symb"  lvname=EXCAV_LIMIT_GPK_PR co=19 wt=5 lc=0
+define "GPK_CH_T_ew_xs_limits_symb"  lvname=EXCAV_LIMIT_GPK_PR co=20 wt=5 lc=0
+define "GPK_CH_U_ew_xs_limits_symb"  lvname=EXCAV_LIMIT_GPK_PR co=21 wt=5 lc=0
+define "GPK_CH_V_ew_xs_limits_symb"  lvname=EXCAV_LIMIT_GPK_PR co=22 wt=5 lc=0
+define "GPK_CH_W_ew_xs_limits_symb"  lvname=EXCAV_LIMIT_GPK_PR co=23 wt=5 lc=0
+define "GPK_CH_X_ew_xs_limits_symb"  lvname=EXCAV_LIMIT_GPK_PR co=24 wt=5 lc=0
+
+
+
+
+
+define "proposed storm" lvname=DRAIN_STORM_PR co=0 wt=1 lc=0
+define_dgn "~Existing wetland"\
+dgn="wetland dgn"\
+lvname = wetland_ex 
+
+
+
+/* if you have a sawcut line ddb attribute AND you are in a gore such that the sawcut line is the start of the gore*/
+/* the draw this line from the 2 to 22' point so that criteria treats this as a gore and not sawcut with widening */
+/* this is a ddb attribute that was added by URS */
+define_dgn "~gore trigger line after sawcut line"\
+dgn="Proposed Plan DGN"\
+ddb = "DDB Location" \
+feature = Plan Features/Geopak XS Scan Lines/Plan DGN/Saw Cut Line/SAWCUT_GORE
+
+
+/* this sets the subbase 1:1 break point in the construct*/
+define_dgn "~Subbase Break Line DGN"\
+dgn="Proposed Plan DGN"\
+lvname = XS_PR_SUBBASE_SUBGRD \
+co=53 \
+lc=7 \
+wt=0
+
+
+/* this is what criteria looks for for drawing the limits of pavt for pavt removal symb */
+define_dgn "Ex sw Limits for XS"\
+dgn="Geopak Lines DGN"\
+lvname = NOT_FOUND 
+
+define_dgn "~shared ditch line in dgn"\
+dgn="Geopak Lines DGN"\
+lvname = drain_ditch_pr \
+co=100 \
+lc=7 \
+wt=2
+
+
+/* xs view individual tie down symbology and drawing name */
+define_dgn "tie roads together" \
+dgn="Geopak Lines DGN" \
+LVNAME=SCRATCH_LEVEL_A \
+co=60 \
+lc=7 \
+wt=2
+
+
+/* if it hits this line within 10' of P1, then it will taper the shoulder */
+define_dgn "~Proposed driveway in DGN"\
+dgn="Geopak Lines DGN"\
+LVNAME=this_needs_to_be_replaced \		/* MUST BE UPDATED********************************* */
+
+/* if it hits this line within 10' of P1, then it will taper the shoulder */
+define_dgn "tie ditch to row line"\
+dgn="Geopak Lines DGN"\
+LVNAME=tie_ditch_to_row_line \
+
+
+/* this line determines where the pavt rem sub begins */
+define_dgn "Pavt Rem Trigger Line"\
+dgn="EXISTING TOPO DGN"\
+LVNAME=PAVT_REM_TRIGGER
+
+
+/* Plan View Removed Pavement */
+define_dgn "Ex Pavt Limits for XS" \
+dgn="Existing Topo DGN" \
+lvname = PAVT_RM
+
+/* Plan View Removed Pavement */
+define_dgn "Ex SHLDR Limits for XS" \
+dgn="Existing Topo DGN" \
+lvname = SHLDR_RM
+
+/* Plan View Proposed Bridge approach C & G */
+define_dgn "~Bdg Appr Curb Gutter"\
+dgn="Proposed Plan DGN"\
+ddb = "DDB Location" \
+feature = Plan Features/802 Conc Curb Gutter & Divider/8020010
+
+
+/* if it hits this line within 10' of P1, then it will taper the shoulder */
+define_dgn "~Proposed Guardrail in dgn"\
+dgn="Proposed Plan DGN"\
+LVNAME=pr_gdrl \
+wt=1
+
+
+/* if it hits this line within 10' of P1, then it will taper the shoulder */
+define_dgn "tapered shoulder trigger line"\
+dgn="Geopak Lines DGN"\
+LVNAME=tapered_shoulder_trigger_line \
+lc=0 \
+wt=1
+
+
+/* Plan view of CB that is NOT on the outlet side */
+define_dgn "single catch basin"\
+dgn="drainage dgn"\	
+LVNAME=scratch_level_b \
+co=4 \
+lc=0
+
+/* Plan view of  CB that is on the outlet side */
+define_dgn "outlet catch basin"\
+dgn="drainage dgn"\	
+LVNAME=scratch_level_b \
+co=1 \
+lc=0
+
+
+/* Plan View Existing ROW Symbology and Drawing Name */
+define_dgn "~Existing ROW" \
+dgn="Right of Way DGN" \
+LVNAME=row_line_la_legal_ex,row_line_legal_ex,row_line_la_nonlegal_ex,row_line_nonlegal_ex 
+
+
+/* Plan View Proposed ROW Symbology and Drawing Name */
+define_dgn "~Proposed ROW"\
+dgn="Right of Way DGN" \
+LVNAME=row_line_la_legal_pr,row_line_legal_pr 
+
+
+define_dgn "~existing Retaining Wall"\
+dgn="EXISTING TOPO DGN"\
+LVNAME=ex_barriers \
+LVNAME=ex_misc_items \
+lc=EX WALL 
+
+/* Plan View Proposed Retaining Wall */
+define_dgn "~prop Retaining Wall"\
+dgn="Proposed Plan DGN"\
+LVNAME=RET_WALL_PR 
+
+
+
+
+define_dgn "ex 12 inch pipe"\
+dgn="Geopak Lines DGN"\
+LVNAME=ex_util_san \
+LVNAME=ex_util_storm \
+co=12 \
+lc=2
+
+define_dgn "ex 36 inch pipe"\
+dgn="Geopak Lines DGN"\
+LVNAME=ex_util_san \
+LVNAME=ex_util_storm \
+co=36 \
+lc=2
+
+define_dgn "ex 42 inch pipe"\
+dgn="Geopak Lines DGN"\
+LVNAME=ex_util_san \
+LVNAME=ex_util_storm \
+co=42 \
+lc=2
+
+define_dgn "ex 60 inch pipe"\
+dgn="Geopak Lines DGN"\
+LVNAME=ex_util_san \
+LVNAME=ex_util_storm \
+co=60 \
+lc=2
+
+
+/* Plan View Proposed Bridge Barrier Railing, Type 5 */
+/* these are proposed bridge barriers on top of existing/proposed retaining walls ...similiar to type A, but for a retaining wall */
+define_dgn "~Bridge Barrier Railing, Type 5"\
+dgn="Geopak Lines DGN"\
+ddb = "DDB Location" \
+feature = Plan Features/711 Bridge Railings/7110002	
+
+
+/* Plan View Proposed Bridge Barrier Railing, Type 4 */
+/* these are proposed bridge barriers on top of existing/proposed retaining walls ...similiar to type A, but for a retaining wall */
+define_dgn "~Bridge Barrier Railing, Type 4"\
+dgn="Geopak Lines DGN"\
+ddb = "DDB Location" \
+feature = Plan Features/711 Bridge Railings/7110001	
+
+
+
+
+
+
+/* Plan View Proposed Valley Gutter */
+define_dgn "~Valley Gutter"\
+dgn="Geopak Lines DGN" \
+ddb = "DDB Location" \
+feature = Plan Features/Geopak XS Scan Lines/Plan DGN/Curb & Gutter/8020060
+
+
+/* Plan View Proposed Barrier Wall Split Type A */
+define_dgn "~Conc Barrier, Split, Type A"\
+dgn="Geopak Lines DGN" \
+ddb = "DDB Location" \
+feature = Plan Features/Geopak XS Scan Lines/Plan DGN/Barriers/8040010
+
+/* Plan View Proposed Barrier Wall Split Type B */
+define_dgn "~Conc Barrier, Split, Type B"\
+dgn="Geopak Lines DGN" \
+ddb = "DDB Location" \
+feature = Plan Features/Geopak XS Scan Lines/Plan DGN/Barriers/8040011
+
+
+
+
+
+/* Plan View Proposed Barrier Wall for user controlled width */
+define_dgn "~Concrete Barrier Line in DGN"\
+dgn="Geopak Lines DGN" \
+ddb = "DDB Location" \
+feature = Plan Features/Geopak XS Scan Lines/Plan DGN/Barriers/
+
+
+
+/* Plan View Proposed Barrier Wall Single Face Type A */
+define_dgn "~Concrete Barrier Single Face Type A"\
+dgn="Geopak Lines DGN" \
+ddb = "DDB Location" \
+feature = Plan Features/Geopak XS Scan Lines/Plan DGN/Barriers/8040001
+
+/* Plan View Proposed Barrier Wall Single Face Type B */
+define_dgn "~Concrete Barrier Single Face Type B"\
+dgn="Geopak Lines DGN" \
+ddb = "DDB Location" \
+feature = Plan Features/Geopak XS Scan Lines/Plan DGN/Barriers/8040002
+
+/* Plan View Proposed Barrier Wall Single Face Type C */
+define_dgn "~Concrete Barrier Single Face Type C"\
+dgn="Geopak Lines DGN" \
+ddb = "DDB Location" \
+feature = Plan Features/Geopak XS Scan Lines/Plan DGN/Barriers/8040003
+
+/* Plan View Proposed Barrier Wall Double Face Type A */
+define_dgn "~Concrete Barrier Type A"\
+dgn="Geopak Lines DGN" \
+ddb = "DDB Location" \
+feature = Plan Features/Geopak XS Scan Lines/Plan DGN/Barriers/8040005
+
+/* Plan View Proposed Barrier Wall Double Face Type B */
+define_dgn "Conc Barrier, Double Face, Type B"\			/*define_dgn "~Concrete Barrier Type B"\*/
+dgn="Geopak Lines DGN" \
+ddb = "DDB Location" \
+feature = Plan Features/Geopak XS Scan Lines/Plan DGN/Barriers/8040006
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Plan view of G1 and G2 curb */
+define_dgn "~Curb Line type G in DGN"\
+dgn="Proposed Plan DGN" \
+ddb = "DDB Location" \
+feature = Roadway Design/Plan Features/Roadway Features/Curb & Gutter/Conc Barriers/Type G
+
+/* Plan view of d1 and d2 and d3 curb */
+define_dgn "~Curb Line type D in DGN"\
+dgn="Proposed Plan DGN" \
+ddb = "DDB Location" \
+feature = Roadway Design/Plan Features/Roadway Features/Curb & Gutter/Conc Barriers/Type D
+
+
+
+
+define_dgn "pavement removal areas" \
+dgn="Geopak Lines DGN" \
+LVNAME=rm_pavt 
+
+
+
+define_dgn "GPK_CH_A start pavt removal" \
+dgn="Geopak Lines DGN" \
+LVNAME=rm_shldr \
+co=0
+
+define_dgn "GPK_CH_B start pavt removal" \
+dgn="Geopak Lines DGN" \
+LVNAME=rm_shldr \
+co=2
+
+define_dgn "GPK_CH_C start pavt removal" \
+dgn="Geopak Lines DGN" \
+LVNAME=rm_shldr \
+co=3
+
+define_dgn "GPK_CH_D start pavt removal" \
+dgn="Geopak Lines DGN" \
+LVNAME=rm_shldr \
+co=4
+
+define_dgn "GPK_CH_E start pavt removal" \
+dgn="Geopak Lines DGN" \
+LVNAME=rm_shldr \
+co=5
+
+define_dgn "GPK_CH_F start pavt removal" \
+dgn="Geopak Lines DGN" \
+LVNAME=rm_shldr \
+co=6
+
+define_dgn "GPK_CH_G start pavt removal" \
+dgn="Geopak Lines DGN" \
+LVNAME=rm_shldr \
+co=7
+
+define_dgn "GPK_CH_H start pavt removal" \
+dgn="Geopak Lines DGN" \
+LVNAME=rm_shldr \
+co=8
+
+define_dgn "GPK_CH_I start pavt removal" \
+dgn="Geopak Lines DGN" \
+LVNAME=rm_shldr \
+co=9
+
+define_dgn "GPK_CH_J start pavt removal" \
+dgn="Geopak Lines DGN" \
+LVNAME=rm_shldr \
+co=10
+
+define_dgn "GPK_CH_K start pavt removal" \
+dgn="Geopak Lines DGN" \
+LVNAME=rm_shldr \
+co=11
+
+define_dgn "GPK_CH_L start pavt removal" \
+dgn="Geopak Lines DGN" \
+LVNAME=rm_shldr \
+co=12
+
+define_dgn "GPK_CH_M start pavt removal" \
+dgn="Geopak Lines DGN" \
+LVNAME=rm_shldr \
+co=13
+
+define_dgn "GPK_CH_N start pavt removal" \
+dgn="Geopak Lines DGN" \
+LVNAME=rm_shldr \
+co=14
+
+define_dgn "GPK_CH_O start pavt removal" \
+dgn="Geopak Lines DGN" \
+LVNAME=rm_shldr \
+co=15
+
+define_dgn "GPK_CH_P start pavt removal" \
+dgn="Geopak Lines DGN" \
+LVNAME=rm_shldr \
+co=16
+
+define_dgn "GPK_CH_Q start pavt removal" \
+dgn="Geopak Lines DGN" \
+LVNAME=rm_shldr \
+co=17
+
+define_dgn "GPK_CH_R start pavt removal" \
+dgn="Geopak Lines DGN" \
+LVNAME=rm_shldr \
+co=18
+
+define_dgn "GPK_CH_S start pavt removal" \
+dgn="Geopak Lines DGN" \
+LVNAME=rm_shldr \
+co=19
+
+define_dgn "GPK_CH_T start pavt removal" \
+dgn="Geopak Lines DGN" \
+LVNAME=rm_shldr \
+co=20
+
+define_dgn "GPK_CH_U start pavt removal" \
+dgn="Geopak Lines DGN" \
+LVNAME=rm_shldr \
+co=21
+
+define_dgn "GPK_CH_V start pavt removal" \
+dgn="Geopak Lines DGN" \
+LVNAME=rm_shldr \
+co=22
+
+define_dgn "GPK_CH_W start pavt removal" \
+dgn="Geopak Lines DGN" \
+LVNAME=rm_shldr \
+co=23
+
+define_dgn "GPK_CH_X start pavt removal" \
+dgn="Geopak Lines DGN" \
+LVNAME=rm_shldr \
+co=24
+
+define_dgn "prop temp widening EOM" \
+dgn="Geopak Lines DGN" \
+LVNAME=pr_mt_o \
+co=225
+
+define_dgn "driveway" \
+dgn="Geopak Lines DGN" \
+lvname=ex_drwy\
+co=10
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Plan View Existing ROW Symbology and Drawing Name */
+define_dgn "draw sidewalk between SFB" \
+dgn="Geopak Lines DGN" \
+LVNAME=sidewalk_conc4_pr
+
+
+
+/* Plan View Existing ROW Symbology and Drawing Name */
+/* this is similar to a conc cap */
+define_dgn "draw slope paving between SFB" \	
+dgn="Geopak Lines DGN" \
+LVNAME=26\
+co=3\
+lc=0\
+wt=0
+
+
+/* Plan View Existing ROW Symbology and Drawing Name */
+/* this is the adv shoulder between vg and barrier */
+define_dgn "adv shoulder line" \			
+dgn="Geopak Lines DGN" \
+lvname = SHOULDER_EDGE_PAVED_PR \
+co = 5
+
+
+/* Plan View Existing ROW Symbology and Drawing Name */
+define_dgn "shorter gore search distance" \
+dgn="Geopak Lines DGN" \
+LVNAME=1\
+co=11\
+lc=0\
+wt=0
+
+
+
+
+
+
+
+/* Plan View Existing ROW Symbology and Drawing Name */
+define_dgn "GPK_CH_A_ew_limits" \
+dgn="Geopak Lines DGN" \
+LVNAME=EWKS_LIMITS_GPK_CH_A
+
+/* Plan View Existing ROW Symbology and Drawing Name */
+define_dgn "GPK_CH_B_ew_limits" \
+dgn="Geopak Lines DGN" \
+LVNAME=EWKS_LIMITS_GPK_CH_B
+
+/* Plan View Existing ROW Symbology and Drawing Name */
+define_dgn "GPK_CH_C_ew_limits" \
+dgn="Geopak Lines DGN" \
+LVNAME=EWKS_LIMITS_GPK_CH_C
+
+/* Plan View Existing ROW Symbology and Drawing Name */
+define_dgn "GPK_CH_D_ew_limits" \
+dgn="Geopak Lines DGN" \
+LVNAME=EWKS_LIMITS_GPK_CH_D
+
+/* Plan View Existing ROW Symbology and Drawing Name */
+define_dgn "GPK_CH_E_ew_limits" \
+dgn="Geopak Lines DGN" \
+LVNAME=EWKS_LIMITS_GPK_CH_E
+
+/* Plan View Existing ROW Symbology and Drawing Name */
+define_dgn "GPK_CH_F_ew_limits" \
+dgn="Geopak Lines DGN" \
+LVNAME=EWKS_LIMITS_GPK_CH_F
+
+/* Plan View Existing ROW Symbology and Drawing Name */
+define_dgn "GPK_CH_G_ew_limits" \
+dgn="Geopak Lines DGN" \
+LVNAME=EWKS_LIMITS_GPK_CH_G
+
+/* Plan View Existing ROW Symbology and Drawing Name */
+define_dgn "GPK_CH_H_ew_limits" \
+dgn="Geopak Lines DGN" \
+LVNAME=EWKS_LIMITS_GPK_CH_H
+
+/* Plan View Existing ROW Symbology and Drawing Name */
+define_dgn "GPK_CH_I_ew_limits" \
+dgn="Geopak Lines DGN" \
+LVNAME=EWKS_LIMITS_GPK_CH_I
+
+/* Plan View Existing ROW Symbology and Drawing Name */
+define_dgn "GPK_CH_J_ew_limits" \
+dgn="Geopak Lines DGN" \
+LVNAME=EWKS_LIMITS_GPK_CH_J
+
+/* Plan View Existing ROW Symbology and Drawing Name */
+define_dgn "GPK_CH_K_ew_limits" \
+dgn="Geopak Lines DGN" \
+LVNAME=EWKS_LIMITS_GPK_CH_K
+
+/* Plan View Existing ROW Symbology and Drawing Name */
+define_dgn "GPK_CH_L_ew_limits" \
+dgn="Geopak Lines DGN" \
+LVNAME=EWKS_LIMITS_GPK_CH_L
+
+/* Plan View Existing ROW Symbology and Drawing Name */
+define_dgn "GPK_CH_M_ew_limits" \
+dgn="Geopak Lines DGN" \
+LVNAME=EWKS_LIMITS_GPK_CH_M
+
+/* Plan View Existing ROW Symbology and Drawing Name */
+define_dgn "GPK_CH_N_ew_limits" \
+dgn="Geopak Lines DGN" \
+LVNAME=EWKS_LIMITS_GPK_CH_N
+
+/* Plan View Existing ROW Symbology and Drawing Name */
+define_dgn "GPK_CH_O_ew_limits" \
+dgn="Geopak Lines DGN" \
+LVNAME=EWKS_LIMITS_GPK_CH_O
+
+/* Plan View Existing ROW Symbology and Drawing Name */
+define_dgn "GPK_CH_P_ew_limits" \
+dgn="Geopak Lines DGN" \
+LVNAME=EWKS_LIMITS_GPK_CH_P
+
+/* Plan View Existing ROW Symbology and Drawing Name */
+define_dgn "GPK_CH_Q_ew_limits" \
+dgn="Geopak Lines DGN" \
+LVNAME=EWKS_LIMITS_GPK_CH_Q
+
+/* Plan View Existing ROW Symbology and Drawing Name */
+define_dgn "GPK_CH_R_ew_limits" \
+dgn="Geopak Lines DGN" \
+LVNAME=EWKS_LIMITS_GPK_CH_R
+
+/* Plan View Existing ROW Symbology and Drawing Name */
+define_dgn "GPK_CH_S_ew_limits" \
+dgn="Geopak Lines DGN" \
+LVNAME=EWKS_LIMITS_GPK_CH_S
+
+/* Plan View Existing ROW Symbology and Drawing Name */
+define_dgn "GPK_CH_T_ew_limits" \
+dgn="Geopak Lines DGN" \
+LVNAME=EWKS_LIMITS_GPK_CH_T
+
+/* Plan View Existing ROW Symbology and Drawing Name */
+define_dgn "GPK_CH_U_ew_limits" \
+dgn="Geopak Lines DGN" \
+LVNAME=EWKS_LIMITS_GPK_CH_U
+
+/* Plan View Existing ROW Symbology and Drawing Name */
+define_dgn "GPK_CH_V_ew_limits" \
+dgn="Geopak Lines DGN" \
+LVNAME=EWKS_LIMITS_GPK_CH_V
+
+/* Plan View Existing ROW Symbology and Drawing Name */
+define_dgn "GPK_CH_W_ew_limits" \
+dgn="Geopak Lines DGN" \
+LVNAME=EWKS_LIMITS_GPK_CH_W
+
+/* Plan View Existing ROW Symbology and Drawing Name */
+define_dgn "GPK_CH_X_ew_limits" \
+dgn="Geopak Lines DGN" \
+LVNAME=EWKS_LIMITS_GPK_CH_X
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* i don't think this is necessary, but just in case */
+
+
+
+
+
+/* xs view individual tie down symbology and drawing name */
+define_dgn "Indiv tie down" \
+dgn="Geopak Lines DGN" \
+LVNAME=SCRATCH_LEVEL_A \
+co=6 \
+lc=0 \
+wt=2

@@ -1,0 +1,228 @@
+
+			
+			
+xcode = 1
+plot parameters "road symb"
+
+if p1 then
+	{
+	
+	/* TOTAL OF 0 PROJ SPECIFIC CHAINS IN THIS FILE*/
+	
+	include C:\Criteria\other_input_variables.tmb
+	include C:\Criteria\draw_roadway_new.tmb
+	
+	/* the following variables are set in the draw_roadway_new.tmb file...don't process any more criteria for this cluster unless one of these are true */
+	if _s_found_sawcut_line = ^yes^ or _s_found_prop_eop = ^yes^ then
+		{
+		include C:\Criteria\get_shape_names_and_slope_values.tmb
+		include C:\Criteria\general_side_treatments.tmb
+		
+		mark x123 y123
+		if _s_found_sawcut_line = ^yes^ then
+			{
+			if _s_shoulder_widening_only = ^yes^ then
+				{
+				/* don't do anything, subbase under shoulder widening has already been drawn in */
+				draw skip to _mp_aggbase_under_eop	/* this is the agg at the start of shoulder widening */
+				set plot parameters "subbase symb"
+				draw skip slope = _d_shoulderslope for dx=_d_subbase_depth
+				draw skip dx=0 dy=-abs(_d_subbase_depth)
+					mark x222 y222
+				draw skip to _mp_aggbase_under_eop
+				draw rise:run = -1:1 to y222
+					mark _mp_subbase_beneath_eop
+					call sub label_subbase_under_eop
+				
+				/* now the other subbase criteria should take over */
+				}
+			
+			else if _s_sawcut_with_gore = ^no^ then 
+				{
+				/* you have a sawcut with widening */
+				draw skip to _mp_sawcut_line
+				draw skip dx=0 dy=-abs(_d_first_course_pavement_depth_in_FT)
+				draw skip dx=0 dy=-abs(_d_second_course_pavement_depth_in_FT)
+				draw skip dx=0 dy=-abs(_d_third_course_pavement_depth_in_FT)
+				draw skip dx=0 dy=-abs(_d_fourth_course_pavement_depth_in_FT)
+				draw skip dx=0 dy=-abs(_d_fifth_course_pavement_depth_in_FT)
+				draw skip dx=0 dy=-abs(_d_sixth_course_pavement_depth_in_FT)
+				draw skip dx=0 dy=-abs(_d_agg_base_depth_in_FT)
+					mark _mp_aggbase_under_sawcut
+					draw text char = ^_mp_aggbase_under_sawcut^ "mp text"
+					
+				set plot parameters "subbase symb"
+				draw skip slope = - pave slope for dx=_d_subbase_depth
+				draw skip dx=0 dy=-abs(_d_subbase_depth)
+					mark x222 y222
+				draw skip to _mp_aggbase_under_sawcut
+				draw rise:run = -1:1 to y222
+					mark _mp_start_subbase_here
+					
+				include C:\Criteria\draw_subbase_to_EOP.tmb
+				}
+				
+			else
+				{
+				/* don't do anything, you are in a gore with a sawcut, the subbase will be drawn in below */
+				}
+			}
+			
+		else
+			{
+			/* found prop eop in reconstruction */
+			include C:\Criteria\draw_subbase_to_EOP.tmb
+			}
+		
+		
+		
+		
+		if ((_s_intersect_gore=^yes^) or (_s_hit_double_faced_barrier = ^yes^)) then
+		   	{
+		   	/* close the subbase and aggbase here */
+		   	if (_s_intersect_gore=^yes^) then
+		   		{
+		   		/* connect the subbase under the gore here, because the current subbase wasn't marked until after the gore criteria */
+				/* aggbase already closed */
+				if _s_closest_chain_already_processed = ^yes^ then
+					{
+					if _d_subbase_depth > tolerance then
+						{
+						set plot parameters "subbase symb"
+						
+						if _s_sawcut_with_gore = ^no^ then
+							{
+							draw skip to _mp_subbase_beneath_eop
+							/* don't do anything...this is a typical gore connect subbase under each eop */
+							}
+						else
+							{
+							/* this is a sawcut with a gore, draw down at a 1:1 subbase depth and then connect to the subbase under eop */
+							draw skip to _mp_point_4	/* this is the agg base under the gore edge of pavement for the current chain being processed.  It was */
+											/* marked in the draw_gore subroutine */
+							draw dx=_d_subbase_depth dy=-abs(_d_subbase_depth)
+							}
+						draw to _mp_point_5	/* this is the subbase point under the closest road eop, marked when we checked for a gore */
+						_s_subbase_already_tied = ^yes^
+						}
+					else
+						{
+						_s_subbase_already_tied = ^yes^
+						/* don't do anything */
+						}
+					}
+				else
+					{
+					/* don't do anything....closest chain not already processed */
+					}
+				
+		   		}
+		   	else if (_s_hit_double_faced_barrier = ^yes^) then
+		   		{
+				call sub mark_and_remember_tentative_dfb_and_shoulders
+				call sub find_closest_chain			/* this returns the following variable: _s_closest_chain */
+				call sub was_closest_chain_already_processed	/* this returns the following variable: _s_closest_chain_already_processed */
+				if _s_closest_chain_already_processed = ^yes^ then
+					{
+					call sub closest_chain_side_slope		/* this returns the following variable: _s_closest_chain_side_slope */
+					
+					
+					call sub draw_skip_to_and_mark_double_face_barrier_closest_chain
+					call sub draw_double_faced_barrier		/* this draws the dfb in */
+					call sub tie_aggbase_and_subbase_below_dfb
+					}
+				else
+					{
+					/* don't do anything */
+					}	
+				
+				}
+		   	
+		   	}
+		   	
+		else
+			{
+			if _s_shoulder_widening_only = ^yes^ then
+				{
+				/* finish drawing the subbase and aggbase here for shoulder only widening */
+				draw skip to _mp_start_shldr_widening_sub_here
+				mark _mp_start_subbase_here
+				set plot parameters "subbase symb"
+				draw skip dx=0 dy=-abs(_d_subbase_depth)
+					mark _mp_subbase_1
+					mark x665 y665
+				draw skip slope = _d_SubgradeSlope for dx=10
+					mark _mp_subbase_2
+					mark x666 y666
+				draw skip to _mp_start_subbase_here
+				draw rise:run = -1:1 to intersection x665 y665 x666 y666	/* need to do this so that the subbase is actually the depth we need */
+					mark _mp_subbase_beneath_eop	/* this is the bottom of the 1:1 from shoulder widening */
+				
+				include C:\Criteria\draw_subbase_from_EOP_and_beyond_workingon.tmb			
+				}
+			else
+				{
+				
+				include C:\Criteria\draw_subbase_from_EOP_and_beyond_workingon.tmb
+				}
+			
+			}
+		
+		include C:\Criteria\create_profile_input_files_new.tmb
+		if _s_hit_double_faced_barrier = ^yes^ then
+			{
+			/* don't do anything....dfb criteria has already taken care of this */
+			}
+		else
+			{
+			_s_curb_chain = cluster baseline
+			call sub create_toc_and_flow_line_profiles	
+			}
+		
+		
+		
+		
+		
+		
+		
+		
+		}
+	
+	else
+		{
+		/* no proposed work on this cluster....dont' do anything */
+		
+		}
+	
+	
+	if _s_any_chain_been_processed = ^yes^ then
+		{
+		/* don't do anything */
+		/* ROW already drawn in */
+		
+		}
+	else
+		{
+		/*include B:\Workspace\Standards\Road\CRITERIA\draw_row.tmb*/
+		
+		}
+	
+	mark _mp_any_chain_been_processed
+	_s_any_chain_been_processed = ^yes^
+	
+	}
+	
+
+else	/* closes initial if p1 */
+	{
+	
+	
+	
+	}
+	
+	
+	
+
+	
+	
+	

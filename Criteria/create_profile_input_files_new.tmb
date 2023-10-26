@@ -1,0 +1,3273 @@
+xcode = 1
+plot parameters "road symb"
+
+
+/* TOTAL OF 63 PROJ SPECIFIC CHAINS IN THIS FILE*/
+
+
+
+
+sub create_toc_and_flow_line_profiles
+{
+
+
+
+if p1 then
+	{
+	
+	if (not _mp_profile_input_files_one_time) then
+		{
+	
+		_d_GPK_CH_A_left_flow = 0
+		_d_GPK_CH_A_left_toc = 0
+		_d_GPK_CH_A_left_ditch = 0
+		_d_GPK_CH_A_right_flow = 0
+		_d_GPK_CH_A_right_toc = 0
+		_d_GPK_CH_A_right_ditch = 0
+		
+		_d_GPK_CH_B_left_flow = 0
+		_d_GPK_CH_B_left_toc = 0
+		_d_GPK_CH_B_left_ditch = 0
+		_d_GPK_CH_B_right_flow = 0
+		_d_GPK_CH_B_right_toc = 0
+		_d_GPK_CH_B_right_ditch = 0
+		
+		_d_GPK_CH_C_left_flow = 0
+		_d_GPK_CH_C_left_toc = 0
+		_d_GPK_CH_C_left_ditch = 0
+		_d_GPK_CH_C_right_flow = 0
+		_d_GPK_CH_C_right_toc = 0
+		_d_GPK_CH_C_right_ditch = 0
+		
+		_d_GPK_CH_D_left_flow = 0
+		_d_GPK_CH_D_left_toc = 0
+		_d_GPK_CH_D_left_ditch = 0
+		_d_GPK_CH_D_right_flow = 0
+		_d_GPK_CH_D_right_toc = 0
+		_d_GPK_CH_D_right_ditch = 0
+		
+		_d_GPK_CH_E_left_flow = 0
+		_d_GPK_CH_E_left_toc = 0
+		_d_GPK_CH_E_left_ditch = 0
+		_d_GPK_CH_E_right_flow = 0
+		_d_GPK_CH_E_right_toc = 0
+		_d_GPK_CH_E_right_ditch = 0
+		
+		_d_GPK_CH_F_left_flow = 0
+		_d_GPK_CH_F_left_toc = 0
+		_d_GPK_CH_F_left_ditch = 0
+		_d_GPK_CH_F_right_flow = 0
+		_d_GPK_CH_F_right_toc = 0
+		_d_GPK_CH_F_right_ditch = 0
+		
+		_d_GPK_CH_G_left_flow = 0
+		_d_GPK_CH_G_left_toc = 0
+		_d_GPK_CH_G_left_ditch = 0
+		_d_GPK_CH_G_right_flow = 0
+		_d_GPK_CH_G_right_toc = 0
+		_d_GPK_CH_G_right_ditch = 0
+		
+		_d_GPK_CH_H_left_flow = 0
+		_d_GPK_CH_H_left_toc = 0
+		_d_GPK_CH_H_left_ditch = 0
+		_d_GPK_CH_H_right_flow = 0
+		_d_GPK_CH_H_right_toc = 0
+		_d_GPK_CH_H_right_ditch = 0
+		
+		_d_GPK_CH_I_left_flow = 0
+		_d_GPK_CH_I_left_toc = 0
+		_d_GPK_CH_I_left_ditch = 0
+		_d_GPK_CH_I_right_flow = 0
+		_d_GPK_CH_I_right_toc = 0
+		_d_GPK_CH_I_right_ditch = 0
+		
+		_d_GPK_CH_J_left_flow = 0
+		_d_GPK_CH_J_left_toc = 0
+		_d_GPK_CH_J_left_ditch = 0
+		_d_GPK_CH_J_right_flow = 0
+		_d_GPK_CH_J_right_toc = 0
+		_d_GPK_CH_J_right_ditch = 0
+		
+		_d_GPK_CH_K_CP_left_flow = 0
+		_d_GPK_CH_K_CP_left_flow = 0
+		_d_GPK_CH_K_CP_left_flow = 0
+		_d_GPK_CH_K_CP_left_flow = 0
+		_d_GPK_CH_K_CP_left_flow = 0
+		_d_GPK_CH_K_CP_left_flow = 0
+		
+		_d_GPK_CH_L_CP_left_flow = 0
+		_d_GPK_CH_L_CP_left_flow = 0
+		_d_GPK_CH_L_CP_left_flow = 0
+		_d_GPK_CH_L_CP_left_flow = 0
+		_d_GPK_CH_L_CP_left_flow = 0
+		_d_GPK_CH_L_CP_left_flow = 0
+		
+		_d_GPK_CH_M_left_flow = 0
+		_d_GPK_CH_M_left_flow = 0
+		_d_GPK_CH_M_left_flow = 0
+		_d_GPK_CH_M_left_flow = 0
+		_d_GPK_CH_M_left_flow = 0
+		_d_GPK_CH_M_left_flow = 0
+		
+		_d_GPK_CH_N_left_flow = 0
+		_d_GPK_CH_N_left_flow = 0
+		_d_GPK_CH_N_left_flow = 0
+		_d_GPK_CH_N_left_flow = 0
+		_d_GPK_CH_N_left_flow = 0
+		_d_GPK_CH_N_left_flow = 0
+		
+		_d_GPK_CH_O_left_flow = 0
+		_d_GPK_CH_O_left_flow = 0
+		_d_GPK_CH_O_left_flow = 0
+		_d_GPK_CH_O_left_flow = 0
+		_d_GPK_CH_O_left_flow = 0
+		_d_GPK_CH_O_left_flow = 0
+		
+		_d_GPK_CH_P_left_flow = 0
+		_d_GPK_CH_P_left_flow = 0
+		_d_GPK_CH_P_left_flow = 0
+		_d_GPK_CH_P_left_flow = 0
+		_d_GPK_CH_P_left_flow = 0
+		_d_GPK_CH_P_left_flow = 0
+		
+		_d_GPK_CH_Q_left_flow = 0
+		_d_GPK_CH_Q_left_flow = 0
+		_d_GPK_CH_Q_left_flow = 0
+		_d_GPK_CH_Q_left_flow = 0
+		_d_GPK_CH_Q_left_flow = 0
+		_d_GPK_CH_Q_left_flow = 0
+		
+		_d_GPK_CH_R_left_flow = 0
+		_d_GPK_CH_R_left_toc = 0
+		_d_GPK_CH_R_left_ditch = 0
+		_d_GPK_CH_R_right_flow = 0
+		_d_GPK_CH_R_right_toc = 0
+		_d_GPK_CH_R_right_ditch = 0
+		
+		_d_GPK_CH_S_left_flow = 0
+		_d_GPK_CH_S_left_toc = 0
+		_d_GPK_CH_S_left_ditch = 0
+		_d_GPK_CH_S_right_flow = 0
+		_d_GPK_CH_S_right_toc = 0
+		_d_GPK_CH_S_right_ditch = 0
+		
+		_d_GPK_CH_T_left_flow = 0
+		_d_GPK_CH_T_left_toc = 0
+		_d_GPK_CH_T_left_ditch = 0
+		_d_GPK_CH_T_right_flow = 0
+		_d_GPK_CH_T_right_toc = 0
+		_d_GPK_CH_T_right_ditch = 0
+		
+		_d_GPK_CH_U_left_flow = 0
+		_d_GPK_CH_U_left_toc = 0
+		_d_GPK_CH_U_left_ditch = 0
+		_d_GPK_CH_U_right_flow = 0
+		_d_GPK_CH_U_right_toc = 0
+		_d_GPK_CH_U_right_ditch = 0
+		
+		_d_GPK_CH_V_left_flow = 0
+		_d_GPK_CH_V_left_toc = 0
+		_d_GPK_CH_V_left_ditch = 0
+		_d_GPK_CH_V_right_flow = 0
+		_d_GPK_CH_V_right_toc = 0
+		_d_GPK_CH_V_right_ditch = 0
+		
+		_d_GPK_CH_W_left_flow = 0
+		_d_GPK_CH_W_left_toc = 0
+		_d_GPK_CH_W_left_ditch = 0
+		_d_GPK_CH_W_right_flow = 0
+		_d_GPK_CH_W_right_toc = 0
+		_d_GPK_CH_W_right_ditch = 0
+		
+		_d_GPK_CH_X_left_flow = 0
+		_d_GPK_CH_X_left_toc = 0
+		_d_GPK_CH_X_left_ditch = 0
+		_d_GPK_CH_X_right_flow = 0
+		_d_GPK_CH_X_right_toc = 0
+		_d_GPK_CH_X_right_ditch = 0
+		
+		
+		
+		
+		
+		define "GPK_CH_A left TOC" R:\Projects\12940588\CADD\Geopak\output\GPK_CH_A_I75_left_TOC.txt
+		define "GPK_CH_A right TOC" R:\Projects\12940588\CADD\Geopak\output\GPK_CH_A_I75_right_TOC.txt
+		define "GPK_CH_A left flow" R:\Projects\12940588\CADD\Geopak\output\GPK_CH_A_I75_left_flow.txt
+		define "GPK_CH_A right flow" R:\Projects\12940588\CADD\Geopak\output\GPK_CH_A_I75_right_flow.txt
+		
+		define "GPK_CH_B left TOC" R:\Projects\12940588\CADD\Geopak\output\GPK_CH_B_I75_left_TOC.txt
+		define "GPK_CH_B right TOC" R:\Projects\12940588\CADD\Geopak\output\GPK_CH_B_I75_right_TOC.txt
+		define "GPK_CH_B left flow" R:\Projects\12940588\CADD\Geopak\output\GPK_CH_B_I75_left_flow.txt
+		define "GPK_CH_B right flow" R:\Projects\12940588\CADD\Geopak\output\GPK_CH_B_I75_right_flow.txt
+		
+		define "GPK_CH_C left TOC" R:\Projects\12940588\CADD\Geopak\output\GPK_CH_C_I75_left_TOC.txt
+		define "GPK_CH_C right TOC" R:\Projects\12940588\CADD\Geopak\output\GPK_CH_C_I75_right_TOC.txt
+		define "GPK_CH_C left flow" R:\Projects\12940588\CADD\Geopak\output\GPK_CH_C_I75_left_flow.txt
+		define "GPK_CH_C right flow" R:\Projects\12940588\CADD\Geopak\output\GPK_CH_C_I75_right_flow.txt
+		
+		define "GPK_CH_D left TOC" R:\Projects\12940588\CADD\Geopak\output\GPK_CH_D_I75_left_TOC.txt
+		define "GPK_CH_D right TOC" R:\Projects\12940588\CADD\Geopak\output\GPK_CH_D_I75_right_TOC.txt
+		define "GPK_CH_D left flow" R:\Projects\12940588\CADD\Geopak\output\GPK_CH_D_I75_left_flow.txt
+		define "GPK_CH_D right flow" R:\Projects\12940588\CADD\Geopak\output\GPK_CH_D_I75_right_flow.txt
+		
+		define "GPK_CH_E left TOC" R:\Projects\12940588\CADD\Geopak\output\GPK_CH_E_I75_left_TOC.txt
+		define "GPK_CH_E right TOC" R:\Projects\12940588\CADD\Geopak\output\GPK_CH_E_I75_right_TOC.txt
+		define "GPK_CH_E left flow" R:\Projects\12940588\CADD\Geopak\output\GPK_CH_E_I75_left_flow.txt
+		define "GPK_CH_E right flow" R:\Projects\12940588\CADD\Geopak\output\GPK_CH_E_I75_right_flow.txt
+		
+		define "GPK_CH_F left TOC" R:\Projects\12940588\CADD\Geopak\output\GPK_CH_F_I75_left_TOC.txt
+		define "GPK_CH_F right TOC" R:\Projects\12940588\CADD\Geopak\output\GPK_CH_F_I75_right_TOC.txt
+		define "GPK_CH_F left flow" R:\Projects\12940588\CADD\Geopak\output\GPK_CH_F_I75_left_flow.txt
+		define "GPK_CH_F right flow" R:\Projects\12940588\CADD\Geopak\output\GPK_CH_F_I75_right_flow.txt
+		
+		define "GPK_CH_G left TOC" R:\Projects\12940588\CADD\Geopak\output\GPK_CH_G_I75_left_TOC.txt
+		define "GPK_CH_G right TOC" R:\Projects\12940588\CADD\Geopak\output\GPK_CH_G_I75_right_TOC.txt
+		define "GPK_CH_G left flow" R:\Projects\12940588\CADD\Geopak\output\GPK_CH_G_I75_left_flow.txt
+		define "GPK_CH_G right flow" R:\Projects\12940588\CADD\Geopak\output\GPK_CH_G_I75_right_flow.txt
+		
+		define "GPK_CH_H left TOC" R:\Projects\12940588\CADD\Geopak\output\GPK_CH_H_I75_left_TOC.txt
+		define "GPK_CH_H right TOC" R:\Projects\12940588\CADD\Geopak\output\GPK_CH_H_I75_right_TOC.txt
+		define "GPK_CH_H left flow" R:\Projects\12940588\CADD\Geopak\output\GPK_CH_H_I75_left_flow.txt
+		define "GPK_CH_H right flow" R:\Projects\12940588\CADD\Geopak\output\GPK_CH_H_I75_right_flow.txt
+		
+		define "GPK_CH_I left TOC" R:\Projects\12940588\CADD\Geopak\output\GPK_CH_I_I75_left_TOC.txt
+		define "GPK_CH_I right TOC" R:\Projects\12940588\CADD\Geopak\output\GPK_CH_I_I75_right_TOC.txt
+		define "GPK_CH_I left flow" R:\Projects\12940588\CADD\Geopak\output\GPK_CH_I_I75_left_flow.txt
+		define "GPK_CH_I right flow" R:\Projects\12940588\CADD\Geopak\output\GPK_CH_I_I75_right_flow.txt
+		
+		define "GPK_CH_J left TOC" R:\Projects\12940588\CADD\Geopak\output\GPK_CH_J_I75_left_TOC.txt
+		define "GPK_CH_J right TOC" R:\Projects\12940588\CADD\Geopak\output\GPK_CH_J_I75_right_TOC.txt
+		define "GPK_CH_J left flow" R:\Projects\12940588\CADD\Geopak\output\GPK_CH_J_I75_left_flow.txt
+		define "GPK_CH_J right flow" R:\Projects\12940588\CADD\Geopak\output\GPK_CH_J_I75_right_flow.txt
+		
+		define "GPK_CH_K left TOC" R:\Projects\12940588\CADD\Geopak\output\GPK_CH_K_I75_left_TOC.txt
+		define "GPK_CH_K right TOC" R:\Projects\12940588\CADD\Geopak\output\GPK_CH_K_I75_right_TOC.txt
+		define "GPK_CH_K left flow" R:\Projects\12940588\CADD\Geopak\output\GPK_CH_K_I75_left_flow.txt
+		define "GPK_CH_K right flow" R:\Projects\12940588\CADD\Geopak\output\GPK_CH_K_I75_right_flow.txt
+		
+		define "GPK_CH_L left TOC" R:\Projects\12940588\CADD\Geopak\output\GPK_CH_L_I75_left_TOC.txt
+		define "GPK_CH_L right TOC" R:\Projects\12940588\CADD\Geopak\output\GPK_CH_L_I75_right_TOC.txt
+		define "GPK_CH_L left flow" R:\Projects\12940588\CADD\Geopak\output\GPK_CH_L_I75_left_flow.txt
+		define "GPK_CH_L right flow" R:\Projects\12940588\CADD\Geopak\output\GPK_CH_L_I75_right_flow.txt
+		
+		define "GPK_CH_M left TOC" R:\Projects\12940588\CADD\Geopak\output\GPK_CH_M_I75_left_TOC.txt
+		define "GPK_CH_M right TOC" R:\Projects\12940588\CADD\Geopak\output\GPK_CH_M_I75_right_TOC.txt
+		define "GPK_CH_M left flow" R:\Projects\12940588\CADD\Geopak\output\GPK_CH_M_I75_left_flow.txt
+		define "GPK_CH_M right flow" R:\Projects\12940588\CADD\Geopak\output\GPK_CH_M_I75_right_flow.txt
+		
+		define "GPK_CH_N left TOC" R:\Projects\12940588\CADD\Geopak\output\GPK_CH_N_I75_left_TOC.txt
+		define "GPK_CH_N right TOC" R:\Projects\12940588\CADD\Geopak\output\GPK_CH_N_I75_right_TOC.txt
+		define "GPK_CH_N left flow" R:\Projects\12940588\CADD\Geopak\output\GPK_CH_N_I75_left_flow.txt
+		define "GPK_CH_N right flow" R:\Projects\12940588\CADD\Geopak\output\GPK_CH_N_I75_right_flow.txt
+		
+		define "GPK_CH_O left TOC" R:\Projects\12940588\CADD\Geopak\output\GPK_CH_O_I75_left_TOC.txt
+		define "GPK_CH_O right TOC" R:\Projects\12940588\CADD\Geopak\output\GPK_CH_O_I75_right_TOC.txt
+		define "GPK_CH_O left flow" R:\Projects\12940588\CADD\Geopak\output\GPK_CH_O_I75_left_flow.txt
+		define "GPK_CH_O right flow" R:\Projects\12940588\CADD\Geopak\output\GPK_CH_O_I75_right_flow.txt
+		
+		define "GPK_CH_P left TOC" R:\Projects\12940588\CADD\Geopak\output\GPK_CH_P_I75_left_TOC.txt
+		define "GPK_CH_P right TOC" R:\Projects\12940588\CADD\Geopak\output\GPK_CH_P_I75_right_TOC.txt
+		define "GPK_CH_P left flow" R:\Projects\12940588\CADD\Geopak\output\GPK_CH_P_I75_left_flow.txt
+		define "GPK_CH_P right flow" R:\Projects\12940588\CADD\Geopak\output\GPK_CH_P_I75_right_flow.txt
+		
+		define "GPK_CH_Q left TOC" R:\Projects\12940588\CADD\Geopak\output\GPK_CH_Q_I75_left_TOC.txt
+		define "GPK_CH_Q right TOC" R:\Projects\12940588\CADD\Geopak\output\GPK_CH_Q_I75_right_TOC.txt
+		define "GPK_CH_Q left flow" R:\Projects\12940588\CADD\Geopak\output\GPK_CH_Q_I75_left_flow.txt
+		define "GPK_CH_Q right flow" R:\Projects\12940588\CADD\Geopak\output\GPK_CH_Q_I75_right_flow.txt
+		
+		define "GPK_CH_R left TOC" R:\Projects\12940588\CADD\Geopak\output\GPK_CH_R_I75_left_TOC.txt
+		define "GPK_CH_R right TOC" R:\Projects\12940588\CADD\Geopak\output\GPK_CH_R_I75_right_TOC.txt
+		define "GPK_CH_R left flow" R:\Projects\12940588\CADD\Geopak\output\GPK_CH_R_I75_left_flow.txt
+		define "GPK_CH_R right flow" R:\Projects\12940588\CADD\Geopak\output\GPK_CH_R_I75_right_flow.txt
+		
+		define "GPK_CH_S left TOC" R:\Projects\12940588\CADD\Geopak\output\GPK_CH_S_I75_left_TOC.txt
+		define "GPK_CH_S right TOC" R:\Projects\12940588\CADD\Geopak\output\GPK_CH_S_I75_right_TOC.txt
+		define "GPK_CH_S left flow" R:\Projects\12940588\CADD\Geopak\output\GPK_CH_S_I75_left_flow.txt
+		define "GPK_CH_S right flow" R:\Projects\12940588\CADD\Geopak\output\GPK_CH_S_I75_right_flow.txt
+		
+		define "GPK_CH_T left TOC" R:\Projects\12940588\CADD\Geopak\output\GPK_CH_T_I75_left_TOC.txt
+		define "GPK_CH_T right TOC" R:\Projects\12940588\CADD\Geopak\output\GPK_CH_T_I75_right_TOC.txt
+		define "GPK_CH_T left flow" R:\Projects\12940588\CADD\Geopak\output\GPK_CH_T_I75_left_flow.txt
+		define "GPK_CH_T right flow" R:\Projects\12940588\CADD\Geopak\output\GPK_CH_T_I75_right_flow.txt
+		
+		define "GPK_CH_U left TOC" R:\Projects\12940588\CADD\Geopak\output\GPK_CH_U_I75_left_TOC.txt
+		define "GPK_CH_U right TOC" R:\Projects\12940588\CADD\Geopak\output\GPK_CH_U_I75_right_TOC.txt
+		define "GPK_CH_U left flow" R:\Projects\12940588\CADD\Geopak\output\GPK_CH_U_I75_left_flow.txt
+		define "GPK_CH_U right flow" R:\Projects\12940588\CADD\Geopak\output\GPK_CH_U_I75_right_flow.txt
+		
+		define "GPK_CH_V left TOC" R:\Projects\12940588\CADD\Geopak\output\GPK_CH_V_I75_left_TOC.txt
+		define "GPK_CH_V right TOC" R:\Projects\12940588\CADD\Geopak\output\GPK_CH_V_I75_right_TOC.txt
+		define "GPK_CH_V left flow" R:\Projects\12940588\CADD\Geopak\output\GPK_CH_V_I75_left_flow.txt
+		define "GPK_CH_V right flow" R:\Projects\12940588\CADD\Geopak\output\GPK_CH_V_I75_right_flow.txt
+		
+		define "GPK_CH_W left TOC" R:\Projects\12940588\CADD\Geopak\output\GPK_CH_W_I75_left_TOC.txt
+		define "GPK_CH_W right TOC" R:\Projects\12940588\CADD\Geopak\output\GPK_CH_W_I75_right_TOC.txt
+		define "GPK_CH_W left flow" R:\Projects\12940588\CADD\Geopak\output\GPK_CH_W_I75_left_flow.txt
+		define "GPK_CH_W right flow" R:\Projects\12940588\CADD\Geopak\output\GPK_CH_W_I75_right_flow.txt
+		
+		define "GPK_CH_X left TOC" R:\Projects\12940588\CADD\Geopak\output\GPK_CH_X_I75_left_TOC.txt
+		define "GPK_CH_X right TOC" R:\Projects\12940588\CADD\Geopak\output\GPK_CH_X_I75_right_TOC.txt
+		define "GPK_CH_X left flow" R:\Projects\12940588\CADD\Geopak\output\GPK_CH_X_I75_left_flow.txt
+		define "GPK_CH_X right flow" R:\Projects\12940588\CADD\Geopak\output\GPK_CH_X_I75_right_flow.txt
+		
+		mark _mp_profile_input_files_one_time
+		}
+	
+	else
+		{
+		/* don't do anything */
+		}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	/* _s_chain = cluster baseline */	/* don't use this due to dfb */
+	_d_sta = CHAIN _s_curb_chain STATION
+	_s_sta = cvt_d_sta(_d_sta)
+	_d_region = CHAIN _s_curb_chain REGION
+	
+	if _s_Curb_and_Gutter_Found = ^yes^ then
+		{
+		draw skip to _mp_top_back_of_curb
+			mark x557 y557
+		}
+	else if _s_valley_Gutter_Found = ^yes^ then
+		{		
+		draw skip to _mp_low_pt_of_valley_gutter
+			mark x558 y558
+		}
+		
+		/* y557 is TOC */
+		/* y558 is flow line */
+		
+	
+	if _s_curb_chain = ^GPK_CH_A^ then
+		{
+		if _s_curb_side_slope = ^left^ then
+			{
+			if _s_Curb_and_Gutter_Found = ^yes^ then
+				{
+				/* have a TOC update the TOC file */
+				_d_GPK_CH_A_left_toc = _d_GPK_CH_A_left_toc + 1
+					
+				_s_ascii_file << "GPK_CH_A left TOC"
+					_d_elevation = y557
+					_d_file_counter = _d_GPK_CH_A_left_toc
+				call sub write_profile
+				
+				/* since have a TOC, don't have a flow line...update the flow file with a 0 elevation */
+				_d_GPK_CH_A_left_flow = _d_GPK_CH_A_left_flow + 1
+				_s_ascii_file << "GPK_CH_A left flow"
+					_d_elevation = 0
+					_d_file_counter = _d_GPK_CH_A_left_flow
+				call sub write_profile
+				
+				}
+			
+			else if _s_valley_Gutter_Found = ^yes^ then
+				{
+				/* since have a flow, don't have a TOC...update the TOC with a 0 elevation */
+				_d_GPK_CH_A_left_toc = _d_GPK_CH_A_left_toc + 1
+				_s_ascii_file << "GPK_CH_A left TOC"
+					_d_elevation = 0
+					_d_file_counter = _d_GPK_CH_A_left_toc
+				call sub write_profile
+				
+				/* have a flow update the flow file */
+				_d_GPK_CH_A_left_flow = _d_GPK_CH_A_left_flow + 1
+				_s_ascii_file << "GPK_CH_A left flow"
+					_d_elevation = y558
+					_d_file_counter = _d_GPK_CH_A_left_flow
+				call sub write_profile
+				}
+				
+			else
+				{
+				/* don't have a TOC or flow line...update both with 0 elevation */
+				_d_GPK_CH_A_left_toc = _d_GPK_CH_A_left_toc + 1
+				_s_ascii_file << "GPK_CH_A left TOC"
+					_d_elevation = 0
+					_d_file_counter = _d_GPK_CH_A_left_toc
+				call sub write_profile
+				
+				/* don't have a TOC or flow line...update both with 0 elevation */
+				_d_GPK_CH_A_left_flow = _d_GPK_CH_A_left_flow + 1
+				_s_ascii_file << "GPK_CH_A left flow"
+					_d_elevation = 0
+					_d_file_counter = _d_GPK_CH_A_left_flow
+				call sub write_profile
+				}
+			}
+			
+		
+		
+		
+		else if _s_curb_side_slope = ^right^ then
+			{
+			if _s_Curb_and_Gutter_Found = ^yes^ then
+				{
+				/* have a TOC update the TOC file */
+				_d_GPK_CH_A_right_toc = _d_GPK_CH_A_right_toc + 1
+				_s_ascii_file << "GPK_CH_A right TOC"
+					_d_elevation = y557
+					_d_file_counter = _d_GPK_CH_A_right_toc
+				call sub write_profile
+				
+				/* since have a TOC, don't have a flow line...update the flow file with a 0 elevation */
+				_d_GPK_CH_A_right_flow = _d_GPK_CH_A_right_flow + 1
+				_s_ascii_file << "GPK_CH_A right flow"
+					_d_elevation = 0
+					_d_file_counter = _d_GPK_CH_A_right_flow
+				call sub write_profile
+				
+				}
+			
+			else if _s_valley_Gutter_Found = ^yes^ then
+				{
+				/* since have a flow, don't have a TOC...update the TOC with a 0 elevation */
+				_d_GPK_CH_A_right_toc = _d_GPK_CH_A_right_toc + 1
+				_s_ascii_file << "GPK_CH_A right TOC"
+					_d_elevation = 0
+					_d_file_counter = _d_GPK_CH_A_right_toc
+				call sub write_profile
+				
+				/* have a flow update the flow file */
+				_d_GPK_CH_A_right_flow = _d_GPK_CH_A_right_flow + 1
+				_s_ascii_file << "GPK_CH_A right flow"
+					_d_elevation = y558
+					_d_file_counter = _d_GPK_CH_A_right_flow
+				call sub write_profile
+				}
+				
+			else
+				{
+				/* don't have a TOC or flow line...update both with 0 elevation */
+				_d_GPK_CH_A_right_toc = _d_GPK_CH_A_right_toc + 1
+				_s_ascii_file << "GPK_CH_A right TOC"
+					_d_elevation = 0
+					_d_file_counter = _d_GPK_CH_A_right_toc
+				call sub write_profile
+				
+				/* don't have a TOC or flow line...update both with 0 elevation */
+				_d_GPK_CH_A_right_flow = _d_GPK_CH_A_right_flow + 1
+				_s_ascii_file << "GPK_CH_A right flow"
+					_d_elevation = 0
+					_d_file_counter = _d_GPK_CH_A_right_flow
+				call sub write_profile
+				}
+			}
+		
+		}
+	
+	/* enter next chain here */
+	
+	
+	
+	
+	else if _s_curb_chain = ^GPK_CH_B^ then
+		{
+		if _s_curb_side_slope = ^left^ then
+			{
+			if _s_Curb_and_Gutter_Found = ^yes^ then
+				{
+				/* have a TOC update the TOC file */
+				_d_GPK_CH_B_left_toc = _d_GPK_CH_B_left_toc + 1
+				_s_ascii_file << "GPK_CH_B left TOC"
+					_d_elevation = y557
+					_d_file_counter = _d_GPK_CH_B_left_toc
+				call sub write_profile
+				
+				/* since have a TOC, don't have a flow line...update the flow file with a 0 elevation */
+				_d_GPK_CH_B_left_flow = _d_GPK_CH_B_left_flow + 1
+				_s_ascii_file << "GPK_CH_B left flow"
+					_d_elevation = 0
+					_d_file_counter = _d_GPK_CH_B_left_flow
+				call sub write_profile
+				
+				}
+			
+			else if _s_valley_Gutter_Found = ^yes^ then
+				{
+				/* since have a flow, don't have a TOC...update the TOC with a 0 elevation */
+				_d_GPK_CH_B_left_toc = _d_GPK_CH_B_left_toc + 1
+				_s_ascii_file << "GPK_CH_B left TOC"
+					_d_elevation = 0
+					_d_file_counter = _d_GPK_CH_B_left_toc
+				call sub write_profile
+				
+				/* have a flow update the flow file */
+				_d_GPK_CH_B_left_flow = _d_GPK_CH_B_left_flow + 1
+				_s_ascii_file << "GPK_CH_B left flow"
+					_d_elevation = y558
+					_d_file_counter = _d_GPK_CH_B_left_flow
+				call sub write_profile
+				}
+				
+			else
+				{
+				/* don't have a TOC or flow line...update both with 0 elevation */
+				_d_GPK_CH_B_left_toc = _d_GPK_CH_B_left_toc + 1
+				_s_ascii_file << "GPK_CH_B left TOC"
+					_d_elevation = 0
+					_d_file_counter = _d_GPK_CH_B_left_toc
+				call sub write_profile
+				
+				/* don't have a TOC or flow line...update both with 0 elevation */
+				_d_GPK_CH_B_left_flow = _d_GPK_CH_B_left_flow + 1
+				_s_ascii_file << "GPK_CH_B left flow"
+					_d_elevation = 0
+					_d_file_counter = _d_GPK_CH_B_left_flow
+				call sub write_profile
+				}
+			}
+			
+		
+		
+		
+		else if _s_curb_side_slope = ^right^ then
+			{
+			if _s_Curb_and_Gutter_Found = ^yes^ then
+				{
+				/* have a TOC update the TOC file */
+				_d_GPK_CH_B_right_toc = _d_GPK_CH_B_right_toc + 1
+				_s_ascii_file << "GPK_CH_B right TOC"
+					_d_elevation = y557
+					_d_file_counter = _d_GPK_CH_B_right_toc
+				call sub write_profile
+				
+				/* since have a TOC, don't have a flow line...update the flow file with a 0 elevation */
+				_d_GPK_CH_B_right_flow = _d_GPK_CH_B_right_flow + 1
+				_s_ascii_file << "GPK_CH_B right flow"
+					_d_elevation = 0
+					_d_file_counter = _d_GPK_CH_B_right_flow
+				call sub write_profile
+				
+				}
+			
+			else if _s_valley_Gutter_Found = ^yes^ then
+				{
+				/* since have a flow, don't have a TOC...update the TOC with a 0 elevation */
+				_d_GPK_CH_B_right_toc = _d_GPK_CH_B_right_toc + 1
+				_s_ascii_file << "GPK_CH_B right TOC"
+					_d_elevation = 0
+					_d_file_counter = _d_GPK_CH_B_right_toc
+				call sub write_profile
+				
+				/* have a flow update the flow file */
+				_d_GPK_CH_B_right_flow = _d_GPK_CH_B_right_flow + 1
+				_s_ascii_file << "GPK_CH_B right flow"
+					_d_elevation = y558
+					_d_file_counter = _d_GPK_CH_B_right_flow
+				call sub write_profile
+				}
+				
+			else
+				{
+				/* don't have a TOC or flow line...update both with 0 elevation */
+				_d_GPK_CH_B_right_toc = _d_GPK_CH_B_right_toc + 1
+				_s_ascii_file << "GPK_CH_B right TOC"
+					_d_elevation = 0
+					_d_file_counter = _d_GPK_CH_B_right_toc
+				call sub write_profile
+				
+				/* don't have a TOC or flow line...update both with 0 elevation */
+				_d_GPK_CH_B_right_flow = _d_GPK_CH_B_right_flow + 1
+				_s_ascii_file << "GPK_CH_B right flow"
+					_d_elevation = 0
+					_d_file_counter = _d_GPK_CH_B_right_flow
+				call sub write_profile
+				}
+			}
+		
+		}
+	
+	/* enter next chain here */
+	
+	
+	
+	
+	
+	
+	else if _s_curb_chain = ^GPK_CH_C^ then
+		{
+		if _s_curb_side_slope = ^left^ then
+			{
+			if _s_Curb_and_Gutter_Found = ^yes^ then
+				{
+				/* have a TOC update the TOC file */
+				_d_GPK_CH_C_left_toc = _d_GPK_CH_C_left_toc + 1
+				_s_ascii_file << "GPK_CH_C left TOC"
+					_d_elevation = y557
+					_d_file_counter = _d_GPK_CH_C_left_toc
+				call sub write_profile
+				
+				/* since have a TOC, don't have a flow line...update the flow file with a 0 elevation */
+				_d_GPK_CH_C_left_flow = _d_GPK_CH_C_left_flow + 1
+				_s_ascii_file << "GPK_CH_C left flow"
+					_d_elevation = 0
+					_d_file_counter = _d_GPK_CH_C_left_flow
+				call sub write_profile
+				
+				}
+			
+			else if _s_valley_Gutter_Found = ^yes^ then
+				{
+				/* since have a flow, don't have a TOC...update the TOC with a 0 elevation */
+				_d_GPK_CH_C_left_toc = _d_GPK_CH_C_left_toc + 1
+				_s_ascii_file << "GPK_CH_C left TOC"
+					_d_elevation = 0
+					_d_file_counter = _d_GPK_CH_C_left_toc
+				call sub write_profile
+				
+				/* have a flow update the flow file */
+				_d_GPK_CH_C_left_flow = _d_GPK_CH_C_left_flow + 1
+				_s_ascii_file << "GPK_CH_C left flow"
+					_d_elevation = y558
+					_d_file_counter = _d_GPK_CH_C_left_flow
+				call sub write_profile
+				}
+				
+			else
+				{
+				/* don't have a TOC or flow line...update both with 0 elevation */
+				_d_GPK_CH_C_left_toc = _d_GPK_CH_C_left_toc + 1
+				_s_ascii_file << "GPK_CH_C left TOC"
+					_d_elevation = 0
+					_d_file_counter = _d_GPK_CH_C_left_toc
+				call sub write_profile
+				
+				/* don't have a TOC or flow line...update both with 0 elevation */
+				_d_GPK_CH_C_left_flow = _d_GPK_CH_C_left_flow + 1
+				_s_ascii_file << "GPK_CH_C left flow"
+					_d_elevation = 0
+					_d_file_counter = _d_GPK_CH_C_left_flow
+				call sub write_profile
+				}
+			}
+			
+		
+		
+		
+		else if _s_curb_side_slope = ^right^ then
+			{
+			if _s_Curb_and_Gutter_Found = ^yes^ then
+				{
+				/* have a TOC update the TOC file */
+				_d_GPK_CH_C_right_toc = _d_GPK_CH_C_right_toc + 1
+				_s_ascii_file << "GPK_CH_C right TOC"
+					_d_elevation = y557
+					_d_file_counter = _d_GPK_CH_C_right_toc
+				call sub write_profile
+				
+				/* since have a TOC, don't have a flow line...update the flow file with a 0 elevation */
+				_d_GPK_CH_C_right_flow = _d_GPK_CH_C_right_flow + 1
+				_s_ascii_file << "GPK_CH_C right flow"
+					_d_elevation = 0
+					_d_file_counter = _d_GPK_CH_C_right_flow
+				call sub write_profile
+				
+				}
+			
+			else if _s_valley_Gutter_Found = ^yes^ then
+				{
+				/* since have a flow, don't have a TOC...update the TOC with a 0 elevation */
+				_d_GPK_CH_C_right_toc = _d_GPK_CH_C_right_toc + 1
+				_s_ascii_file << "GPK_CH_C right TOC"
+					_d_elevation = 0
+					_d_file_counter = _d_GPK_CH_C_right_toc
+				call sub write_profile
+				
+				/* have a flow update the flow file */
+				_d_GPK_CH_C_right_flow = _d_GPK_CH_C_right_flow + 1
+				_s_ascii_file << "GPK_CH_C right flow"
+					_d_elevation = y558
+					_d_file_counter = _d_GPK_CH_C_right_flow
+				call sub write_profile
+				}
+				
+			else
+				{
+				/* don't have a TOC or flow line...update both with 0 elevation */
+				_d_GPK_CH_C_right_toc = _d_GPK_CH_C_right_toc + 1
+				_s_ascii_file << "GPK_CH_C right TOC"
+					_d_elevation = 0
+					_d_file_counter = _d_GPK_CH_C_right_toc
+				call sub write_profile
+				
+				/* don't have a TOC or flow line...update both with 0 elevation */
+				_d_GPK_CH_C_right_flow = _d_GPK_CH_C_right_flow + 1
+				_s_ascii_file << "GPK_CH_C right flow"
+					_d_elevation = 0
+					_d_file_counter = _d_GPK_CH_C_right_flow
+				call sub write_profile
+				}
+			}
+		
+		}
+	
+	/* enter next chain here */
+	
+	
+	
+	
+	else if _s_curb_chain = ^GPK_CH_D^ then
+		{
+		if _s_curb_side_slope = ^left^ then
+			{
+			if _s_Curb_and_Gutter_Found = ^yes^ then
+				{
+				/* have a TOC update the TOC file */
+				_d_GPK_CH_D_left_toc = _d_GPK_CH_D_left_toc + 1
+				_s_ascii_file << "GPK_CH_D left TOC"
+					_d_elevation = y557
+					_d_file_counter = _d_GPK_CH_D_left_toc
+				call sub write_profile
+				
+				/* since have a TOC, don't have a flow line...update the flow file with a 0 elevation */
+				_d_GPK_CH_D_left_flow = _d_GPK_CH_D_left_flow + 1
+				_s_ascii_file << "GPK_CH_D left flow"
+					_d_elevation = 0
+					_d_file_counter = _d_GPK_CH_D_left_flow
+				call sub write_profile
+				
+				}
+			
+			else if _s_valley_Gutter_Found = ^yes^ then
+				{
+				/* since have a flow, don't have a TOC...update the TOC with a 0 elevation */
+				_d_GPK_CH_D_left_toc = _d_GPK_CH_D_left_toc + 1
+				_s_ascii_file << "GPK_CH_D left TOC"
+					_d_elevation = 0
+					_d_file_counter = _d_GPK_CH_D_left_toc
+				call sub write_profile
+				
+				/* have a flow update the flow file */
+				_d_GPK_CH_D_left_flow = _d_GPK_CH_D_left_flow + 1
+				_s_ascii_file << "GPK_CH_D left flow"
+					_d_elevation = y558
+					_d_file_counter = _d_GPK_CH_D_left_flow
+				call sub write_profile
+				}
+				
+			else
+				{
+				/* don't have a TOC or flow line...update both with 0 elevation */
+				_d_GPK_CH_D_left_toc = _d_GPK_CH_D_left_toc + 1
+				_s_ascii_file << "GPK_CH_D left TOC"
+					_d_elevation = 0
+					_d_file_counter = _d_GPK_CH_D_left_toc
+				call sub write_profile
+				
+				/* don't have a TOC or flow line...update both with 0 elevation */
+				_d_GPK_CH_D_left_flow = _d_GPK_CH_D_left_flow + 1
+				_s_ascii_file << "GPK_CH_D left flow"
+					_d_elevation = 0
+					_d_file_counter = _d_GPK_CH_D_left_flow
+				call sub write_profile
+				}
+			}
+			
+		
+		
+		
+		else if _s_curb_side_slope = ^right^ then
+			{
+			if _s_Curb_and_Gutter_Found = ^yes^ then
+				{
+				/* have a TOC update the TOC file */
+				_d_GPK_CH_D_right_toc = _d_GPK_CH_D_right_toc + 1
+				_s_ascii_file << "GPK_CH_D right TOC"
+					_d_elevation = y557
+					_d_file_counter = _d_GPK_CH_D_right_toc
+				call sub write_profile
+				
+				/* since have a TOC, don't have a flow line...update the flow file with a 0 elevation */
+				_d_GPK_CH_D_right_flow = _d_GPK_CH_D_right_flow + 1
+				_s_ascii_file << "GPK_CH_D right flow"
+					_d_elevation = 0
+					_d_file_counter = _d_GPK_CH_D_right_flow
+				call sub write_profile
+				
+				}
+			
+			else if _s_valley_Gutter_Found = ^yes^ then
+				{
+				/* since have a flow, don't have a TOC...update the TOC with a 0 elevation */
+				_d_GPK_CH_D_right_toc = _d_GPK_CH_D_right_toc + 1
+				_s_ascii_file << "GPK_CH_D right TOC"
+					_d_elevation = 0
+					_d_file_counter = _d_GPK_CH_D_right_toc
+				call sub write_profile
+				
+				/* have a flow update the flow file */
+				_d_GPK_CH_D_right_flow = _d_GPK_CH_D_right_flow + 1
+				_s_ascii_file << "GPK_CH_D right flow"
+					_d_elevation = y558
+					_d_file_counter = _d_GPK_CH_D_right_flow
+				call sub write_profile
+				}
+				
+			else
+				{
+				/* don't have a TOC or flow line...update both with 0 elevation */
+				_d_GPK_CH_D_right_toc = _d_GPK_CH_D_right_toc + 1
+				_s_ascii_file << "GPK_CH_D right TOC"
+					_d_elevation = 0
+					_d_file_counter = _d_GPK_CH_D_right_toc
+				call sub write_profile
+				
+				/* don't have a TOC or flow line...update both with 0 elevation */
+				_d_GPK_CH_D_right_flow = _d_GPK_CH_D_right_flow + 1
+				_s_ascii_file << "GPK_CH_D right flow"
+					_d_elevation = 0
+					_d_file_counter = _d_GPK_CH_D_right_flow
+				call sub write_profile
+				}
+			}
+		
+		}
+	
+	/* enter next chain here */
+	
+	
+	
+	
+	else if _s_curb_chain = ^GPK_CH_E^ then
+		{
+		if _s_curb_side_slope = ^left^ then
+			{
+			if _s_Curb_and_Gutter_Found = ^yes^ then
+				{
+				/* have a TOC update the TOC file */
+				_d_GPK_CH_E_left_toc = _d_GPK_CH_E_left_toc + 1
+				_s_ascii_file << "GPK_CH_E left TOC"
+					_d_elevation = y557
+					_d_file_counter = _d_GPK_CH_E_left_toc
+				call sub write_profile
+				
+				/* since have a TOC, don't have a flow line...update the flow file with a 0 elevation */
+				_d_GPK_CH_E_left_flow = _d_GPK_CH_E_left_flow + 1
+				_s_ascii_file << "GPK_CH_E left flow"
+					_d_elevation = 0
+					_d_file_counter = _d_GPK_CH_E_left_flow
+				call sub write_profile
+				
+				}
+			
+			else if _s_valley_Gutter_Found = ^yes^ then
+				{
+				/* since have a flow, don't have a TOC...update the TOC with a 0 elevation */
+				_d_GPK_CH_E_left_toc = _d_GPK_CH_E_left_toc + 1
+				_s_ascii_file << "GPK_CH_E left TOC"
+					_d_elevation = 0
+					_d_file_counter = _d_GPK_CH_E_left_toc
+				call sub write_profile
+				
+				/* have a flow update the flow file */
+				_d_GPK_CH_E_left_flow = _d_GPK_CH_E_left_flow + 1
+				_s_ascii_file << "GPK_CH_E left flow"
+					_d_elevation = y558
+					_d_file_counter = _d_GPK_CH_E_left_flow
+				call sub write_profile
+				}
+				
+			else
+				{
+				/* don't have a TOC or flow line...update both with 0 elevation */
+				_d_GPK_CH_E_left_toc = _d_GPK_CH_E_left_toc + 1
+				_s_ascii_file << "GPK_CH_E left TOC"
+					_d_elevation = 0
+					_d_file_counter = _d_GPK_CH_E_left_toc
+				call sub write_profile
+				
+				/* don't have a TOC or flow line...update both with 0 elevation */
+				_d_GPK_CH_E_left_flow = _d_GPK_CH_E_left_flow + 1
+				_s_ascii_file << "GPK_CH_E left flow"
+					_d_elevation = 0
+					_d_file_counter = _d_GPK_CH_E_left_flow
+				call sub write_profile
+				}
+			}
+			
+		
+		
+		
+		else if _s_curb_side_slope = ^right^ then
+			{
+			if _s_Curb_and_Gutter_Found = ^yes^ then
+				{
+				/* have a TOC update the TOC file */
+				_d_GPK_CH_E_right_toc = _d_GPK_CH_E_right_toc + 1
+				_s_ascii_file << "GPK_CH_E right TOC"
+					_d_elevation = y557
+					_d_file_counter = _d_GPK_CH_E_right_toc
+				call sub write_profile
+				
+				/* since have a TOC, don't have a flow line...update the flow file with a 0 elevation */
+				_d_GPK_CH_E_right_flow = _d_GPK_CH_E_right_flow + 1
+				_s_ascii_file << "GPK_CH_E right flow"
+					_d_elevation = 0
+					_d_file_counter = _d_GPK_CH_E_right_flow
+				call sub write_profile
+				
+				}
+			
+			else if _s_valley_Gutter_Found = ^yes^ then
+				{
+				/* since have a flow, don't have a TOC...update the TOC with a 0 elevation */
+				_d_GPK_CH_E_right_toc = _d_GPK_CH_E_right_toc + 1
+				_s_ascii_file << "GPK_CH_E right TOC"
+					_d_elevation = 0
+					_d_file_counter = _d_GPK_CH_E_right_toc
+				call sub write_profile
+				
+				/* have a flow update the flow file */
+				_d_GPK_CH_E_right_flow = _d_GPK_CH_E_right_flow + 1
+				_s_ascii_file << "GPK_CH_E right flow"
+					_d_elevation = y558
+					_d_file_counter = _d_GPK_CH_E_right_flow
+				call sub write_profile
+				}
+				
+			else
+				{
+				/* don't have a TOC or flow line...update both with 0 elevation */
+				_d_GPK_CH_E_right_toc = _d_GPK_CH_E_right_toc + 1
+				_s_ascii_file << "GPK_CH_E right TOC"
+					_d_elevation = 0
+					_d_file_counter = _d_GPK_CH_E_right_toc
+				call sub write_profile
+				
+				/* don't have a TOC or flow line...update both with 0 elevation */
+				_d_GPK_CH_E_right_flow = _d_GPK_CH_E_right_flow + 1
+				_s_ascii_file << "GPK_CH_E right flow"
+					_d_elevation = 0
+					_d_file_counter = _d_GPK_CH_E_right_flow
+				call sub write_profile
+				}
+			}
+		
+		}
+	
+	/* enter next chain here */
+	
+	
+	else if _s_curb_chain = ^GPK_CH_F^ then
+		{
+		if _s_curb_side_slope = ^left^ then
+			{
+			if _s_Curb_and_Gutter_Found = ^yes^ then
+				{
+				/* have a TOC update the TOC file */
+				_d_GPK_CH_F_left_toc = _d_GPK_CH_F_left_toc + 1
+				_s_ascii_file << "GPK_CH_F left TOC"
+					_d_elevation = y557
+					_d_file_counter = _d_GPK_CH_F_left_toc
+				call sub write_profile
+				
+				/* since have a TOC, don't have a flow line...update the flow file with a 0 elevation */
+				_d_GPK_CH_F_left_flow = _d_GPK_CH_F_left_flow + 1
+				_s_ascii_file << "GPK_CH_F left flow"
+					_d_elevation = 0
+					_d_file_counter = _d_GPK_CH_F_left_flow
+				call sub write_profile
+				
+				}
+			
+			else if _s_valley_Gutter_Found = ^yes^ then
+				{
+				/* since have a flow, don't have a TOC...update the TOC with a 0 elevation */
+				_d_GPK_CH_F_left_toc = _d_GPK_CH_F_left_toc + 1
+				_s_ascii_file << "GPK_CH_F left TOC"
+					_d_elevation = 0
+					_d_file_counter = _d_GPK_CH_F_left_toc
+				call sub write_profile
+				
+				/* have a flow update the flow file */
+				_d_GPK_CH_F_left_flow = _d_GPK_CH_F_left_flow + 1
+				_s_ascii_file << "GPK_CH_F left flow"
+					_d_elevation = y558
+					_d_file_counter = _d_GPK_CH_F_left_flow
+				call sub write_profile
+				}
+				
+			else
+				{
+				/* don't have a TOC or flow line...update both with 0 elevation */
+				_d_GPK_CH_F_left_toc = _d_GPK_CH_F_left_toc + 1
+				_s_ascii_file << "GPK_CH_F left TOC"
+					_d_elevation = 0
+					_d_file_counter = _d_GPK_CH_F_left_toc
+				call sub write_profile
+				
+				/* don't have a TOC or flow line...update both with 0 elevation */
+				_d_GPK_CH_F_left_flow = _d_GPK_CH_F_left_flow + 1
+				_s_ascii_file << "GPK_CH_F left flow"
+					_d_elevation = 0
+					_d_file_counter = _d_GPK_CH_F_left_flow
+				call sub write_profile
+				}
+			}
+			
+		
+		
+		
+		else if _s_curb_side_slope = ^right^ then
+			{
+			if _s_Curb_and_Gutter_Found = ^yes^ then
+				{
+				/* have a TOC update the TOC file */
+				_d_GPK_CH_F_right_toc = _d_GPK_CH_F_right_toc + 1
+				_s_ascii_file << "GPK_CH_F right TOC"
+					_d_elevation = y557
+					_d_file_counter = _d_GPK_CH_F_right_toc
+				call sub write_profile
+				
+				/* since have a TOC, don't have a flow line...update the flow file with a 0 elevation */
+				_d_GPK_CH_F_right_flow = _d_GPK_CH_F_right_flow + 1
+				_s_ascii_file << "GPK_CH_F right flow"
+					_d_elevation = 0
+					_d_file_counter = _d_GPK_CH_F_right_flow
+				call sub write_profile
+				
+				}
+			
+			else if _s_valley_Gutter_Found = ^yes^ then
+				{
+				/* since have a flow, don't have a TOC...update the TOC with a 0 elevation */
+				_d_GPK_CH_F_right_toc = _d_GPK_CH_F_right_toc + 1
+				_s_ascii_file << "GPK_CH_F right TOC"
+					_d_elevation = 0
+					_d_file_counter = _d_GPK_CH_F_right_toc
+				call sub write_profile
+				
+				/* have a flow update the flow file */
+				_d_GPK_CH_F_right_flow = _d_GPK_CH_F_right_flow + 1
+				_s_ascii_file << "GPK_CH_F right flow"
+					_d_elevation = y558
+					_d_file_counter = _d_GPK_CH_F_right_flow
+				call sub write_profile
+				}
+				
+			else
+				{
+				/* don't have a TOC or flow line...update both with 0 elevation */
+				_d_GPK_CH_F_right_toc = _d_GPK_CH_F_right_toc + 1
+				_s_ascii_file << "GPK_CH_F right TOC"
+					_d_elevation = 0
+					_d_file_counter = _d_GPK_CH_F_right_toc
+				call sub write_profile
+				
+				/* don't have a TOC or flow line...update both with 0 elevation */
+				_d_GPK_CH_F_right_flow = _d_GPK_CH_F_right_flow + 1
+				_s_ascii_file << "GPK_CH_F right flow"
+					_d_elevation = 0
+					_d_file_counter = _d_GPK_CH_F_right_flow
+				call sub write_profile
+				}
+			}
+		
+		}
+	
+	/* enter next chain here */
+	
+	
+	
+	else if _s_curb_chain = ^GPK_CH_G^ then
+		{
+		if _s_curb_side_slope = ^left^ then
+			{
+			if _s_Curb_and_Gutter_Found = ^yes^ then
+				{
+				/* have a TOC update the TOC file */
+				_d_GPK_CH_G_left_toc = _d_GPK_CH_G_left_toc + 1
+				_s_ascii_file << "GPK_CH_G left TOC"
+					_d_elevation = y557
+					_d_file_counter = _d_GPK_CH_G_left_toc
+				call sub write_profile
+				
+				/* since have a TOC, don't have a flow line...update the flow file with a 0 elevation */
+				_d_GPK_CH_G_left_flow = _d_GPK_CH_G_left_flow + 1
+				_s_ascii_file << "GPK_CH_G left flow"
+					_d_elevation = 0
+					_d_file_counter = _d_GPK_CH_G_left_flow
+				call sub write_profile
+				
+				}
+			
+			else if _s_valley_Gutter_Found = ^yes^ then
+				{
+				/* since have a flow, don't have a TOC...update the TOC with a 0 elevation */
+				_d_GPK_CH_G_left_toc = _d_GPK_CH_G_left_toc + 1
+				_s_ascii_file << "GPK_CH_G left TOC"
+					_d_elevation = 0
+					_d_file_counter = _d_GPK_CH_G_left_toc
+				call sub write_profile
+				
+				/* have a flow update the flow file */
+				_d_GPK_CH_G_left_flow = _d_GPK_CH_G_left_flow + 1
+				_s_ascii_file << "GPK_CH_G left flow"
+					_d_elevation = y558
+					_d_file_counter = _d_GPK_CH_G_left_flow
+				call sub write_profile
+				}
+				
+			else
+				{
+				/* don't have a TOC or flow line...update both with 0 elevation */
+				_d_GPK_CH_G_left_toc = _d_GPK_CH_G_left_toc + 1
+				_s_ascii_file << "GPK_CH_G left TOC"
+					_d_elevation = 0
+					_d_file_counter = _d_GPK_CH_G_left_toc
+				call sub write_profile
+				
+				/* don't have a TOC or flow line...update both with 0 elevation */
+				_d_GPK_CH_G_left_flow = _d_GPK_CH_G_left_flow + 1
+				_s_ascii_file << "GPK_CH_G left flow"
+					_d_elevation = 0
+					_d_file_counter = _d_GPK_CH_G_left_flow
+				call sub write_profile
+				}
+			}
+			
+		
+		
+		
+		else if _s_curb_side_slope = ^right^ then
+			{
+			if _s_Curb_and_Gutter_Found = ^yes^ then
+				{
+				/* have a TOC update the TOC file */
+				_d_GPK_CH_G_right_toc = _d_GPK_CH_G_right_toc + 1
+				_s_ascii_file << "GPK_CH_G right TOC"
+					_d_elevation = y557
+					_d_file_counter = _d_GPK_CH_G_right_toc
+				call sub write_profile
+				
+				/* since have a TOC, don't have a flow line...update the flow file with a 0 elevation */
+				_d_GPK_CH_G_right_flow = _d_GPK_CH_G_right_flow + 1
+				_s_ascii_file << "GPK_CH_G right flow"
+					_d_elevation = 0
+					_d_file_counter = _d_GPK_CH_G_right_flow
+				call sub write_profile
+				
+				}
+			
+			else if _s_valley_Gutter_Found = ^yes^ then
+				{
+				/* since have a flow, don't have a TOC...update the TOC with a 0 elevation */
+				_d_GPK_CH_G_right_toc = _d_GPK_CH_G_right_toc + 1
+				_s_ascii_file << "GPK_CH_G right TOC"
+					_d_elevation = 0
+					_d_file_counter = _d_GPK_CH_G_right_toc
+				call sub write_profile
+				
+				/* have a flow update the flow file */
+				_d_GPK_CH_G_right_flow = _d_GPK_CH_G_right_flow + 1
+				_s_ascii_file << "GPK_CH_G right flow"
+					_d_elevation = y558
+					_d_file_counter = _d_GPK_CH_G_right_flow
+				call sub write_profile
+				}
+				
+			else
+				{
+				/* don't have a TOC or flow line...update both with 0 elevation */
+				_d_GPK_CH_G_right_toc = _d_GPK_CH_G_right_toc + 1
+				_s_ascii_file << "GPK_CH_G right TOC"
+					_d_elevation = 0
+					_d_file_counter = _d_GPK_CH_G_right_toc
+				call sub write_profile
+				
+				/* don't have a TOC or flow line...update both with 0 elevation */
+				_d_GPK_CH_G_right_flow = _d_GPK_CH_G_right_flow + 1
+				_s_ascii_file << "GPK_CH_G right flow"
+					_d_elevation = 0
+					_d_file_counter = _d_GPK_CH_G_right_flow
+				call sub write_profile
+				}
+			}
+		
+		}
+	
+	/* enter next chain here */
+	
+	
+	
+	else if _s_curb_chain = ^GPK_CH_H^ then
+		{
+		if _s_curb_side_slope = ^left^ then
+			{
+			if _s_Curb_and_Gutter_Found = ^yes^ then
+				{
+				/* have a TOC update the TOC file */
+				_d_GPK_CH_H_left_toc = _d_GPK_CH_H_left_toc + 1
+				_s_ascii_file << "GPK_CH_H left TOC"
+					_d_elevation = y557
+					_d_file_counter = _d_GPK_CH_H_left_toc
+				call sub write_profile
+				
+				/* since have a TOC, don't have a flow line...update the flow file with a 0 elevation */
+				_d_GPK_CH_H_left_flow = _d_GPK_CH_H_left_flow + 1
+				_s_ascii_file << "GPK_CH_H left flow"
+					_d_elevation = 0
+					_d_file_counter = _d_GPK_CH_H_left_flow
+				call sub write_profile
+				
+				}
+			
+			else if _s_valley_Gutter_Found = ^yes^ then
+				{
+				/* since have a flow, don't have a TOC...update the TOC with a 0 elevation */
+				_d_GPK_CH_H_left_toc = _d_GPK_CH_H_left_toc + 1
+				_s_ascii_file << "GPK_CH_H left TOC"
+					_d_elevation = 0
+					_d_file_counter = _d_GPK_CH_H_left_toc
+				call sub write_profile
+				
+				/* have a flow update the flow file */
+				_d_GPK_CH_H_left_flow = _d_GPK_CH_H_left_flow + 1
+				_s_ascii_file << "GPK_CH_H left flow"
+					_d_elevation = y558
+					_d_file_counter = _d_GPK_CH_H_left_flow
+				call sub write_profile
+				}
+				
+			else
+				{
+				/* don't have a TOC or flow line...update both with 0 elevation */
+				_d_GPK_CH_H_left_toc = _d_GPK_CH_H_left_toc + 1
+				_s_ascii_file << "GPK_CH_H left TOC"
+					_d_elevation = 0
+					_d_file_counter = _d_GPK_CH_H_left_toc
+				call sub write_profile
+				
+				/* don't have a TOC or flow line...update both with 0 elevation */
+				_d_GPK_CH_H_left_flow = _d_GPK_CH_H_left_flow + 1
+				_s_ascii_file << "GPK_CH_H left flow"
+					_d_elevation = 0
+					_d_file_counter = _d_GPK_CH_H_left_flow
+				call sub write_profile
+				}
+			}
+			
+		
+		
+		
+		else if _s_curb_side_slope = ^right^ then
+			{
+			if _s_Curb_and_Gutter_Found = ^yes^ then
+				{
+				/* have a TOC update the TOC file */
+				_d_GPK_CH_H_right_toc = _d_GPK_CH_H_right_toc + 1
+				_s_ascii_file << "GPK_CH_H right TOC"
+					_d_elevation = y557
+					_d_file_counter = _d_GPK_CH_H_right_toc
+				call sub write_profile
+				
+				/* since have a TOC, don't have a flow line...update the flow file with a 0 elevation */
+				_d_GPK_CH_H_right_flow = _d_GPK_CH_H_right_flow + 1
+				_s_ascii_file << "GPK_CH_H right flow"
+					_d_elevation = 0
+					_d_file_counter = _d_GPK_CH_H_right_flow
+				call sub write_profile
+				
+				}
+			
+			else if _s_valley_Gutter_Found = ^yes^ then
+				{
+				/* since have a flow, don't have a TOC...update the TOC with a 0 elevation */
+				_d_GPK_CH_H_right_toc = _d_GPK_CH_H_right_toc + 1
+				_s_ascii_file << "GPK_CH_H right TOC"
+					_d_elevation = 0
+					_d_file_counter = _d_GPK_CH_H_right_toc
+				call sub write_profile
+				
+				/* have a flow update the flow file */
+				_d_GPK_CH_H_right_flow = _d_GPK_CH_H_right_flow + 1
+				_s_ascii_file << "GPK_CH_H right flow"
+					_d_elevation = y558
+					_d_file_counter = _d_GPK_CH_H_right_flow
+				call sub write_profile
+				}
+				
+			else
+				{
+				/* don't have a TOC or flow line...update both with 0 elevation */
+				_d_GPK_CH_H_right_toc = _d_GPK_CH_H_right_toc + 1
+				_s_ascii_file << "GPK_CH_H right TOC"
+					_d_elevation = 0
+					_d_file_counter = _d_GPK_CH_H_right_toc
+				call sub write_profile
+				
+				/* don't have a TOC or flow line...update both with 0 elevation */
+				_d_GPK_CH_H_right_flow = _d_GPK_CH_H_right_flow + 1
+				_s_ascii_file << "GPK_CH_H right flow"
+					_d_elevation = 0
+					_d_file_counter = _d_GPK_CH_H_right_flow
+				call sub write_profile
+				}
+			}
+		
+		}
+	
+	/* enter next chain here */
+	
+	
+	
+	else if _s_curb_chain = ^GPK_CH_I^ then
+		{
+		if _s_curb_side_slope = ^left^ then
+			{
+			if _s_Curb_and_Gutter_Found = ^yes^ then
+				{
+				/* have a TOC update the TOC file */
+				_d_GPK_CH_I_left_toc = _d_GPK_CH_I_left_toc + 1
+				_s_ascii_file << "GPK_CH_I left TOC"
+					_d_elevation = y557
+					_d_file_counter = _d_GPK_CH_I_left_toc
+				call sub write_profile
+				
+				/* since have a TOC, don't have a flow line...update the flow file with a 0 elevation */
+				_d_GPK_CH_I_left_flow = _d_GPK_CH_I_left_flow + 1
+				_s_ascii_file << "GPK_CH_I left flow"
+					_d_elevation = 0
+					_d_file_counter = _d_GPK_CH_I_left_flow
+				call sub write_profile
+				
+				}
+			
+			else if _s_valley_Gutter_Found = ^yes^ then
+				{
+				/* since have a flow, don't have a TOC...update the TOC with a 0 elevation */
+				_d_GPK_CH_I_left_toc = _d_GPK_CH_I_left_toc + 1
+				_s_ascii_file << "GPK_CH_I left TOC"
+					_d_elevation = 0
+					_d_file_counter = _d_GPK_CH_I_left_toc
+				call sub write_profile
+				
+				/* have a flow update the flow file */
+				_d_GPK_CH_I_left_flow = _d_GPK_CH_I_left_flow + 1
+				_s_ascii_file << "GPK_CH_I left flow"
+					_d_elevation = y558
+					_d_file_counter = _d_GPK_CH_I_left_flow
+				call sub write_profile
+				}
+				
+			else
+				{
+				/* don't have a TOC or flow line...update both with 0 elevation */
+				_d_GPK_CH_I_left_toc = _d_GPK_CH_I_left_toc + 1
+				_s_ascii_file << "GPK_CH_I left TOC"
+					_d_elevation = 0
+					_d_file_counter = _d_GPK_CH_I_left_toc
+				call sub write_profile
+				
+				/* don't have a TOC or flow line...update both with 0 elevation */
+				_d_GPK_CH_I_left_flow = _d_GPK_CH_I_left_flow + 1
+				_s_ascii_file << "GPK_CH_I left flow"
+					_d_elevation = 0
+					_d_file_counter = _d_GPK_CH_I_left_flow
+				call sub write_profile
+				}
+			}
+			
+		
+		
+		
+		else if _s_curb_side_slope = ^right^ then
+			{
+			if _s_Curb_and_Gutter_Found = ^yes^ then
+				{
+				/* have a TOC update the TOC file */
+				_d_GPK_CH_I_right_toc = _d_GPK_CH_I_right_toc + 1
+				_s_ascii_file << "GPK_CH_I right TOC"
+					_d_elevation = y557
+					_d_file_counter = _d_GPK_CH_I_right_toc
+				call sub write_profile
+				
+				/* since have a TOC, don't have a flow line...update the flow file with a 0 elevation */
+				_d_GPK_CH_I_right_flow = _d_GPK_CH_I_right_flow + 1
+				_s_ascii_file << "GPK_CH_I right flow"
+					_d_elevation = 0
+					_d_file_counter = _d_GPK_CH_I_right_flow
+				call sub write_profile
+				
+				}
+			
+			else if _s_valley_Gutter_Found = ^yes^ then
+				{
+				/* since have a flow, don't have a TOC...update the TOC with a 0 elevation */
+				_d_GPK_CH_I_right_toc = _d_GPK_CH_I_right_toc + 1
+				_s_ascii_file << "GPK_CH_I right TOC"
+					_d_elevation = 0
+					_d_file_counter = _d_GPK_CH_I_right_toc
+				call sub write_profile
+				
+				/* have a flow update the flow file */
+				_d_GPK_CH_I_right_flow = _d_GPK_CH_I_right_flow + 1
+				_s_ascii_file << "GPK_CH_I right flow"
+					_d_elevation = y558
+					_d_file_counter = _d_GPK_CH_I_right_flow
+				call sub write_profile
+				}
+				
+			else
+				{
+				/* don't have a TOC or flow line...update both with 0 elevation */
+				_d_GPK_CH_I_right_toc = _d_GPK_CH_I_right_toc + 1
+				_s_ascii_file << "GPK_CH_I right TOC"
+					_d_elevation = 0
+					_d_file_counter = _d_GPK_CH_I_right_toc
+				call sub write_profile
+				
+				/* don't have a TOC or flow line...update both with 0 elevation */
+				_d_GPK_CH_I_right_flow = _d_GPK_CH_I_right_flow + 1
+				_s_ascii_file << "GPK_CH_I right flow"
+					_d_elevation = 0
+					_d_file_counter = _d_GPK_CH_I_right_flow
+				call sub write_profile
+				}
+			}
+		
+		}
+	
+	/* enter next chain here */
+	
+	
+	
+	else if _s_curb_chain = ^GPK_CH_J^ then
+		{
+		if _s_curb_side_slope = ^left^ then
+			{
+			if _s_Curb_and_Gutter_Found = ^yes^ then
+				{
+				/* have a TOC update the TOC file */
+				_d_GPK_CH_J_left_toc = _d_GPK_CH_J_left_toc + 1
+				_s_ascii_file << "GPK_CH_J left TOC"
+					_d_elevation = y557
+					_d_file_counter = _d_GPK_CH_J_left_toc
+				call sub write_profile
+				
+				/* since have a TOC, don't have a flow line...update the flow file with a 0 elevation */
+				_d_GPK_CH_J_left_flow = _d_GPK_CH_J_left_flow + 1
+				_s_ascii_file << "GPK_CH_J left flow"
+					_d_elevation = 0
+					_d_file_counter = _d_GPK_CH_J_left_flow
+				call sub write_profile
+				
+				}
+			
+			else if _s_valley_Gutter_Found = ^yes^ then
+				{
+				/* since have a flow, don't have a TOC...update the TOC with a 0 elevation */
+				_d_GPK_CH_J_left_toc = _d_GPK_CH_J_left_toc + 1
+				_s_ascii_file << "GPK_CH_J left TOC"
+					_d_elevation = 0
+					_d_file_counter = _d_GPK_CH_J_left_toc
+				call sub write_profile
+				
+				/* have a flow update the flow file */
+				_d_GPK_CH_J_left_flow = _d_GPK_CH_J_left_flow + 1
+				_s_ascii_file << "GPK_CH_J left flow"
+					_d_elevation = y558
+					_d_file_counter = _d_GPK_CH_J_left_flow
+				call sub write_profile
+				}
+				
+			else
+				{
+				/* don't have a TOC or flow line...update both with 0 elevation */
+				_d_GPK_CH_J_left_toc = _d_GPK_CH_J_left_toc + 1
+				_s_ascii_file << "GPK_CH_J left TOC"
+					_d_elevation = 0
+					_d_file_counter = _d_GPK_CH_J_left_toc
+				call sub write_profile
+				
+				/* don't have a TOC or flow line...update both with 0 elevation */
+				_d_GPK_CH_J_left_flow = _d_GPK_CH_J_left_flow + 1
+				_s_ascii_file << "GPK_CH_J left flow"
+					_d_elevation = 0
+					_d_file_counter = _d_GPK_CH_J_left_flow
+				call sub write_profile
+				}
+			}
+			
+		
+		
+		
+		else if _s_curb_side_slope = ^right^ then
+			{
+			if _s_Curb_and_Gutter_Found = ^yes^ then
+				{
+				/* have a TOC update the TOC file */
+				_d_GPK_CH_J_right_toc = _d_GPK_CH_J_right_toc + 1
+				_s_ascii_file << "GPK_CH_J right TOC"
+					_d_elevation = y557
+					_d_file_counter = _d_GPK_CH_J_right_toc
+				call sub write_profile
+				
+				/* since have a TOC, don't have a flow line...update the flow file with a 0 elevation */
+				_d_GPK_CH_J_right_flow = _d_GPK_CH_J_right_flow + 1
+				_s_ascii_file << "GPK_CH_J right flow"
+					_d_elevation = 0
+					_d_file_counter = _d_GPK_CH_J_right_flow
+				call sub write_profile
+				
+				}
+			
+			else if _s_valley_Gutter_Found = ^yes^ then
+				{
+				/* since have a flow, don't have a TOC...update the TOC with a 0 elevation */
+				_d_GPK_CH_J_right_toc = _d_GPK_CH_J_right_toc + 1
+				_s_ascii_file << "GPK_CH_J right TOC"
+					_d_elevation = 0
+					_d_file_counter = _d_GPK_CH_J_right_toc
+				call sub write_profile
+				
+				/* have a flow update the flow file */
+				_d_GPK_CH_J_right_flow = _d_GPK_CH_J_right_flow + 1
+				_s_ascii_file << "GPK_CH_J right flow"
+					_d_elevation = y558
+					_d_file_counter = _d_GPK_CH_J_right_flow
+				call sub write_profile
+				}
+				
+			else
+				{
+				/* don't have a TOC or flow line...update both with 0 elevation */
+				_d_GPK_CH_J_right_toc = _d_GPK_CH_J_right_toc + 1
+				_s_ascii_file << "GPK_CH_J right TOC"
+					_d_elevation = 0
+					_d_file_counter = _d_GPK_CH_J_right_toc
+				call sub write_profile
+				
+				/* don't have a TOC or flow line...update both with 0 elevation */
+				_d_GPK_CH_J_right_flow = _d_GPK_CH_J_right_flow + 1
+				_s_ascii_file << "GPK_CH_J right flow"
+					_d_elevation = 0
+					_d_file_counter = _d_GPK_CH_J_right_flow
+				call sub write_profile
+				}
+			}
+		
+		}
+	
+	/* enter next chain here */
+	
+	
+	
+	else if _s_curb_chain = ^GPK_CH_K^ then
+		{
+		if _s_curb_side_slope = ^left^ then
+			{
+			if _s_Curb_and_Gutter_Found = ^yes^ then
+				{
+				/* have a TOC update the TOC file */
+				_d_GPK_CH_K_left_toc = _d_GPK_CH_K_left_toc + 1
+				_s_ascii_file << "GPK_CH_K left TOC"
+					_d_elevation = y557
+					_d_file_counter = _d_GPK_CH_K_left_toc
+				call sub write_profile
+				
+				/* since have a TOC, don't have a flow line...update the flow file with a 0 elevation */
+				_d_GPK_CH_K_left_flow = _d_GPK_CH_K_left_flow + 1
+				_s_ascii_file << "GPK_CH_K left flow"
+					_d_elevation = 0
+					_d_file_counter = _d_GPK_CH_K_left_flow
+				call sub write_profile
+				
+				}
+			
+			else if _s_valley_Gutter_Found = ^yes^ then
+				{
+				/* since have a flow, don't have a TOC...update the TOC with a 0 elevation */
+				_d_GPK_CH_K_left_toc = _d_GPK_CH_K_left_toc + 1
+				_s_ascii_file << "GPK_CH_K left TOC"
+					_d_elevation = 0
+					_d_file_counter = _d_GPK_CH_K_left_toc
+				call sub write_profile
+				
+				/* have a flow update the flow file */
+				_d_GPK_CH_K_left_flow = _d_GPK_CH_K_left_flow + 1
+				_s_ascii_file << "GPK_CH_K left flow"
+					_d_elevation = y558
+					_d_file_counter = _d_GPK_CH_K_left_flow
+				call sub write_profile
+				}
+				
+			else
+				{
+				/* don't have a TOC or flow line...update both with 0 elevation */
+				_d_GPK_CH_K_left_toc = _d_GPK_CH_K_left_toc + 1
+				_s_ascii_file << "GPK_CH_K left TOC"
+					_d_elevation = 0
+					_d_file_counter = _d_GPK_CH_K_left_toc
+				call sub write_profile
+				
+				/* don't have a TOC or flow line...update both with 0 elevation */
+				_d_GPK_CH_K_left_flow = _d_GPK_CH_K_left_flow + 1
+				_s_ascii_file << "GPK_CH_K left flow"
+					_d_elevation = 0
+					_d_file_counter = _d_GPK_CH_K_left_flow
+				call sub write_profile
+				}
+			}
+			
+		
+		
+		
+		else if _s_curb_side_slope = ^right^ then
+			{
+			if _s_Curb_and_Gutter_Found = ^yes^ then
+				{
+				/* have a TOC update the TOC file */
+				_d_GPK_CH_K_right_toc = _d_GPK_CH_K_right_toc + 1
+				_s_ascii_file << "GPK_CH_K right TOC"
+					_d_elevation = y557
+					_d_file_counter = _d_GPK_CH_K_right_toc
+				call sub write_profile
+				
+				/* since have a TOC, don't have a flow line...update the flow file with a 0 elevation */
+				_d_GPK_CH_K_right_flow = _d_GPK_CH_K_right_flow + 1
+				_s_ascii_file << "GPK_CH_K right flow"
+					_d_elevation = 0
+					_d_file_counter = _d_GPK_CH_K_right_flow
+				call sub write_profile
+				
+				}
+			
+			else if _s_valley_Gutter_Found = ^yes^ then
+				{
+				/* since have a flow, don't have a TOC...update the TOC with a 0 elevation */
+				_d_GPK_CH_K_right_toc = _d_GPK_CH_K_right_toc + 1
+				_s_ascii_file << "GPK_CH_K right TOC"
+					_d_elevation = 0
+					_d_file_counter = _d_GPK_CH_K_right_toc
+				call sub write_profile
+				
+				/* have a flow update the flow file */
+				_d_GPK_CH_K_right_flow = _d_GPK_CH_K_right_flow + 1
+				_s_ascii_file << "GPK_CH_K right flow"
+					_d_elevation = y558
+					_d_file_counter = _d_GPK_CH_K_right_flow
+				call sub write_profile
+				}
+				
+			else
+				{
+				/* don't have a TOC or flow line...update both with 0 elevation */
+				_d_GPK_CH_K_right_toc = _d_GPK_CH_K_right_toc + 1
+				_s_ascii_file << "GPK_CH_K right TOC"
+					_d_elevation = 0
+					_d_file_counter = _d_GPK_CH_K_right_toc
+				call sub write_profile
+				
+				/* don't have a TOC or flow line...update both with 0 elevation */
+				_d_GPK_CH_K_right_flow = _d_GPK_CH_K_right_flow + 1
+				_s_ascii_file << "GPK_CH_K right flow"
+					_d_elevation = 0
+					_d_file_counter = _d_GPK_CH_K_right_flow
+				call sub write_profile
+				}
+			}
+		
+		}
+	
+	/* enter next chain here */
+	
+	
+	
+	else if _s_curb_chain = ^GPK_CH_L^ then
+		{
+		if _s_curb_side_slope = ^left^ then
+			{
+			if _s_Curb_and_Gutter_Found = ^yes^ then
+				{
+				/* have a TOC update the TOC file */
+				_d_GPK_CH_L_left_toc = _d_GPK_CH_L_left_toc + 1
+				_s_ascii_file << "GPK_CH_L left TOC"
+					_d_elevation = y557
+					_d_file_counter = _d_GPK_CH_L_left_toc
+				call sub write_profile
+				
+				/* since have a TOC, don't have a flow line...update the flow file with a 0 elevation */
+				_d_GPK_CH_L_left_flow = _d_GPK_CH_L_left_flow + 1
+				_s_ascii_file << "GPK_CH_L left flow"
+					_d_elevation = 0
+					_d_file_counter = _d_GPK_CH_L_left_flow
+				call sub write_profile
+				
+				}
+			
+			else if _s_valley_Gutter_Found = ^yes^ then
+				{
+				/* since have a flow, don't have a TOC...update the TOC with a 0 elevation */
+				_d_GPK_CH_L_left_toc = _d_GPK_CH_L_left_toc + 1
+				_s_ascii_file << "GPK_CH_L left TOC"
+					_d_elevation = 0
+					_d_file_counter = _d_GPK_CH_L_left_toc
+				call sub write_profile
+				
+				/* have a flow update the flow file */
+				_d_GPK_CH_L_left_flow = _d_GPK_CH_L_left_flow + 1
+				_s_ascii_file << "GPK_CH_L left flow"
+					_d_elevation = y558
+					_d_file_counter = _d_GPK_CH_L_left_flow
+				call sub write_profile
+				}
+				
+			else
+				{
+				/* don't have a TOC or flow line...update both with 0 elevation */
+				_d_GPK_CH_L_left_toc = _d_GPK_CH_L_left_toc + 1
+				_s_ascii_file << "GPK_CH_L left TOC"
+					_d_elevation = 0
+					_d_file_counter = _d_GPK_CH_L_left_toc
+				call sub write_profile
+				
+				/* don't have a TOC or flow line...update both with 0 elevation */
+				_d_GPK_CH_L_left_flow = _d_GPK_CH_L_left_flow + 1
+				_s_ascii_file << "GPK_CH_L left flow"
+					_d_elevation = 0
+					_d_file_counter = _d_GPK_CH_L_left_flow
+				call sub write_profile
+				}
+			}
+			
+		
+		
+		
+		else if _s_curb_side_slope = ^right^ then
+			{
+			if _s_Curb_and_Gutter_Found = ^yes^ then
+				{
+				/* have a TOC update the TOC file */
+				_d_GPK_CH_L_right_toc = _d_GPK_CH_L_right_toc + 1
+				_s_ascii_file << "GPK_CH_L right TOC"
+					_d_elevation = y557
+					_d_file_counter = _d_GPK_CH_L_right_toc
+				call sub write_profile
+				
+				/* since have a TOC, don't have a flow line...update the flow file with a 0 elevation */
+				_d_GPK_CH_L_right_flow = _d_GPK_CH_L_right_flow + 1
+				_s_ascii_file << "GPK_CH_L right flow"
+					_d_elevation = 0
+					_d_file_counter = _d_GPK_CH_L_right_flow
+				call sub write_profile
+				
+				}
+			
+			else if _s_valley_Gutter_Found = ^yes^ then
+				{
+				/* since have a flow, don't have a TOC...update the TOC with a 0 elevation */
+				_d_GPK_CH_L_right_toc = _d_GPK_CH_L_right_toc + 1
+				_s_ascii_file << "GPK_CH_L right TOC"
+					_d_elevation = 0
+					_d_file_counter = _d_GPK_CH_L_right_toc
+				call sub write_profile
+				
+				/* have a flow update the flow file */
+				_d_GPK_CH_L_right_flow = _d_GPK_CH_L_right_flow + 1
+				_s_ascii_file << "GPK_CH_L right flow"
+					_d_elevation = y558
+					_d_file_counter = _d_GPK_CH_L_right_flow
+				call sub write_profile
+				}
+				
+			else
+				{
+				/* don't have a TOC or flow line...update both with 0 elevation */
+				_d_GPK_CH_L_right_toc = _d_GPK_CH_L_right_toc + 1
+				_s_ascii_file << "GPK_CH_L right TOC"
+					_d_elevation = 0
+					_d_file_counter = _d_GPK_CH_L_right_toc
+				call sub write_profile
+				
+				/* don't have a TOC or flow line...update both with 0 elevation */
+				_d_GPK_CH_L_right_flow = _d_GPK_CH_L_right_flow + 1
+				_s_ascii_file << "GPK_CH_L right flow"
+					_d_elevation = 0
+					_d_file_counter = _d_GPK_CH_L_right_flow
+				call sub write_profile
+				}
+			}
+		
+		}
+	
+	/* enter next chain here */
+	
+	
+	
+	else if _s_curb_chain = ^GPK_CH_M^ then
+		{
+		if _s_curb_side_slope = ^left^ then
+			{
+			if _s_Curb_and_Gutter_Found = ^yes^ then
+				{
+				/* have a TOC update the TOC file */
+				_d_GPK_CH_M_left_toc = _d_GPK_CH_M_left_toc + 1
+				_s_ascii_file << "GPK_CH_M left TOC"
+					_d_elevation = y557
+					_d_file_counter = _d_GPK_CH_M_left_toc
+				call sub write_profile
+				
+				/* since have a TOC, don't have a flow line...update the flow file with a 0 elevation */
+				_d_GPK_CH_M_left_flow = _d_GPK_CH_M_left_flow + 1
+				_s_ascii_file << "GPK_CH_M left flow"
+					_d_elevation = 0
+					_d_file_counter = _d_GPK_CH_M_left_flow
+				call sub write_profile
+				
+				}
+			
+			else if _s_valley_Gutter_Found = ^yes^ then
+				{
+				/* since have a flow, don't have a TOC...update the TOC with a 0 elevation */
+				_d_GPK_CH_M_left_toc = _d_GPK_CH_M_left_toc + 1
+				_s_ascii_file << "GPK_CH_M left TOC"
+					_d_elevation = 0
+					_d_file_counter = _d_GPK_CH_M_left_toc
+				call sub write_profile
+				
+				/* have a flow update the flow file */
+				_d_GPK_CH_M_left_flow = _d_GPK_CH_M_left_flow + 1
+				_s_ascii_file << "GPK_CH_M left flow"
+					_d_elevation = y558
+					_d_file_counter = _d_GPK_CH_M_left_flow
+				call sub write_profile
+				}
+				
+			else
+				{
+				/* don't have a TOC or flow line...update both with 0 elevation */
+				_d_GPK_CH_M_left_toc = _d_GPK_CH_M_left_toc + 1
+				_s_ascii_file << "GPK_CH_M left TOC"
+					_d_elevation = 0
+					_d_file_counter = _d_GPK_CH_M_left_toc
+				call sub write_profile
+				
+				/* don't have a TOC or flow line...update both with 0 elevation */
+				_d_GPK_CH_M_left_flow = _d_GPK_CH_M_left_flow + 1
+				_s_ascii_file << "GPK_CH_M left flow"
+					_d_elevation = 0
+					_d_file_counter = _d_GPK_CH_M_left_flow
+				call sub write_profile
+				}
+			}
+			
+		
+		
+		
+		else if _s_curb_side_slope = ^right^ then
+			{
+			if _s_Curb_and_Gutter_Found = ^yes^ then
+				{
+				/* have a TOC update the TOC file */
+				_d_GPK_CH_M_right_toc = _d_GPK_CH_M_right_toc + 1
+				_s_ascii_file << "GPK_CH_M right TOC"
+					_d_elevation = y557
+					_d_file_counter = _d_GPK_CH_M_right_toc
+				call sub write_profile
+				
+				/* since have a TOC, don't have a flow line...update the flow file with a 0 elevation */
+				_d_GPK_CH_M_right_flow = _d_GPK_CH_M_right_flow + 1
+				_s_ascii_file << "GPK_CH_M right flow"
+					_d_elevation = 0
+					_d_file_counter = _d_GPK_CH_M_right_flow
+				call sub write_profile
+				
+				}
+			
+			else if _s_valley_Gutter_Found = ^yes^ then
+				{
+				/* since have a flow, don't have a TOC...update the TOC with a 0 elevation */
+				_d_GPK_CH_M_right_toc = _d_GPK_CH_M_right_toc + 1
+				_s_ascii_file << "GPK_CH_M right TOC"
+					_d_elevation = 0
+					_d_file_counter = _d_GPK_CH_M_right_toc
+				call sub write_profile
+				
+				/* have a flow update the flow file */
+				_d_GPK_CH_M_right_flow = _d_GPK_CH_M_right_flow + 1
+				_s_ascii_file << "GPK_CH_M right flow"
+					_d_elevation = y558
+					_d_file_counter = _d_GPK_CH_M_right_flow
+				call sub write_profile
+				}
+				
+			else
+				{
+				/* don't have a TOC or flow line...update both with 0 elevation */
+				_d_GPK_CH_M_right_toc = _d_GPK_CH_M_right_toc + 1
+				_s_ascii_file << "GPK_CH_M right TOC"
+					_d_elevation = 0
+					_d_file_counter = _d_GPK_CH_M_right_toc
+				call sub write_profile
+				
+				/* don't have a TOC or flow line...update both with 0 elevation */
+				_d_GPK_CH_M_right_flow = _d_GPK_CH_M_right_flow + 1
+				_s_ascii_file << "GPK_CH_M right flow"
+					_d_elevation = 0
+					_d_file_counter = _d_GPK_CH_M_right_flow
+				call sub write_profile
+				}
+			}
+		
+		}
+	
+	/* enter next chain here */
+	
+	
+	
+	else if _s_curb_chain = ^GPK_CH_N^ then
+		{
+		if _s_curb_side_slope = ^left^ then
+			{
+			if _s_Curb_and_Gutter_Found = ^yes^ then
+				{
+				/* have a TOC update the TOC file */
+				_d_GPK_CH_N_left_toc = _d_GPK_CH_N_left_toc + 1
+				_s_ascii_file << "GPK_CH_N left TOC"
+					_d_elevation = y557
+					_d_file_counter = _d_GPK_CH_N_left_toc
+				call sub write_profile
+				
+				/* since have a TOC, don't have a flow line...update the flow file with a 0 elevation */
+				_d_GPK_CH_N_left_flow = _d_GPK_CH_N_left_flow + 1
+				_s_ascii_file << "GPK_CH_N left flow"
+					_d_elevation = 0
+					_d_file_counter = _d_GPK_CH_N_left_flow
+				call sub write_profile
+				
+				}
+			
+			else if _s_valley_Gutter_Found = ^yes^ then
+				{
+				/* since have a flow, don't have a TOC...update the TOC with a 0 elevation */
+				_d_GPK_CH_N_left_toc = _d_GPK_CH_N_left_toc + 1
+				_s_ascii_file << "GPK_CH_N left TOC"
+					_d_elevation = 0
+					_d_file_counter = _d_GPK_CH_N_left_toc
+				call sub write_profile
+				
+				/* have a flow update the flow file */
+				_d_GPK_CH_N_left_flow = _d_GPK_CH_N_left_flow + 1
+				_s_ascii_file << "GPK_CH_N left flow"
+					_d_elevation = y558
+					_d_file_counter = _d_GPK_CH_N_left_flow
+				call sub write_profile
+				}
+				
+			else
+				{
+				/* don't have a TOC or flow line...update both with 0 elevation */
+				_d_GPK_CH_N_left_toc = _d_GPK_CH_N_left_toc + 1
+				_s_ascii_file << "GPK_CH_N left TOC"
+					_d_elevation = 0
+					_d_file_counter = _d_GPK_CH_N_left_toc
+				call sub write_profile
+				
+				/* don't have a TOC or flow line...update both with 0 elevation */
+				_d_GPK_CH_N_left_flow = _d_GPK_CH_N_left_flow + 1
+				_s_ascii_file << "GPK_CH_N left flow"
+					_d_elevation = 0
+					_d_file_counter = _d_GPK_CH_N_left_flow
+				call sub write_profile
+				}
+			}
+			
+		
+		
+		
+		else if _s_curb_side_slope = ^right^ then
+			{
+			if _s_Curb_and_Gutter_Found = ^yes^ then
+				{
+				/* have a TOC update the TOC file */
+				_d_GPK_CH_N_right_toc = _d_GPK_CH_N_right_toc + 1
+				_s_ascii_file << "GPK_CH_N right TOC"
+					_d_elevation = y557
+					_d_file_counter = _d_GPK_CH_N_right_toc
+				call sub write_profile
+				
+				/* since have a TOC, don't have a flow line...update the flow file with a 0 elevation */
+				_d_GPK_CH_N_right_flow = _d_GPK_CH_N_right_flow + 1
+				_s_ascii_file << "GPK_CH_N right flow"
+					_d_elevation = 0
+					_d_file_counter = _d_GPK_CH_N_right_flow
+				call sub write_profile
+				
+				}
+			
+			else if _s_valley_Gutter_Found = ^yes^ then
+				{
+				/* since have a flow, don't have a TOC...update the TOC with a 0 elevation */
+				_d_GPK_CH_N_right_toc = _d_GPK_CH_N_right_toc + 1
+				_s_ascii_file << "GPK_CH_N right TOC"
+					_d_elevation = 0
+					_d_file_counter = _d_GPK_CH_N_right_toc
+				call sub write_profile
+				
+				/* have a flow update the flow file */
+				_d_GPK_CH_N_right_flow = _d_GPK_CH_N_right_flow + 1
+				_s_ascii_file << "GPK_CH_N right flow"
+					_d_elevation = y558
+					_d_file_counter = _d_GPK_CH_N_right_flow
+				call sub write_profile
+				}
+				
+			else
+				{
+				/* don't have a TOC or flow line...update both with 0 elevation */
+				_d_GPK_CH_N_right_toc = _d_GPK_CH_N_right_toc + 1
+				_s_ascii_file << "GPK_CH_N right TOC"
+					_d_elevation = 0
+					_d_file_counter = _d_GPK_CH_N_right_toc
+				call sub write_profile
+				
+				/* don't have a TOC or flow line...update both with 0 elevation */
+				_d_GPK_CH_N_right_flow = _d_GPK_CH_N_right_flow + 1
+				_s_ascii_file << "GPK_CH_N right flow"
+					_d_elevation = 0
+					_d_file_counter = _d_GPK_CH_N_right_flow
+				call sub write_profile
+				}
+			}
+		
+		}
+	
+	/* enter next chain here */
+	
+	
+	
+	
+	else if _s_curb_chain = ^GPK_CH_O^ then
+		{
+		if _s_curb_side_slope = ^left^ then
+			{
+			if _s_Curb_and_Gutter_Found = ^yes^ then
+				{
+				/* have a TOC update the TOC file */
+				_d_GPK_CH_O_left_toc = _d_GPK_CH_O_left_toc + 1
+				_s_ascii_file << "GPK_CH_O left TOC"
+					_d_elevation = y557
+					_d_file_counter = _d_GPK_CH_O_left_toc
+				call sub write_profile
+				
+				/* since have a TOC, don't have a flow line...update the flow file with a 0 elevation */
+				_d_GPK_CH_O_left_flow = _d_GPK_CH_O_left_flow + 1
+				_s_ascii_file << "GPK_CH_O left flow"
+					_d_elevation = 0
+					_d_file_counter = _d_GPK_CH_O_left_flow
+				call sub write_profile
+				
+				}
+			
+			else if _s_valley_Gutter_Found = ^yes^ then
+				{
+				/* since have a flow, don't have a TOC...update the TOC with a 0 elevation */
+				_d_GPK_CH_O_left_toc = _d_GPK_CH_O_left_toc + 1
+				_s_ascii_file << "GPK_CH_O left TOC"
+					_d_elevation = 0
+					_d_file_counter = _d_GPK_CH_O_left_toc
+				call sub write_profile
+				
+				/* have a flow update the flow file */
+				_d_GPK_CH_O_left_flow = _d_GPK_CH_O_left_flow + 1
+				_s_ascii_file << "GPK_CH_O left flow"
+					_d_elevation = y558
+					_d_file_counter = _d_GPK_CH_O_left_flow
+				call sub write_profile
+				}
+				
+			else
+				{
+				/* don't have a TOC or flow line...update both with 0 elevation */
+				_d_GPK_CH_O_left_toc = _d_GPK_CH_O_left_toc + 1
+				_s_ascii_file << "GPK_CH_O left TOC"
+					_d_elevation = 0
+					_d_file_counter = _d_GPK_CH_O_left_toc
+				call sub write_profile
+				
+				/* don't have a TOC or flow line...update both with 0 elevation */
+				_d_GPK_CH_O_left_flow = _d_GPK_CH_O_left_flow + 1
+				_s_ascii_file << "GPK_CH_O left flow"
+					_d_elevation = 0
+					_d_file_counter = _d_GPK_CH_O_left_flow
+				call sub write_profile
+				}
+			}
+			
+		
+		
+		
+		else if _s_curb_side_slope = ^right^ then
+			{
+			if _s_Curb_and_Gutter_Found = ^yes^ then
+				{
+				/* have a TOC update the TOC file */
+				_d_GPK_CH_O_right_toc = _d_GPK_CH_O_right_toc + 1
+				_s_ascii_file << "GPK_CH_O right TOC"
+					_d_elevation = y557
+					_d_file_counter = _d_GPK_CH_O_right_toc
+				call sub write_profile
+				
+				/* since have a TOC, don't have a flow line...update the flow file with a 0 elevation */
+				_d_GPK_CH_O_right_flow = _d_GPK_CH_O_right_flow + 1
+				_s_ascii_file << "GPK_CH_O right flow"
+					_d_elevation = 0
+					_d_file_counter = _d_GPK_CH_O_right_flow
+				call sub write_profile
+				
+				}
+			
+			else if _s_valley_Gutter_Found = ^yes^ then
+				{
+				/* since have a flow, don't have a TOC...update the TOC with a 0 elevation */
+				_d_GPK_CH_O_right_toc = _d_GPK_CH_O_right_toc + 1
+				_s_ascii_file << "GPK_CH_O right TOC"
+					_d_elevation = 0
+					_d_file_counter = _d_GPK_CH_O_right_toc
+				call sub write_profile
+				
+				/* have a flow update the flow file */
+				_d_GPK_CH_O_right_flow = _d_GPK_CH_O_right_flow + 1
+				_s_ascii_file << "GPK_CH_O right flow"
+					_d_elevation = y558
+					_d_file_counter = _d_GPK_CH_O_right_flow
+				call sub write_profile
+				}
+				
+			else
+				{
+				/* don't have a TOC or flow line...update both with 0 elevation */
+				_d_GPK_CH_O_right_toc = _d_GPK_CH_O_right_toc + 1
+				_s_ascii_file << "GPK_CH_O right TOC"
+					_d_elevation = 0
+					_d_file_counter = _d_GPK_CH_O_right_toc
+				call sub write_profile
+				
+				/* don't have a TOC or flow line...update both with 0 elevation */
+				_d_GPK_CH_O_right_flow = _d_GPK_CH_O_right_flow + 1
+				_s_ascii_file << "GPK_CH_O right flow"
+					_d_elevation = 0
+					_d_file_counter = _d_GPK_CH_O_right_flow
+				call sub write_profile
+				}
+			}
+		
+		}
+	
+	/* enter next chain here */
+	
+	
+	
+	
+	else if _s_curb_chain = ^GPK_CH_P^ then
+		{
+		if _s_curb_side_slope = ^left^ then
+			{
+			if _s_Curb_and_Gutter_Found = ^yes^ then
+				{
+				/* have a TOC update the TOC file */
+				_d_GPK_CH_P_left_toc = _d_GPK_CH_P_left_toc + 1
+				_s_ascii_file << "GPK_CH_P left TOC"
+					_d_elevation = y557
+					_d_file_counter = _d_GPK_CH_P_left_toc
+				call sub write_profile
+				
+				/* since have a TOC, don't have a flow line...update the flow file with a 0 elevation */
+				_d_GPK_CH_P_left_flow = _d_GPK_CH_P_left_flow + 1
+				_s_ascii_file << "GPK_CH_P left flow"
+					_d_elevation = 0
+					_d_file_counter = _d_GPK_CH_P_left_flow
+				call sub write_profile
+				
+				}
+			
+			else if _s_valley_Gutter_Found = ^yes^ then
+				{
+				/* since have a flow, don't have a TOC...update the TOC with a 0 elevation */
+				_d_GPK_CH_P_left_toc = _d_GPK_CH_P_left_toc + 1
+				_s_ascii_file << "GPK_CH_P left TOC"
+					_d_elevation = 0
+					_d_file_counter = _d_GPK_CH_P_left_toc
+				call sub write_profile
+				
+				/* have a flow update the flow file */
+				_d_GPK_CH_P_left_flow = _d_GPK_CH_P_left_flow + 1
+				_s_ascii_file << "GPK_CH_P left flow"
+					_d_elevation = y558
+					_d_file_counter = _d_GPK_CH_P_left_flow
+				call sub write_profile
+				}
+				
+			else
+				{
+				/* don't have a TOC or flow line...update both with 0 elevation */
+				_d_GPK_CH_P_left_toc = _d_GPK_CH_P_left_toc + 1
+				_s_ascii_file << "GPK_CH_P left TOC"
+					_d_elevation = 0
+					_d_file_counter = _d_GPK_CH_P_left_toc
+				call sub write_profile
+				
+				/* don't have a TOC or flow line...update both with 0 elevation */
+				_d_GPK_CH_P_left_flow = _d_GPK_CH_P_left_flow + 1
+				_s_ascii_file << "GPK_CH_P left flow"
+					_d_elevation = 0
+					_d_file_counter = _d_GPK_CH_P_left_flow
+				call sub write_profile
+				}
+			}
+			
+		
+		
+		
+		else if _s_curb_side_slope = ^right^ then
+			{
+			if _s_Curb_and_Gutter_Found = ^yes^ then
+				{
+				/* have a TOC update the TOC file */
+				_d_GPK_CH_P_right_toc = _d_GPK_CH_P_right_toc + 1
+				_s_ascii_file << "GPK_CH_P right TOC"
+					_d_elevation = y557
+					_d_file_counter = _d_GPK_CH_P_right_toc
+				call sub write_profile
+				
+				/* since have a TOC, don't have a flow line...update the flow file with a 0 elevation */
+				_d_GPK_CH_P_right_flow = _d_GPK_CH_P_right_flow + 1
+				_s_ascii_file << "GPK_CH_P right flow"
+					_d_elevation = 0
+					_d_file_counter = _d_GPK_CH_P_right_flow
+				call sub write_profile
+				
+				}
+			
+			else if _s_valley_Gutter_Found = ^yes^ then
+				{
+				/* since have a flow, don't have a TOC...update the TOC with a 0 elevation */
+				_d_GPK_CH_P_right_toc = _d_GPK_CH_P_right_toc + 1
+				_s_ascii_file << "GPK_CH_P right TOC"
+					_d_elevation = 0
+					_d_file_counter = _d_GPK_CH_P_right_toc
+				call sub write_profile
+				
+				/* have a flow update the flow file */
+				_d_GPK_CH_P_right_flow = _d_GPK_CH_P_right_flow + 1
+				_s_ascii_file << "GPK_CH_P right flow"
+					_d_elevation = y558
+					_d_file_counter = _d_GPK_CH_P_right_flow
+				call sub write_profile
+				}
+				
+			else
+				{
+				/* don't have a TOC or flow line...update both with 0 elevation */
+				_d_GPK_CH_P_right_toc = _d_GPK_CH_P_right_toc + 1
+				_s_ascii_file << "GPK_CH_P right TOC"
+					_d_elevation = 0
+					_d_file_counter = _d_GPK_CH_P_right_toc
+				call sub write_profile
+				
+				/* don't have a TOC or flow line...update both with 0 elevation */
+				_d_GPK_CH_P_right_flow = _d_GPK_CH_P_right_flow + 1
+				_s_ascii_file << "GPK_CH_P right flow"
+					_d_elevation = 0
+					_d_file_counter = _d_GPK_CH_P_right_flow
+				call sub write_profile
+				}
+			}
+		
+		}
+	
+	/* enter next chain here */
+	
+	
+	
+	
+	else if _s_curb_chain = ^GPK_CH_Q^ then
+		{
+		if _s_curb_side_slope = ^left^ then
+			{
+			if _s_Curb_and_Gutter_Found = ^yes^ then
+				{
+				/* have a TOC update the TOC file */
+				_d_GPK_CH_Q_left_toc = _d_GPK_CH_Q_left_toc + 1
+				_s_ascii_file << "GPK_CH_Q left TOC"
+					_d_elevation = y557
+					_d_file_counter = _d_GPK_CH_Q_left_toc
+				call sub write_profile
+				
+				/* since have a TOC, don't have a flow line...update the flow file with a 0 elevation */
+				_d_GPK_CH_Q_left_flow = _d_GPK_CH_Q_left_flow + 1
+				_s_ascii_file << "GPK_CH_Q left flow"
+					_d_elevation = 0
+					_d_file_counter = _d_GPK_CH_Q_left_flow
+				call sub write_profile
+				
+				}
+			
+			else if _s_valley_Gutter_Found = ^yes^ then
+				{
+				/* since have a flow, don't have a TOC...update the TOC with a 0 elevation */
+				_d_GPK_CH_Q_left_toc = _d_GPK_CH_Q_left_toc + 1
+				_s_ascii_file << "GPK_CH_Q left TOC"
+					_d_elevation = 0
+					_d_file_counter = _d_GPK_CH_Q_left_toc
+				call sub write_profile
+				
+				/* have a flow update the flow file */
+				_d_GPK_CH_Q_left_flow = _d_GPK_CH_Q_left_flow + 1
+				_s_ascii_file << "GPK_CH_Q left flow"
+					_d_elevation = y558
+					_d_file_counter = _d_GPK_CH_Q_left_flow
+				call sub write_profile
+				}
+				
+			else
+				{
+				/* don't have a TOC or flow line...update both with 0 elevation */
+				_d_GPK_CH_Q_left_toc = _d_GPK_CH_Q_left_toc + 1
+				_s_ascii_file << "GPK_CH_Q left TOC"
+					_d_elevation = 0
+					_d_file_counter = _d_GPK_CH_Q_left_toc
+				call sub write_profile
+				
+				/* don't have a TOC or flow line...update both with 0 elevation */
+				_d_GPK_CH_Q_left_flow = _d_GPK_CH_Q_left_flow + 1
+				_s_ascii_file << "GPK_CH_Q left flow"
+					_d_elevation = 0
+					_d_file_counter = _d_GPK_CH_Q_left_flow
+				call sub write_profile
+				}
+			}
+			
+		
+		
+		
+		else if _s_curb_side_slope = ^right^ then
+			{
+			if _s_Curb_and_Gutter_Found = ^yes^ then
+				{
+				/* have a TOC update the TOC file */
+				_d_GPK_CH_Q_right_toc = _d_GPK_CH_Q_right_toc + 1
+				_s_ascii_file << "GPK_CH_Q right TOC"
+					_d_elevation = y557
+					_d_file_counter = _d_GPK_CH_Q_right_toc
+				call sub write_profile
+				
+				/* since have a TOC, don't have a flow line...update the flow file with a 0 elevation */
+				_d_GPK_CH_Q_right_flow = _d_GPK_CH_Q_right_flow + 1
+				_s_ascii_file << "GPK_CH_Q right flow"
+					_d_elevation = 0
+					_d_file_counter = _d_GPK_CH_Q_right_flow
+				call sub write_profile
+				
+				}
+			
+			else if _s_valley_Gutter_Found = ^yes^ then
+				{
+				/* since have a flow, don't have a TOC...update the TOC with a 0 elevation */
+				_d_GPK_CH_Q_right_toc = _d_GPK_CH_Q_right_toc + 1
+				_s_ascii_file << "GPK_CH_Q right TOC"
+					_d_elevation = 0
+					_d_file_counter = _d_GPK_CH_Q_right_toc
+				call sub write_profile
+				
+				/* have a flow update the flow file */
+				_d_GPK_CH_Q_right_flow = _d_GPK_CH_Q_right_flow + 1
+				_s_ascii_file << "GPK_CH_Q right flow"
+					_d_elevation = y558
+					_d_file_counter = _d_GPK_CH_Q_right_flow
+				call sub write_profile
+				}
+				
+			else
+				{
+				/* don't have a TOC or flow line...update both with 0 elevation */
+				_d_GPK_CH_Q_right_toc = _d_GPK_CH_Q_right_toc + 1
+				_s_ascii_file << "GPK_CH_Q right TOC"
+					_d_elevation = 0
+					_d_file_counter = _d_GPK_CH_Q_right_toc
+				call sub write_profile
+				
+				/* don't have a TOC or flow line...update both with 0 elevation */
+				_d_GPK_CH_Q_right_flow = _d_GPK_CH_Q_right_flow + 1
+				_s_ascii_file << "GPK_CH_Q right flow"
+					_d_elevation = 0
+					_d_file_counter = _d_GPK_CH_Q_right_flow
+				call sub write_profile
+				}
+			}
+		
+		}
+	
+	/* enter next chain here */
+	
+	
+	
+	
+	else if _s_curb_chain = ^GPK_CH_R^ then
+		{
+		if _s_curb_side_slope = ^left^ then
+			{
+			if _s_Curb_and_Gutter_Found = ^yes^ then
+				{
+				/* have a TOC update the TOC file */
+				_d_GPK_CH_R_left_toc = _d_GPK_CH_R_left_toc + 1
+				_s_ascii_file << "GPK_CH_R left TOC"
+					_d_elevation = y557
+					_d_file_counter = _d_GPK_CH_R_left_toc
+				call sub write_profile
+				
+				/* since have a TOC, don't have a flow line...update the flow file with a 0 elevation */
+				_d_GPK_CH_R_left_flow = _d_GPK_CH_R_left_flow + 1
+				_s_ascii_file << "GPK_CH_R left flow"
+					_d_elevation = 0
+					_d_file_counter = _d_GPK_CH_R_left_flow
+				call sub write_profile
+				
+				}
+			
+			else if _s_valley_Gutter_Found = ^yes^ then
+				{
+				/* since have a flow, don't have a TOC...update the TOC with a 0 elevation */
+				_d_GPK_CH_R_left_toc = _d_GPK_CH_R_left_toc + 1
+				_s_ascii_file << "GPK_CH_R left TOC"
+					_d_elevation = 0
+					_d_file_counter = _d_GPK_CH_R_left_toc
+				call sub write_profile
+				
+				/* have a flow update the flow file */
+				_d_GPK_CH_R_left_flow = _d_GPK_CH_R_left_flow + 1
+				_s_ascii_file << "GPK_CH_R left flow"
+					_d_elevation = y558
+					_d_file_counter = _d_GPK_CH_R_left_flow
+				call sub write_profile
+				}
+				
+			else
+				{
+				/* don't have a TOC or flow line...update both with 0 elevation */
+				_d_GPK_CH_R_left_toc = _d_GPK_CH_R_left_toc + 1
+				_s_ascii_file << "GPK_CH_R left TOC"
+					_d_elevation = 0
+					_d_file_counter = _d_GPK_CH_R_left_toc
+				call sub write_profile
+				
+				/* don't have a TOC or flow line...update both with 0 elevation */
+				_d_GPK_CH_R_left_flow = _d_GPK_CH_R_left_flow + 1
+				_s_ascii_file << "GPK_CH_R left flow"
+					_d_elevation = 0
+					_d_file_counter = _d_GPK_CH_R_left_flow
+				call sub write_profile
+				}
+			}
+			
+		
+		
+		
+		else if _s_curb_side_slope = ^right^ then
+			{
+			if _s_Curb_and_Gutter_Found = ^yes^ then
+				{
+				/* have a TOC update the TOC file */
+				_d_GPK_CH_R_right_toc = _d_GPK_CH_R_right_toc + 1
+				_s_ascii_file << "GPK_CH_R right TOC"
+					_d_elevation = y557
+					_d_file_counter = _d_GPK_CH_R_right_toc
+				call sub write_profile
+				
+				/* since have a TOC, don't have a flow line...update the flow file with a 0 elevation */
+				_d_GPK_CH_R_right_flow = _d_GPK_CH_R_right_flow + 1
+				_s_ascii_file << "GPK_CH_R right flow"
+					_d_elevation = 0
+					_d_file_counter = _d_GPK_CH_R_right_flow
+				call sub write_profile
+				
+				}
+			
+			else if _s_valley_Gutter_Found = ^yes^ then
+				{
+				/* since have a flow, don't have a TOC...update the TOC with a 0 elevation */
+				_d_GPK_CH_R_right_toc = _d_GPK_CH_R_right_toc + 1
+				_s_ascii_file << "GPK_CH_R right TOC"
+					_d_elevation = 0
+					_d_file_counter = _d_GPK_CH_R_right_toc
+				call sub write_profile
+				
+				/* have a flow update the flow file */
+				_d_GPK_CH_R_right_flow = _d_GPK_CH_R_right_flow + 1
+				_s_ascii_file << "GPK_CH_R right flow"
+					_d_elevation = y558
+					_d_file_counter = _d_GPK_CH_R_right_flow
+				call sub write_profile
+				}
+				
+			else
+				{
+				/* don't have a TOC or flow line...update both with 0 elevation */
+				_d_GPK_CH_R_right_toc = _d_GPK_CH_R_right_toc + 1
+				_s_ascii_file << "GPK_CH_R right TOC"
+					_d_elevation = 0
+					_d_file_counter = _d_GPK_CH_R_right_toc
+				call sub write_profile
+				
+				/* don't have a TOC or flow line...update both with 0 elevation */
+				_d_GPK_CH_R_right_flow = _d_GPK_CH_R_right_flow + 1
+				_s_ascii_file << "GPK_CH_R right flow"
+					_d_elevation = 0
+					_d_file_counter = _d_GPK_CH_R_right_flow
+				call sub write_profile
+				}
+			}
+		
+		}
+	
+	/* enter next chain here */
+	
+	
+	
+	else if _s_curb_chain = ^GPK_CH_S^ then
+		{
+		if _s_curb_side_slope = ^left^ then
+			{
+			if _s_Curb_and_Gutter_Found = ^yes^ then
+				{
+				/* have a TOC update the TOC file */
+				_d_GPK_CH_S_left_toc = _d_GPK_CH_S_left_toc + 1
+				_s_ascii_file << "GPK_CH_S left TOC"
+					_d_elevation = y557
+					_d_file_counter = _d_GPK_CH_S_left_toc
+				call sub write_profile
+				
+				/* since have a TOC, don't have a flow line...update the flow file with a 0 elevation */
+				_d_GPK_CH_S_left_flow = _d_GPK_CH_S_left_flow + 1
+				_s_ascii_file << "GPK_CH_S left flow"
+					_d_elevation = 0
+					_d_file_counter = _d_GPK_CH_S_left_flow
+				call sub write_profile
+				
+				}
+			
+			else if _s_valley_Gutter_Found = ^yes^ then
+				{
+				/* since have a flow, don't have a TOC...update the TOC with a 0 elevation */
+				_d_GPK_CH_S_left_toc = _d_GPK_CH_S_left_toc + 1
+				_s_ascii_file << "GPK_CH_S left TOC"
+					_d_elevation = 0
+					_d_file_counter = _d_GPK_CH_S_left_toc
+				call sub write_profile
+				
+				/* have a flow update the flow file */
+				_d_GPK_CH_S_left_flow = _d_GPK_CH_S_left_flow + 1
+				_s_ascii_file << "GPK_CH_S left flow"
+					_d_elevation = y558
+					_d_file_counter = _d_GPK_CH_S_left_flow
+				call sub write_profile
+				}
+				
+			else
+				{
+				/* don't have a TOC or flow line...update both with 0 elevation */
+				_d_GPK_CH_S_left_toc = _d_GPK_CH_S_left_toc + 1
+				_s_ascii_file << "GPK_CH_S left TOC"
+					_d_elevation = 0
+					_d_file_counter = _d_GPK_CH_S_left_toc
+				call sub write_profile
+				
+				/* don't have a TOC or flow line...update both with 0 elevation */
+				_d_GPK_CH_S_left_flow = _d_GPK_CH_S_left_flow + 1
+				_s_ascii_file << "GPK_CH_S left flow"
+					_d_elevation = 0
+					_d_file_counter = _d_GPK_CH_S_left_flow
+				call sub write_profile
+				}
+			}
+			
+		
+		
+		
+		else if _s_curb_side_slope = ^right^ then
+			{
+			if _s_Curb_and_Gutter_Found = ^yes^ then
+				{
+				/* have a TOC update the TOC file */
+				_d_GPK_CH_S_right_toc = _d_GPK_CH_S_right_toc + 1
+				_s_ascii_file << "GPK_CH_S right TOC"
+					_d_elevation = y557
+					_d_file_counter = _d_GPK_CH_S_right_toc
+				call sub write_profile
+				
+				/* since have a TOC, don't have a flow line...update the flow file with a 0 elevation */
+				_d_GPK_CH_S_right_flow = _d_GPK_CH_S_right_flow + 1
+				_s_ascii_file << "GPK_CH_S right flow"
+					_d_elevation = 0
+					_d_file_counter = _d_GPK_CH_S_right_flow
+				call sub write_profile
+				
+				}
+			
+			else if _s_valley_Gutter_Found = ^yes^ then
+				{
+				/* since have a flow, don't have a TOC...update the TOC with a 0 elevation */
+				_d_GPK_CH_S_right_toc = _d_GPK_CH_S_right_toc + 1
+				_s_ascii_file << "GPK_CH_S right TOC"
+					_d_elevation = 0
+					_d_file_counter = _d_GPK_CH_S_right_toc
+				call sub write_profile
+				
+				/* have a flow update the flow file */
+				_d_GPK_CH_S_right_flow = _d_GPK_CH_S_right_flow + 1
+				_s_ascii_file << "GPK_CH_S right flow"
+					_d_elevation = y558
+					_d_file_counter = _d_GPK_CH_S_right_flow
+				call sub write_profile
+				}
+				
+			else
+				{
+				/* don't have a TOC or flow line...update both with 0 elevation */
+				_d_GPK_CH_S_right_toc = _d_GPK_CH_S_right_toc + 1
+				_s_ascii_file << "GPK_CH_S right TOC"
+					_d_elevation = 0
+					_d_file_counter = _d_GPK_CH_S_right_toc
+				call sub write_profile
+				
+				/* don't have a TOC or flow line...update both with 0 elevation */
+				_d_GPK_CH_S_right_flow = _d_GPK_CH_S_right_flow + 1
+				_s_ascii_file << "GPK_CH_S right flow"
+					_d_elevation = 0
+					_d_file_counter = _d_GPK_CH_S_right_flow
+				call sub write_profile
+				}
+			}
+		
+		}
+	
+	/* enter next chain here */
+	
+	
+	
+	
+	else if _s_curb_chain = ^GPK_CH_T^ then
+		{
+		if _s_curb_side_slope = ^left^ then
+			{
+			if _s_Curb_and_Gutter_Found = ^yes^ then
+				{
+				/* have a TOC update the TOC file */
+				_d_GPK_CH_T_left_toc = _d_GPK_CH_T_left_toc + 1
+				_s_ascii_file << "GPK_CH_T left TOC"
+					_d_elevation = y557
+					_d_file_counter = _d_GPK_CH_T_left_toc
+				call sub write_profile
+				
+				/* since have a TOC, don't have a flow line...update the flow file with a 0 elevation */
+				_d_GPK_CH_T_left_flow = _d_GPK_CH_T_left_flow + 1
+				_s_ascii_file << "GPK_CH_T left flow"
+					_d_elevation = 0
+					_d_file_counter = _d_GPK_CH_T_left_flow
+				call sub write_profile
+				
+				}
+			
+			else if _s_valley_Gutter_Found = ^yes^ then
+				{
+				/* since have a flow, don't have a TOC...update the TOC with a 0 elevation */
+				_d_GPK_CH_T_left_toc = _d_GPK_CH_T_left_toc + 1
+				_s_ascii_file << "GPK_CH_T left TOC"
+					_d_elevation = 0
+					_d_file_counter = _d_GPK_CH_T_left_toc
+				call sub write_profile
+				
+				/* have a flow update the flow file */
+				_d_GPK_CH_T_left_flow = _d_GPK_CH_T_left_flow + 1
+				_s_ascii_file << "GPK_CH_T left flow"
+					_d_elevation = y558
+					_d_file_counter = _d_GPK_CH_T_left_flow
+				call sub write_profile
+				}
+				
+			else
+				{
+				/* don't have a TOC or flow line...update both with 0 elevation */
+				_d_GPK_CH_T_left_toc = _d_GPK_CH_T_left_toc + 1
+				_s_ascii_file << "GPK_CH_T left TOC"
+					_d_elevation = 0
+					_d_file_counter = _d_GPK_CH_T_left_toc
+				call sub write_profile
+				
+				/* don't have a TOC or flow line...update both with 0 elevation */
+				_d_GPK_CH_T_left_flow = _d_GPK_CH_T_left_flow + 1
+				_s_ascii_file << "GPK_CH_T left flow"
+					_d_elevation = 0
+					_d_file_counter = _d_GPK_CH_T_left_flow
+				call sub write_profile
+				}
+			}
+			
+		
+		
+		
+		else if _s_curb_side_slope = ^right^ then
+			{
+			if _s_Curb_and_Gutter_Found = ^yes^ then
+				{
+				/* have a TOC update the TOC file */
+				_d_GPK_CH_T_right_toc = _d_GPK_CH_T_right_toc + 1
+				_s_ascii_file << "GPK_CH_T right TOC"
+					_d_elevation = y557
+					_d_file_counter = _d_GPK_CH_T_right_toc
+				call sub write_profile
+				
+				/* since have a TOC, don't have a flow line...update the flow file with a 0 elevation */
+				_d_GPK_CH_T_right_flow = _d_GPK_CH_T_right_flow + 1
+				_s_ascii_file << "GPK_CH_T right flow"
+					_d_elevation = 0
+					_d_file_counter = _d_GPK_CH_T_right_flow
+				call sub write_profile
+				
+				}
+			
+			else if _s_valley_Gutter_Found = ^yes^ then
+				{
+				/* since have a flow, don't have a TOC...update the TOC with a 0 elevation */
+				_d_GPK_CH_T_right_toc = _d_GPK_CH_T_right_toc + 1
+				_s_ascii_file << "GPK_CH_T right TOC"
+					_d_elevation = 0
+					_d_file_counter = _d_GPK_CH_T_right_toc
+				call sub write_profile
+				
+				/* have a flow update the flow file */
+				_d_GPK_CH_T_right_flow = _d_GPK_CH_T_right_flow + 1
+				_s_ascii_file << "GPK_CH_T right flow"
+					_d_elevation = y558
+					_d_file_counter = _d_GPK_CH_T_right_flow
+				call sub write_profile
+				}
+				
+			else
+				{
+				/* don't have a TOC or flow line...update both with 0 elevation */
+				_d_GPK_CH_T_right_toc = _d_GPK_CH_T_right_toc + 1
+				_s_ascii_file << "GPK_CH_T right TOC"
+					_d_elevation = 0
+					_d_file_counter = _d_GPK_CH_T_right_toc
+				call sub write_profile
+				
+				/* don't have a TOC or flow line...update both with 0 elevation */
+				_d_GPK_CH_T_right_flow = _d_GPK_CH_T_right_flow + 1
+				_s_ascii_file << "GPK_CH_T right flow"
+					_d_elevation = 0
+					_d_file_counter = _d_GPK_CH_T_right_flow
+				call sub write_profile
+				}
+			}
+		
+		}
+	
+	/* enter next chain here */
+	
+	
+	
+	else if _s_curb_chain = ^GPK_CH_U^ then
+		{
+		if _s_curb_side_slope = ^left^ then
+			{
+			if _s_Curb_and_Gutter_Found = ^yes^ then
+				{
+				/* have a TOC update the TOC file */
+				_d_GPK_CH_U_left_toc = _d_GPK_CH_U_left_toc + 1
+				_s_ascii_file << "GPK_CH_U left TOC"
+					_d_elevation = y557
+					_d_file_counter = _d_GPK_CH_U_left_toc
+				call sub write_profile
+				
+				/* since have a TOC, don't have a flow line...update the flow file with a 0 elevation */
+				_d_GPK_CH_U_left_flow = _d_GPK_CH_U_left_flow + 1
+				_s_ascii_file << "GPK_CH_U left flow"
+					_d_elevation = 0
+					_d_file_counter = _d_GPK_CH_U_left_flow
+				call sub write_profile
+				
+				}
+			
+			else if _s_valley_Gutter_Found = ^yes^ then
+				{
+				/* since have a flow, don't have a TOC...update the TOC with a 0 elevation */
+				_d_GPK_CH_U_left_toc = _d_GPK_CH_U_left_toc + 1
+				_s_ascii_file << "GPK_CH_U left TOC"
+					_d_elevation = 0
+					_d_file_counter = _d_GPK_CH_U_left_toc
+				call sub write_profile
+				
+				/* have a flow update the flow file */
+				_d_GPK_CH_U_left_flow = _d_GPK_CH_U_left_flow + 1
+				_s_ascii_file << "GPK_CH_U left flow"
+					_d_elevation = y558
+					_d_file_counter = _d_GPK_CH_U_left_flow
+				call sub write_profile
+				}
+				
+			else
+				{
+				/* don't have a TOC or flow line...update both with 0 elevation */
+				_d_GPK_CH_U_left_toc = _d_GPK_CH_U_left_toc + 1
+				_s_ascii_file << "GPK_CH_U left TOC"
+					_d_elevation = 0
+					_d_file_counter = _d_GPK_CH_U_left_toc
+				call sub write_profile
+				
+				/* don't have a TOC or flow line...update both with 0 elevation */
+				_d_GPK_CH_U_left_flow = _d_GPK_CH_U_left_flow + 1
+				_s_ascii_file << "GPK_CH_U left flow"
+					_d_elevation = 0
+					_d_file_counter = _d_GPK_CH_U_left_flow
+				call sub write_profile
+				}
+			}
+			
+		
+		
+		
+		else if _s_curb_side_slope = ^right^ then
+			{
+			if _s_Curb_and_Gutter_Found = ^yes^ then
+				{
+				/* have a TOC update the TOC file */
+				_d_GPK_CH_U_right_toc = _d_GPK_CH_U_right_toc + 1
+				_s_ascii_file << "GPK_CH_U right TOC"
+					_d_elevation = y557
+					_d_file_counter = _d_GPK_CH_U_right_toc
+				call sub write_profile
+				
+				/* since have a TOC, don't have a flow line...update the flow file with a 0 elevation */
+				_d_GPK_CH_U_right_flow = _d_GPK_CH_U_right_flow + 1
+				_s_ascii_file << "GPK_CH_U right flow"
+					_d_elevation = 0
+					_d_file_counter = _d_GPK_CH_U_right_flow
+				call sub write_profile
+				
+				}
+			
+			else if _s_valley_Gutter_Found = ^yes^ then
+				{
+				/* since have a flow, don't have a TOC...update the TOC with a 0 elevation */
+				_d_GPK_CH_U_right_toc = _d_GPK_CH_U_right_toc + 1
+				_s_ascii_file << "GPK_CH_U right TOC"
+					_d_elevation = 0
+					_d_file_counter = _d_GPK_CH_U_right_toc
+				call sub write_profile
+				
+				/* have a flow update the flow file */
+				_d_GPK_CH_U_right_flow = _d_GPK_CH_U_right_flow + 1
+				_s_ascii_file << "GPK_CH_U right flow"
+					_d_elevation = y558
+					_d_file_counter = _d_GPK_CH_U_right_flow
+				call sub write_profile
+				}
+				
+			else
+				{
+				/* don't have a TOC or flow line...update both with 0 elevation */
+				_d_GPK_CH_U_right_toc = _d_GPK_CH_U_right_toc + 1
+				_s_ascii_file << "GPK_CH_U right TOC"
+					_d_elevation = 0
+					_d_file_counter = _d_GPK_CH_U_right_toc
+				call sub write_profile
+				
+				/* don't have a TOC or flow line...update both with 0 elevation */
+				_d_GPK_CH_U_right_flow = _d_GPK_CH_U_right_flow + 1
+				_s_ascii_file << "GPK_CH_U right flow"
+					_d_elevation = 0
+					_d_file_counter = _d_GPK_CH_U_right_flow
+				call sub write_profile
+				}
+			}
+		
+		}
+	
+	/* enter next chain here */
+	
+	
+	
+	else if _s_curb_chain = ^GPK_CH_V^ then
+		{
+		if _s_curb_side_slope = ^left^ then
+			{
+			if _s_Curb_and_Gutter_Found = ^yes^ then
+				{
+				/* have a TOC update the TOC file */
+				_d_GPK_CH_V_left_toc = _d_GPK_CH_V_left_toc + 1
+				_s_ascii_file << "GPK_CH_V left TOC"
+					_d_elevation = y557
+					_d_file_counter = _d_GPK_CH_V_left_toc
+				call sub write_profile
+				
+				/* since have a TOC, don't have a flow line...update the flow file with a 0 elevation */
+				_d_GPK_CH_V_left_flow = _d_GPK_CH_V_left_flow + 1
+				_s_ascii_file << "GPK_CH_V left flow"
+					_d_elevation = 0
+					_d_file_counter = _d_GPK_CH_V_left_flow
+				call sub write_profile
+				
+				}
+			
+			else if _s_valley_Gutter_Found = ^yes^ then
+				{
+				/* since have a flow, don't have a TOC...update the TOC with a 0 elevation */
+				_d_GPK_CH_V_left_toc = _d_GPK_CH_V_left_toc + 1
+				_s_ascii_file << "GPK_CH_V left TOC"
+					_d_elevation = 0
+					_d_file_counter = _d_GPK_CH_V_left_toc
+				call sub write_profile
+				
+				/* have a flow update the flow file */
+				_d_GPK_CH_V_left_flow = _d_GPK_CH_V_left_flow + 1
+				_s_ascii_file << "GPK_CH_V left flow"
+					_d_elevation = y558
+					_d_file_counter = _d_GPK_CH_V_left_flow
+				call sub write_profile
+				}
+				
+			else
+				{
+				/* don't have a TOC or flow line...update both with 0 elevation */
+				_d_GPK_CH_V_left_toc = _d_GPK_CH_V_left_toc + 1
+				_s_ascii_file << "GPK_CH_V left TOC"
+					_d_elevation = 0
+					_d_file_counter = _d_GPK_CH_V_left_toc
+				call sub write_profile
+				
+				/* don't have a TOC or flow line...update both with 0 elevation */
+				_d_GPK_CH_V_left_flow = _d_GPK_CH_V_left_flow + 1
+				_s_ascii_file << "GPK_CH_V left flow"
+					_d_elevation = 0
+					_d_file_counter = _d_GPK_CH_V_left_flow
+				call sub write_profile
+				}
+			}
+			
+		
+		
+		
+		else if _s_curb_side_slope = ^right^ then
+			{
+			if _s_Curb_and_Gutter_Found = ^yes^ then
+				{
+				/* have a TOC update the TOC file */
+				_d_GPK_CH_V_right_toc = _d_GPK_CH_V_right_toc + 1
+				_s_ascii_file << "GPK_CH_V right TOC"
+					_d_elevation = y557
+					_d_file_counter = _d_GPK_CH_V_right_toc
+				call sub write_profile
+				
+				/* since have a TOC, don't have a flow line...update the flow file with a 0 elevation */
+				_d_GPK_CH_V_right_flow = _d_GPK_CH_V_right_flow + 1
+				_s_ascii_file << "GPK_CH_V right flow"
+					_d_elevation = 0
+					_d_file_counter = _d_GPK_CH_V_right_flow
+				call sub write_profile
+				
+				}
+			
+			else if _s_valley_Gutter_Found = ^yes^ then
+				{
+				/* since have a flow, don't have a TOC...update the TOC with a 0 elevation */
+				_d_GPK_CH_V_right_toc = _d_GPK_CH_V_right_toc + 1
+				_s_ascii_file << "GPK_CH_V right TOC"
+					_d_elevation = 0
+					_d_file_counter = _d_GPK_CH_V_right_toc
+				call sub write_profile
+				
+				/* have a flow update the flow file */
+				_d_GPK_CH_V_right_flow = _d_GPK_CH_V_right_flow + 1
+				_s_ascii_file << "GPK_CH_V right flow"
+					_d_elevation = y558
+					_d_file_counter = _d_GPK_CH_V_right_flow
+				call sub write_profile
+				}
+				
+			else
+				{
+				/* don't have a TOC or flow line...update both with 0 elevation */
+				_d_GPK_CH_V_right_toc = _d_GPK_CH_V_right_toc + 1
+				_s_ascii_file << "GPK_CH_V right TOC"
+					_d_elevation = 0
+					_d_file_counter = _d_GPK_CH_V_right_toc
+				call sub write_profile
+				
+				/* don't have a TOC or flow line...update both with 0 elevation */
+				_d_GPK_CH_V_right_flow = _d_GPK_CH_V_right_flow + 1
+				_s_ascii_file << "GPK_CH_V right flow"
+					_d_elevation = 0
+					_d_file_counter = _d_GPK_CH_V_right_flow
+				call sub write_profile
+				}
+			}
+		
+		}
+	
+	/* enter next chain here */
+	
+	
+	
+	else if _s_curb_chain = ^GPK_CH_W^ then
+		{
+		if _s_curb_side_slope = ^left^ then
+			{
+			if _s_Curb_and_Gutter_Found = ^yes^ then
+				{
+				/* have a TOC update the TOC file */
+				_d_GPK_CH_W_left_toc = _d_GPK_CH_W_left_toc + 1
+				_s_ascii_file << "GPK_CH_W left TOC"
+					_d_elevation = y557
+					_d_file_counter = _d_GPK_CH_W_left_toc
+				call sub write_profile
+				
+				/* since have a TOC, don't have a flow line...update the flow file with a 0 elevation */
+				_d_GPK_CH_W_left_flow = _d_GPK_CH_W_left_flow + 1
+				_s_ascii_file << "GPK_CH_W left flow"
+					_d_elevation = 0
+					_d_file_counter = _d_GPK_CH_W_left_flow
+				call sub write_profile
+				
+				}
+			
+			else if _s_valley_Gutter_Found = ^yes^ then
+				{
+				/* since have a flow, don't have a TOC...update the TOC with a 0 elevation */
+				_d_GPK_CH_W_left_toc = _d_GPK_CH_W_left_toc + 1
+				_s_ascii_file << "GPK_CH_W left TOC"
+					_d_elevation = 0
+					_d_file_counter = _d_GPK_CH_W_left_toc
+				call sub write_profile
+				
+				/* have a flow update the flow file */
+				_d_GPK_CH_W_left_flow = _d_GPK_CH_W_left_flow + 1
+				_s_ascii_file << "GPK_CH_W left flow"
+					_d_elevation = y558
+					_d_file_counter = _d_GPK_CH_W_left_flow
+				call sub write_profile
+				}
+				
+			else
+				{
+				/* don't have a TOC or flow line...update both with 0 elevation */
+				_d_GPK_CH_W_left_toc = _d_GPK_CH_W_left_toc + 1
+				_s_ascii_file << "GPK_CH_W left TOC"
+					_d_elevation = 0
+					_d_file_counter = _d_GPK_CH_W_left_toc
+				call sub write_profile
+				
+				/* don't have a TOC or flow line...update both with 0 elevation */
+				_d_GPK_CH_W_left_flow = _d_GPK_CH_W_left_flow + 1
+				_s_ascii_file << "GPK_CH_W left flow"
+					_d_elevation = 0
+					_d_file_counter = _d_GPK_CH_W_left_flow
+				call sub write_profile
+				}
+			}
+			
+		
+		
+		
+		else if _s_curb_side_slope = ^right^ then
+			{
+			if _s_Curb_and_Gutter_Found = ^yes^ then
+				{
+				/* have a TOC update the TOC file */
+				_d_GPK_CH_W_right_toc = _d_GPK_CH_W_right_toc + 1
+				_s_ascii_file << "GPK_CH_W right TOC"
+					_d_elevation = y557
+					_d_file_counter = _d_GPK_CH_W_right_toc
+				call sub write_profile
+				
+				/* since have a TOC, don't have a flow line...update the flow file with a 0 elevation */
+				_d_GPK_CH_W_right_flow = _d_GPK_CH_W_right_flow + 1
+				_s_ascii_file << "GPK_CH_W right flow"
+					_d_elevation = 0
+					_d_file_counter = _d_GPK_CH_W_right_flow
+				call sub write_profile
+				
+				}
+			
+			else if _s_valley_Gutter_Found = ^yes^ then
+				{
+				/* since have a flow, don't have a TOC...update the TOC with a 0 elevation */
+				_d_GPK_CH_W_right_toc = _d_GPK_CH_W_right_toc + 1
+				_s_ascii_file << "GPK_CH_W right TOC"
+					_d_elevation = 0
+					_d_file_counter = _d_GPK_CH_W_right_toc
+				call sub write_profile
+				
+				/* have a flow update the flow file */
+				_d_GPK_CH_W_right_flow = _d_GPK_CH_W_right_flow + 1
+				_s_ascii_file << "GPK_CH_W right flow"
+					_d_elevation = y558
+					_d_file_counter = _d_GPK_CH_W_right_flow
+				call sub write_profile
+				}
+				
+			else
+				{
+				/* don't have a TOC or flow line...update both with 0 elevation */
+				_d_GPK_CH_W_right_toc = _d_GPK_CH_W_right_toc + 1
+				_s_ascii_file << "GPK_CH_W right TOC"
+					_d_elevation = 0
+					_d_file_counter = _d_GPK_CH_W_right_toc
+				call sub write_profile
+				
+				/* don't have a TOC or flow line...update both with 0 elevation */
+				_d_GPK_CH_W_right_flow = _d_GPK_CH_W_right_flow + 1
+				_s_ascii_file << "GPK_CH_W right flow"
+					_d_elevation = 0
+					_d_file_counter = _d_GPK_CH_W_right_flow
+				call sub write_profile
+				}
+			}
+		
+		}
+	
+	/* enter next chain here */
+	
+	
+	
+	else if _s_curb_chain = ^GPK_CH_X^ then
+		{
+		if _s_curb_side_slope = ^left^ then
+			{
+			if _s_Curb_and_Gutter_Found = ^yes^ then
+				{
+				/* have a TOC update the TOC file */
+				_d_GPK_CH_X_left_toc = _d_GPK_CH_X_left_toc + 1
+				_s_ascii_file << "GPK_CH_X left TOC"
+					_d_elevation = y557
+					_d_file_counter = _d_GPK_CH_X_left_toc
+				call sub write_profile
+				
+				/* since have a TOC, don't have a flow line...update the flow file with a 0 elevation */
+				_d_GPK_CH_X_left_flow = _d_GPK_CH_X_left_flow + 1
+				_s_ascii_file << "GPK_CH_X left flow"
+					_d_elevation = 0
+					_d_file_counter = _d_GPK_CH_X_left_flow
+				call sub write_profile
+				
+				}
+			
+			else if _s_valley_Gutter_Found = ^yes^ then
+				{
+				/* since have a flow, don't have a TOC...update the TOC with a 0 elevation */
+				_d_GPK_CH_X_left_toc = _d_GPK_CH_X_left_toc + 1
+				_s_ascii_file << "GPK_CH_X left TOC"
+					_d_elevation = 0
+					_d_file_counter = _d_GPK_CH_X_left_toc
+				call sub write_profile
+				
+				/* have a flow update the flow file */
+				_d_GPK_CH_X_left_flow = _d_GPK_CH_X_left_flow + 1
+				_s_ascii_file << "GPK_CH_X left flow"
+					_d_elevation = y558
+					_d_file_counter = _d_GPK_CH_X_left_flow
+				call sub write_profile
+				}
+				
+			else
+				{
+				/* don't have a TOC or flow line...update both with 0 elevation */
+				_d_GPK_CH_X_left_toc = _d_GPK_CH_X_left_toc + 1
+				_s_ascii_file << "GPK_CH_X left TOC"
+					_d_elevation = 0
+					_d_file_counter = _d_GPK_CH_X_left_toc
+				call sub write_profile
+				
+				/* don't have a TOC or flow line...update both with 0 elevation */
+				_d_GPK_CH_X_left_flow = _d_GPK_CH_X_left_flow + 1
+				_s_ascii_file << "GPK_CH_X left flow"
+					_d_elevation = 0
+					_d_file_counter = _d_GPK_CH_X_left_flow
+				call sub write_profile
+				}
+			}
+			
+		
+		
+		
+		else if _s_curb_side_slope = ^right^ then
+			{
+			if _s_Curb_and_Gutter_Found = ^yes^ then
+				{
+				/* have a TOC update the TOC file */
+				_d_GPK_CH_X_right_toc = _d_GPK_CH_X_right_toc + 1
+				_s_ascii_file << "GPK_CH_X right TOC"
+					_d_elevation = y557
+					_d_file_counter = _d_GPK_CH_X_right_toc
+				call sub write_profile
+				
+				/* since have a TOC, don't have a flow line...update the flow file with a 0 elevation */
+				_d_GPK_CH_X_right_flow = _d_GPK_CH_X_right_flow + 1
+				_s_ascii_file << "GPK_CH_X right flow"
+					_d_elevation = 0
+					_d_file_counter = _d_GPK_CH_X_right_flow
+				call sub write_profile
+				
+				}
+			
+			else if _s_valley_Gutter_Found = ^yes^ then
+				{
+				/* since have a flow, don't have a TOC...update the TOC with a 0 elevation */
+				_d_GPK_CH_X_right_toc = _d_GPK_CH_X_right_toc + 1
+				_s_ascii_file << "GPK_CH_X right TOC"
+					_d_elevation = 0
+					_d_file_counter = _d_GPK_CH_X_right_toc
+				call sub write_profile
+				
+				/* have a flow update the flow file */
+				_d_GPK_CH_X_right_flow = _d_GPK_CH_X_right_flow + 1
+				_s_ascii_file << "GPK_CH_X right flow"
+					_d_elevation = y558
+					_d_file_counter = _d_GPK_CH_X_right_flow
+				call sub write_profile
+				}
+				
+			else
+				{
+				/* don't have a TOC or flow line...update both with 0 elevation */
+				_d_GPK_CH_X_right_toc = _d_GPK_CH_X_right_toc + 1
+				_s_ascii_file << "GPK_CH_X right TOC"
+					_d_elevation = 0
+					_d_file_counter = _d_GPK_CH_X_right_toc
+				call sub write_profile
+				
+				/* don't have a TOC or flow line...update both with 0 elevation */
+				_d_GPK_CH_X_right_flow = _d_GPK_CH_X_right_flow + 1
+				_s_ascii_file << "GPK_CH_X right flow"
+					_d_elevation = 0
+					_d_file_counter = _d_GPK_CH_X_right_flow
+				call sub write_profile
+				}
+			}
+		
+		}
+	
+	/* enter next chain here */
+	
+
+	
+	
+	
+	
+	}
+
+}
+end sub	
+	
+	

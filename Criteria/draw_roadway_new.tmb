@@ -1,0 +1,526 @@
+
+			
+			
+xcode = 1
+plot parameters "road symb"
+
+if p1 then
+	{
+	set plot parameters "road symb"
+	
+	
+	
+	mark x765 y765		/* do not change this point....if this point exists when other input variables is run, then it will NOT reset some text variables */
+				/* if it does exist, then it will NOT reset the variables */
+	draw skip to p2
+		mark x3 y3
+	
+	
+	/* we need to check to see if we hit a prop eop or sawcut line first to determine reconstruction or sawcut with or without widening */
+	
+	if intersect dgn = "~Sawcut Line in DGN" within distance = _d_sawcut_search_distance then
+		{
+		draw skip rise:run = 0:1 to "~Sawcut Line in DGN"
+			mark x5 y5
+		_d_sawcut_line_distance = abs(x3-x5)
+		
+		draw skip to p2
+		/* now check to see if intersects a prop eop slightly before the sawcut line....ie in a narrow gore */
+		if intersect dgn = "~Proposed EOP in DGN" within distance = (_d_sawcut_line_distance-.1) then
+			{
+			_s_found_sawcut_line = ^no^
+			_s_sawcut_with_gore = ^no^
+			_s_shoulder_widening_only = ^no^
+			}
+		else
+			{
+			_s_found_sawcut_line = ^yes^
+			}
+		}
+	else
+		{
+		_s_found_sawcut_line = ^no^
+		_s_sawcut_with_gore = ^no^
+		_s_shoulder_widening_only = ^no^
+		}
+	
+	
+	draw skip to p2
+	if _s_found_sawcut_line = ^yes^ then		/* this is typical widening */
+		{
+		draw skip rise:run = 0:1 to "~Sawcut Line in DGN"
+		draw skip dx=0 dy=30
+		draw skip rise:run = -1:0 to existing ground
+			mark x2 y2
+			mark _mp_sawcut_line
+			
+		_s_ewks_chain = cluster baseline
+		call sub draw_ewks_limits
+		
+		draw skip to _mp_sawcut_line
+		
+		draw skip slope = -pave slope for dx=.2
+			mark _mp_just_beyond_sawcut_line
+		
+		if intersect dgn = "~Proposed EOP in DGN" within distance = _d_sawcut_widening_eop_search_distance then
+			{
+			/* there is lane widening here */
+			_s_found_prop_eop = ^yes^	/* if not found, will not draw the pavement layers in the shoulder subroutine if no paved shoulder is found */
+			mark x3 y3
+			draw skip slope = -pave slope to "~Proposed EOP in DGN"
+				mark x5 y5
+			
+			_d_gore_trigger_line_search_distance = abs(x3-x5)
+			
+			draw skip to _mp_just_beyond_sawcut_line
+			
+			if intersect dgn = "~gore trigger line after sawcut line" within distance = _d_gore_trigger_line_search_distance then
+				{
+				/* hit both a sawcut line and a gore trigger line so do NOT do widening, the sawcut line is at the start of a gore */
+				/* let the gore criteria handle this, just mark the eop and other points */
+				_s_sawcut_with_gore = ^yes^
+				_s_shoulder_widening_only = ^no^
+				
+				draw skip to _mp_sawcut_line
+					mark _mp_current_eop
+				
+				if _s_side_slope = ^left^ then
+					{
+					mark _mp_current_leop
+					}
+				else if _s_side_slope = ^right^ then
+					{
+					mark _mp_current_reop
+					}
+				call sub label_eop_point
+				
+				draw skip to _mp_current_eop
+				set plot parameters "bottom of gore top depth symb"
+				draw dx=0 dy=-abs(_d_first_course_gore_depth_in_FT)
+				
+				set plot parameters "bottom of gore leveling depth symb"
+				draw dx=0 dy=-abs(_d_second_course_gore_depth_in_FT)
+				
+				set plot parameters "bottom of gore base depth symb"
+				draw dx=0 dy=-abs(_d_third_course_gore_depth_in_FT)
+				
+				set plot parameters "bottom of gore fourth depth symb"
+				draw dx=0 dy=-abs(_d_fourth_course_gore_depth_in_FT)
+				
+				set plot parameters "bottom of gore fifth depth symb"
+				draw dx=0 dy=-abs(_d_fifth_course_gore_depth_in_FT)
+				
+				set plot parameters "bottom of gore sixth depth symb"
+				draw dx=0 dy=-abs(_d_sixth_course_gore_depth_in_FT)
+				
+				set plot parameters "agg base symb"
+				draw dx=0 dy=-abs(_d_agg_base_depth_in_FT)
+						
+				call sub label_aggbase_under_eop
+				
+				set plot parameters "subbase symb"
+				draw rise:run = -1:1 for dx=abs(_d_subbase_depth)
+				call sub label_subbase_under_eop
+				}
+			else
+				{
+				/* found a sawcut line but no gore trigger line, so you have sawcut with widening */
+				_s_sawcut_with_gore = ^no^
+				_s_shoulder_widening_only = ^no^
+				
+				draw skip to _mp_just_beyond_sawcut_line
+				draw skip slope = -pave slope to "~Proposed EOP in DGN"
+				mark x999 y999
+				
+				set plot parameters "road symb"
+				draw skip to _mp_sawcut_line
+				draw to x999 y999
+				
+				mark _mp_current_eop
+				
+				if _s_side_slope = ^left^ then
+					{
+					mark _mp_current_leop
+					
+					draw skip to x2 y2
+						mark _mp_current_reop
+					draw skip to _mp_current_leop
+					
+					
+					}
+				else if _s_side_slope = ^right^ then
+					{
+					mark _mp_current_reop
+					
+					draw skip to x2 y2
+						mark _mp_current_leop
+					draw skip to _mp_current_reop
+					}
+				
+					
+				
+				call sub label_eop_point
+				
+				call sub label_pave_slope
+				
+				draw skip to x2 y2	/* this is the sawcut line */
+				
+				
+						
+				/*first layer*/
+				set plot parameters "bottom of top depth symb"
+				
+				draw skip to x2 y2
+				draw dx=0 dy=-abs(_d_first_course_pavement_depth_in_FT)
+					mark x2 y2
+					
+				draw skip to x999 y999
+				draw skip dx=0 dy=-abs(_d_first_course_pavement_depth_in_FT)
+					mark x999 y999
+				
+				draw to x2 y2
+				
+				/*second layer*/
+				set plot parameters "bottom of leveling depth symb"
+				
+				draw skip to x2 y2
+				draw dx=0 dy=-abs(_d_second_course_pavement_depth_in_FT)
+					mark x2 y2
+					
+				draw skip to x999 y999
+				draw skip dx=0 dy=-abs(_d_second_course_pavement_depth_in_FT)
+					mark x999 y999
+				
+				draw to x2 y2
+			
+			
+				/*third layer*/
+				set plot parameters "bottom of base depth symb"
+				
+				draw skip to x2 y2
+				draw dx=0 dy=-abs(_d_third_course_pavement_depth_in_FT)
+					mark x2 y2
+					
+				draw skip to x999 y999
+				draw skip dx=0 dy=-abs(_d_third_course_pavement_depth_in_FT)
+					mark x999 y999
+				
+				draw to x2 y2
+			
+			
+				/*fourth layer*/
+				set plot parameters "bottom of fourth depth symb"
+				
+				draw skip to x2 y2
+				draw dx=0 dy=-abs(_d_fourth_course_pavement_depth_in_FT)
+					mark x2 y2
+					
+				draw skip to x999 y999
+				draw skip dx=0 dy=-abs(_d_fourth_course_pavement_depth_in_FT)
+					mark x999 y999
+				
+				draw to x2 y2
+				
+				
+				/*fifth layer*/
+				set plot parameters "bottom of fifth depth symb"
+				
+				draw skip to x2 y2
+				draw dx=0 dy=-abs(_d_fifth_course_pavement_depth_in_FT)
+					mark x2 y2
+					
+				draw skip to x999 y999
+				draw skip dx=0 dy=-abs(_d_fifth_course_pavement_depth_in_FT)
+					mark x999 y999
+				
+				draw to x2 y2
+			
+			
+				/*sixth layer*/
+				set plot parameters "bottom of sixth depth symb"
+				
+				draw skip to x2 y2
+				draw dx=0 dy=-abs(_d_sixth_course_pavement_depth_in_FT)
+					mark x2 y2
+					
+				draw skip to x999 y999
+				draw skip dx=0 dy=-abs(_d_sixth_course_pavement_depth_in_FT)
+					mark x999 y999
+				
+				draw to x2 y2
+			
+				
+				/*agg layer beneath traveled way*/
+				set plot parameters "agg base symb"
+				
+				draw skip to x2 y2
+				draw dx=0 dy=-abs(_d_agg_base_depth_in_FT)
+					mark x2 y2
+					mark _mp_aggbase_under_pgl
+				draw skip to x999 y999
+				draw skip dx=0 dy=-abs(_d_agg_base_depth_in_FT)
+					mark x999 y999
+				
+				draw to x2 y2
+				
+				draw skip to _mp_current_eop
+				draw skip dx=0 dy=-abs(_d_first_course_pavement_depth_in_FT)
+				draw skip dx=0 dy=-abs(_d_second_course_pavement_depth_in_FT)
+				draw skip dx=0 dy=-abs(_d_third_course_pavement_depth_in_FT)
+				draw skip dx=0 dy=-abs(_d_fourth_course_pavement_depth_in_FT)
+				draw skip dx=0 dy=-abs(_d_fifth_course_pavement_depth_in_FT)
+				draw skip dx=0 dy=-abs(_d_sixth_course_pavement_depth_in_FT)
+				draw skip dx=0 dy=-abs(_d_agg_base_depth_in_FT)
+						
+				call sub label_aggbase_under_eop
+				draw skip to x999 y999
+				
+				}
+			
+			
+			
+			}
+		
+		else
+			{
+			/* no lane widening, check for shoulder widening */
+			draw skip to _mp_sawcut_line
+			_s_sawcut_with_gore = ^no^
+			_s_found_prop_eop = ^no^	/* if not found, will not draw the pavement layers in the shoulder subroutine if no paved shoulder is found */
+			
+			if _s_side_slope = ^left^ then
+				{
+				mark _mp_current_leop
+				}
+			else if _s_side_slope = ^right^ then
+				{
+				mark _mp_current_reop
+				}
+			call sub label_eop_point
+			
+			/* I found a sawcut line....if I find a shoulder, then draw a vertical line in */
+			
+			if intersect dgn = "~Proposed Paved Shoulder in DGN" within distance = _d_shoulder_search_distance then
+				{
+				_s_shoulder_widening_only = ^yes^
+				/* found a paved shoulder....draw in a vertical line */
+				set plot parameters "bottom of shld top depth symb"
+				draw dx=0 dy=-abs(_d_first_course_inside_shdr_depth_in_FT)
+				
+				set plot parameters "bottom of shld leveling depth symb"
+				draw  dx=0 dy=-abs(_d_second_course_inside_shdr_depth_in_FT)
+				
+				set plot parameters "bottom of shld base depth symb"
+				draw  dx=0 dy=-abs(_d_third_course_inside_shdr_depth_in_FT)
+				
+				set plot parameters "bottom of shld fourth depth symb"
+				draw  dx=0 dy=-abs(_d_fourth_course_inside_shdr_depth_in_FT)
+				
+				set plot parameters "bottom of shld fifth depth symb"
+				draw  dx=0 dy=-abs(_d_fifth_course_inside_shdr_depth_in_FT)
+				
+				set plot parameters "bottom of shld sixth depth symb"
+				draw  dx=0 dy=-abs(_d_sixth_course_inside_shdr_depth_in_FT)
+				
+				set plot parameters "agg base symb"
+				draw  dx=0 dy=-abs(_d_agg_base_depth_in_FT)
+
+				call sub label_aggbase_under_eop
+				/* now draw the subbase down at a one on one and mark the _mp_start_subbase_here point */
+				mark _mp_start_shldr_widening_sub_here
+				
+				
+					
+				/* the draw subbase from eop and beyond will take it from here */
+				}
+			else
+				{
+				/* no shoulder found....don't do anything */
+				_s_shoulder_widening_only = ^no^
+				}
+			
+				
+			}
+		
+		
+		}
+		
+		
+	else if intersect dgn ="~Proposed EOP in DGN" within distance = _d_prop_eop_search_distance_from_p2 then		/* this is full reconstruction */
+		{
+		_s_found_prop_eop = ^yes^	/* if not found, will not draw the pavement layers in the shoulder subroutine if no paved shoulder is found */
+		_s_sawcut_with_gore = ^no^
+		if _s_side_slope = ^left^ then
+			{
+			set plot parameters "road symb"
+			
+			if Number of Pavement Points > 2 then
+				{
+				
+				_d_pavement_point = Number of Pavement Points
+				_d_pavement_point_counter = 2
+				
+				while _d_pavement_point_counter <= (_d_pavement_point-2)
+					{
+					set plot parameters "road symb"
+					draw skip to P[_d_pavement_point_counter]
+						mark x2 y2
+						
+					draw to P[_d_pavement_point_counter+1]
+						mark x999 y999
+					
+					call sub label_pave_slope
+					call sub label_eop_point
+					call sub draw_pavement_depths /* this draws in a max of 6 pavement depths and one agg base and subbase */
+					draw skip to x2 y2
+						mark x20 y20	/* this is for subbase slopes*/
+					call sub draw_subbase_beneath_lanes
+					
+					_d_pavement_point_counter = _d_pavement_point_counter+1
+							
+					}
+				set plot parameters "road symb"
+				draw skip to P2
+					mark x2 y2
+				draw slope = -pave slope to "~Proposed EOP in DGN"
+					mark x999 y999
+					mark _mp_current_leop
+								
+				call sub label_pave_slope
+				
+				
+				
+				draw skip to _mp_current_leop
+				call sub label_eop_point
+				call sub draw_pavement_depths
+				
+							
+				}
+			
+			
+			else if Number of Pavement Points = 2 then
+				{
+				draw skip to P2
+				draw skip dx=abs(Px1-Px2)/2 dy=(Py1-Py2)/2  /*this should be the middle of the shape*/
+					mark _mp_center_point
+				
+				draw skip slope = -pave slope to "~Proposed EOP in DGN"
+					mark _mp_current_leop
+							
+				/*call sub label_pave_slope*/
+				
+				draw skip to _mp_current_leop
+				call sub label_eop_point
+				
+				draw skip to _mp_current_leop
+				draw skip dx=0 dy=-abs(_d_first_course_pavement_depth_in_FT)
+				draw skip dx=0 dy=-abs(_d_second_course_pavement_depth_in_FT)
+				draw skip dx=0 dy=-abs(_d_third_course_pavement_depth_in_FT)
+				draw skip dx=0 dy=-abs(_d_fourth_course_pavement_depth_in_FT)
+				draw skip dx=0 dy=-abs(_d_fifth_course_pavement_depth_in_FT)
+				draw skip dx=0 dy=-abs(_d_sixth_course_pavement_depth_in_FT)
+				draw skip dx=0 dy=-abs(_d_agg_base_depth_in_FT)
+				
+				call sub label_aggbase_under_eop
+							
+				
+					
+				}
+				
+			else 
+				{
+				draw text char = ^either more than 5 pave points or less than 2^
+				draw dx=10 dy=10
+				}
+			
+			} /* closes ssl if statement */
+			
+		else /*ssr*/
+			{
+			if Number of Pavement Points > 2 then
+				{
+				set plot parameters "road symb"
+				draw skip to P2
+					mark x2 y2
+				draw slope = -pave slope to "~Proposed EOP in DGN"
+					mark x999 y999
+					mark _mp_current_reop
+								
+				call sub label_pave_slope
+				
+				draw skip to _mp_current_reop
+				call sub label_eop_point
+				call sub draw_pavement_depths
+							
+				}
+			else   /* 2 pave point road */
+				{
+				/* this works as long as we are not running backwards station from another cluster */
+				/* if we are then ssr runs first but doesn't have points identified...here's the fix */
+				
+				if px1<px2 then
+					{
+					/* this is ssl from the actual cluster being run...ie we are backwards stationing */
+					
+					draw skip to P2
+					draw skip dx=abs(Px1-Px2)/2 dy=(Py1-Py2)/2  /*this should be the middle of the shape*/
+						mark _mp_center_point
+				
+					draw dx=-abs(Px1-Px2) dy=-(Py1-Py2) to "~Proposed EOP in DGN"
+						mark _mp_current_leop
+					}
+					
+				else
+					{
+					/* don't do anything....not backwards stationing */
+					}
+				
+				
+				draw skip to _mp_center_point /*this should be the middle of the shape*/
+						
+				draw skip slope = -pave slope to "~Proposed EOP in DGN"
+					mark x999 y999 
+					mark _mp_current_reop
+								
+				draw to	_mp_current_leop /* from ssl */
+					mark x2 y2
+					
+				call sub label_pave_slope
+				
+				draw skip to _mp_current_reop
+				call sub label_eop_point
+				call sub draw_pavement_depths
+				
+				}
+			
+			
+			
+			}
+		}
+		
+	
+	/* now label the station and skew for the left side run */
+	
+	if _s_side_slope = ^left^ then
+		{
+		_d_num_pave_points =  Number of Pavement Points
+		draw skip to p[_d_num_pave_points]
+			mark x777 y777
+		draw skip to p[1]
+			mark x778 y778
+			
+		draw skip to x777 y777
+		draw skip dx=abs(x778-x777)/2 dy = (y778-y777)/2
+		/* now in center of shape cluster(s) */
+		/*label station and skew */
+		
+		call sub label_station
+		}
+	
+	}
+	
+else	/* closes initial if p1 */
+	{
+	
+	}	
+	
